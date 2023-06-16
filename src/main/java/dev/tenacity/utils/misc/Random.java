@@ -10,4 +10,11 @@ public class Random {
         return startInclusive + new java.util.Random().nextInt(endExclusive - startInclusive);
     }
 
+    public static double nextDouble(final double startInclusive, final double endInclusive) {
+        if (startInclusive == endInclusive || endInclusive - startInclusive <= 0D)
+            return startInclusive;
+
+        return startInclusive + ((endInclusive - startInclusive) * Math.random());
+    }
+
 }

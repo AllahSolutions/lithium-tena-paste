@@ -221,7 +221,7 @@ public final class KillAura extends Module {
             if (attackTimer.hasTimeElapsed(1000 / currentAPS)) {
                 runAttackLoop(event);
 
-                currentAPS = Random.dbRandom(
+                currentAPS = Random.nextDouble(
                         minAPS.getValue(),
                         maxAPS.getValue()
                 );

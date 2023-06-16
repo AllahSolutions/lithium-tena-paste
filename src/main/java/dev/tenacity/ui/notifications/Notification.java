@@ -90,9 +90,7 @@ public class Notification implements Utils {
         float heightVal = height * animation <= 6 ? 0 : height * animation;
         float yVal = (y + height) - heightVal;
 
-        String editTitle = getTitle() + (getTitle().endsWith(".") || getTitle().endsWith("/") ? " " : ". ") + getDescription();
-
-        tenacityBoldFont22.drawCenteredString(editTitle, x + width /2f,
+        tenacityBoldFont22.drawCenteredString(title, x + width /2f,
                 yVal + tenacityBoldFont22.getMiddleOfBox(heightVal), ColorUtil.applyOpacity(Color.WHITE, animation - .5f));
 
     }

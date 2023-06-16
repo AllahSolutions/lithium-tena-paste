@@ -472,9 +472,6 @@ public final class KillAura extends Module {
 
                 .collect(Collectors.toList());
 
-        if (target.isDead || target.deathTime != 0)
-            target = null; renderTarget = null;
-
     }
 
     private void block(boolean interact) {

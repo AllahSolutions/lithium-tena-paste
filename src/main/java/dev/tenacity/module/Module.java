@@ -114,9 +114,9 @@ public class Module extends ListenerAdapter implements Utils {
                     break;
                 case "SuicideX":
                     if (this.isEnabled()) {
-                        titleToggle = "Enabled Module " + this.getName() + ". PogO";
+                        titleToggle = "Enabled Module " + this.getName();
                     } else {
-                        titleToggle = "Disabled Module " + this.getName() + ". :/";
+                        titleToggle = "Disabled Module " + this.getName();
                     }
                     descriptionToggleOff = "";
                     descriptionToggleOn = "";

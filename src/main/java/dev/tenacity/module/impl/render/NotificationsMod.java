@@ -66,7 +66,7 @@ public class NotificationsMod extends Module {
                     animation.setDuration(200);
                     actualOffset = 3;
                     notificationHeight = 16;
-                    String editTitle = notification.getTitle() + (notification.getTitle().endsWith(".") || notification.getTitle().endsWith("/") ? " " : ". ") + notification.getDescription();
+                    String editTitle = notification.getTitle();
 
                     notificationWidth = (int) tenacityBoldFont22.getStringWidth(editTitle) + 5;
 

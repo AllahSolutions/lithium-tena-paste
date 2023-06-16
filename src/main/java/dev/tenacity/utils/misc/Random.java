@@ -1,19 +1,13 @@
 package dev.tenacity.utils.misc;
 
-import java.security.SecureRandom;
 
 public class Random {
 
-    public static double dbRandom(double min, double max)
-    {
-        final SecureRandom rng = new SecureRandom();
-        return rng.nextDouble() * (max - min) + min;
-    }
+    public static int nextInt(final int startInclusive, final int endExclusive) {
+        if (endExclusive - startInclusive <= 0)
+            return startInclusive;
 
-    public static float flRandom(float min, float max)
-    {
-        final SecureRandom rng = new SecureRandom();
-        return rng.nextFloat() * (max - min) + min;
+        return startInclusive + new java.util.Random().nextInt(endExclusive - startInclusive);
     }
 
 }

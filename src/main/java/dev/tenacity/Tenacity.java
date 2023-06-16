@@ -37,7 +37,7 @@ public class Tenacity implements Utils {
 
     public static final String NAME = "Lithium";
     public static final String VERSION = "6.0";
-    public static final ReleaseType RELEASE = ReleaseType.DEV;
+    public static final ReleaseType RELEASE = ReleaseType.PUBLIC;
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final File DIRECTORY = new File(mc.mcDataDir, NAME);
 

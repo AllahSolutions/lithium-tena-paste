@@ -90,6 +90,8 @@ public class Notification implements Utils {
         float heightVal = height * animation <= 6 ? 0 : height * animation;
         float yVal = (y + height) - heightVal;
 
+        RoundedUtil.drawRound(x, y, width, height, 4, new Color(255, 255, 255, 15));
+
         tenacityBoldFont22.drawCenteredString(title, x + width /2f,
                 yVal + tenacityBoldFont22.getMiddleOfBox(heightVal), ColorUtil.applyOpacity(Color.WHITE, animation - .5f));
 

@@ -5517,3 +5517,1485 @@ Caused by: java.lang.NullPointerException
 [01:26:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
 [01:26:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
 [01:28:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press
+[01:30:51] [Client thread/INFO]: Connecting to ccc.blocksmc.com., 25565
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] 
+[01:30:52] [Client thread/INFO]: [CHAT] /register <password> <password>
+[01:30:57] [Client thread/INFO]: [CHAT] Successful Register.
+[01:30:57] [Client thread/INFO]: [CHAT] ┃ BlocksMC ┃ If you have a premium minecraft account you may join through:
+[01:30:57] [Client thread/INFO]: [CHAT] ┃ BlocksMC ┃ PREMIUM.BLOCKSMC.COM
+[01:31:00] [Client thread/INFO]: [CHAT] 
+[01:31:00] [Client thread/INFO]: [CHAT] 
+[01:31:00] [Client thread/INFO]: [CHAT]                         Welcome to BlocksMC
+[01:31:00] [Client thread/INFO]: [CHAT]                We have 1593 players at our network
+[01:31:00] [Client thread/INFO]: [CHAT] 
+[01:31:00] [Client thread/INFO]: [CHAT]                          Check out these links:
+[01:31:00] [Client thread/INFO]: [CHAT]      Website - Rules - Store - Support - Discord - Vote
+[01:31:00] [Client thread/INFO]: [CHAT] 
+[01:31:00] [Client thread/INFO]: [CHAT]                                Have Fun ❤
+[01:31:00] [Client thread/INFO]: [CHAT] 
+[01:31:01] [Client thread/INFO]: [CHAT]                                      
+[01:31:01] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.wood
+[01:31:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt.fall.small
+[01:31:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[01:31:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.wood
+[01:31:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.gravel
+[01:31:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:07] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:08] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.click
+[01:31:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.click
+[01:31:10] [Client thread/INFO]: [CHAT]                                      
+[01:31:10] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.wood
+[01:31:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.wood
+[01:31:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[01:31:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.grass
+[01:31:15] [Client thread/INFO]: [CHAT] ydwfrfpb has joined the server.
+[01:31:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:17] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ You are now queued for the Lime Team
+[01:31:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:21] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:21] [Client thread/INFO]: [CHAT] Kriskasta has joined the server.
+[01:31:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:22] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:22] [Client thread/INFO]: [CHAT] Naboji27 has joined the server.
+[01:31:22] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:22] [Client thread/INFO]: [CHAT] Du3ky has joined the server.
+[01:31:22] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:22] [Client thread/INFO]: [CHAT] Burgercheto107 has joined the server.
+[01:31:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:25] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:25] [Client thread/INFO]: [CHAT] Montanenzi has joined the server.
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:26] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:26] [Client thread/INFO]: [CHAT] RohanWarrior has joined the server.
+[01:31:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:27] [Client thread/INFO]: [CHAT] Yash0603 has joined the server.
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Timer has been shortened to 30 seconds.
+[01:31:27] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Map: Paradox
+[01:31:27] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Time remaining: 30 seconds.
+[01:31:27] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Players waiting: 9
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:29] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:30] [Client thread/INFO]: [CHAT] rishab has joined the server.
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:30] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:31] [Client thread/INFO]: [CHAT] EnesProm1 has joined the server.
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:31] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Montanenzi joined your teams queue.
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:32] [Client thread/INFO]: [CHAT] 7amo_des has joined the server.
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:33] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Montanenzi left your teams queue.
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:34] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:35] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:36] [Client thread/INFO]: [CHAT] Pikchater has joined the server.
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:36] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:37] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:38] [Client thread/INFO]: [CHAT] Yassen_6369 has joined the server.
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:38] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:39] [Client thread/INFO]: [CHAT] ASHGAM0101 has joined the server.
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:39] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:39] [Client thread/INFO]: [CHAT] moonlinght68 has joined the server.
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:40] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:41] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:42] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:43] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:44] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ Warmup started. You will be teleported in the next 10 seconds.
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:45] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:46] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:47] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:48] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:49] [Client thread/INFO]: [CHAT] Funtrch has joined the server.
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:49] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:50] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:music.game
+[01:31:51] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:52] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.hat
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:53] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:54] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ RohanWarrior joined your teams queue.
+[01:31:54] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ LORD_DIS joined your teams queue.
+[01:31:54] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ EnesProm1 joined your teams queue.
+[01:31:54] [Client thread/INFO]: [CHAT] ▏ BedWars ▏ You are now playing on the Lime Team!
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.successful_hit
+[01:31:54] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:55] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:56] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:56] [Client thread/FATAL]: Error executing task
+java.util.concurrent.ExecutionException: java.lang.NullPointerException
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.get(FutureTask.java:192) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:21) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:962) ~[Tenacity/:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:397) ~[Tenacity/:?]
+	at net.minecraft.client.main.Main.main(Main.java:120) ~[Tenacity/:?]
+	at Start.main(Start.java:7) ~[Tenacity/:?]
+Caused by: java.lang.NullPointerException
+	at net.minecraft.client.network.NetHandlerPlayClient.handleSpawnPlayer(NetHandlerPlayClient.java:337) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:84) ~[Tenacity/:?]
+	at net.minecraft.network.play.server.S0CPacketSpawnPlayer.processPacket(S0CPacketSpawnPlayer.java:16) ~[Tenacity/:?]
+	at net.minecraft.network.PacketThreadUtil$1.run(PacketThreadUtil.java:22) ~[Tenacity/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_372]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_372]
+	at net.minecraft.util.Util.runTask(Util.java:20) ~[Tenacity/:?]
+	... 4 more
+[01:31:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:56] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:57] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:58] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:31:59] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:00] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:01] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:02] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:03] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:04] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:05] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:06] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:07] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:08] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:09] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:10] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.pop
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.pling
+[01:32:11] [Client thread/INFO]: [CHAT] Enjoy your purchase!
+[01:32:11] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.pling
+[01:32:12] [Client thread/INFO]: [CHAT] Enjoy your purchase!
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.pling
+[01:32:12] [Client thread/INFO]: [CHAT] Enjoy your purchase!
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:12] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:note.pling
+[01:32:13] [Client thread/INFO]: [CHAT] Enjoy your purchase!
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:mob.villager.no
+[01:32:13] [Client thread/INFO]: [CHAT] You don't have enough Iron!
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:13] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:random.chestopen
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:14] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:15] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:16] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt.fall.small
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:17] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:game.player.hurt
+[01:32:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:18] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:19] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:20] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:21] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:22] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:23] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:24] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:25] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:26] [Client thread/INFO]: [CHAT] EnesProm1 died!
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:26] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.stone
+[01:32:27] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:step.cloth
+[01:32:28] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:dig.cloth
+[01:36:32] [Client thread/WARN]: Unable to play unknown soundEvent: minecraft:gui.button.press

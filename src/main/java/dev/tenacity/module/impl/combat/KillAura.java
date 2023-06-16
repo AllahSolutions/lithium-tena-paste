@@ -111,7 +111,7 @@ public final class KillAura extends Module {
 
     private float yaw, pitch, lastYaw, lastPitch;
 
-    public static boolean blocking, attacking;
+    public static boolean fake, blocking, attacking;
 
     private double currentAPS = 2;
 
@@ -159,6 +159,8 @@ public final class KillAura extends Module {
 
         lastYaw = mc.thePlayer.rotationYaw;
         lastPitch = mc.thePlayer.rotationPitch;
+
+        fake = blockMode.is("Fake");
 
         super.onEnable();
     }

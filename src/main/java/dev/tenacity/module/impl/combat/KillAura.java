@@ -39,6 +39,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -144,6 +145,8 @@ public final class KillAura extends Module {
 
                 targets, bypass, features, renders
         );
+
+        this.list = new ArrayList<>();
     }
 
     @Override

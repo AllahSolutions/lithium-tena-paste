@@ -1,5 +1,8 @@
 output/
 
+output/production
+output/artifacts
+
 workspace/
 
 workspace/assets/
@@ -14,6 +17,8 @@ workspace/resourcepacks
 workspace/shaderpacks
 
 workspace/saves
+
+workspace/Tenacity
 
 *.xml
 *.iml

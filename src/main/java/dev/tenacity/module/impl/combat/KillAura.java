@@ -195,10 +195,6 @@ public final class KillAura extends Module {
             return;
         }
 
-        if (bypass.getSetting("Movement Correction").isEnabled()) {
-            mc.thePlayer.setSprinting(false);
-        }
-
         updateTargets();
 
         if (target == null)
@@ -235,14 +231,14 @@ public final class KillAura extends Module {
 
     @Override
     public void onPlayerMoveUpdateEvent(PlayerMoveUpdateEvent event) {
-        if (bypass.getSetting("Movement Correction").isEnabled() && target != null){
+        if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
         }
     }
 
     @Override
     public void onJumpFixEvent(JumpFixEvent event) {
-        if (bypass.getSetting("Movement Correction").isEnabled() && target != null){
+        if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
         }
     }
@@ -389,6 +385,10 @@ public final class KillAura extends Module {
         if (mc.thePlayer.getDistanceToEntity(entity) <= attackRange.getValue()) {
 
             Tenacity.INSTANCE.getEventProtocol().handleEvent(new AttackEvent(target));
+
+            if (bypass.getSetting("Movement Correction").isEnabled()) {
+                mc.thePlayer.setSprinting(false);
+            }
 
             if (bypass.getSetting("Keep Sprinting").isEnabled()) {
                 PacketUtils.sendPacket(new C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK));

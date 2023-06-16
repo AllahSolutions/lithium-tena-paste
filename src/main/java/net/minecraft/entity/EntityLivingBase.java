@@ -879,7 +879,7 @@ public abstract class EntityLivingBase extends Entity {
                             d1 = (Math.random() - Math.random()) * 0.01D;
                         }
 
-                        this.attackedAtYaw = (float) (MathHelper.atan2(d0, d1) * 180.0D / Math.PI - (double) this.rotationYaw);
+                        this.attackedAtYaw = (float) (MathHelper.atan2(d0, d1) * 180.0D / Math.PI - (double) this.movementYaw);
                         this.knockBack(entity, amount, d1, d0);
                     } else {
                         this.attackedAtYaw = (float) ((int) (Math.random() * 2.0D) * 180);
@@ -1411,14 +1411,17 @@ public abstract class EntityLivingBase extends Entity {
             this.motionY += (double) ((float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
         }
 
+        JumpFixEvent jumpFixEvent = new JumpFixEvent(this.rotationYaw);
+
+        if (this instanceof EntityPlayerSP) {
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(jumpFixEvent);
+
+            this.movementYaw = jumpFixEvent.getYaw();
+            this.velocityYaw = jumpFixEvent.getYaw();
+        }
+
         if (this.isSprinting()) {
-            JumpFixEvent jumpFixEvent = new JumpFixEvent(this.rotationYaw);
-
-            if (this instanceof EntityPlayerSP) {
-                Tenacity.INSTANCE.getEventProtocol().handleEvent(jumpFixEvent);
-            }
-
-            float f = jumpFixEvent.getYaw() * 0.017453292F;
+            float f = this.movementYaw * 0.017453292F;
             this.motionX -= (double) (MathHelper.sin(f) * 0.2F);
             this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
         }

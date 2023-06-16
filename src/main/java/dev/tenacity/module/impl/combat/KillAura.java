@@ -448,7 +448,7 @@ public final class KillAura extends Module {
                         return false;
                     }
 
-                    if (livingEntity instanceof EntityArmorStand || livingEntity.deathTime != 0) {
+                    if (livingEntity instanceof EntityArmorStand || livingEntity.deathTime != 0 || livingEntity.isDead) {
                         return false;
                     }
 
@@ -471,6 +471,9 @@ public final class KillAura extends Module {
                 }))
 
                 .collect(Collectors.toList());
+
+        if (target.isDead || target.deathTime != 0)
+            target = null; renderTarget = null;
 
     }
 

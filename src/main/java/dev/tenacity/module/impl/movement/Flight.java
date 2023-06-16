@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.movement;
 
+
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.BoundingBoxEvent;
@@ -37,11 +38,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Minemora", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Minemora", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
-    private final NumberSetting horizontalSpeed = new NumberSetting("Horizontal Speed", 2, 5, 0, 0.1);
+    public static final NumberSetting horizontalSpeed = new NumberSetting("Horizontal Speed", 2, 5, 0, 0.1);
     private final NumberSetting verticalSpeed = new NumberSetting("Vertical Speed", 1, 5, 0, 0.1);
     private final BooleanSetting viewBobbing = new BooleanSetting("View Bobbing", true);
     private final BooleanSetting antiKick = new BooleanSetting("Anti-kick", false);
@@ -56,6 +57,7 @@ public final class Flight extends Module {
     private double speedStage;
     private float clip;
     private double moveSpeed;
+    private boolean started;
     private int stage2;
     private final TimerUtil timer = new TimerUtil();
     public static final Set<BlockPos> hiddenBlocks = new HashSet<>();
@@ -114,9 +116,15 @@ public final class Flight extends Module {
                 if(!hasDamaged)
                     e.setSpeed(0);
                 break;
+
+
+               
             default:
                 TargetStrafe.strafe(e);
                 break;
+
+
+
         }
     }
 

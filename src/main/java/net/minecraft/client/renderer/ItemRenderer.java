@@ -389,9 +389,9 @@ public class ItemRenderer {
                                         break;
                                     case "Middle":
                                         GlStateManager.popMatrix();
-                                        GL11.glRotated(25, 0, 0.2, 0);
+                                        //GL11.glRotated(25, 0, 0.2, 0);
                                         this.transformFirstPersonItem(0.0f, swingProgress);
-                                        GlStateManager.scale(0.9F, 0.9F, 0.9F);
+                                      //  GlStateManager.scale(0.9F, 0.9F, 0.9F);
                                         this.doBlockTransformations();
                                         GlStateManager.pushMatrix();
                                         break;

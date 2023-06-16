@@ -21,6 +21,11 @@ public class MovementUtils implements Utils {
         return new double[]{motionX, motionZ};
     }
 
+    public static double predictedMotion(final double motion) {
+        return (motion - 0.08) * 0.98F;
+    }
+
+
     public static void strafe(float speed) {
         if (!isMoving())
             return;

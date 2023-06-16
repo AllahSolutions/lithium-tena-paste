@@ -146,8 +146,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Called to update the entity's position/logic.
      */
     public void onUpdate() {
-        Tenacity.INSTANCE.getEventProtocol().handleEvent(new UpdateEvent());
-
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
 
@@ -622,6 +620,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * use this to react to sunlight and start to burn.
      */
     public void onLivingUpdate() {
+        Tenacity.INSTANCE.getEventProtocol().handleEvent(new UpdateEvent());
+
         if (this.sprintingTicksLeft > 0) {
             --this.sprintingTicksLeft;
 

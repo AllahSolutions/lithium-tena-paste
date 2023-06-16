@@ -1,6 +1,7 @@
 package dev.tenacity.event;
 
 import dev.tenacity.event.impl.game.*;
+import dev.tenacity.event.impl.network.PacketEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.*;
@@ -26,6 +27,7 @@ public abstract class ListenerAdapter implements EventListener {
     // Network
     public void onPacketReceiveEvent(PacketReceiveEvent event) {}
     public void onPacketSendEvent(PacketSendEvent event) {}
+    public void onPacketEvent(PacketEvent event) {}
 
     // Player
     public void onAttackEvent(AttackEvent event) {}
@@ -91,6 +93,7 @@ public abstract class ListenerAdapter implements EventListener {
 
         registerEvent(PacketReceiveEvent.class, this::onPacketReceiveEvent);
         registerEvent(PacketSendEvent.class, this::onPacketSendEvent);
+        registerEvent(PacketEvent.class, this::onPacketEvent);
 
         // Player
         registerEvent(AttackEvent.class, this::onAttackEvent);

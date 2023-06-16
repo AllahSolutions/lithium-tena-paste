@@ -2045,13 +2045,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * par2Str is displayed on the loading screen to the user unloads the current world first
      */
     public void loadWorld(WorldClient worldClientIn, String loadingMessage) {
+        WorldEvent e = new WorldEvent(worldClientIn);
+        Tenacity.INSTANCE.getEventProtocol().handleEvent(e);
+
         if (worldClientIn != this.theWorld) {
             this.entityRenderer.getMapItemRenderer().clearLoadedMaps();
         }
-        if (theWorld != null) {
-            WorldEvent e = new WorldEvent.Unload(theWorld);
-            Tenacity.INSTANCE.getEventProtocol().handleEvent(e);
-        }
+
         if (worldClientIn == null) {
             NetHandlerPlayClient nethandlerplayclient = this.getNetHandler();
 

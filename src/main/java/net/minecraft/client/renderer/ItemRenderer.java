@@ -349,20 +349,20 @@ public class ItemRenderer {
 
         if (!Config.isShaders() || !Shaders.isSkipRenderHand()) {
             float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
-            AbstractClientPlayer abstractclientplayer = this.mc.thePlayer;
-            float swingProgress = abstractclientplayer.getSwingProgress(partialTicks);
-            float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
-            float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
+            EntityPlayerSP player = this.mc.thePlayer;
+            float swingProgress = player.getSwingProgress(partialTicks);
+            float f2 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
+            float f3 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * partialTicks;
             this.rotateArroundXAndY(f2, f3);
-            this.setLightMapFromPlayer(abstractclientplayer);
-            this.rotateWithPlayerRotations((EntityPlayerSP) abstractclientplayer, partialTicks);
+            this.setLightMapFromPlayer(player);
+            this.rotateWithPlayerRotations(player, partialTicks);
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
 
             if (this.itemToRender != null) {
                 if (this.itemToRender.getItem() instanceof ItemMap) {
-                    this.renderItemMap(abstractclientplayer, f2, f, swingProgress);
-                } else if (abstractclientplayer.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.fake && InventoryUtils.getHeldItem() instanceof ItemSword)) {
+                    this.renderItemMap(player, f2, f, swingProgress);
+                } else if (player.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.fake && InventoryUtils.getHeldItem() instanceof ItemSword)) {
                     EnumAction enumaction = this.itemToRender.getItemUseAction();
                     float var15 = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
                     float var16 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
@@ -373,7 +373,7 @@ public class ItemRenderer {
 
                         case EAT:
                         case DRINK:
-                            this.performDrinking(abstractclientplayer, partialTicks);
+                            this.performDrinking(player, partialTicks);
                             this.transformFirstPersonItem(f, swingProgress);
                             break;
 
@@ -472,7 +472,7 @@ public class ItemRenderer {
 
                         case BOW:
                             this.transformFirstPersonItem(f, swingProgress);
-                            this.doBowTransformations(partialTicks, abstractclientplayer);
+                            this.doBowTransformations(partialTicks, player);
                     }
                 } else {
                     if (!Animations.smallSwing.isEnabled()) {
@@ -481,9 +481,9 @@ public class ItemRenderer {
                     this.transformFirstPersonItem(f, swingProgress);
                 }
 
-                this.renderItem(abstractclientplayer, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
-            } else if (!abstractclientplayer.isInvisible()) {
-                this.renderPlayerArm(abstractclientplayer, f, swingProgress);
+                this.renderItem(player, this.itemToRender, ItemCameraTransforms.TransformType.FIRST_PERSON);
+            } else if (!player.isInvisible()) {
+                this.renderPlayerArm(player, f, swingProgress);
             }
 
             GlStateManager.popMatrix();

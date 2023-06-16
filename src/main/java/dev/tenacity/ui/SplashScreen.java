@@ -136,7 +136,7 @@ public class SplashScreen implements Utils {
 
         float yMovement = progressAnim != null && progressAnim.getDirection().backwards() ? 1 - progressAnim.getOutput().floatValue() : 0;
         float actualY = (fr.getMiddleOfBox(height) - 40) - (48 * yMovement);
-        fr.drawCenteredString("Tenacity", width / 2f, actualY,
+        fr.drawCenteredString("Lithium", width / 2f, actualY,
                 ColorUtil.applyOpacity(-1, moveAnim.getOutput().floatValue()));
 
         if (moveAnim.isDone() && versionAnim == null) {
@@ -147,7 +147,7 @@ public class SplashScreen implements Utils {
         if (versionAnim != null) {
 
             float versionWidth = tenacityFont32.getStringWidth(Tenacity.VERSION) / 2f;
-            float versionX = width / 2f + fr.getStringWidth("Tenacity") / 2f - (versionWidth);
+            float versionX = width / 2f + fr.getStringWidth("Lithium") / 2f - (versionWidth);
             float versionY = (tenacityFont32.getMiddleOfBox(height) - 57) - (48 * yMovement);
 
             RenderUtil.scaleStart(versionX + versionWidth, versionY + tenacityFont32.getHeight() / 2f, versionAnim.getOutput().floatValue());
@@ -163,7 +163,7 @@ public class SplashScreen implements Utils {
                 progress2Anim = new DecelerateAnimation(1800, 1);
             }
         } else {
-            float rectWidth = fr.getStringWidth("Tenacity") + 10;
+            float rectWidth = fr.getStringWidth("Lithium") + 10;
             float rectHeight = 5;
             float roundX = (width / 2f - rectWidth / 2f);
             float roundY = height / 2f - rectHeight / 2f;
@@ -179,7 +179,7 @@ public class SplashScreen implements Utils {
 
 
             float textAlpha = progress2Anim.getDirection().forwards() ? progress2Anim.getOutput().floatValue() : 1;
-            tenacityFont18.drawCenteredString("by cedo, senoe, and tear", width / 2f, actualY + 42, ColorUtil.applyOpacity(-1, textAlpha));
+            tenacityFont18.drawCenteredString("by Liticane, Nyghtfull", width / 2f, actualY + 42, ColorUtil.applyOpacity(-1, textAlpha));
 
 
             if (progressAnim.finished(Direction.FORWARDS) && progress2Anim.finished(Direction.FORWARDS)) {

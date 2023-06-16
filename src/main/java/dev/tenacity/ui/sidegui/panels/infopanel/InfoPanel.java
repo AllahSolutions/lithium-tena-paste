@@ -95,7 +95,7 @@ public class InfoPanel extends Panel {
     public void drawScreen(int mouseX, int mouseY) {
 
         tenacityBoldFont40.drawString("Info", getX() + 8, getY() + 8, getTextColor());
-        tenacityFont18.drawString("developed by cedo, tear, and senoe", getX() + 8, getY() + 30, ColorUtil.applyOpacity(getTextColor(), .3f));
+        tenacityFont18.drawString("Developed by Liticane, Nyghtfull", getX() + 8, getY() + 30, ColorUtil.applyOpacity(getTextColor(), .3f));
 
         float spacing = 8;
         float infoWidth = (getWidth() - (spacing * 3)) / 2f;

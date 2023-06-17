@@ -5,7 +5,6 @@ import com.google.gson.JsonParser;
 import com.wrapper.spotify.model_objects.miscellaneous.CurrentlyPlayingContext;
 import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
 import com.wrapper.spotify.model_objects.specification.Track;
-import dev.tenacity.utils.tuples.Pair;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
@@ -18,14 +17,13 @@ import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
-import dev.tenacity.utils.font.CustomFont;
 import dev.tenacity.utils.font.FontUtil;
 import dev.tenacity.utils.misc.IOUtils;
 import dev.tenacity.utils.objects.Dragging;
-import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.spotify.SpotifyAPI;
+import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -197,8 +195,8 @@ public class SpotifyMod extends Module {
                 break;
         }
 
-        RoundedUtil.drawRound(x + albumCoverSize + 11.5F, y + height - (progressBarHeight + 6), progressBarWidth, progressBarHeight, 1.5f, progressColor.darker().darker());
-        RoundedUtil.drawRound(x + albumCoverSize + 11.5F, y + height - (progressBarHeight + 6), progress, progressBarHeight, 1.5f, progressColor);
+        RoundedUtil.drawRound(x + albumCoverSize + 10.5F, y + height - (progressBarHeight + 6), progressBarWidth, progressBarHeight, 1.5f, progressColor.darker().darker());
+        RoundedUtil.drawRound(x + albumCoverSize + 10.5F, y + height - (progressBarHeight + 6), progress, progressBarHeight, 1.5f, progressColor);
 
         if (currentAlbumCover != null && downloadedCover) {
             mc.getTextureManager().bindTexture(currentAlbumCover);

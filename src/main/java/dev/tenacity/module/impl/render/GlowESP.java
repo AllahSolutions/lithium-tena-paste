@@ -1,6 +1,5 @@
 package dev.tenacity.module.impl.render;
 
-import dev.tenacity.utils.tuples.Pair;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.render.Render2DEvent;
@@ -14,6 +13,7 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.render.*;
+import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.shader.Framebuffer;

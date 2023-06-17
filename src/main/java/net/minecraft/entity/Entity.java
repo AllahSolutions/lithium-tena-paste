@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.movement.Flight;
-import dev.tenacity.event.impl.player.PlayerMoveUpdateEvent;
+import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.event.impl.player.SafeWalkEvent;
 import dev.tenacity.event.impl.player.StepConfirmEvent;
 import net.minecraft.block.*;
@@ -1159,7 +1159,7 @@ public abstract class Entity implements ICommandSender {
      * Used in both water and by flying objects
      */
     public void moveFlying(float strafe, float forward, float friction) {
-        PlayerMoveUpdateEvent playerMovementEvent = new PlayerMoveUpdateEvent(strafe, forward, friction, this.rotationYaw, this.rotationPitch);
+        StrafeEvent playerMovementEvent = new StrafeEvent(strafe, forward, friction, this.rotationYaw, this.rotationPitch);
 
         if (this instanceof EntityPlayerSP) {
             Tenacity.INSTANCE.getEventProtocol().handleEvent(playerMovementEvent);

@@ -1,6 +1,5 @@
 package dev.tenacity.module.impl.render;
 
-import dev.tenacity.utils.tuples.Pair;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
@@ -18,6 +17,7 @@ import dev.tenacity.utils.font.AbstractFontRenderer;
 import dev.tenacity.utils.objects.Dragging;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
+import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.StringUtils;

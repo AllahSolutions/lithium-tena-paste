@@ -4,7 +4,7 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.player.AttackEvent;
 import dev.tenacity.event.impl.player.JumpFixEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
-import dev.tenacity.event.impl.player.PlayerMoveUpdateEvent;
+import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
@@ -231,7 +231,7 @@ public final class KillAura extends Module {
     }
 
     @Override
-    public void onPlayerMoveUpdateEvent(PlayerMoveUpdateEvent event) {
+    public void onStrafeEvent(StrafeEvent event) {
         if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
         }

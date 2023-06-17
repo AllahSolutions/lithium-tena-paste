@@ -1,6 +1,6 @@
 package dev.tenacity.module.impl.render;
 
-import dev.tenacity.event.impl.player.PlayerMoveUpdateEvent;
+import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.BooleanSetting;
@@ -54,7 +54,7 @@ public class XRay extends Module {
     }
 
     @Override
-    public void onPlayerMoveUpdateEvent(PlayerMoveUpdateEvent e) {
+    public void onStrafeEvent(StrafeEvent e) {
         if (bypass.isEnabled() && !mc.isSingleplayer()) {
             if (updateTimer.hasTimeElapsed(2000)) {
                 search();

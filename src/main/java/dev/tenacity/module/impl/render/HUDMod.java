@@ -1,6 +1,5 @@
 package dev.tenacity.module.impl.render;
 
-import dev.tenacity.utils.tuples.Pair;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
@@ -19,6 +18,7 @@ import dev.tenacity.utils.misc.RomanNumeralUtils;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.render.*;
 import dev.tenacity.utils.server.PingerUtils;
+import dev.tenacity.utils.tuples.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.block.material.Material;

@@ -1,13 +1,11 @@
 package dev.tenacity.module.impl.render.targethud;
 
 import dev.tenacity.utils.animations.ContinualAnimation;
-import dev.tenacity.utils.font.FontUtil;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.render.StencilUtil;
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

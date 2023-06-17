@@ -23,6 +23,7 @@ public abstract class ListenerAdapter implements EventListener {
     public void onRenderTickEvent(RenderTickEvent event) {}
     public void onTickEvent(TickEvent event) {}
     public void onWorldEvent(WorldEvent event) {}
+    public void onTeleportEvent(TeleportEvent event) {}
 
     // Network
     public void onPacketReceiveEvent(PacketReceiveEvent event) {}
@@ -43,7 +44,7 @@ public abstract class ListenerAdapter implements EventListener {
     public void onLivingDeathEvent(LivingDeathEvent event) {}
     public void onMotionEvent(MotionEvent event) {}
     public void onMoveEvent(MoveEvent event) {}
-    public void onPlayerMoveUpdateEvent(PlayerMoveUpdateEvent event) {}
+    public void onStrafeEvent(StrafeEvent event) {}
     public void onPlayerSendMessageEvent(PlayerSendMessageEvent event) {}
     public void onPushOutOfBlockEvent(PushOutOfBlockEvent event) {}
     public void onSafeWalkEvent(SafeWalkEvent event) {}
@@ -86,6 +87,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(KeyPressEvent.class, this::onKeyPressEvent);
         registerEvent(RenderTickEvent.class, this::onRenderTickEvent);
         registerEvent(TickEvent.class, this::onTickEvent);
+        registerEvent(TeleportEvent.class, this::onTeleportEvent);
 
         registerEvent(WorldEvent.Load.class, this::onWorldEvent);
         registerEvent(WorldEvent.Unload.class, this::onWorldEvent);
@@ -109,7 +111,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(LivingDeathEvent.class, this::onLivingDeathEvent);
         registerEvent(MotionEvent.class, this::onMotionEvent);
         registerEvent(MoveEvent.class, this::onMoveEvent);
-        registerEvent(PlayerMoveUpdateEvent.class, this::onPlayerMoveUpdateEvent);
+        registerEvent(StrafeEvent.class, this::onStrafeEvent);
         registerEvent(PlayerSendMessageEvent.class, this::onPlayerSendMessageEvent);
         registerEvent(PushOutOfBlockEvent.class, this::onPushOutOfBlockEvent);
         registerEvent(SafeWalkEvent.class, this::onSafeWalkEvent);

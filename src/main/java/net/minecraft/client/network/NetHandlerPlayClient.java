@@ -6,6 +6,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.mojang.authlib.GameProfile;
 import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.game.TeleportEvent;
 import dev.tenacity.module.impl.movement.Flight;
 import dev.tenacity.event.impl.player.ChatReceivedEvent;
 import dev.tenacity.utils.misc.Enhancements;
@@ -456,6 +457,27 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         double d2 = packetIn.getZ();
         float f = packetIn.getYaw();
         float f1 = packetIn.getPitch();
+
+        final TeleportEvent event = new TeleportEvent(
+                new C03PacketPlayer.C06PacketPlayerPosLook(entityplayer.posX, entityplayer.posY, entityplayer.posZ, entityplayer.rotationYaw, entityplayer.rotationPitch, false),
+                d0,
+                d1,
+                d2,
+                f,
+                f1
+        );
+
+        Tenacity.INSTANCE.getEventProtocol().handleEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
+        d0 = event.getPosX();
+        d1 = event.getPosY();
+        d2 = event.getPosZ();
+        f = event.getYaw();
+        f1 = event.getPitch();
 
         if (packetIn.func_179834_f().contains(S08PacketPlayerPosLook.EnumFlags.X)) {
             d0 += entityplayer.posX;

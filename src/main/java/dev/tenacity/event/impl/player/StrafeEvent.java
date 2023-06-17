@@ -11,7 +11,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PlayerMoveUpdateEvent extends Event {
+public class StrafeEvent extends Event {
 
     private float strafe, forward, friction, yaw, pitch;
 

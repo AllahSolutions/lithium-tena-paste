@@ -46,7 +46,7 @@ public class JelloTargetHUD extends TargetHUD {
             FontUtil.tenacityBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.tenacityBoldFont32.getHeight() / 2f, textColor);
         }
 
-        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 38, y + 5, textColor);
+        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 38, y + 4, textColor);
 
         FontUtil.tenacityBoldFont16.drawStringWithShadow(
                 target.getHealth() >= mc.thePlayer.getHealth() ? "Losing" : "Winning",

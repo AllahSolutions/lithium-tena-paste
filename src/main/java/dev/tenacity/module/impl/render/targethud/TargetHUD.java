@@ -48,7 +48,7 @@ public abstract class TargetHUD implements Utils {
 
     public static void init() {
         targetHuds.put(TenacityTargetHUD.class, new TenacityTargetHUD());
-        targetHuds.put(OldTenacityTargetHUD.class, new OldTenacityTargetHUD());
+        targetHuds.put(LithiumTargetHUD.class, new LithiumTargetHUD());
         targetHuds.put(JelloTargetHUD.class, new JelloTargetHUD());
         targetHuds.put(RiseTargetHUD.class, new RiseTargetHUD());
         targetHuds.put(VapeTargetHUD.class, new VapeTargetHUD());

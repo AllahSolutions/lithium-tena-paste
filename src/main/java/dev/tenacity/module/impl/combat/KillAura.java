@@ -61,6 +61,7 @@ public final class KillAura extends Module {
 
     public NumberSetting swingRange = new NumberSetting("Swing Range", 3, 6, 3, 0.1),
             attackRange = new NumberSetting("Attack Range", 3, 6, 3, 0.1),
+            wallsRange = new NumberSetting("Walls Range", 0.5, 6, 0.5, 0.1),
             blockRange = new NumberSetting("Block Range", 3, 6, 3, 0.1),
             rotationRange = new NumberSetting("Rotation Range", 3, 6, 3, 0.1);
 
@@ -138,7 +139,7 @@ public final class KillAura extends Module {
                 blockInteract, maxTargets, blockChance, switchDelay,
 
                 minAPS, maxAPS,
-                swingRange, attackRange, blockRange, rotationRange,
+                swingRange, attackRange, wallsRange, blockRange, rotationRange,
 
                 silentRotations, showRotations,
                 rotationSmoothness,
@@ -378,6 +379,9 @@ public final class KillAura extends Module {
         if (mc.thePlayer.getDistanceToEntity(entity) <= blockRange.getValue()) {
             runPreBlocking(event);
         }
+
+        if (bypass.getSetting("Through Walls").isEnabled() && mc.thePlayer.getDistanceToEntity(entity) >= wallsRange.getValue() && !mc.thePlayer.canEntityBeSeen(entity))
+            return;
 
         if (bypass.getSetting("Ray Tracing").isEnabled() && !RotationUtils.isMouseOver(yaw, pitch, target, attackRange.getValue().floatValue()))
             return;

@@ -15,11 +15,11 @@ import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 
-public class OldTenacityTargetHUD extends TargetHUD {
+public class LithiumTargetHUD extends TargetHUD {
 
     private final ContinualAnimation animation = new ContinualAnimation();
 
-    public OldTenacityTargetHUD() {
+    public LithiumTargetHUD() {
         super("Lithium");
     }
 

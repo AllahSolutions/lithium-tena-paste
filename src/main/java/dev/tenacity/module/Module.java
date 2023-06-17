@@ -112,7 +112,7 @@ public class Module extends ListenerAdapter implements Utils {
                 case "Default":
                     if (NotificationsMod.onlyTitle.isEnabled()) titleToggle = this.getName() + " toggled";
                     break;
-                case "SuicideX":
+                case "Jello":
                     if (this.isEnabled()) {
                         titleToggle = "Enabled Module " + this.getName();
                     } else {

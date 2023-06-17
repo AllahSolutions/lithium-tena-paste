@@ -63,17 +63,16 @@ public class NotificationsMod extends Module {
                     notification.drawDefault(x,y, notificationWidth, notificationHeight, (float) animation.getOutput().floatValue(), onlyTitle.isEnabled());
                     break;
                 case "Jello":
-                    animation.setDuration(200);
                     actualOffset = 3;
                     notificationHeight = 16;
-                    String editTitle = notification.getTitle();
+                    String editTitle = notification.getTitle() + (notification.getTitle().endsWith(".") || notification.getTitle().endsWith("/") ? " " : ". ") + notification.getDescription();
 
                     notificationWidth = (int) tenacityBoldFont22.getStringWidth(editTitle) + 5;
 
                     x = sr.getScaledWidth() - (notificationWidth + 5);
-                    y = sr.getScaledHeight() - (yOffset + 18 + HUDMod.offsetValue + notificationHeight + (15 * (float) GuiChat.openingAnimation.getOutput().floatValue()));
+                    y = sr.getScaledHeight() - (yOffset + 18 + HUDMod.offsetValue + notificationHeight + (15 * GuiChat.openingAnimation.getOutput().floatValue()));
 
-                    notification.drawSuicideX(x,y, notificationWidth, notificationHeight, (float) animation.getOutput().floatValue());
+                    notification.drawSuicideX(x,y, notificationWidth, notificationHeight, animation.getOutput().floatValue());
                     break;
                 case "Exhibition":
                     animation.setDuration(125);

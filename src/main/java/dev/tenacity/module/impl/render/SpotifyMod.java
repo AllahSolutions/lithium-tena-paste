@@ -41,22 +41,22 @@ import java.util.concurrent.TimeUnit;
 public class SpotifyMod extends Module {
 
     private final StringSetting clientID = new StringSetting("Client ID");
-    private final ModeSetting backgroundColor = new ModeSetting("Background", "Average", "Average", "Spotify Grey", "Sync");
-    private final ModeSetting progressBarColor = new ModeSetting("Progress Bar", "Green", "Average", "Green", "White");
-
+    private final ModeSetting style = new ModeSetting("Style", "Lithium", "Lithium", "Dark", "Jello");
     private final Dragging drag = Tenacity.INSTANCE.createDrag(this, "spotify", 5, 150);
-    public final float height = 50;
-    public final float albumCoverSize = height;
+    public final float height = 40;
+    public final float albumCoverSize = height - 10;
     private final float playerWidth = 135;
-    private final float width = albumCoverSize + playerWidth;
 
     private final Animation scrollTrack = new DecelerateAnimation(10000, 1, Direction.BACKWARDS);
     private final Animation scrollArtist = new DecelerateAnimation(10000, 1, Direction.BACKWARDS);
-    public Animation playAnimation = new DecelerateAnimation(250, 1);
 
-    public String[] buttons = {FontUtil.SKIP_LEFT, FontUtil.SKIP_RIGHT, FontUtil.SHUFFLE};
-    public HashMap<String, Animation> buttonAnimations;
+    public String[] buttons = {
+            FontUtil.SKIP_LEFT,
+            FontUtil.SKIP_RIGHT,
+            FontUtil.SHUFFLE
+    };
 
+    public HashMap < String, Animation > buttonAnimations;
 
     public SpotifyAPI api;
     private CurrentlyPlayingContext currentPlayingContext;
@@ -65,18 +65,11 @@ public class SpotifyMod extends Module {
     public boolean hoveringPause;
     private boolean downloadedCover;
     private ResourceLocation currentAlbumCover;
-    private Color imageColor = Color.WHITE;
 
     public SpotifyMod() {
         super("Spotify", Category.RENDER, "UI for spotify");
-        addSettings(clientID, backgroundColor, progressBarColor);
+        addSettings(clientID, style);
     }
-
-    private final Color greyColor = new Color(30, 30, 30);
-    private final Color progressBackground = new Color(45, 45, 45);
-    private final Color shuffleColor = new Color(50, 255, 100);
-    private final Color hoveredColor = new Color(195, 195, 195);
-    private final Color circleColor = new Color(50, 50, 50);
 
     @Override
     public void onShaderEvent(ShaderEvent event) {
@@ -86,23 +79,18 @@ public class SpotifyMod extends Module {
         if (event.isBloom()) {
             if (event.getBloomOptions().getSetting("Spotify").isEnabled()) {
 
-                Color color2 = ColorUtil.darker(imageColor, .65f);
-
-                switch (backgroundColor.getMode()) {
-                    case "Average":
-                        float[] hsb = Color.RGBtoHSB(imageColor.getRed(), imageColor.getGreen(), imageColor.getBlue(), null);
-                        if (hsb[2] < .5f) {
-                            color2 = ColorUtil.brighter(imageColor, .65f);
-                        }
-
-                        RoundedUtil.drawGradientVertical(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, color2, imageColor);
-                        break;
-                    case "Spotify Grey":
-                        RoundedUtil.drawRound(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, greyColor);
-                        break;
-                    case "Sync":
-                        Pair<Color, Color> colors = HUDMod.getClientColors();
+                switch (style.getMode()) {
+                    case "Lithium":
+                        Pair < Color, Color > colors = HUDMod.getClientColors();
                         RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, colors.getFirst(), colors.getSecond());
+                        break;
+
+                    case "Dark":
+                        RoundedUtil.drawRound(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, new Color(0, 0, 0, 125));
+                        break;
+
+                    case "Jello":
+                        RoundedUtil.drawRound(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, new Color(255, 255, 255, 25));
                         break;
                 }
 
@@ -110,7 +98,7 @@ public class SpotifyMod extends Module {
                 if (currentAlbumCover != null && downloadedCover) {
                     RenderUtil.resetColor();
                     mc.getTextureManager().bindTexture(currentAlbumCover);
-                    //  GL11.glEnable(GL11.GL_BLEND);
+
                     RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 7.5f, 1);
                 }
 
@@ -122,37 +110,34 @@ public class SpotifyMod extends Module {
 
     @Override
     public void onRender2DEvent(Render2DEvent event) {
-        if (api.currentTrack == null || api.currentPlayingContext == null) return;
-        //Check if the song has changed
+        if (api.currentTrack == null || api.currentPlayingContext == null)
+            return;
+
         if (currentTrack != api.currentTrack || currentPlayingContext != api.currentPlayingContext) {
             this.currentTrack = api.currentTrack;
             this.currentPlayingContext = api.currentPlayingContext;
         }
+
         playingMusic = currentPlayingContext.getIs_playing();
 
-
         float x = drag.getX(), y = drag.getY();
+        float width = albumCoverSize + playerWidth;
+
         drag.setWidth(width);
         drag.setHeight(height);
 
-
-        Color color2 = ColorUtil.darker(imageColor, .65f);
-
-        switch (backgroundColor.getMode()) {
-            case "Average":
-                float[] hsb = Color.RGBtoHSB(imageColor.getRed(), imageColor.getGreen(), imageColor.getBlue(), null);
-                if (hsb[2] < .5f) {
-                    color2 = ColorUtil.brighter(imageColor, .65f);
-                }
-
-                RoundedUtil.drawGradientVertical(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, color2, imageColor);
+        switch (style.getMode()) {
+            case "Lithium":
+                Pair < Color, Color > colors = HUDMod.getClientColors();
+                RoundedUtil.drawGradientCornerLR(x, y, width, height, 6, colors.getFirst().darker(), colors.getSecond().darker());
                 break;
-            case "Spotify Grey":
-                RoundedUtil.drawRound(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, greyColor);
+
+            case "Dark":
+                RoundedUtil.drawRound(x, y, width, height, 6, new Color(0, 0, 0, 125));
                 break;
-            case "Sync":
-                Pair<Color, Color> colors = HUDMod.getClientColors();
-                RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, colors.getFirst(), colors.getSecond());
+
+            case "Jello":
+                RoundedUtil.drawRound(x, y, width, height, 6, new Color(255, 255, 255, 25));
                 break;
         }
 
@@ -162,105 +147,80 @@ public class SpotifyMod extends Module {
 
         final String trackRemaining = String.format("-%s:%s", diffMinutes < 10 ? "0" + diffMinutes : diffMinutes, diffSeconds < 10 ? "0" + diffSeconds : diffSeconds);
 
-
-        //Scroll and scissor the track name and artist if needed
         RenderUtil.scissor(x + albumCoverSize, y, playerWidth, height, () -> {
             final StringBuilder artistsDisplay = new StringBuilder();
+
             for (int artistIndex = 0; artistIndex < currentTrack.getArtists().length; artistIndex++) {
                 final ArtistSimplified artist = currentTrack.getArtists()[artistIndex];
                 artistsDisplay.append(artist.getName()).append(artistIndex + 1 == currentTrack.getArtists().length ? '.' : ", ");
             }
+
             if (scrollTrack.finished(Direction.BACKWARDS)) {
                 scrollTrack.reset();
             }
+
             if (scrollArtist.finished(Direction.BACKWARDS)) {
                 scrollArtist.reset();
             }
+
             boolean needsToScrollTrack = tenacityBoldFont26.getStringWidth(currentTrack.getName()) > playerWidth;
             boolean needsToScrollArtist = tenacityFont22.getStringWidth(artistsDisplay.toString()) > playerWidth;
 
-            float trackX = (float) (((x + albumCoverSize) - tenacityBoldFont22.getStringWidth(currentTrack.getName())) +
-                    ((tenacityBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
+            float trackX = (float)(((x + albumCoverSize) - tenacityBoldFont22.getStringWidth(currentTrack.getName())) + ((tenacityBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
 
-            tenacityBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 3, y + 3, -1);
+            tenacityBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 10, y + 5, -1);
 
             float artistX = (float) (((x + albumCoverSize) - tenacityFont18.getStringWidth(artistsDisplay.toString())) +
                     ((tenacityFont18.getStringWidth(artistsDisplay.toString()) + playerWidth) * scrollArtist.getLinearOutput()));
 
-            tenacityFont18.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 4, y + 17, -1);
+            tenacityFont16.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 10, y + 18, -1);
         });
 
-        //Draw time left on song
-        tenacityFont16.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 3),
-                y + height - (tenacityFont16.getHeight() + 3), -1);
+        tenacityFont16.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 3), y + height - (tenacityFont16.getHeight() + 5), -1);
 
-        float progressBarWidth = (playerWidth - 35);
-        float progressBarHeight = 3;
+        float progressBarWidth = (playerWidth - 40);
+        float progressBarHeight = 4;
         float progress = progressBarWidth * (currentPlayingContext.getProgress_ms() / (float) currentTrack.getDurationMs());
         Color progressColor;
 
-        switch (progressBarColor.getMode()) {
-            case "Average":
-                progressColor = backgroundColor.is("Average") ? color2 : imageColor;
+        switch (style.getMode()) {
+            case "Lithium":
+                progressColor = HUDMod.getClientColors().getFirst().brighter().brighter().brighter();
                 break;
-            case "Green":
-                progressColor = new Color(50, 255, 100);
+            case "Jello":
+                progressColor = new Color(255, 255, 255, 65);
                 break;
             default:
                 progressColor = Color.WHITE;
                 break;
         }
 
-        RoundedUtil.drawRound(x + albumCoverSize + 5, y + height - (progressBarHeight + 4.5f), progressBarWidth, progressBarHeight, 1.5f, progressBackground);
-        RoundedUtil.drawRound(x + albumCoverSize + 5, y + height - (progressBarHeight + 4.5f), progress, progressBarHeight, 1.5f, progressColor);
-
-
-        float spacing = 0;
-
-        RenderUtil.resetColor();
-        for (String button : buttons) {
-            Color normalColor = button.equals(FontUtil.SHUFFLE) && currentPlayingContext.getShuffle_state() ? shuffleColor : Color.WHITE;
-            RenderUtil.resetColor();
-
-            iconFont.size(20).drawString(button, x + albumCoverSize + 6 + spacing, y + height - 19,
-                    ColorUtil.interpolateColor(normalColor, hoveredColor, (float) buttonAnimations.get(button).getOutput().floatValue()));
-            spacing += 15;
-        }
-
+        RoundedUtil.drawRound(x + albumCoverSize + 11.5F, y + height - (progressBarHeight + 6), progressBarWidth, progressBarHeight, 1.5f, progressColor.darker().darker());
+        RoundedUtil.drawRound(x + albumCoverSize + 11.5F, y + height - (progressBarHeight + 6), progress, progressBarHeight, 1.5f, progressColor);
 
         if (currentAlbumCover != null && downloadedCover) {
             mc.getTextureManager().bindTexture(currentAlbumCover);
             GlStateManager.color(1, 1, 1);
             GL11.glEnable(GL11.GL_BLEND);
-            RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 6, 1);
+            RoundedUtil.drawRoundTextured(x + 5, y + 5, albumCoverSize, albumCoverSize, 6, 1);
         }
+
         if ((currentAlbumCover == null || !currentAlbumCover.getResourcePath().contains(currentTrack.getAlbum().getId()))) {
             downloadedCover = false;
-            final ThreadDownloadImageData albumCover = new ThreadDownloadImageData(null, currentTrack.getAlbum().getImages()[1].getUrl(), null, new IImageBuffer() {
+
+            ThreadDownloadImageData albumCover = new ThreadDownloadImageData(null, currentTrack.getAlbum().getImages()[1].getUrl(), null, new IImageBuffer() {
                 @Override
                 public BufferedImage parseUserSkin(BufferedImage image) {
-                    imageColor = ColorUtil.averageColor(image, image.getWidth(), image.getHeight(), 1);
                     downloadedCover = true;
                     return image;
                 }
 
-                @Override
-                public void skinAvailable() {
-                }
+                @Override public void skinAvailable() { /* */ }
             });
+
             mc.getTextureManager().loadTexture(currentAlbumCover = new ResourceLocation("spotifyAlbums/" + currentTrack.getAlbum().getId()), albumCover);
 
         }
-
-        playAnimation.setDirection(!playingMusic || hoveringPause ? Direction.FORWARDS : Direction.BACKWARDS);
-        RoundedUtil.drawRound(x + albumCoverSize / 2f - 22.5f, y + albumCoverSize / 2f - 22.5f, 45, 45, 23, ColorUtil.applyOpacity(circleColor, (float) (.47 * playAnimation.getOutput().floatValue())));
-
-        CustomFont iconFont40 = iconFont.size(40);
-        String playIcon = currentPlayingContext.getIs_playing() ? FontUtil.PLAY : FontUtil.PAUSE;
-        iconFont40.drawCenteredString(playIcon,
-                x + albumCoverSize / 2f + (playIcon.equals(FontUtil.PLAY) ? 2 : 0), y + albumCoverSize / 2f - iconFont40.getHeight() / 2f + 2,
-                ColorUtil.applyOpacity(-1, (float) playAnimation.getOutput().floatValue()));
-
 
     }
 
@@ -272,8 +232,8 @@ public class SpotifyMod extends Module {
             return;
         }
         if (buttonAnimations == null) {
-            buttonAnimations = new HashMap<>();
-            for (String button : buttons) {
+            buttonAnimations = new HashMap < > ();
+            for (String button: buttons) {
                 buttonAnimations.put(button, new DecelerateAnimation(250, 1, Direction.BACKWARDS));
             }
         }
@@ -292,6 +252,7 @@ public class SpotifyMod extends Module {
         api.build(clientID);
         setClientID(clientID);
         api.startConnection();
+
         super.onEnable();
     }
 

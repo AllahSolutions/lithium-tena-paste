@@ -6,12 +6,15 @@ import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.HoveringUtil;
 import dev.tenacity.utils.render.RenderUtil;
+import dev.tenacity.utils.render.RoundedUtil;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
 
 public class MenuButton implements Screen {
 
     public final String text;
-    private Animation hoverAnimation;
     public float x, y, width, height;
     public Runnable clickAction;
 
@@ -22,7 +25,7 @@ public class MenuButton implements Screen {
 
     @Override
     public void initGui() {
-        hoverAnimation = new DecelerateAnimation(200, 1);
+
     }
 
     @Override
@@ -30,32 +33,23 @@ public class MenuButton implements Screen {
 
     }
 
-    private static final ResourceLocation rs = new ResourceLocation("Tenacity/MainMenu/menu-rect.png");
-
     @Override
     public void drawScreen(int mouseX, int mouseY) {
 
         boolean hovered = HoveringUtil.isHovering(x, y, width, height, mouseX, mouseY);
-        hoverAnimation.setDirection(hovered ? Direction.FORWARDS : Direction.BACKWARDS);
 
-
-        RenderUtil.color(-1);
-        RenderUtil.drawImage(rs, x,y,width,height);
+        RoundedUtil.drawRound(x, y, width, height, 5, hovered ? new Color(255, 255, 255, 35) : new Color(205, 205, 205, 25));
 
         tenacityFont22.drawCenteredString(text, x + width / 2f, y + tenacityFont22.getMiddleOfBox(height), -1);
-    }
-
-    public void drawOutline() {
-        RenderUtil.drawImage(rs, x,y,width,height);
     }
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int button) {
         boolean hovered = HoveringUtil.isHovering(x, y, width, height, mouseX, mouseY);
-        if(hovered) {
+
+        if (hovered) {
             clickAction.run();
         }
-
     }
 
     @Override

@@ -179,8 +179,8 @@ public class SpotifyMod extends Module {
             boolean needsToScrollTrack = tenacityBoldFont26.getStringWidth(currentTrack.getName()) > playerWidth;
             boolean needsToScrollArtist = tenacityFont22.getStringWidth(artistsDisplay.toString()) > playerWidth;
 
-            float trackX = (float) (((x + albumCoverSize) - tenacityBoldFont22.getStringWidth(currentTrack.getName())) +
-                    ((tenacityBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
+            float trackX = (float) (((x + albumCoverSize + 5) - tenacityBoldFont20.getStringWidth(currentTrack.getName())) +
+                    ((tenacityBoldFont20.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
 
             tenacityBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 3, y + 3, -1);
 
@@ -191,8 +191,13 @@ public class SpotifyMod extends Module {
         });
 
         //Draw time left on song
+<<<<<<< Updated upstream
         tenacityFont16.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 3),
                 y + height - (tenacityFont16.getHeight() + 3), -1);
+=======
+   //     tenacityFont20.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 50),
+            //    y + height - (tenacityFont16.getHeight() + 27), -1);
+>>>>>>> Stashed changes
 
         float progressBarWidth = (playerWidth - 35);
         float progressBarHeight = 3;

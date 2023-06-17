@@ -38,7 +38,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Minemora", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Minemora", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -65,10 +65,12 @@ public final class Flight extends Module {
     private boolean hasDamaged;
     private boolean up;
     private int airTicks;
+    int Flags;
 
     private boolean adjustSpeed, canSpeed, hasBeenDamaged;
     public double moveSpeed2, lastDist;
     public int stage3;
+    private boolean shift;
 
     // Custom fly settings
     private final BooleanSetting damage = new BooleanSetting("Damage", false);
@@ -118,6 +120,9 @@ public final class Flight extends Module {
                 break;
 
 
+
+
+
                
             default:
                 TargetStrafe.strafe(e);
@@ -151,6 +156,27 @@ public final class Flight extends Module {
                         }
                     }
                 }
+                break;
+
+
+            case"Vulcan Timer":
+
+
+
+
+                if(mc.gameSettings.keyBindSneak.isPressed()) {
+                    shift = true;
+                }
+                if(Flags>3 && MovementUtils.isMoving() && !shift) {
+
+                    mc.timer.timerSpeed = 5.0f;
+                }
+
+                if(shift) {
+                    mc.timer.timerSpeed = 1.0f;
+                }
+
+
                 break;
             case "Vulcan":
                 if(e.isPre()) {
@@ -321,10 +347,25 @@ public final class Flight extends Module {
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
         }
+
+        if(mode.is("Vulcan Timer")) {
+
+            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            event.setBoundingBox(axisAlignedBB);
+        }
+
+
     }
 
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
+        if(mode.is("Vulcan Timer")) {
+            if (e.getPacket() instanceof S08PacketPlayerPosLook) {
+                Flags++;
+
+                e.cancel();
+            }
+        }
         if (e.getPacket() instanceof S08PacketPlayerPosLook && !hasS08) {
             S08PacketPlayerPosLook s08 = (S08PacketPlayerPosLook) e.getPacket();
             hasS08 = true;
@@ -333,6 +374,13 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
+        Flags = 0;
+
+        if (mode.is("Vulcan Timer")) {
+            mc.timer.timerSpeed = 1.0f;
+            shift = false;
+
+        }
         hasDamaged = false;
         doFly = false;
         ticks = 0;
@@ -369,6 +417,13 @@ public final class Flight extends Module {
 
     @Override
     public void onDisable() {
+        Flags = 0;
+
+        shift = false;
+        if (mode.is("Vulcan Timer")) {
+            mc.timer.timerSpeed = 1.0f;
+
+        }
         if (mode.is("Vanilla") || mode.is("Minemen") || mode.is("Old NCP") || mode.is("Watchdog")) {
             mc.thePlayer.motionX = mc.thePlayer.motionZ = 0;
         } else if (mode.is("Slime")) {

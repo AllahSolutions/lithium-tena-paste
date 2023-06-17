@@ -73,12 +73,14 @@ public class SpotifyMod extends Module {
 
     @Override
     public void onShaderEvent(ShaderEvent event) {
-        if (api.currentTrack == null || api.currentPlayingContext == null) return;
+        if (api.currentTrack == null || api.currentPlayingContext == null)
+            return;
+
         float x = drag.getX(), y = drag.getY();
+        float width = albumCoverSize + playerWidth;
 
         if (event.isBloom()) {
             if (event.getBloomOptions().getSetting("Spotify").isEnabled()) {
-
                 switch (style.getMode()) {
                     case "Lithium":
                         Pair < Color, Color > colors = HUDMod.getClientColors();
@@ -99,11 +101,11 @@ public class SpotifyMod extends Module {
                     RenderUtil.resetColor();
                     mc.getTextureManager().bindTexture(currentAlbumCover);
 
-                    RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 7.5f, 1);
+                    RoundedUtil.drawRoundTextured(x + 5, y + 5, albumCoverSize, albumCoverSize, 7.5f, 1);
                 }
 
             } else {
-                RoundedUtil.drawRound(x, y, playerWidth + (albumCoverSize), height, 6, Color.BLACK);
+                RoundedUtil.drawRound(x, y, width, height, 6, Color.BLACK);
             }
         }
     }

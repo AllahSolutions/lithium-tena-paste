@@ -249,7 +249,9 @@ public class SpotifyMod extends Module {
                     return image;
                 }
 
-                @Override public void skinAvailable() { /* */ }
+                @Override
+                public void skinAvailable() {
+                }
             });
             mc.getTextureManager().loadTexture(currentAlbumCover = new ResourceLocation("spotifyAlbums/" + currentTrack.getAlbum().getId()), albumCover);
 
@@ -274,7 +276,6 @@ public class SpotifyMod extends Module {
             toggle();
             return;
         }
-
         if (buttonAnimations == null) {
             buttonAnimations = new HashMap<>();
             for (String button : buttons) {

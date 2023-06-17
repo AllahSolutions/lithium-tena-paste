@@ -92,7 +92,7 @@ public class Notification implements Utils {
 
         RoundedUtil.drawRound(x, y, width, height, 4, new Color(255, 255, 255, 15));
 
-        tenacityBoldFont22.drawCenteredString(title, x + width /2f,
+        tenacityBoldFont22.drawCenteredString(title, x + width / 2f,
                 yVal + tenacityBoldFont22.getMiddleOfBox(heightVal), ColorUtil.applyOpacity(Color.WHITE, animation - .5f));
 
     }

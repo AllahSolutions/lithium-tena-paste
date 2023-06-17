@@ -14,7 +14,7 @@ import net.minecraft.client.gui.ScaledResolution;
 
 public class NotificationsMod extends Module {
     private final NumberSetting time = new NumberSetting("Time on Screen", 2, 10, 1, .5);
-    public static final ModeSetting mode = new ModeSetting("Mode", "Default", "Default", "SuicideX", "Exhibition");
+    public static final ModeSetting mode = new ModeSetting("Mode", "Default", "Default", "Jello", "Exhibition");
     public static final BooleanSetting onlyTitle = new BooleanSetting("Only Title", false);
     public static final BooleanSetting toggleNotifications = new BooleanSetting("Show Toggle", true);
 
@@ -49,10 +49,10 @@ public class NotificationsMod extends Module {
                 case "Default":
                     animation.setDuration(250);
                     actualOffset = 8;
-                    if(onlyTitle.isEnabled()) {
+                    if (onlyTitle.isEnabled()) {
                         notificationHeight = 19;
                         notificationWidth = (int) tenacityBoldFont22.getStringWidth(notification.getTitle()) + 35;
-                    }else {
+                    } else {
                         notificationHeight = 28;
                         notificationWidth = (int) Math.max(tenacityBoldFont22.getStringWidth(notification.getTitle()), tenacityFont18.getStringWidth(notification.getDescription())) + 35;
                     }
@@ -62,7 +62,7 @@ public class NotificationsMod extends Module {
 
                     notification.drawDefault(x,y, notificationWidth, notificationHeight, (float) animation.getOutput().floatValue(), onlyTitle.isEnabled());
                     break;
-                case "SuicideX":
+                case "Jello":
                     animation.setDuration(200);
                     actualOffset = 3;
                     notificationHeight = 16;
@@ -129,7 +129,7 @@ public class NotificationsMod extends Module {
 
                     notification.blurDefault(x,y, notificationWidth, notificationHeight, animation.getOutput().floatValue(), glow);
                     break;
-                case "SuicideX":
+                case "Jello":
                     actualOffset = 3;
                     notificationHeight = 16;
                     String editTitle = notification.getTitle() + (notification.getTitle().endsWith(".") || notification.getTitle().endsWith("/") ? " " : ". ") + notification.getDescription();

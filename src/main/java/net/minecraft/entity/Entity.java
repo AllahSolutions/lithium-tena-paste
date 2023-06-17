@@ -142,17 +142,17 @@ public abstract class Entity implements ICommandSender {
     /**
      * Entity motion X
      */
-    public double motionX;
+    public double motionX, lastMotionX;
 
     /**
      * Entity motion Y
      */
-    public double motionY;
+    public double motionY, lastMotionY;
 
     /**
      * Entity motion Z
      */
-    public double motionZ;
+    public double motionZ, lastMotionZ;
 
     /**
      * Entity rotation Yaw
@@ -170,7 +170,7 @@ public abstract class Entity implements ICommandSender {
      * Axis aligned bounding box.
      */
     private AxisAlignedBB boundingBox;
-    public boolean onGround;
+    public boolean onGround, lastGround;
 
     /**
      * True if after a move this entity has collided with something on X- or Z-axis
@@ -346,6 +346,12 @@ public abstract class Entity implements ICommandSender {
     public void onKillCommand() {
         this.setDead();
     }
+
+    /**
+    * Big Black Movement Correction
+    **/
+
+    public float lastMovementYaw, movementYaw, velocityYaw;
 
     public Entity(World worldIn) {
         this.entityId = nextEntityID++;
@@ -1166,6 +1172,7 @@ public abstract class Entity implements ICommandSender {
         strafe = playerMovementEvent.getStrafe();
         forward = playerMovementEvent.getForward();
         friction = playerMovementEvent.getFriction();
+
         float f = strafe * strafe + forward * forward;
 
         if (f >= 1.0E-4F) {

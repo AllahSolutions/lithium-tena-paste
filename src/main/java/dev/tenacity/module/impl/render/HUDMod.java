@@ -41,7 +41,7 @@ import java.util.*;
 public class HUDMod extends Module {
 
     private final StringSetting clientName = new StringSetting("Client Name");
-    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity", "Tenacity", "Plain Text", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
+    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity", "Tenacity", "Ghost", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
     public static final ColorSetting color1 = new ColorSetting("Color 1", new Color(0xffa028d4));
     public static final ColorSetting color2 = new ColorSetting("Color 2", new Color(0xff0008ff));
     public static final ModeSetting theme = Theme.getModeSetting("Theme Selection", "Tenacity");
@@ -135,18 +135,12 @@ public class HUDMod extends Module {
                     });
 
                     break;
-                case "Plain Text":
-                    AbstractFontRenderer fr = mc.fontRendererObj;
-                    if (customFont.isEnabled()) {
-                        fr = tenacityFont24;
-                    }
-                    AbstractFontRenderer finalFr = fr;
-
-                    GradientUtil.applyGradientHorizontal(5, 5, finalFr.getStringWidth(finalName), finalFr.getHeight(), 1,
-                            clientColors.getFirst(), clientColors.getSecond(), () -> {
-                                RenderUtil.setAlphaLimit(0);
-                                finalFr.drawString(finalName, 5.5f, 5.5f, new Color(0, 0, 0, 0).getRGB());
-                            });
+                case "Ghost":
+                    RenderUtil.resetColor();
+                    GradientUtil.applyGradientHorizontal(5, 5, 75, 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
+                        RenderUtil.setAlphaLimit(0);
+                        tenacityBoldFont40.drawString(finalName, 5, 5, 0);
+                    });
 
                     break;
                 case "Neverlose":
@@ -259,22 +253,13 @@ public class HUDMod extends Module {
                     }
                 });
                 break;
-            case "Plain Text":
-                AbstractFontRenderer fr = mc.fontRendererObj;
-                if (customFont.isEnabled()) {
-                    fr = tenacityBoldFont26;
-                }
-                AbstractFontRenderer finalFr = fr;
-                finalName = get(name);
-
-                fr.drawString(finalName, 5.5f, 5.5f, Color.BLACK.getRGB());
-
-
-                String finalName2 = finalName;
-                GradientUtil.applyGradientHorizontal(5, 5, fr.getStringWidth(finalName), fr.getHeight(), 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
+            case "Ghost":
+                RenderUtil.resetColor();
+                GradientUtil.applyGradientHorizontal(5, 5, 25, 20, 0.6F, new Color(235, 235, 235), new Color(205, 205, 205), () -> {
                     RenderUtil.setAlphaLimit(0);
-                    finalFr.drawString(finalName2, 5, 5, new Color(0, 0, 0, 0).getRGB());
+                    tenacityBoldFont40.drawString(finalName, 5, 5, 0);
                 });
+
                 break;
             case "Neverlose":
                 CustomFont m22 = neverloseFont.size(22), t18 = tenacityFont18;

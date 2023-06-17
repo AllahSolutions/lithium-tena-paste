@@ -20,7 +20,7 @@ public class OldTenacityTargetHUD extends TargetHUD {
     private final ContinualAnimation animation = new ContinualAnimation();
 
     public OldTenacityTargetHUD() {
-        super("Old Tenacity");
+        super("Lithium");
     }
 
     @Override

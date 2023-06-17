@@ -225,7 +225,7 @@ public class Scaffold extends Module {
 
                 switch (towerMode.getMode()) {
                     case "Vanilla":
-                        mc.thePlayer.motionY = 0.42f;
+                        mc.thePlayer.motionY = 0.60f;
                         break;
 
                 }

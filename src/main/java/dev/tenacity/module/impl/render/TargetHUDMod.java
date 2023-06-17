@@ -34,7 +34,7 @@ import java.awt.*;
 
 public class TargetHUDMod extends Module {
 
-    private final ModeSetting targetHud = new ModeSetting("Mode", "Tenacity", "Tenacity", "Old Tenacity", "Rise", "Exhibition", "Auto-Dox", "Akrien", "Astolfo", "Novoline", "Vape");
+    private final ModeSetting targetHud = new ModeSetting("Mode", "Tenacity", "Tenacity", "Lithium", "Rise", "Exhibition", "Auto-Dox", "Akrien", "Astolfo", "Novoline", "Vape");
     private final BooleanSetting trackTarget = new BooleanSetting("Track Target", false);
     private final ModeSetting trackingMode = new ModeSetting("Tracking Mode", "Middle", "Middle", "Top", "Left", "Right");
 

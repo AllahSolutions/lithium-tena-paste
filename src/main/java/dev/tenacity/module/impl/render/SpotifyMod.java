@@ -102,7 +102,7 @@ public class SpotifyMod extends Module {
                         break;
                     case "Sync":
                         Pair<Color, Color> colors = HUDMod.getClientColors();
-                        RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, colors.getFirst(), colors.getSecond());
+                        RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 40), y, playerWidth + 12, height - 5, 6, colors.getFirst(), colors.getSecond());
                         break;
                 }
 
@@ -112,11 +112,12 @@ public class SpotifyMod extends Module {
                     RenderUtil.resetColor();
                     mc.getTextureManager().bindTexture(currentAlbumCover);
                     //  GL11.glEnable(GL11.GL_BLEND);
-                    RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 7.5f, 1);
+                  //  RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 7.5f, 1);
                 }
 
             } else {
-                RoundedUtil.drawRound(x, y, playerWidth + (albumCoverSize), height, 6, Color.BLACK);
+                Pair<Color, Color> colors = HUDMod.getClientColors();
+               // RoundedUtil.drawGradientCornerLR(x, y, playerWidth + (albumCoverSize), height, 6, colors.getFirst(),colors.getSecond());
             }
         }
     }
@@ -153,7 +154,9 @@ public class SpotifyMod extends Module {
                 break;
             case "Sync":
                 Pair<Color, Color> colors = HUDMod.getClientColors();
-                RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, colors.getFirst(), colors.getSecond());
+
+             //   RoundedUtil.drawRoundOutline(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6,2, colors.getFirst(), colors.getSecond());
+         //       RoundedUtil.drawGradientCornerLR(x + (albumCoverSize - 15), y, playerWidth + 15, height, 6, colors.getFirst(), colors.getSecond());
                 break;
         }
 
@@ -183,17 +186,17 @@ public class SpotifyMod extends Module {
             float trackX = (float) (((x + albumCoverSize) - tenacityBoldFont22.getStringWidth(currentTrack.getName())) +
                     ((tenacityBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
 
-            tenacityBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 3, y + 3, -1);
+            tenacityBoldFont20.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 5 , y + 5, -1);
 
             float artistX = (float) (((x + albumCoverSize) - tenacityFont18.getStringWidth(artistsDisplay.toString())) +
                     ((tenacityFont18.getStringWidth(artistsDisplay.toString()) + playerWidth) * scrollArtist.getLinearOutput()));
 
-            tenacityFont18.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 4, y + 17, -1);
+            tenacityFont18.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 5, y + 17, -1);
         });
 
         //Draw time left on song
-        tenacityFont16.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 3),
-                y + height - (tenacityFont16.getHeight() + 3), -1);
+        tenacityFont20.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 50),
+                y + height - (tenacityFont16.getHeight() + 27), -1);
 
         float progressBarWidth = (playerWidth - 35);
         float progressBarHeight = 3;
@@ -211,29 +214,24 @@ public class SpotifyMod extends Module {
                 progressColor = Color.WHITE;
                 break;
         }
+        Pair<Color, Color> colors = HUDMod.getClientColors();
 
-        RoundedUtil.drawRound(x + albumCoverSize + 5, y + height - (progressBarHeight + 4.5f), progressBarWidth, progressBarHeight, 1.5f, progressBackground);
-        RoundedUtil.drawRound(x + albumCoverSize + 5, y + height - (progressBarHeight + 4.5f), progress, progressBarHeight, 1.5f, progressColor);
+        //RoundedUtil.drawGradientCornerLR(x + albumCoverSize + 5, y + height - (progressBarHeight + 15f), progressBarWidth, progressBarHeight, 1.5f, colors.getFirst(),colors.getSecond());
+        RoundedUtil.drawGradientCornerLR(x + albumCoverSize + 6.5f, y + height - (progressBarHeight + 15.0f), progress, progressBarHeight, 1.5f, colors.getFirst(),colors.getSecond());
 
 
         float spacing = 0;
 
         RenderUtil.resetColor();
-        for (String button : buttons) {
-            Color normalColor = button.equals(FontUtil.SHUFFLE) && currentPlayingContext.getShuffle_state() ? shuffleColor : Color.WHITE;
-            RenderUtil.resetColor();
 
-            iconFont.size(20).drawString(button, x + albumCoverSize + 6 + spacing, y + height - 19,
-                    ColorUtil.interpolateColor(normalColor, hoveredColor, (float) buttonAnimations.get(button).getOutput().floatValue()));
-            spacing += 15;
-        }
 
 
         if (currentAlbumCover != null && downloadedCover) {
             mc.getTextureManager().bindTexture(currentAlbumCover);
             GlStateManager.color(1, 1, 1);
             GL11.glEnable(GL11.GL_BLEND);
-            RoundedUtil.drawRoundTextured(x, y, albumCoverSize, albumCoverSize, 6, 1);
+            // spotify image
+            RoundedUtil.drawRoundTextured(x + 11.5f, y + 3, albumCoverSize- 10, albumCoverSize - 10, 5, 1);
         }
         if ((currentAlbumCover == null || !currentAlbumCover.getResourcePath().contains(currentTrack.getAlbum().getId()))) {
             downloadedCover = false;
@@ -258,9 +256,7 @@ public class SpotifyMod extends Module {
 
         CustomFont iconFont40 = iconFont.size(40);
         String playIcon = currentPlayingContext.getIs_playing() ? FontUtil.PLAY : FontUtil.PAUSE;
-        iconFont40.drawCenteredString(playIcon,
-                x + albumCoverSize / 2f + (playIcon.equals(FontUtil.PLAY) ? 2 : 0), y + albumCoverSize / 2f - iconFont40.getHeight() / 2f + 2,
-                ColorUtil.applyOpacity(-1, (float) playAnimation.getOutput().floatValue()));
+
 
 
     }

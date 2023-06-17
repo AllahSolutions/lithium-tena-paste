@@ -156,7 +156,14 @@ public class HUDMod extends Module {
                             mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
                     name = name.toUpperCase();
                     float nw = neverloseFont.size(22).getStringWidth(name);
-                    RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2, Color.BLACK);
+                    int i = 0;
+
+                    int index = (int) (i * 20);
+                    Pair<Color, Color> colors = HUDMod.getClientColors();
+
+                    Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).darker();
+
+                    RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2,  textcolor);
                     break;
                 case "Tenasense":
                     String text = "§ftena§rsense§f" + " - " + intentInfo + " - " + (mc.isSingleplayer() ? "singleplayer" : mc.getCurrentServerData().serverIP) + " - "
@@ -272,13 +279,19 @@ public class HUDMod extends Module {
             case "Neverlose":
                 CustomFont m22 = neverloseFont.size(22), t18 = tenacityFont18;
                 String str = String.format(" §8|§f %s fps §8|§f %s §8|§f %s",
-                        Minecraft.getDebugFPS(), intentInfo,
+                        Minecraft.getDebugFPS(), "Nyghtfull",
                         mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
                 name = name.toUpperCase();
                 float nw = m22.getStringWidth(name);
-                RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2, Color.BLACK);
+                int i = 0;
+
+                int index = (int) (i * 20);
+                Pair<Color, Color> colors = HUDMod.getClientColors();
+
+                Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).darker();
+                RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2,true, textcolor);
                 t18.drawString(str, 7.5F + nw, 7.5F, -1);
-                m22.drawString(name, 7.5F, 8, new Color(0, 149, 200).getRGB());
+                m22.drawString(name, 7.5F, 8, Color.BLACK);
                 m22.drawString(name, 7, 7.5F, -1);
                 break;
             case "Tenasense":
@@ -355,25 +368,10 @@ public class HUDMod extends Module {
             offsetValue = count * fr.getHeight();
         }
 
-        String text = Tenacity.VERSION + " - " + (customFont.isEnabled() ? "" : "§l") + Tenacity.RELEASE.getName() + "§r";
 
-        text += " | " + Tenacity.INSTANCE.getIntentAccount().username;
-        text += " (" + Tenacity.INSTANCE.getIntentAccount().client_uid + ")";
 
-        text = get(text);
 
-        float x = sr.getScaledWidth() - (fr.getStringWidth(text) + 3);
-        float y = sr.getScaledHeight() - (fr.getHeight() + 3) - yOffset;
 
-        Pair<Color, Color> clientColors = getClientColors();
-        String finalText = text;
-
-        float f = customFont.isEnabled() ? 0.5F : 1.0F;
-        fr.drawString(finalText, x + f, y + f, 0xFF000000);
-        GradientUtil.applyGradientHorizontal(x, y, fr.getStringWidth(text), 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
-            RenderUtil.setAlphaLimit(0);
-            fr.drawString(finalText, x, y, -1);
-        });
     }
 
     private final Map<String, String> bottomLeftText = new LinkedHashMap<>();

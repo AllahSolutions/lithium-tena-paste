@@ -74,7 +74,14 @@ public class CustomMainMenu extends GuiScreen {
                 HUDMod.getClientColors().getSecond()
         );
 
-       
+        RoundedUtil.drawGradientCornerRL(
+                width / 2.0F - 120,
+                height / 2.0F - 130,
+                240, 275,
+                5,
+                new Color(100, 100, 100, 80),
+                new Color(150, 155, 155, 80)
+        );
 
         float buttonWidth = 140;
         float buttonHeight = 25;

@@ -1,6 +1,7 @@
 package dev.tenacity.ui.mainmenu;
 
 import dev.tenacity.Tenacity;
+import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.ui.mainmenu.particles.ParticleEngine;
 import dev.tenacity.utils.misc.*;
 import dev.tenacity.utils.render.*;
@@ -58,12 +59,10 @@ public class CustomMainMenu extends GuiScreen {
         width = sr.getScaledWidth();
         height = sr.getScaledHeight();
 
-        GradientUtil.drawGradient(
+        RoundedUtil.drawGradientCornerRL(
                 0, 0,width, height,1,
-                new Color(10, 10, 10),
-                new Color(35, 35, 35),
-                new Color(35, 35, 35),
-                new Color(10, 10, 10)
+                HUDMod.getClientColors().getFirst().darker(),
+                HUDMod.getClientColors().getSecond().darker()
         );
 
         RoundedUtil.drawGradientCornerRL(
@@ -71,18 +70,11 @@ public class CustomMainMenu extends GuiScreen {
                 height / 2.0F - 130,
                 240, 275,
                 5,
-                new Color(175, 175, 175, 10),
-                new Color(255, 255, 255, 10)
+                HUDMod.getClientColors().getFirst().darker(),
+                HUDMod.getClientColors().getSecond()
         );
 
-        RoundedUtil.drawGradientCornerRL(
-                width / 2.0F - 120,
-                height / 2.0F - 130,
-                240, 275,
-                5,
-                new Color(255, 255, 255, 10),
-                new Color(175, 175, 175, 10)
-        );
+       
 
         float buttonWidth = 140;
         float buttonHeight = 25;

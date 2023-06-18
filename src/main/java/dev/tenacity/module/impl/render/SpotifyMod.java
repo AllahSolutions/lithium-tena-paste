@@ -137,7 +137,7 @@ public class SpotifyMod extends Module {
                 break;
 
             case "Jello":
-                RoundedUtil.drawRound(x, y, width, height, 6, new Color(255, 255, 255, 25));
+                RoundedUtil.drawRound(x, y, width, height, 6, new Color(255, 255, 255, 35));
                 break;
         }
 

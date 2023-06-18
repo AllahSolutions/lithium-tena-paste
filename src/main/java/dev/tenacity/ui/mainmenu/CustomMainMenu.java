@@ -66,15 +66,22 @@ public class CustomMainMenu extends GuiScreen {
                 new Color(10, 10, 10)
         );
 
-        RoundedUtil.drawGradientRound(
+        RoundedUtil.drawGradientCornerRL(
                 width / 2.0F - 120,
                 height / 2.0F - 130,
                 240, 275,
                 5,
-                new Color(175, 175, 175, 25),
-                new Color(255, 255, 255, 25),
-                new Color(255, 255, 255, 25),
-                new Color(175, 175, 175, 25)
+                new Color(175, 175, 175, 10),
+                new Color(255, 255, 255, 10)
+        );
+
+        RoundedUtil.drawGradientCornerRL(
+                width / 2.0F - 120,
+                height / 2.0F - 130,
+                240, 275,
+                5,
+                new Color(255, 255, 255, 10),
+                new Color(175, 175, 175, 10)
         );
 
         float buttonWidth = 140;

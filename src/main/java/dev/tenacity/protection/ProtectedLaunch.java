@@ -98,6 +98,7 @@ public class ProtectedLaunch {
         modules.put(Jesus.class, new Jesus());
         modules.put(Spider.class, new Spider());
         modules.put(AutoHeadHitter.class, new AutoHeadHitter());
+        modules.put(AutoGapple.class, new AutoGapple());
 
         // Player
         modules.put(ChestStealer.class, new ChestStealer());

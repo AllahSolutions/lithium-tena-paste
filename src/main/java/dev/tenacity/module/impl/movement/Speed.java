@@ -33,7 +33,7 @@ public final class Speed extends Module {
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
 
         if (e.getPacket() instanceof S08PacketPlayerPosLook) {
-            this.setEnabled(false);
+          //  this.setEnabled(false);
         }
     }
 

@@ -389,7 +389,7 @@ public final class KillAura extends Module {
         if(Tenacity.INSTANCE.getModuleCollection().get(Breaker.class).isEnabled()) {
             return;
         }
-
+        
         if (mc.thePlayer.getDistanceToEntity(entity) <= attackRange.getValue()) {
 
             Tenacity.INSTANCE.getEventProtocol().handleEvent(new AttackEvent(target));

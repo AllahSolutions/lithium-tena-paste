@@ -290,9 +290,10 @@ public class ItemRenderer {
         boolean animations = Tenacity.INSTANCE.isEnabled(Animations.class);
         double x = animations ? .56 + (Animations.x.getValue() * .01) : .56;
         double y = animations ? .52 - (Animations.y.getValue() * .01) : .52;
+        double z = animations ? .52 - (Animations.z.getValue() * .01) : .52;
         double size = animations ? .40 + (Animations.size.getValue() * .01) : .40;
 
-        GlStateManager.translate(x, -y, -0.71999997F);
+        GlStateManager.translate(x, -y, z);
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
         float f = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);

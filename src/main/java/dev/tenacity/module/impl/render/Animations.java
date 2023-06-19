@@ -16,7 +16,7 @@ public final class Animations extends Module {
     public static final BooleanSetting smallSwing = new BooleanSetting("Small Swing", false);
     public static final NumberSetting x = new NumberSetting("X", 0, 50, -50, 1);
     public static final NumberSetting y = new NumberSetting("Y", 0, 50, -50, 1);
-    public static final NumberSetting z = new NumberSetting("Z", 0, 50, -50, 1);
+    public static final NumberSetting z = new NumberSetting("Z", 0, -24, -120, 1);
     public static final NumberSetting size = new NumberSetting("Size", 0, 50, -50, 1);
 
     public Animations() {

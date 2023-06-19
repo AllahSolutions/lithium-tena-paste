@@ -15,7 +15,7 @@ import net.minecraft.util.EnumFacing;
 
 public class NoSlow extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla", "NCP", "Watchdog");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla","MMC", "NCP","Switch", "Watchdog");
     private boolean synced;
 
     public NoSlow() {
@@ -47,7 +47,23 @@ public class NoSlow extends Module {
                     synced = true;
                 }
                 break;
+
+            case"MMC":
+                if(mc.thePlayer.isUsingItem()) {
+                    mc.gameSettings.keyBindSprint.pressed = false;
+                } else{
+                    mc.gameSettings.keyBindSprint.pressed = true;
+                }
+                    break;
+
+            case"Switch":
+                if (MovementUtils.isMoving() && mc.thePlayer.isUsingItem()) {
+                    mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem % 8 + 1));
+                    mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
+                }
+                break;
             case "NCP":
+
                 if (MovementUtils.isMoving() && mc.thePlayer.isUsingItem()) {
                     if (e.isPre()) {
                         PacketUtils.sendPacket(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));

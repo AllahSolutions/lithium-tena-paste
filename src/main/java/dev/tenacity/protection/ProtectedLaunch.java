@@ -83,6 +83,7 @@ public class ProtectedLaunch {
         modules.put(AutoAuthenticate.class, new AutoAuthenticate());
         modules.put(Killsults.class, new Killsults());
         modules.put(Sniper.class, new Sniper());
+        modules.put(FlagCheck.class, new FlagCheck());
 
         // Movement
         modules.put(Sprint.class, new Sprint());

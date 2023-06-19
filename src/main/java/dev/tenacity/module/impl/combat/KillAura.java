@@ -8,6 +8,7 @@ import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
+import dev.tenacity.module.impl.exploit.Breaker;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.BooleanSetting;
@@ -385,7 +386,9 @@ public final class KillAura extends Module {
 
         if (bypass.getSetting("Ray Tracing").isEnabled() && !RotationUtils.isMouseOver(yaw, pitch, target, attackRange.getValue().floatValue()))
             return;
-
+        if(Tenacity.INSTANCE.getModuleCollection().get(Breaker.class).isEnabled()) {
+            return;
+        }
         if (mc.thePlayer.getDistanceToEntity(entity) <= attackRange.getValue()) {
 
             Tenacity.INSTANCE.getEventProtocol().handleEvent(new AttackEvent(target));

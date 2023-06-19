@@ -30,7 +30,7 @@ public class LatestNCPLongJump extends LongJumpMode {
         clipped = false;
         teleport = false;
 
-        ChatUtil.print("Start the fly under a block and go forward.");
+        ChatUtil.print("Insane Fly");
 
         super.onEnable();
     }

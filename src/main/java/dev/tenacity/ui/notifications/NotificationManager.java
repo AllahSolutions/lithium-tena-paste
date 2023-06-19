@@ -23,7 +23,7 @@ public class NotificationManager {
         post(new Notification(type, title, description, time));
     }
 
-    private static void post(Notification notification) {
+    public static void post(Notification notification) {
         if (Tenacity.INSTANCE.isEnabled(NotificationsMod.class)) {
             notifications.add(notification);
         }

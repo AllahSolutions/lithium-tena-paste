@@ -39,6 +39,7 @@ public final class IdleFighter extends Module {
 
     private final NumberSetting reach = new NumberSetting("Reach", 4, 6, 3, 0.1);
 
+
     private final TimerUtil attackTimer = new TimerUtil();
 
     public IdleFighter() {
@@ -48,33 +49,35 @@ public final class IdleFighter extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
-        if(minCPS.getValue() > maxCPS.getValue()) {
-            minCPS.setValue(minCPS.getValue() - 1);
-        }
-
-        mc.gameSettings.keyBindForward.pressed = target != null && !(mc.thePlayer.getDistanceToEntity(target) <= reach.getValue());
-        mc.gameSettings.keyBindJump.pressed = mc.thePlayer.isCollidedHorizontally || mc.thePlayer.isInWater();
-
         if(event.isPre()) {
-            sortTargets();
-            if(!targets.isEmpty()) {
-                target = targets.get(0);
-                final float[] rotations = RotationUtils.getRotations(target.posX, target.posY, target.posZ);
-                mc.thePlayer.rotationYaw = rotations[0];
-                mc.thePlayer.rotationPitch = rotations[1];
-
-                if (mc.thePlayer.getDistanceToEntity(target) <= reach.getValue() && attackTimer.hasTimeElapsed(1000 / MathUtils.getRandomInRange(minCPS.getValue(), maxCPS.getValue()))) {
-                    AttackEvent attackEvent = new AttackEvent(target);
-                    Tenacity.INSTANCE.getEventProtocol().handleEvent(attackEvent);
-
-                    if (!attackEvent.isCancelled()) {
-                        AttackOrder.sendFixedAttack(mc.thePlayer, target);
-                    }
-                    attackTimer.reset();
-                }
-            } else {
-                target = null;
+            if (minCPS.getValue() > maxCPS.getValue()) {
+                minCPS.setValue(minCPS.getValue() - 1);
             }
+
+            mc.gameSettings.keyBindForward.pressed = target != null && !(mc.thePlayer.getDistanceToEntity(target) <= reach.getValue());
+            mc.gameSettings.keyBindJump.pressed = mc.thePlayer.isCollidedHorizontally || mc.thePlayer.isInWater();
+
+
+                sortTargets();
+                if (!targets.isEmpty()) {
+                    target = targets.get(0);
+                    final float[] rotations = RotationUtils.getRotationsNeeded(target);
+                    mc.thePlayer.rotationYaw = rotations[0];
+                    mc.thePlayer.rotationPitch = rotations[1];
+
+                    if (mc.thePlayer.getDistanceToEntity(target) <= reach.getValue() && attackTimer.hasTimeElapsed(1000 / MathUtils.getRandomInRange(minCPS.getValue(), maxCPS.getValue()))) {
+                        AttackEvent attackEvent = new AttackEvent(target);
+                        Tenacity.INSTANCE.getEventProtocol().handleEvent(attackEvent);
+
+                        if (!attackEvent.isCancelled()) {
+                            AttackOrder.sendFixedAttack(mc.thePlayer, target);
+                        }
+                        attackTimer.reset();
+                    }
+                } else {
+                    target = null;
+                }
+
         }
     }
 

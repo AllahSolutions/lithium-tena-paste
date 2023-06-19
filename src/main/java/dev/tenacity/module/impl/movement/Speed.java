@@ -1,11 +1,13 @@
 package dev.tenacity.module.impl.movement;
 
+import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.time.TimerUtil;
+import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,6 +30,14 @@ public final class Speed extends Module {
     }
 
     @Override
+    public void onPacketReceiveEvent(PacketReceiveEvent e) {
+
+        if (e.getPacket() instanceof S08PacketPlayerPosLook) {
+            this.setEnabled(false);
+        }
+    }
+
+    @Override
     public void onMotionEvent(MotionEvent event) {
         this.setSuffix(mode.getMode());
 
@@ -41,12 +51,18 @@ public final class Speed extends Module {
 
         switch (mode.getMode()) {
             case "BlocksMC":
-
+               if(mc.thePlayer.hurtTime >1) {
+                    MovementUtils.strafe(0.4f);
+               }
                 if (mc.thePlayer.onGround) {
                     mc.thePlayer.jump();
                 }
-
-                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 750F);
+                if(mc.thePlayer.onGround) {
+                    mc.timer.timerSpeed = 1.1f;
+                } else{
+                    mc.timer.timerSpeed = 1.0f;
+                }
+                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 3500);
 
                 break;
 

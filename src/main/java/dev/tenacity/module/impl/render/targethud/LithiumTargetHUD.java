@@ -8,6 +8,7 @@ import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.render.StencilUtil;
+import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -71,7 +72,15 @@ public class LithiumTargetHUD extends TargetHUD {
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(Color.BLACK, alpha));
+        int i = 0;
+
+        int index = (int) (i * 20);
+        Pair<Color, Color> colors = HUDMod.getClientColors();
+
+
+        Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).brighter().brighter();
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(textcolor, alpha));
+        //OR BLACK
     }
 
 }

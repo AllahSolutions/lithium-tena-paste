@@ -38,7 +38,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Minemora", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -114,7 +114,7 @@ public final class Flight extends Module {
             case "Packet":
                 e.setSpeed(0);
                 break;
-            case "Minemora":
+            case "Libercraft":
                 if(!hasDamaged)
                     e.setSpeed(0);
                 break;
@@ -185,8 +185,9 @@ public final class Flight extends Module {
                     mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem(), new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ), EnumFacing.UP, new Vec3(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ));
                 }
                 break;
-            case "Minemora":
+            case "Libercraft":
                 if(e.isPre()) {
+
                     if(stage < 3) {
                         e.setOnGround(false);
                         if(mc.thePlayer.onGround) {
@@ -198,8 +199,9 @@ public final class Flight extends Module {
                             hasDamaged = true;
                         }
                         if(hasDamaged) {
-                            mc.thePlayer.motionY = -MathUtils.getRandomInRange(0.005, 0.0051);
-                            MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 1.5);
+                           e.setOnGround(true);
+                            mc.thePlayer.motionY = 0.05;
+                            MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 4);
                         }
                     }
                 }

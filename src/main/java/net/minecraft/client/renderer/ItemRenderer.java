@@ -363,7 +363,7 @@ public class ItemRenderer {
             if (this.itemToRender != null) {
                 if (this.itemToRender.getItem() instanceof ItemMap) {
                     this.renderItemMap(player, f2, f, swingProgress);
-                } else if (player.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.fake && InventoryUtils.getHeldItem() instanceof ItemSword)) {
+                } else if (player.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.fake && InventoryUtils.getHeldItem() instanceof ItemSword && KillAura.target!=null)) {
                     EnumAction enumaction = this.itemToRender.getItemUseAction();
                     float var15 = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
                     float var16 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
@@ -408,9 +408,10 @@ public class ItemRenderer {
                                         this.doBlockTransformations();
                                         break;
                                     case "Exhi":
+
                                         this.transformFirstPersonItem(f / 2, 0);
-                                        GlStateManager.rotate(-var16 * 40.0F / 2.0F, var16 / 2.0F, -0.0F, 9.0F);
-                                        GlStateManager.rotate(-var16 * 30.0F, 1.0F, var16 / 2.0F, -0.0F);
+                                        GlStateManager.rotate(-var16 * 50.0F / 2.0F, var16 / 2.0F, -0.0F, 9.0F);
+                                        GlStateManager.rotate(-var16 * 40.0F, 1.0F, var16 / 2.0F, -0.0F);
                                         this.doBlockTransformations();
                                         GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0.0F, 0.1F);
                                         break;

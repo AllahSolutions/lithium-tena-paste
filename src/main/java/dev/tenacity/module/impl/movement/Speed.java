@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 public final class Speed extends Module {
-    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila", "BlocksMC");
+    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila","Watchdog", "BlocksMC");
 
     private final TimerUtil timerUtil = new TimerUtil();
     private final float r = ThreadLocalRandom.current().nextFloat();
@@ -58,11 +58,24 @@ public final class Speed extends Module {
                     mc.thePlayer.jump();
                 }
                 if(mc.thePlayer.onGround) {
-                    mc.timer.timerSpeed = 1.1f;
+                  //  mc.timer.timerSpeed = 1.1f;
                 } else{
                     mc.timer.timerSpeed = 1.0f;
                 }
                 MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 3500);
+
+                break;
+
+            case"Watchdog":
+
+                if (mc.thePlayer.onGround) {
+                    mc.thePlayer.jump();
+                }
+                if(mc.thePlayer.onGround) {
+                    MovementUtils.strafe(0.50f);
+                }
+
+
 
                 break;
 

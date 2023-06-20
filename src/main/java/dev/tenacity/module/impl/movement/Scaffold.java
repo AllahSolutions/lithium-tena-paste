@@ -31,11 +31,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C09PacketHeldItemChange;
-import net.minecraft.network.play.client.C0APacketAnimation;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.BlockPos;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -47,8 +46,8 @@ public class Scaffold extends Module {
     private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog", "NCP", "Back", "Enum", "Down");
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
-    public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla", "Watchdog", "Cancel");
-    public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla", "BlocksMC");
+    public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
+    public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Watchdog", "BlocksMC");
     public static ModeSetting swingMode = new ModeSetting("Swing Mode", "Client", "Client", "Silent");
     public static NumberSetting delay = new NumberSetting("Delay", 0, 2, 0, 0.05);
     private final ModeSetting timerMode = new ModeSetting("Timer Mode", "Normal", "Normal", "Dynamic");
@@ -64,6 +63,7 @@ public class Scaffold extends Module {
     public static final BooleanSetting tower = new BooleanSetting("Tower", false);
     private final NumberSetting towerTimer = new NumberSetting("Tower Timer Boost", 1.2, 5, 0.1, 0.1);
     private final BooleanSetting swing = new BooleanSetting("Swing", true);
+    private final BooleanSetting LowMotion = new BooleanSetting("LowMotion", false);
     private final BooleanSetting autoJump = new BooleanSetting("Auto Jump", false);
     private final BooleanSetting hideJump = new BooleanSetting("Hide Jump", false);
     private final BooleanSetting baseSpeed = new BooleanSetting("Base Speed", false);
@@ -87,7 +87,7 @@ public class Scaffold extends Module {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
         this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay, timerMode, timer,
                 auto3rdPerson, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower, towerTimer,
-                swing, autoJump, hideJump, baseSpeed, keepY);
+                swing, autoJump, hideJump, baseSpeed, keepY,LowMotion);
         rotationMode.addParent(rotations, ParentAttribute.BOOLEAN_CONDITION);
         sprintMode.addParent(sprint, ParentAttribute.BOOLEAN_CONDITION);
         towerMode.addParent(tower, ParentAttribute.BOOLEAN_CONDITION);
@@ -110,6 +110,9 @@ public class Scaffold extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
+        if(LowMotion.isEnabled() && mc.thePlayer.onGround) {
+            MovementUtils.setSpeed(0.14f);
+        }
 
         // Timer Stuff
         if (!mc.gameSettings.keyBindJump.isKeyDown()) {
@@ -173,6 +176,9 @@ public class Scaffold extends Module {
                 final double[] offset = MathUtils.yawPos(mc.thePlayer.getDirection(), MovementUtils.getSpeed() / 2);
                 mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX - offset[0], mc.thePlayer.posY, mc.thePlayer.posZ - offset[1], true));
             }
+
+
+
 
             if (rotations.isEnabled()) {
                 float[] rotations = new float[] {0, 0};
@@ -275,6 +281,17 @@ public class Scaffold extends Module {
                         }
 
                         mc.thePlayer.setPosition(mc.thePlayer.posX, Math.floor(mc.thePlayer.posY), mc.thePlayer.posZ);
+                        break;
+
+                    case"Watchdog":
+                        if (!mc.gameSettings.keyBindJump.isKeyDown()) return;
+
+
+                        if (mc.thePlayer.onGround) {
+                            mc.thePlayer.motionY = 0.41999998688697815F;
+                            mc.thePlayer.motionX *= .65;
+                            mc.thePlayer.motionZ *= .65;
+                        }
                         break;
                 }
             }
@@ -515,6 +532,21 @@ public class Scaffold extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent e) {
+        switch (towerMode.getMode()) {
+            case"Watchdog":
+                final Packet<?> packet = e.getPacket();
+
+                if (mc.thePlayer.motionY > -0.0784000015258789 && !mc.thePlayer.isPotionActive(Potion.jump) && packet instanceof C08PacketPlayerBlockPlacement && MovementUtils.isMoving()) {
+                    final C08PacketPlayerBlockPlacement wrapper = ((C08PacketPlayerBlockPlacement) packet);
+
+                    if (wrapper.getPosition().equals(new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1.4, mc.thePlayer.posZ))) {
+                        mc.thePlayer.motionY = -0.0784000015258789;
+                    }
+                }
+
+
+                break;
+        }
         if (e.getPacket() instanceof C0BPacketEntityAction && sprint.isEnabled() && sprintMode.is("Cancel")) {
             e.cancel();
         }

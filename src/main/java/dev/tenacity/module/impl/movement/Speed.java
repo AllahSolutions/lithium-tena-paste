@@ -7,13 +7,14 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.time.TimerUtil;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 public final class Speed extends Module {
-    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila","Watchdog", "BlocksMC");
+    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vanilla", "Watchdog", "BlocksMC");
 
     private final TimerUtil timerUtil = new TimerUtil();
     private final float r = ThreadLocalRandom.current().nextFloat();
@@ -51,43 +52,41 @@ public final class Speed extends Module {
 
         switch (mode.getMode()) {
             case "BlocksMC":
-               if(mc.thePlayer.hurtTime >1) {
-                    MovementUtils.strafe(0.4f);
-               }
+                if (mc.thePlayer.hurtTime > 2) {
+                     MovementUtils.strafe(0.45f);
+                }
+
                 if (mc.thePlayer.onGround) {
-                    mc.thePlayer.jump();
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindJump.getKeyCode(), true);
+                } else {
+                    KeyBinding.setKeyBindState(mc.gameSettings.keyBindJump.getKeyCode(), false);
                 }
-                if(mc.thePlayer.onGround) {
-                  //  mc.timer.timerSpeed = 1.1f;
-                } else{
-                    mc.timer.timerSpeed = 1.0f;
+
+                if (mc.thePlayer.fallDistance > 0.75) {
+                    mc.timer.timerSpeed = 1.3F;
+                } else if (mc.thePlayer.fallDistance > 1.0F) {
+                    mc.timer.timerSpeed = 1.15f;
+                } else {
+                    mc.timer.timerSpeed = 1.0F;
                 }
+
                 MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 3500);
-
                 break;
 
-            case"Watchdog":
-
+            case "Watchdog":
                 if (mc.thePlayer.onGround) {
+                    MovementUtils.strafe(0.50f);
                     mc.thePlayer.jump();
                 }
-                if(mc.thePlayer.onGround) {
-                    MovementUtils.strafe(0.50f);
-                }
-
-
 
                 break;
 
-
-            case"Vannila":
-
+            case "Vanilla":
                 if (mc.thePlayer.onGround) {
                     mc.thePlayer.jump();
                 }
 
                 MovementUtils.strafe(1);
-
                 break;
         }
 

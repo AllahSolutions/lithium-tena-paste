@@ -275,9 +275,6 @@ public final class KillAura extends Module {
                 mc.thePlayer.rotationPitch = pitch;
             }
 
-            yaw = event.getYaw();
-            pitch = event.getPitch();
-
             if (showRotations.isEnabled())
                 RotationUtils.setVisualRotations(yaw, pitch);
         }

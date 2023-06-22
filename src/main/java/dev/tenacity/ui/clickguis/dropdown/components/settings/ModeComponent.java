@@ -50,7 +50,7 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
     public void drawScreen(int mouseX, int mouseY) {
         ModeSetting modeSetting = getSetting();
 
-        float boxHeight = 18;
+        float boxHeight = 15;
         float boxY = y + realHeight / 2f - (boxHeight / 2f) + 4;
         float boxX = x + 5;
         float boxWidth = width - 10;
@@ -72,14 +72,17 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
 
 
         // Gui.drawRect2(x,y,width,height, -1);
-        RoundedUtil.drawRound(boxX, boxY, boxWidth, boxHeight, 4, outlineColor);
-
-
-        RoundedUtil.drawRound(boxX + 1, boxY + 1, boxWidth - 2, boxHeight - 2, 3, rectColor);
+        RoundedUtil.drawRound(boxX, boxY, boxWidth, boxHeight, 0, outlineColor);
+        RoundedUtil.drawRound(boxX + 1, boxY + 1, boxWidth - 2, boxHeight - 2, 0, rectColor);
 
         tenacityFont14.drawString(modeSetting.name, boxX + 1, y + 3, textColor);
 
-        tenacityFont16.drawString(modeSetting.getMode(), boxX + 5, boxY + tenacityFont16.getMiddleOfBox(boxHeight), textColor);
+        tenacityFont16.drawString(
+                modeSetting.getMode(),
+                boxX + tenacityFont16.getMiddleOfBox(boxHeight),
+                boxY + tenacityFont16.getMiddleOfBox(boxHeight),
+                textColor
+        );
 
         if(themeSetting){
             MutablePair<Color, Color> themeColors = Theme.getThemeColors(modeSetting.getMode()).apply(MutablePair::of);
@@ -92,9 +95,9 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
             float middleOfRect = boxHeight /2f - height /2f;
             float spacing = 3;
             RoundedUtil.drawRound(boxX + 7.5f + tenacityFont16.getStringWidth(modeSetting.getMode()), boxY + middleOfRect,
-                    width, height, 2.25f, themeColors.getFirst());
+                    width, height, 0, themeColors.getFirst());
             RoundedUtil.drawRound(boxX + 7.5f + tenacityFont16.getStringWidth(modeSetting.getMode()) + (spacing + width), boxY + middleOfRect,
-                    width, height, 2.25f, themeColors.getSecond());
+                    width, height, 0, themeColors.getSecond());
         }
 
 
@@ -118,7 +121,7 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
             float modeHeight = (modeSetting.modes.size() - 1) * rectHeight;
             float modeY = boxY + boxHeight + 4;
             float modeX = boxX - .25f;
-            RoundedUtil.drawRound(modeX, modeY, boxWidth, Math.max(4, modeHeight * openAnim), 4,
+            RoundedUtil.drawRound(modeX, modeY, boxWidth, Math.max(4, modeHeight * openAnim), 0,
                     ColorUtil.applyOpacity(settingRectColor.brighter(), openAnim));
 
 

@@ -33,7 +33,7 @@ public class CategoryPanel implements Screen {
     private final Category category;
 
     private final float rectWidth = 105;
-    private final float categoryRectHeight = 15;
+    private final float categoryRectHeight = 17;
     @Getter
     private boolean typing;
 
@@ -123,44 +123,27 @@ public class CategoryPanel implements Screen {
         RenderUtil.resetColor();
         float realHeight = Math.min(actualHeight, Module.allowedClickGuiHeight);
 
-
-        if (ClickGUIMod.outlineAccent.isEnabled()) {
-            if (theme.equals(Theme.RED_COFFEE)) {
-                Color temp = clientFirst;
-                clientFirst = clientSecond;
-                clientSecond = temp;
-            }
-            if (DropdownClickGUI.gradient) {
-                RoundedUtil.drawGradientVertical(x - .75f, y - .5f, rectWidth + 1.5f, realHeight + categoryRectHeight + 1.5f, 5, clientFirst, clientSecond);
-            } else {
-                RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, realHeight + categoryRectHeight + 1.5f, 5, clientFirst);
-            }
-        } else {
-            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, realHeight + categoryRectHeight + 1.5f, 5,
-                    ColorUtil.tripleColor(20, alphaValue));
-            if (!ClickGUIMod.transparent.isEnabled()) {
-                Gui.drawRect2(x, y + categoryRectHeight, rectWidth, 3, clientFirst.getRGB());
-            }
-            if (DropdownClickGUI.gradient) {
-                RoundedUtil.drawGradientVertical(x + 1, y + categoryRectHeight + 1, rectWidth - 2, realHeight - 2, 4, clientFirst, clientSecond);
-            } else {
-                RoundedUtil.drawRound(x + .8f, y + categoryRectHeight + .8f, rectWidth - 1.6f, realHeight - 1.6f, 3.5f, clientFirst);
-            }
-
+        if (theme.equals(Theme.RED_COFFEE)) {
+            Color temp = clientFirst;
+            clientFirst = clientSecond;
+            clientSecond = temp;
         }
 
-
+        if (DropdownClickGUI.gradient) {
+            Gui.drawGradientRect(x - .75f, y - .5f, x + rectWidth + 1.5f, y + realHeight + categoryRectHeight + 1.5f, clientFirst.getRGB(), clientSecond.getRGB());
+        } else {
+            Gui.drawRect(x - .75f, y - .5f, x + rectWidth + 1.5f, y + realHeight + categoryRectHeight + 1.5f, clientFirst.getRGB());
+        }
 
         StencilUtil.initStencilToWrite();
-        RoundedUtil.drawRound(x + 1, y + categoryRectHeight + 5, rectWidth - 2, realHeight - 6, 3, Color.BLACK);
-        Gui.drawRect2(x, y + categoryRectHeight, rectWidth, 10, Color.BLACK.getRGB());
+        Gui.drawRect2(x, y + categoryRectHeight, rectWidth, realHeight, Color.BLACK.getRGB());
         StencilUtil.readStencilBuffer(1);
 
 
         double scroll = category.getScroll().getScroll();
         double count = 0;
 
-        float rectHeight = 15F;
+        float rectHeight = 17F;
 
 
         for (ModuleRect moduleRect : getModuleRects()) {
@@ -173,7 +156,7 @@ public class CategoryPanel implements Screen {
             moduleRect.drawScreen(mouseX, mouseY);
 
             // count ups by one but then accounts for setting animation opening
-            count += 1 + (moduleRect.getSettingSize() * (16 / 15f));
+            count += 1 + (moduleRect.getSettingSize() * (16 / rectHeight));
         }
 
         typing = getModuleRects().stream().anyMatch(ModuleRect::isTyping);
@@ -189,7 +172,6 @@ public class CategoryPanel implements Screen {
 
         StencilUtil.uninitStencilBuffer();
         RenderUtil.resetColor();
-
 
         float yMovement;
         switch (category.name) {
@@ -211,15 +193,24 @@ public class CategoryPanel implements Screen {
 
         }
 
+        RenderUtil.resetColor();
+        float textWidth = tenacityBoldFont22.getStringWidth(category.name);
+
+        iconFont20.drawCenteredString(
+                category.icon,
+                x + iconFont20.getMiddleOfBox(categoryRectHeight) + yMovement + 3,
+                y + iconFont20.getMiddleOfBox(categoryRectHeight) + yMovement,
+                textColor
+        );
 
         RenderUtil.resetColor();
-        float textWidth = tenacityBoldFont22.getStringWidth(category.name + " ") / 2f;
-        iconFont20.drawCenteredString(category.icon, x + rectWidth / 2f + textWidth,
-                y + iconFont20.getMiddleOfBox(categoryRectHeight) + yMovement, textColor);
 
-        RenderUtil.resetColor();
-        tenacityBoldFont22.drawString(category.name, x + ((rectWidth / 2f - textWidth) - (iconFont20.getStringWidth(category.icon) / 2f)),
-                y + tenacityBoldFont22.getMiddleOfBox(categoryRectHeight), textColor);
+        tenacityBoldFont22.drawString(
+                category.name,
+                x + rectWidth - textWidth - 3,
+                y + tenacityBoldFont22.getMiddleOfBox(categoryRectHeight),
+                textColor
+        );
 
     }
 
@@ -238,12 +229,6 @@ public class CategoryPanel implements Screen {
         float allowedHeight = Math.min(actualHeight, Module.allowedClickGuiHeight);
         boolean glow = PostProcessing.glowOptions.getSetting("ClickGui").isEnabled();
 
-        if(!ClickGUIMod.outlineAccent.isEnabled()){
-            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5, Color.BLACK);
-            return;
-        }
-
-
         if (DropdownClickGUI.gradient && glow && ClickGUIMod.outlineAccent.isEnabled()) {
             if (theme.equals(Theme.RED_COFFEE)) {
                 Color temp = clientFirst;
@@ -255,8 +240,8 @@ public class CategoryPanel implements Screen {
                     clientFirst, clientSecond);
 
         } else {
-            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5, (glow && ClickGUIMod.outlineAccent.isEnabled()) ? clientFirst :
-                    ColorUtil.applyOpacity(Color.BLACK, alpha));
+//            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5, (glow && ClickGUIMod.outlineAccent.isEnabled()) ? clientFirst :
+//                    ColorUtil.applyOpacity(Color.BLACK, alpha));
         }
     }
 

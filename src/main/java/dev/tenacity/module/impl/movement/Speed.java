@@ -32,14 +32,6 @@ public final class Speed extends Module {
     }
 
     @Override
-    public void onPacketReceiveEvent(PacketReceiveEvent e) {
-
-        if (e.getPacket() instanceof S08PacketPlayerPosLook) {
-          //  this.setEnabled(false);
-        }
-    }
-
-    @Override
     public void onMotionEvent(MotionEvent event) {
         this.setSuffix(mode.getMode());
 
@@ -74,41 +66,15 @@ public final class Speed extends Module {
 
                 break;
 
-
-            case"NoRule":
-                // if(!mc.thePlayer.onGround) {
-                // if (mc.thePlayer.fallDistance > 2) {
-
-                // mc.thePlayer.fallDistance = 0;
-                // }
-                // if (mc.thePlayer.ticksExisted % 3 != 0) {
-
-                // mc.thePlayer.motionY = -0.0972;
-
-                // }
-                // else {
-                // mc.thePlayer.motionY += 0.016;
-//    	            / mc.thePlayer.motionY += 0.026;
-                // }
-                // }
-
-
+            case "NoRule":
                  mc.timer.timerSpeed = 1.3f;
-                // mc.timer.timerSpeed = 1.314f;
-                // e.setY(mc.thePlayer.motionY = 0.41999998688697815F);
 
                 if (mc.thePlayer.onGround) {
                     MovementUtils.strafe(1f);
-                  mc.thePlayer.jump();
-
-
-
+                    mc.thePlayer.jump();
                 }
 
                 MovementUtils.strafe(0.46f);
-
-
-
                 break;
 
             case"Strafe":
@@ -116,9 +82,7 @@ public final class Speed extends Module {
                     mc.thePlayer.jump();
                 }
 
-                    MovementUtils.strafe(MovementUtils.getSpeed());
-
-
+                MovementUtils.strafe(MovementUtils.getSpeed());
 
                 break;
 

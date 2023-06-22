@@ -60,8 +60,7 @@ public class KeybindComponent extends SettingComponent<KeybindSetting> {
         hoverAnimation.setDirection(hovering ? Direction.FORWARDS : Direction.BACKWARDS);
 
         Color rectColor = ColorUtil.brighter(settingRectColor, .7f - (.25f * hoverAnimation.getOutput().floatValue()));
-        RoundedUtil.drawRound(startX - 3, startY - 2, fullTextWidth + 6, tenacityFont16.getHeight() + 4, 4, rectColor);
-
+        RoundedUtil.drawRound(startX - 3, startY - 2, fullTextWidth + 6, tenacityFont16.getHeight() + 4, 0, rectColor);
 
         tenacityFont16.drawCenteredString("Bind: §l" + bind, x + width /2f, y + tenacityFont16.getMiddleOfBox(height), textColor);
     }

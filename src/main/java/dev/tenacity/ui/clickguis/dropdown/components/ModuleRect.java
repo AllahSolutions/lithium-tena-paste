@@ -105,9 +105,7 @@ public class ModuleRect implements Screen {
         toggleAnimation.setDirection(module.isEnabled() ? Direction.FORWARDS : Direction.BACKWARDS);
         settingAnimation.setDirection(module.isExpanded() ? Direction.FORWARDS : Direction.BACKWARDS);
 
-
         boolean hoveringModule = HoveringUtil.isHovering(x, y, width, height, mouseX, mouseY);
-
 
         hoverAnimation.setDirection(hoveringModule ? Direction.FORWARDS : Direction.BACKWARDS);
         hoverAnimation.setDuration(hoveringModule ? 250 : 400);
@@ -149,7 +147,12 @@ public class ModuleRect implements Screen {
 
         RenderUtil.resetColor();
 
-        tenacityFont20.drawString(module.getName(), x + width / 2F - tenacityFont20.getStringWidth(module.getName()) / 2F, y + tenacityFont20.getMiddleOfBox(height), moduleTextColor);
+        tenacityFont20.drawString(
+                module.getName(),
+                x + tenacityFont20.getMiddleOfBox(height),
+                y + tenacityFont20.getMiddleOfBox(height),
+                moduleTextColor
+        );
 
 
         Color settingRectColor = ColorUtil.tripleColor(32, alpha);

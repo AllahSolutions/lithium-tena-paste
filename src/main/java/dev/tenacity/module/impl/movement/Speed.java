@@ -46,7 +46,7 @@ public final class Speed extends Module {
         switch (mode.getMode()) {
             case "BlocksMC":
                 if (mc.thePlayer.hurtTime > 2) {
-                     MovementUtils.strafe(0.45f);
+                     MovementUtils.strafe(0.35f);
                 }
 
                 if (mc.thePlayer.onGround) {
@@ -55,14 +55,7 @@ public final class Speed extends Module {
                     KeyBinding.setKeyBindState(mc.gameSettings.keyBindJump.getKeyCode(), false);
                 }
 
-                if (mc.thePlayer.fallDistance > 0.75) {
-                    mc.timer.timerSpeed = 1.3F;
-                } else if (mc.thePlayer.fallDistance > 1.0F) {
-                    mc.timer.timerSpeed = 1.15f;
-                } else {
-                    mc.timer.timerSpeed = 1.0F;
-                }
-                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 6500);
+                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 2500);
 
                 break;
 
@@ -94,7 +87,7 @@ public final class Speed extends Module {
 
                 break;
 
-            case "Vannila":
+            case "Vanilla":
                 if (mc.thePlayer.onGround) {
                     mc.thePlayer.jump();
                 }

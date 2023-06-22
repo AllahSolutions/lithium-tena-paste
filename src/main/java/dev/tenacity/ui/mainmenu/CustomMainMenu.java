@@ -60,9 +60,9 @@ public class CustomMainMenu extends GuiScreen {
         height = sr.getScaledHeight();
 
         RoundedUtil.drawGradientCornerRL(
-                0, 0,width, height,1,
-                HUDMod.getClientColors().getFirst().darker(),
-                HUDMod.getClientColors().getSecond().darker()
+                0, 0,width, height, 0,
+                HUDMod.getClientColors().getFirst().darker().darker().darker(),
+                HUDMod.getClientColors().getSecond().darker().darker().darker()
         );
 
         RoundedUtil.drawGradientCornerRL(
@@ -70,17 +70,8 @@ public class CustomMainMenu extends GuiScreen {
                 height / 2.0F - 130,
                 240, 275,
                 5,
-                HUDMod.getClientColors().getFirst().darker(),
-                HUDMod.getClientColors().getSecond()
-        );
-
-        RoundedUtil.drawGradientCornerRL(
-                width / 2.0F - 120,
-                height / 2.0F - 130,
-                240, 275,
-                5,
-                new Color(100, 100, 100, 80),
-                new Color(150, 155, 155, 80)
+                new Color(0, 0, 0, 80),
+                new Color(0, 0, 0, 80)
         );
 
         float buttonWidth = 140;

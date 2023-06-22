@@ -53,10 +53,8 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
     public void drawScreen(int mouseX, int mouseY) {
         ModeSetting modeSetting = getSetting();
 
-        this.height = 20;
-
-        float boxHeight = 20;
-        float boxY = y + realHeight / 2f - (boxHeight / 2f) + 4;
+        float boxHeight = 24;
+        float boxY = y + realHeight / 2f - (boxHeight / 2f) + 2;
         float boxX = x + 5;
         float boxWidth = width - 10;
 
@@ -65,9 +63,8 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
         hoverAnimation.setDirection(hoveringBox ? Direction.FORWARDS : Direction.BACKWARDS);
         openAnimation.setDirection(opened ? Direction.FORWARDS : Direction.BACKWARDS);
 
-        Color rectColor = ColorUtil.interpolateColorC(settingRectColor, settingRectColor.darker(),
+        Color rectColor = ColorUtil.interpolateColorC(settingRectColor, settingRectColor,
                 (.5f * hoverAnimation.getOutput().floatValue()) + (openAnimation.getOutput().floatValue()));
-
 
         Gui.drawRect(boxX, boxY, boxX + boxWidth, boxY + boxHeight, rectColor.getRGB());
 
@@ -85,7 +82,7 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
                 textColor
         );
 
-        float arrowX = boxX + boxWidth - 11;
+        float arrowX = boxX + boxWidth - 12;
         float arrowY = boxY + iconFont20.getMiddleOfBox(boxHeight) + 1;
         float openAnim = openAnimation.getOutput().floatValue();
 
@@ -100,7 +97,7 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
             float modeHeight = modeSetting.modes.size() * rectHeight;
             float modeY = boxY + boxHeight + 4;
             float modeX = boxX - .25f;
-            RoundedUtil.drawRound(modeX, modeY, boxWidth, Math.max(4, modeHeight * openAnim), 0, settingRectColor.darker());
+            RoundedUtil.drawRound(modeX, modeY, boxWidth, Math.max(4, modeHeight * openAnim), 0, settingRectColor);
 
             boolean mouseOutsideRect = (mouseY < modeY || mouseY > modeY + modeHeight) || (mouseX < modeX || mouseX > modeX + boxWidth);
 

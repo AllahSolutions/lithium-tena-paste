@@ -13,11 +13,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 public final class Speed extends Module {
-    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila","Watchdog", "BlocksMC");
+    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila","NoRule","Watchdog","Strafe", "BlocksMC");
 
     private final TimerUtil timerUtil = new TimerUtil();
     private final float r = ThreadLocalRandom.current().nextFloat();
     private double speed, lastDist;
+    private float movementSpeed = 0;
     private float speedChangingDirection;
     private int stage;
     private boolean strafe, wasOnGround;
@@ -62,7 +63,55 @@ public final class Speed extends Module {
                 } else{
                     mc.timer.timerSpeed = 1.0f;
                 }
-                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 3500);
+                MovementUtils.strafe(MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 6500);
+
+                break;
+
+
+            case"NoRule":
+                // if(!mc.thePlayer.onGround) {
+                // if (mc.thePlayer.fallDistance > 2) {
+
+                // mc.thePlayer.fallDistance = 0;
+                // }
+                // if (mc.thePlayer.ticksExisted % 3 != 0) {
+
+                // mc.thePlayer.motionY = -0.0972;
+
+                // }
+                // else {
+                // mc.thePlayer.motionY += 0.016;
+//    	            / mc.thePlayer.motionY += 0.026;
+                // }
+                // }
+
+
+                 mc.timer.timerSpeed = 1.3f;
+                // mc.timer.timerSpeed = 1.314f;
+                // e.setY(mc.thePlayer.motionY = 0.41999998688697815F);
+
+                if (mc.thePlayer.onGround) {
+                    MovementUtils.strafe(1f);
+                  mc.thePlayer.jump();
+
+
+
+                }
+
+                MovementUtils.strafe(0.46f);
+
+
+
+                break;
+
+            case"Strafe":
+                if (mc.thePlayer.onGround) {
+                    mc.thePlayer.jump();
+                }
+
+                    MovementUtils.strafe(MovementUtils.getSpeed());
+
+
 
                 break;
 

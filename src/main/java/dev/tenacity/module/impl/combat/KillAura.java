@@ -19,6 +19,7 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.Random;
+import dev.tenacity.utils.player.Advancedrots;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.server.PacketUtils;
@@ -49,7 +50,7 @@ public final class KillAura extends Module {
 
     public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
             blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "PostAttack", "BlocksMC"),
-            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal", "Smooth"),
+            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth"),
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All"),
             blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
@@ -257,6 +258,12 @@ public final class KillAura extends Module {
                 case "Normal":
                     rotations = RotationUtils.getRotationsNeeded(target);
                     break;
+
+                case"Advanced":
+                    
+                    rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
+
+                    break;
                 case "Smooth":
                     rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
                     break;
@@ -268,6 +275,7 @@ public final class KillAura extends Module {
             pitch = fixedRotations[1];
 
             if (silentRotations.isEnabled()) {
+
                 event.setYaw(yaw);
                 event.setPitch(pitch);
             } else {

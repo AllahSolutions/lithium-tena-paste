@@ -32,7 +32,7 @@ public class Chams extends Module {
     private final ModeSetting behindWalls = new ModeSetting("Not Visible", "Sync", "Sync", "Opposite", "Red", "Custom");
     private final ColorSetting wallColor = new ColorSetting("Not Visible Color", Color.red);
     private final ModeSetting visibleColorMode = new ModeSetting("Visible", "Sync", "Sync", "Custom");
-    private final ColorSetting visibleColor = new ColorSetting("Visible Color", Color.BLUE);
+    private final ColorSetting visibleColor = new ColorSetting("Visible Color", new Color(255,255,255,100));
 
 
     public Chams() {

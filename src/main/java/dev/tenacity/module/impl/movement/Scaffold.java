@@ -16,6 +16,7 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
@@ -124,10 +125,16 @@ public class Scaffold extends Module {
                 case "Dynamic":
                     if (dynamicTimerUtil.hasTimeElapsed(Math.random() * 15)) {
                         if (mc.thePlayer.ticksExisted % 6 == 0) {
+                            if (mc.thePlayer.ticksExisted % 40 == 0) {
+                                ChatUtil.print("Randomized");
+                            }
                             mc.timer.timerSpeed = timer.getValue().floatValue() * 1.2F;
                         } else if (mc.thePlayer.ticksExisted % 3 == 0) {
                             mc.timer.timerSpeed = timer.getValue().floatValue();
                         } else {
+                            if (mc.thePlayer.ticksExisted % 50 == 0) {
+                                ChatUtil.print("Reset");
+                            }
                             mc.timer.timerSpeed = 1.0F;
                         }
                         dynamicTimerUtil.reset();
@@ -142,10 +149,17 @@ public class Scaffold extends Module {
                     break;
                 case "Dynamic":
                     if (mc.thePlayer.ticksExisted % 6 == 0) {
+                        if (mc.thePlayer.ticksExisted % 40 == 0) {
+                            ChatUtil.print("Randomized");
+                        }
                         mc.timer.timerSpeed = timer.getValue().floatValue() * 1.2F;
                     } else if (mc.thePlayer.ticksExisted % 3 == 0) {
+
                         mc.timer.timerSpeed = timer.getValue().floatValue();
                     } else {
+                        if (mc.thePlayer.ticksExisted % 50 == 0) {
+                            ChatUtil.print("Reset");
+                        }
                         mc.timer.timerSpeed = 1.0F;
                     }
                     break;

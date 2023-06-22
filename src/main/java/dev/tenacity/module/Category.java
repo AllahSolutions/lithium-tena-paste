@@ -30,7 +30,7 @@ public enum Category {
     Category(String name, String icon) {
         this.name = name;
         this.icon = icon;
-        posX = 20 + (Module.categoryCount * 120);
+        posX = 20 + (Module.categoryCount * 142);
         drag = new Drag(posX, posY);
         expanded = true;
         Module.categoryCount++;

@@ -8,12 +8,13 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.clickguis.compact.CompactClickgui;
 import dev.tenacity.ui.clickguis.dropdown.DropdownClickGUI;
 import dev.tenacity.ui.clickguis.modern.ModernClickGui;
+import dev.tenacity.ui.clickguis.zeroday.ZerodayClickGUI;
 import dev.tenacity.utils.render.Theme;
 import org.lwjgl.input.Keyboard;
 
 public class ClickGUIMod extends Module {
 
-    public static final ModeSetting clickguiMode = new ModeSetting("ClickGui", "Dropdown", "Dropdown", "Modern", "Compact");
+    public static final ModeSetting clickguiMode = new ModeSetting("ClickGui", "Dropdown", "Dropdown", "Modern", "Compact", "ZeroDay");
     public static final ModeSetting scrollMode = new ModeSetting("Scroll Mode", "Screen Height", "Screen Height", "Value");
     public static final BooleanSetting gradient = new BooleanSetting("Gradient", false);
     public static final BooleanSetting outlineAccent = new BooleanSetting("Outline Accent", true);
@@ -25,6 +26,7 @@ public class ClickGUIMod extends Module {
     public static final DropdownClickGUI dropdownClickGui = new DropdownClickGUI();
     public static final ModernClickGui modernClickGui = new ModernClickGui();
     public static final CompactClickgui compactClickgui = new CompactClickgui();
+    public static final ZerodayClickGUI zeroDayClickGUI = new ZerodayClickGUI();
 
     private int activeCategory = 0;
     private Category activeCategory2 = Category.COMBAT;
@@ -62,6 +64,9 @@ public class ClickGUIMod extends Module {
                 break;
             case "Compact":
                 mc.displayGuiScreen(compactClickgui);
+                break;
+            case "ZeroDay":
+                mc.displayGuiScreen(zeroDayClickGUI);
                 break;
         }
     }

@@ -129,7 +129,7 @@ public final class KillAura extends Module {
         this.maxTargets.addParent(attackMode, a -> !attackMode.is("Single"));
 
         this.blockChance.addParent(blockMode, a -> !blockMode.is("None") && !blockMode.is("Fake"));
-        this.switchDelay.addParent(rotationMode, a -> !rotationMode.is("Switch"));
+        this.switchDelay.addParent(rotationMode, a -> rotationMode.is("Switch"));
 
         this.silentRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
         this.showRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
@@ -259,12 +259,6 @@ public final class KillAura extends Module {
                 case "Normal":
                     rotations = RotationUtils.getRotationsNeeded(target);
                     break;
-
-                case"Advanced":
-                    
-                    rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
-
-                    break;
                 case "Smooth":
                     rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
                     break;
@@ -392,9 +386,6 @@ public final class KillAura extends Module {
 
         if (bypass.getSetting("Ray Tracing").isEnabled() && !RotationUtils.isMouseOver(yaw, pitch, target, attackRange.getValue().floatValue()))
             return;
-        if(Tenacity.INSTANCE.getModuleCollection().get(Breaker.class).isEnabled()) {
-            return;
-        }
 
         if (mc.thePlayer.getDistanceToEntity(entity) <= attackRange.getValue()) {
 

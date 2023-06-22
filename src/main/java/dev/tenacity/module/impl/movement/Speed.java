@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 public final class Speed extends Module {
-    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vannila","NoRule","Watchdog","Strafe", "BlocksMC");
+    private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vanilla","NoRule","Watchdog","Strafe", "BlocksMC");
 
     private final TimerUtil timerUtil = new TimerUtil();
     private final float r = ThreadLocalRandom.current().nextFloat();

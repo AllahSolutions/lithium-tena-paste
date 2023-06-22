@@ -255,6 +255,7 @@ public final class KillAura extends Module {
             float[] rotations = new float[] {0, 0};
 
             switch (rotationMode.getMode()) {
+
                 case "Normal":
                     rotations = RotationUtils.getRotationsNeeded(target);
                     break;

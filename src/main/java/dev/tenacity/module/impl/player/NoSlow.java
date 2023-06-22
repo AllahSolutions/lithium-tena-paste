@@ -15,7 +15,7 @@ import net.minecraft.util.EnumFacing;
 
 public class NoSlow extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla","MMC", "NCP","Switch", "Watchdog");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla","Exploit","MMC", "NCP","Switch", "Watchdog");
     private boolean synced;
 
     public NoSlow() {

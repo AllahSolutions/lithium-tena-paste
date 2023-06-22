@@ -38,7 +38,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -51,6 +51,8 @@ public final class Flight extends Module {
     private boolean doFly;
     private double x, y, z;
     private double lastX, lastY, lastZ;
+    public boolean setback;
+    private int runningTicks = 0;
     private final CopyOnWriteArrayList<Packet> packets = new CopyOnWriteArrayList<>();
     private boolean hasClipped;
     private int slot = 0;
@@ -102,6 +104,32 @@ public final class Flight extends Module {
             case "Vanilla":
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
                 TargetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
+                break;
+
+
+            case"VulcanFast":
+                mc.timer.timerSpeed = 0.78f;
+                if (!setback) {
+
+                    MovementUtils.setSpeed(e, 0.0);
+
+                } else {
+
+                   MovementUtils.setSpeed(e, 9);
+                }
+                //maybe dont set the ground
+                //mc.thePlayer.onGround = false;
+
+
+                //runningTicks++;
+                if(mc.thePlayer.ticksExisted % 6 == 0) {
+                    //  if (runningTicks >= 6) {
+                    MovementUtils.strafe(0.0f);
+
+                    return;
+                }
+
+
                 break;
             case "Watchdog":
                 e.setSpeed(0);
@@ -159,6 +187,13 @@ public final class Flight extends Module {
                 break;
 
 
+            case"VulcanFast":
+                mc.thePlayer.motionY = 0.0;
+
+
+                break;
+
+
             case"Vulcan Timer":
 
 
@@ -178,6 +213,9 @@ public final class Flight extends Module {
 
 
                 break;
+
+
+
             case "Vulcan":
                 if(e.isPre()) {
                     mc.thePlayer.motionY = 0;
@@ -368,6 +406,20 @@ public final class Flight extends Module {
                 e.cancel();
             }
         }
+        if(mode.is("VulcanFast")) {
+            if (e.getPacket() instanceof S08PacketPlayerPosLook && !setback) {
+                final S08PacketPlayerPosLook S08 = (S08PacketPlayerPosLook) e.getPacket();
+
+                setback= true;
+
+                mc.thePlayer.posX = S08.getX();
+                mc.thePlayer.posY = S08.getY();
+                mc.thePlayer.posZ = S08.getZ();
+                return;
+            }
+
+        }
+
         if (e.getPacket() instanceof S08PacketPlayerPosLook && !hasS08) {
             S08PacketPlayerPosLook s08 = (S08PacketPlayerPosLook) e.getPacket();
             hasS08 = true;
@@ -376,6 +428,23 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
+        if (mode.is("VulcanFast")) {
+            runningTicks = 0;
+            setback = false;
+
+            if (mc.thePlayer == null) {
+
+                return;
+            }
+
+            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ, false));
+
+
+
+
+
+
+        }
         Flags = 0;
 
         if (mode.is("Vulcan Timer")) {

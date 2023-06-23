@@ -46,7 +46,7 @@ public final class Speed extends Module {
 
             case"Strafe":
                 TargetStrafe.strafe(e, MovementUtils.getSpeed());
-                MovementUtils.strafe(MovementUtils.getSpeed());
+                MovementUtils.strafe(MovementUtils.getSpeed() * 1.01f);
 
 
                 break;

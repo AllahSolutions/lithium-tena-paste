@@ -94,7 +94,7 @@ public final class Speed extends Module {
 
                 break;
 
-            case "Vannila":
+            case "Vanilla":
                 if (mc.thePlayer.onGround) {
                     mc.thePlayer.jump();
                 }

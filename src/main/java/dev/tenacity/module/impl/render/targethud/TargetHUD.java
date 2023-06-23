@@ -57,6 +57,7 @@ public abstract class TargetHUD implements Utils {
         targetHuds.put(AkrienTargetHUD.class, new AkrienTargetHUD());
         targetHuds.put(AstolfoTargetHUD.class, new AstolfoTargetHUD());
         targetHuds.put(NovolineTargetHUD.class, new NovolineTargetHUD());
+        targetHuds.put(ZeroDayTargetHUD.class, new ZeroDayTargetHUD());
     }
 
     public void setWidth(float width) {

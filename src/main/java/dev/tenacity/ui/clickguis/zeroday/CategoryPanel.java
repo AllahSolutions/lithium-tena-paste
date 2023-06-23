@@ -121,6 +121,13 @@ public class CategoryPanel implements Screen {
                 ColorUtil.rainbow(10, (int) (x + rectWidth) / 10, 0.35F, 0.8F, 1.0F)
         );
 
+        Gui.drawRect(
+                x, y,
+                x + categoryRectHeight,
+                y + categoryRectHeight,
+                0x30000000
+        );
+
         StencilUtil.initStencilToWrite();
         Gui.drawRect2(x, y + categoryRectHeight, rectWidth, realHeight, Color.BLACK.getRGB());
         StencilUtil.readStencilBuffer(1);

@@ -39,7 +39,7 @@ public class CategoryPanel implements Screen {
     private final Category category;
 
     private final float rectWidth = 120;
-    private final float categoryRectHeight = 22;
+    private final float categoryRectHeight = 24;
     @Getter
     private boolean typing;
 
@@ -166,18 +166,18 @@ public class CategoryPanel implements Screen {
 
         Gui.drawGradientRect(
                 x, y + categoryRectHeight,
-                x + rectWidth, y + categoryRectHeight + 10,
-                0x35000000,
+                x + rectWidth, y + categoryRectHeight + 20,
+                0x45000000,
                 0x00000000
         );
 
         Gui.drawGradientRect(
                 x,
-                y + realHeight + 22 - 10,
+                y + realHeight + categoryRectHeight - 20,
                 x + rectWidth,
-                y + realHeight + 22,
+                y + realHeight + categoryRectHeight,
                 0x00000000,
-                0x25000000
+                0x45000000
         );
 
         float yMovement;
@@ -218,6 +218,11 @@ public class CategoryPanel implements Screen {
                 textColor
         );
 
+        RenderUtil.fakeCircleGlow(
+                x + iconFont26.getMiddleOfBox(categoryRectHeight) + yMovement + 4.8F,
+                y + iconFont26.getMiddleOfBox(categoryRectHeight) + yMovement + 4.8F,
+                12, Color.WHITE, 0.45F
+        );
     }
 
     public void renderEffects() {

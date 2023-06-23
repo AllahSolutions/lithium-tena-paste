@@ -259,6 +259,13 @@ public final class KillAura extends Module {
                 case "Normal":
                     rotations = RotationUtils.getRotationsNeeded(target);
                     break;
+
+
+                case"Advanced":
+                    rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
+
+
+                    break;
                 case "Smooth":
                     rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
                     break;

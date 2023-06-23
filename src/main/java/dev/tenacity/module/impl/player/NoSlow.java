@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.player;
 
+import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.event.impl.player.SlowDownEvent;
 import dev.tenacity.module.Category;
@@ -10,6 +11,7 @@ import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
@@ -26,6 +28,28 @@ public class NoSlow extends Module {
     @Override
     public void onSlowDownEvent(SlowDownEvent event) {
         event.cancel();
+    }
+
+    @Override
+    public void onPacketSendEvent(PacketSendEvent event) {
+        switch (mode.getMode()) {
+            case"Exploit":
+                if(mc.thePlayer.isUsingItem()) {
+                    if (event.getPacket() instanceof C07PacketPlayerDigging) {
+                        final C07PacketPlayerDigging wrapper = (C07PacketPlayerDigging) event.getPacket();
+
+                        if (wrapper.getClass().equals(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
+                            event.cancel();
+
+
+                        }
+                    }
+                }
+
+
+                break;
+        }
+
     }
 
     @Override

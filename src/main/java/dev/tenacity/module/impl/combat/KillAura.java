@@ -263,6 +263,7 @@ public final class KillAura extends Module {
 
                 case"Advanced":
                     rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
+                    
 
 
                     break;

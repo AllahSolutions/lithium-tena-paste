@@ -407,6 +407,19 @@ public class ItemRenderer {
                                         GlStateManager.rotate(-var15, 4, -0.8F, -1F);
                                         this.doBlockTransformations();
                                         break;
+
+
+                                    case"Lithium":
+                                        this.transformFirstPersonItem(f / 2, 0);
+                                        GlStateManager.rotate(-var16 * 30.0F / 2.0F, var16 / 5.0F, -0.0F, 9.0F);
+                                        GlStateManager.rotate(-var16 * 20.0F, 1.0F, var16 / 2.0F, -0.0F);
+                                        this.doBlockTransformations();
+                                        GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0.0F, 0.1F);
+                                        // GlStateManager.scale(0.7, 0.7, 0.7);
+
+
+
+                                        break;
                                     case "Exhi":
 
                                         this.transformFirstPersonItem(f / 2, 0);

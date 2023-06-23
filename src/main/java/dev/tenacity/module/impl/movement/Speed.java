@@ -2,8 +2,10 @@ package dev.tenacity.module.impl.movement;
 
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.MoveEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
+import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.time.TimerUtil;
@@ -30,6 +32,29 @@ public final class Speed extends Module {
         super("Speed", Category.MOVEMENT, "Makes you go faster");
         this.addSettings(mode);
     }
+    @Override
+    public void onMoveEvent(MoveEvent e) {
+        switch (mode.getMode()) {
+            case "Vanilla":
+
+
+                TargetStrafe.strafe(e, 1);
+                MovementUtils.strafe(1);
+
+                break;
+
+
+            case"Strafe":
+                TargetStrafe.strafe(e, MovementUtils.getSpeed());
+                MovementUtils.strafe(MovementUtils.getSpeed());
+
+
+                break;
+
+        }
+
+    }
+
 
     @Override
     public void onMotionEvent(MotionEvent event) {
@@ -82,7 +107,7 @@ public final class Speed extends Module {
                     mc.thePlayer.jump();
                 }
 
-                MovementUtils.strafe(MovementUtils.getSpeed());
+
 
                 break;
 
@@ -99,7 +124,9 @@ public final class Speed extends Module {
                     mc.thePlayer.jump();
                 }
 
-                MovementUtils.strafe(1);
+
+
+
                 break;
         }
 

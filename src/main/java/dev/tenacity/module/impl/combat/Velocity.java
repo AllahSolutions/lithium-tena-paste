@@ -21,7 +21,7 @@ import net.minecraft.network.play.server.S27PacketExplosion;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet","MMC", "Matrix", "Tick", "Stack", "C0F Cancel");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet","MMC","Reverse", "Matrix", "Tick", "Stack", "C0F Cancel");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
     private final NumberSetting chance = new NumberSetting("Chance", 100, 100, 0, 1);
@@ -75,6 +75,21 @@ public class Velocity extends Module {
                         lastDamageTimestamp = System.currentTimeMillis();
                     }
                 }
+                break;
+
+
+            case"Reverse":
+                if (e.getPacket() instanceof S12PacketEntityVelocity) {
+
+
+                    S12PacketEntityVelocity packet3 = (S12PacketEntityVelocity)e.getPacket();
+
+                    packet3.motionX = -packet3.motionX;
+                    packet3.motionZ = -packet3.motionZ;
+                    //e.setCancelled(true);
+                }
+
+
                 break;
 
             case "MMC":

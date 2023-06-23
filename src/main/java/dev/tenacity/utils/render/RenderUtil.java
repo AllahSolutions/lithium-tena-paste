@@ -407,6 +407,24 @@ public class RenderUtil implements Utils {
         GLUtil.end2DRendering();
     }
 
+    public static void drawCircleNotSmoothHollow(double x, double y, double radius, float line, int color) {
+        radius /= 2;
+        GLUtil.setup2DRendering();
+        glDisable(GL_CULL_FACE);
+        color(color);
+        glLineWidth(line);
+        glBegin(GL_LINE_LOOP);
+
+        for (double i = 0; i <= 360; i++) {
+            double angle = i * .01745;
+            glVertex2d(x + (radius * Math.cos(angle)) + radius, y + (radius * Math.sin(angle)) + radius);
+        }
+
+        glEnd();
+        glEnable(GL_CULL_FACE);
+        GLUtil.end2DRendering();
+    }
+
     public static void scissor(double x, double y, double width, double height, Runnable data) {
         glEnable(GL_SCISSOR_TEST);
         scissor(x, y, width, height);

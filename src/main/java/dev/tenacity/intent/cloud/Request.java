@@ -27,16 +27,6 @@ public class Request {
     }
 
     public JsonObject post() {
-        String apiKey = //Tenacity.RELEASE.equals(ReleaseType.DEV) ? "BBsb8XT5k4PQ" :
-                Cloud.getApiKey();
-        getMap.put("key", apiKey);
-        getMap.put("product_code", Cloud.getProductCode());
-
-        JsonObject response = Cloud.request(url, getMap, postMap);
-        if (response != null && response.has("response")) {
-            return response.isJsonObject() ? response.getAsJsonObject() : response;
-        }
-
         return null;
     }
 

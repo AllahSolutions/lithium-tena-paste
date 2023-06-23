@@ -98,7 +98,7 @@ public class SideGUIHotbar implements Screen {
             refreshButton.setY(carouselButtons.getY() + 1 + carouselButtons.getRectHeight() / 2f - refreshButton.getHeight() / 2f);
             refreshButton.setAccentColor(Color.WHITE);
             refreshButton.setIconFont(iconFont20);
-            refreshButton.setClickAction(() -> Multithreading.runAsync(() -> Tenacity.INSTANCE.getCloudDataManager().refreshData()));
+            refreshButton.setClickAction(() -> Tenacity.INSTANCE.getConfigManager().collectConfigs());
 
             boolean refreshing = Tenacity.INSTANCE.getCloudDataManager().isRefreshing();
             if (refreshing) {

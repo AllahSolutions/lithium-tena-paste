@@ -35,7 +35,6 @@ public class AstolfoTargetHUD extends TargetHUD {
 
         Color c1 = ColorUtil.applyOpacity(HUDMod.getClientColors().getFirst(), alpha);
         Color c2 = ColorUtil.applyOpacity(HUDMod.getClientColors().getSecond(), alpha);
-        int textColor = ColorUtil.applyOpacity(-1, alpha);
 
         // Draw background
         Gui.drawRect2(x, y, width, 45, new Color(0, 0, 0, (0.6F * alpha)).getRGB());

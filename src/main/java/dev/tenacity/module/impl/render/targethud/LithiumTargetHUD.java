@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.render.targethud;
 
+import dev.tenacity.module.impl.combat.KillAura;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.utils.animations.ContinualAnimation;
 import dev.tenacity.utils.font.FontUtil;
@@ -19,6 +20,8 @@ import java.awt.*;
 
 public class LithiumTargetHUD extends TargetHUD {
 
+    private EntityLivingBase target;
+
     private final ContinualAnimation animation = new ContinualAnimation();
 
     public LithiumTargetHUD() {
@@ -29,6 +32,8 @@ public class LithiumTargetHUD extends TargetHUD {
     public void render(float x, float y, float alpha, EntityLivingBase target) {
         setWidth(Math.max(150, FontUtil.tenacityBoldFont26.getStringWidth(target.getName()) + 45));
         setHeight(42);
+
+        this.target = target;
 
         Color color = new Color(0, 0, 0, (int) (25 * alpha));
 
@@ -66,21 +71,22 @@ public class LithiumTargetHUD extends TargetHUD {
 
         RoundedUtil.drawRound(x + 44, (y + getHeight() - 8), 98, realHealthHeight, 1.5f, backgroundHealthColor);
         RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), healthWidth, realHealthHeight, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
-
     }
 
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
-        int i = 0;
+        Color color = new Color(0, 0, 0, (int) (25 * alpha));
 
-        int index = (int) (i * 20);
-        Pair<Color, Color> colors = HUDMod.getClientColors();
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, color);
 
+        float healthPercent = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
+        float realHealthWidth = getWidth() - 48;
 
-        Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).brighter().brighter();
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(textcolor, alpha));
-        //OR BLACK
+        animation.animate(realHealthWidth * healthPercent, 18);
+        float healthWidth = animation.getOutput();
+
+        RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), healthWidth, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
     }
 
 }

@@ -52,6 +52,7 @@ public class ConfigManager {
         localConfig.getFile().getParentFile().mkdirs();
         try {
             Files.write(localConfig.getFile().toPath(), content.getBytes(StandardCharsets.UTF_8));
+            collectConfigs();
             return true;
         } catch (IOException e) {
             e.printStackTrace();

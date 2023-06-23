@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AntiVoid extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Flag", "Watchdog");
     private final NumberSetting fallDist = new NumberSetting("Fall Distance", 3, 20, 1, 0.5);
     private final TimerUtil timer = new TimerUtil();
     private boolean reset;

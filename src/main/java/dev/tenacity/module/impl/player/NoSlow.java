@@ -72,6 +72,9 @@ public class NoSlow extends Module {
                 }
                 break;
 
+
+
+
             case"MMC":
                 if(mc.thePlayer.isUsingItem()) {
                     mc.gameSettings.keyBindSprint.pressed = false;

@@ -211,8 +211,9 @@ public final class KillAura extends Module {
 
         if (target == null)
             target = (list.size() > 0) ? list.get(0) : null;
-        else if (target.isDead || target.deathTime != 0)
-            target = null;
+
+        if (!list.contains(target))
+            return;
 
         if (target != null)
             runRotations(event, target);
@@ -269,7 +270,7 @@ public final class KillAura extends Module {
                 case "Normal":
                     rotations = RotationUtils.getRotationsNeeded(target);
                     break;
-                case"Advanced":
+                case "Advanced":
                     rotations = Advancedrots.basicRotation(target, lastYaw, lastPitch,false);
                     break;
                 case "Smooth":
@@ -393,7 +394,7 @@ public final class KillAura extends Module {
             runPreBlocking(event);
         }
 
-        if (bypass.getSetting("Through Walls").isEnabled() && mc.thePlayer.getDistanceToEntity(entity) > wallsRange.getValue() || !mc.thePlayer.canEntityBeSeen(entity))
+        if (!mc.thePlayer.canEntityBeSeen(entity) && mc.thePlayer.getDistanceToEntity(entity) > wallsRange.getValue())
             return;
 
         if (bypass.getSetting("Ray Tracing").isEnabled() && !RotationUtils.isMouseOver(yaw, pitch, target, attackRange.getValue().floatValue()))

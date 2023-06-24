@@ -49,15 +49,14 @@ public class ProtectedLaunch {
         Tenacity.INSTANCE.setModuleCollection(new ModuleCollection());
 
         // Combat
+        modules.put(SuperKnockback.class, new SuperKnockback());
+        modules.put(IdleFighter.class, new IdleFighter());
         modules.put(KillAura.class, new KillAura());
         modules.put(Velocity.class, new Velocity());
         modules.put(Criticals.class, new Criticals());
+        modules.put(AutoGapple.class, new AutoGapple());
         modules.put(AutoHead.class, new AutoHead());
         modules.put(AutoPot.class, new AutoPot());
-        modules.put(FastBow.class, new FastBow());
-        modules.put(KeepSprint.class, new KeepSprint());
-        modules.put(IdleFighter.class, new IdleFighter());
-        modules.put(SuperKnockback.class, new SuperKnockback());
         modules.put(Teams.class, new Teams());
 
         // Exploit
@@ -89,7 +88,7 @@ public class ProtectedLaunch {
 
         // Movement
         modules.put(Sprint.class, new Sprint());
-        modules.put(Scaffold.class, new Scaffold());
+        modules.put(KeepSprint.class, new KeepSprint());
         modules.put(Speed.class, new Speed());
         modules.put(Flight.class, new Flight());
         modules.put(LongJump.class, new LongJump());
@@ -100,7 +99,8 @@ public class ProtectedLaunch {
         modules.put(Jesus.class, new Jesus());
         modules.put(Spider.class, new Spider());
         modules.put(AutoHeadHitter.class, new AutoHeadHitter());
-        modules.put(AutoGapple.class, new AutoGapple());
+        modules.put(NoSlow.class, new NoSlow());
+        modules.put(SafeWalk.class, new SafeWalk());
 
         // Player
         modules.put(ChestStealer.class, new ChestStealer());
@@ -112,11 +112,10 @@ public class ProtectedLaunch {
         modules.put(Timer.class, new Timer());
         modules.put(Freecam.class, new Freecam());
         modules.put(FastPlace.class, new FastPlace());
-        modules.put(SafeWalk.class, new SafeWalk());
-        modules.put(NoSlow.class, new NoSlow());
         modules.put(AutoTool.class, new AutoTool());
         modules.put(AntiVoid.class, new AntiVoid());
-        modules.put(KillEffects.class, new KillEffects());
+        modules.put(Scaffold.class, new Scaffold());
+        modules.put(FastBow.class, new FastBow());
 
         // Render
         modules.put(ArrayListMod.class, new ArrayListMod());
@@ -152,6 +151,7 @@ public class ProtectedLaunch {
         modules.put(EntityEffects.class, new EntityEffects());
         modules.put(Chams.class, new Chams());
         modules.put(BrightPlayers.class, new BrightPlayers());
+        modules.put(KillEffects.class, new KillEffects());
 
         Tenacity.INSTANCE.getModuleCollection().setModules(modules);
 

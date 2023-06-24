@@ -111,8 +111,8 @@ public class Scaffold extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
-        if(LowMotion.isEnabled() && mc.thePlayer.onGround) {
-            MovementUtils.setSpeed(0.14f);
+        if(LowMotion.isEnabled() && mc.thePlayer.onGround && MovementUtils.isMoving()) {
+            MovementUtils.strafe(0.10f);
         }
 
         // Timer Stuff

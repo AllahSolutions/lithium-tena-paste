@@ -58,6 +58,7 @@ public class ProtectedLaunch {
         modules.put(KeepSprint.class, new KeepSprint());
         modules.put(IdleFighter.class, new IdleFighter());
         modules.put(SuperKnockback.class, new SuperKnockback());
+        modules.put(Teams.class, new Teams());
 
         // Exploit
         modules.put(Disabler.class, new Disabler());

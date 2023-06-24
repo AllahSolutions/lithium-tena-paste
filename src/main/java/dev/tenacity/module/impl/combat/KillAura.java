@@ -54,7 +54,8 @@ public final class KillAura extends Module {
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All"),
             blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
-            
+
+
 
 
 
@@ -428,6 +429,7 @@ public final class KillAura extends Module {
                 .map(entity -> (EntityLivingBase) entity)
 
                 .filter(livingEntity -> {
+                    
 
                     if (!this.targets.getSetting("Players").isEnabled() && livingEntity instanceof EntityPlayer) {
                         return false;

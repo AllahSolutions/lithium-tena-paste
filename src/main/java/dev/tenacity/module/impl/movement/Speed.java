@@ -106,7 +106,8 @@ public final class Speed extends Module {
 
             case "Watchdog":
                 if (mc.thePlayer.onGround) {
-                    MovementUtils.strafe(0.50f);
+                    MovementUtils.strafe(MovementUtils.getSpeed());
+                    //30
                     mc.thePlayer.jump();
                 }
 

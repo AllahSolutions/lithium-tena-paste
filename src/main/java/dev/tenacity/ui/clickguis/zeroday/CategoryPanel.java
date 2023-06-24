@@ -38,7 +38,7 @@ public class CategoryPanel implements Screen {
 
     private final Category category;
 
-    private final float rectWidth = 135;
+    private final float rectWidth = 130;
     private final float categoryRectHeight = 24;
     @Getter
     private boolean typing;

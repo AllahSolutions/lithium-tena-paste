@@ -78,10 +78,8 @@ public class NoSlow extends Module {
             case"MMC":
                 if(mc.thePlayer.isUsingItem()) {
                     mc.gameSettings.keyBindSprint.pressed = false;
-                } else{
-                    mc.gameSettings.keyBindSprint.pressed = true;
-                }
-                    break;
+                    mc.thePlayer.setSprinting(false);
+                } break;
 
             case"Switch":
                 if (MovementUtils.isMoving() && mc.thePlayer.isUsingItem()) {

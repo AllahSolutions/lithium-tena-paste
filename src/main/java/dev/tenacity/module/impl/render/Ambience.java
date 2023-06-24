@@ -2,6 +2,7 @@ package dev.tenacity.module.impl.render;
 
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
+import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
@@ -28,6 +29,9 @@ public class Ambience extends Module {
     private final int randomValue = (300 + (new Random()).nextInt(600)) * 20;
 
     String mode = "";
+    public void onMotionEvent(MotionEvent event) {this.setSuffix((time.getValue().toString()));}
+
+
 
     @Override
     public void onTickEvent(TickEvent event) {

@@ -108,7 +108,7 @@ public final class Flight extends Module {
 
 
             case"VulcanFast":
-                mc.timer.timerSpeed = 0.78f;
+                mc.timer.timerSpeed = 0.58f;
                 if (!setback) {
 
                     MovementUtils.setSpeed(e, 0.0);
@@ -371,6 +371,13 @@ public final class Flight extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
+        if(mode.is("Libercraft")) {
+
+            if(hasDamaged && event.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition) {
+                event.cancel();
+            }
+
+        }
         if(mc.isSingleplayer() || mc.thePlayer == null) return;
         if(mode.is("Slime") && stage > 7 && PacketUtils.isPacketValid(event.getPacket())) {
             event.cancel();
@@ -488,6 +495,10 @@ public final class Flight extends Module {
 
     @Override
     public void onDisable() {
+        if (mode.is("Libercraft")) {
+         MovementUtils.setSpeed(0);
+
+        }
         Flags = 0;
 
         shift = false;

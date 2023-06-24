@@ -67,6 +67,7 @@ public class ProtectedLaunch {
         modules.put(AntiAura.class, new AntiAura());
         modules.put(ResetVL.class, new ResetVL());
         modules.put(Crasher.class, new Crasher());
+        modules.put(Damage.class, new Damage());
 
         // Misc
         modules.put(AntiDesync.class, new AntiDesync());

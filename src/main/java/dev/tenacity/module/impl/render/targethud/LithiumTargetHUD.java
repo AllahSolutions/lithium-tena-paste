@@ -76,17 +76,21 @@ public class LithiumTargetHUD extends TargetHUD {
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
-        Color color = new Color(0, 0, 0, (int) (25 * alpha));
 
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, color);
+
+
+
 
         float healthPercent = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
         float realHealthWidth = getWidth() - 48;
 
         animation.animate(realHealthWidth * healthPercent, 18);
         float healthWidth = animation.getOutput();
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(Color.BLACK, alpha));
+
 
         RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), healthWidth, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
+
     }
 
 }

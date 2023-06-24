@@ -2,6 +2,7 @@ package dev.tenacity.module.impl.player;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.network.PacketSendEvent;
+import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.impl.movement.Speed;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class AntiVoid extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Flag", "Watchdog");
+    private final ModeSetting mode = new ModeSetting("Mode", "Blink","Flag", "Blink");
     private final NumberSetting fallDist = new NumberSetting("Fall Distance", 3, 20, 1, 0.5);
     private final TimerUtil timer = new TimerUtil();
     private boolean reset;
@@ -30,10 +31,13 @@ public class AntiVoid extends Module {
         super("AntiVoid", Category.PLAYER, "saves you from the void");
         this.addSettings(mode, fallDist);
     }
+    @Override
+    public void onMotionEvent(MotionEvent event) {this.setSuffix(mode.getMode());}
+
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
-        if(mode.is("Watchdog") && !Tenacity.INSTANCE.getModuleCollection().getModule(Speed.class).isEnabled()) {
+        if(mode.is("Blink") && !Tenacity.INSTANCE.getModuleCollection().getModule(Speed.class).isEnabled()) {
             if(event.getPacket() instanceof C03PacketPlayer) {
                 if(!isBlockUnder()) {
                     if(mc.thePlayer.fallDistance < fallDist.getValue()) {

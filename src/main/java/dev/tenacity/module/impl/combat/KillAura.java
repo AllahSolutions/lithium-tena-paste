@@ -56,6 +56,13 @@ public final class KillAura extends Module {
             blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
             
 
+
+
+
+
+
+            
+
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
 
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);

@@ -1,6 +1,7 @@
 package dev.tenacity.module.impl.misc;
 
 import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.hackerdetector.Detection;
 import dev.tenacity.hackerdetector.DetectionManager;
 import dev.tenacity.module.Category;
@@ -27,6 +28,9 @@ public class HackerDetector extends Module {
         super("HackerDetector", Category.MISC, "Detects people using cheats inside your game");
         this.addSettings(detections);
     }
+
+
+
 
     @Override
     public void onTickEvent(TickEvent event) {

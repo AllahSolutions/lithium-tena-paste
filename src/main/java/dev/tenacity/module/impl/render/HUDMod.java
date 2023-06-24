@@ -311,7 +311,7 @@ public class HUDMod extends Module {
                 break;
             case "Tenabition":
                 StringBuilder stringBuilder = new StringBuilder(name.replace("tenacity", "Tenabition")).insert(1, "§7");
-                stringBuilder.append(" [§fFPS: ").append(Minecraft.getDebugFPS()).append("§7]");
+                stringBuilder.append(" [§fPING:"+ PingerUtils.getPing() + "§7]");
                 RenderUtil.resetColor();
                 mc.fontRendererObj.drawStringWithShadow(stringBuilder.toString(), 4, 4, clientColors.getFirst().getRGB());
                 break;

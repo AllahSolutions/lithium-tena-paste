@@ -16,6 +16,7 @@ public class Teams extends Module {
 
     public Teams() {
         super("Teams", Category.COMBAT, "Prevents Combat Modules from Attacking your Teammates.");
+        this.addSettings(scoreboard, armor, color);
     }
 
     public boolean isTeammate(EntityLivingBase entity) {

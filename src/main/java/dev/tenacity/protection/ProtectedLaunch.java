@@ -57,6 +57,7 @@ public class ProtectedLaunch {
         modules.put(AutoGapple.class, new AutoGapple());
         modules.put(AutoHead.class, new AutoHead());
         modules.put(AutoPot.class, new AutoPot());
+        modules.put(AntiBot.class, new AntiBot());
         modules.put(Teams.class, new Teams());
 
         // Exploit

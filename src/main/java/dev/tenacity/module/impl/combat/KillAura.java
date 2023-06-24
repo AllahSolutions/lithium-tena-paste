@@ -423,6 +423,7 @@ public final class KillAura extends Module {
 
     private void updateTargets() {
         Teams teams = Tenacity.INSTANCE.getModuleCollection().getModule(Teams.class);
+        AntiBot antiBot = Tenacity.INSTANCE.getModuleCollection().getModule(AntiBot.class);
 
         this.list = mc.theWorld.loadedEntityList
 
@@ -464,6 +465,10 @@ public final class KillAura extends Module {
                     }
 
                     if (teams.isEnabled() && teams.isTeammate(livingEntity)) {
+                        return false;
+                    }
+
+                    if (antiBot.isEnabled() && antiBot.isBot(livingEntity)) {
                         return false;
                     }
 

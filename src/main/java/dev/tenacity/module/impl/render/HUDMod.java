@@ -41,7 +41,7 @@ import java.util.*;
 public class HUDMod extends Module {
 
     private final StringSetting clientName = new StringSetting("Client Name");
-    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity", "Tenacity", "Jello", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
+    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity", "Tenacity", "ZeroDay", "Jello", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
     public static final ColorSetting color1 = new ColorSetting("Color 1", new Color(0xffa028d4));
     public static final ColorSetting color2 = new ColorSetting("Color 2", new Color(0xff0008ff));
     public static final ModeSetting theme = Theme.getModeSetting("Theme Selection", "Tenacity");
@@ -191,7 +191,6 @@ public class HUDMod extends Module {
 
         switch (watermarkMode.getMode()) {
             case "Logo":
-
                 float WH = 110 / 2f;
 
                 if (MovementUtils.isMoving()) {
@@ -230,14 +229,13 @@ public class HUDMod extends Module {
                 float versionWidth = tenacityFont16.getStringWidth(Tenacity.INSTANCE.getVersion());
                 float versionX = xVal + tenacityBoldFont40.getStringWidth(finalName);
                 float width = version ? (versionX + versionWidth) - xVal : tenacityBoldFont40.getStringWidth(finalName);
-                String finalName1 = finalName;
 
                 Pair<Color, Color> darkerColors = clientColors.apply((c1, c2) -> Pair.of(ColorUtil.darker(c1, .6f), ColorUtil.darker(c2, .6f)));
 
                 GradientUtil.applyGradientHorizontal(xVal + spacing, yVal + spacing, width + spacing,
                         20, 1, darkerColors.getFirst(), darkerColors.getSecond(), () -> {
                             RenderUtil.setAlphaLimit(0);
-                            tenacityBoldFont40.drawString(finalName1, xVal + spacing, yVal + spacing, 0);
+                            tenacityBoldFont40.drawString(finalName, xVal + spacing, yVal + spacing, 0);
                             if (version) {
                                 tenacityFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX + (spacing / 2f), yVal + (spacing / 2f), 0);
                             }
@@ -247,12 +245,37 @@ public class HUDMod extends Module {
                 RenderUtil.resetColor();
                 GradientUtil.applyGradientHorizontal(xVal, yVal, width, 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
                     RenderUtil.setAlphaLimit(0);
-                    tenacityBoldFont40.drawString(finalName1, xVal, yVal, 0);
+                    tenacityBoldFont40.drawString(finalName, xVal, yVal, 0);
                     if (version) {
                         tenacityFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX, yVal, 0);
                     }
                 });
                 break;
+
+            case "ZeroDay":
+                GradientUtil.applyGradientHorizontal(
+                        7, 7,
+                        tenacityFont40.getStringWidth(Tenacity.NAME),
+                        tenacityFont40.getHeight(),
+                        1.0F,
+                        ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
+                        ColorUtil.rainbow(10, 50, 0.45F, 1.0F, 1.0F),
+                        () -> {
+                            tenacityFont40.drawString(
+                                    Tenacity.NAME,
+                                    7, 7,
+                                    Color.BLACK.getRGB()
+                            );
+                        }
+                );
+
+                tenacityBoldFont16.drawString(
+                        Tenacity.VERSION,
+                        tenacityFont40.getStringWidth(Tenacity.NAME) + 7, 7,
+                        Color.WHITE.getRGB()
+                );
+                break;
+
             case "Jello":
                 RenderUtil.resetColor();
                 GradientUtil.applyGradientHorizontal(5, 5, 25, 20, 0.6F, new Color(235, 235, 235), new Color(205, 205, 205), () -> {

@@ -51,6 +51,9 @@ public class ZerodayClickGUI extends GuiScreen {
         if (categoryPanels == null) {
             categoryPanels = new ArrayList<>();
             for (Category category : Category.values()) {
+                if (category == Category.SCRIPTS)
+                    continue;
+
                 categoryPanels.add(new CategoryPanel(category, openingAnimations));
             }
         }
@@ -145,6 +148,7 @@ public class ZerodayClickGUI extends GuiScreen {
         }
 
         RenderUtil.scaleEnd();
+
         categoryPanels.forEach(categoryPanel -> categoryPanel.drawToolTips(fakeMouseX, fakeMouseY));
     }
 
@@ -154,6 +158,7 @@ public class ZerodayClickGUI extends GuiScreen {
         for (CategoryPanel catPanels : categoryPanels) {
             catPanels.renderEffects();
         }
+
         RenderUtil.scaleEnd();
     }
 

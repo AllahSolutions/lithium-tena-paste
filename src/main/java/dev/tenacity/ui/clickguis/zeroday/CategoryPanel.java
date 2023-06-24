@@ -38,7 +38,7 @@ public class CategoryPanel implements Screen {
 
     private final Category category;
 
-    private final float rectWidth = 120;
+    private final float rectWidth = 135;
     private final float categoryRectHeight = 24;
     @Getter
     private boolean typing;
@@ -226,34 +226,17 @@ public class CategoryPanel implements Screen {
     }
 
     public void renderEffects() {
+
         float x = category.getDrag().getX(), y = category.getDrag().getY();
 
-        float alpha = Math.min(1, openingAnimations.getFirst().getOutput().floatValue());
-        alpha *= alpha;
+        float realHeight = Math.min(actualHeight, Module.allowedClickGuiHeight);
 
-
-        Theme theme = Theme.getCurrentTheme();
-        Pair<Color, Color> clientColors = theme.getColors();
-        Color clientFirst = ColorUtil.applyOpacity(clientColors.getFirst(), alpha);
-        Color clientSecond = ColorUtil.applyOpacity(clientColors.getSecond(), alpha);
-
-        float allowedHeight = Math.min(actualHeight, Module.allowedClickGuiHeight);
-        boolean glow = PostProcessing.glowOptions.getSetting("ClickGui").isEnabled();
-
-        if (glow && ClickGUIMod.outlineAccent.isEnabled()) {
-            if (theme.equals(Theme.RED_COFFEE)) {
-                Color temp = clientFirst;
-                clientFirst = clientSecond;
-                clientSecond = temp;
-            }
-
-            RoundedUtil.drawGradientVertical(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5,
-                    clientFirst, clientSecond);
-
-        } else {
-//            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5, (glow && ClickGUIMod.outlineAccent.isEnabled()) ? clientFirst :
-//                    ColorUtil.applyOpacity(Color.BLACK, alpha));
-        }
+        Gui.drawRect2(
+                x, y,
+                rectWidth,
+                realHeight + categoryRectHeight,
+                0x20000000
+        );
     }
 
     public void drawToolTips(int mouseX, int mouseY) {

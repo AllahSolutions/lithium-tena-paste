@@ -209,6 +209,9 @@ public final class KillAura extends Module {
 
         updateTargets();
 
+        if (target.isDead || target.deathTime != 0)
+            target = null;
+
         if (target == null)
             target = (list.size() > 0) ? list.get(0) : null;
 
@@ -391,7 +394,7 @@ public final class KillAura extends Module {
             runPreBlocking(event);
         }
 
-        if (bypass.getSetting("Through Walls").isEnabled() && mc.thePlayer.getDistanceToEntity(entity) >= wallsRange.getValue() && !mc.thePlayer.canEntityBeSeen(entity))
+        if (bypass.getSetting("Through Walls").isEnabled() && mc.thePlayer.getDistanceToEntity(entity) > wallsRange.getValue() || !mc.thePlayer.canEntityBeSeen(entity))
             return;
 
         if (bypass.getSetting("Ray Tracing").isEnabled() && !RotationUtils.isMouseOver(yaw, pitch, target, attackRange.getValue().floatValue()))
@@ -420,6 +423,8 @@ public final class KillAura extends Module {
     }
 
     private void updateTargets() {
+        Teams teams = Tenacity.INSTANCE.getModuleCollection().getModule(Teams.class);
+
         this.list = mc.theWorld.loadedEntityList
 
                 .stream()
@@ -460,7 +465,7 @@ public final class KillAura extends Module {
                         return false;
                     }
 
-                    if (!this.bypass.getSetting("Through Walls").isEnabled() && !mc.thePlayer.canEntityBeSeen(livingEntity)) {
+                    if (teams.isEnabled() && teams.isTeammate(livingEntity)) {
                         return false;
                     }
 

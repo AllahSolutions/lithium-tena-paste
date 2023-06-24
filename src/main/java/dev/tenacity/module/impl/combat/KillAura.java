@@ -209,11 +209,10 @@ public final class KillAura extends Module {
 
         updateTargets();
 
-        if (target.isDead || target.deathTime != 0)
-            target = null;
-
         if (target == null)
             target = (list.size() > 0) ? list.get(0) : null;
+        else if (target.isDead || target.deathTime != 0)
+            target = null;
 
         if (target != null)
             runRotations(event, target);

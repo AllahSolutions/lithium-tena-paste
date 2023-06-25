@@ -261,7 +261,7 @@ public class HUDMod extends Module {
                         ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
                         ColorUtil.rainbow(10, 50, 0.45F, 1.0F, 1.0F),
                         () -> {
-                            tenacityFont40.drawString(
+                            tenacityFont40.drawStringWithShadow(
                                     Tenacity.NAME,
                                     7, 7,
                                     Color.BLACK.getRGB()

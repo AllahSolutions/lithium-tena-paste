@@ -24,7 +24,7 @@ import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -167,7 +167,9 @@ public final class Flight extends Module {
         if (viewBobbing.isEnabled()) {
             mc.thePlayer.cameraYaw = mc.thePlayer.cameraPitch = 0.08F;
         }
-        mc.timer.timerSpeed = timerAmount.getValue().floatValue();
+        if(!mode.getMode().equals("Libercraft")) {
+            mc.timer.timerSpeed = timerAmount.getValue().floatValue();
+        }
 
         switch (mode.getMode()) {
             case "Watchdog":
@@ -225,6 +227,8 @@ public final class Flight extends Module {
                 break;
             case "Libercraft":
                 if(e.isPre()) {
+                    mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getCurrentEquippedItem()));
+
 
                     if(stage < 3) {
                         e.setOnGround(false);
@@ -236,10 +240,17 @@ public final class Flight extends Module {
                         if(mc.thePlayer.hurtTime > 0 && !hasDamaged) {
                             hasDamaged = true;
                         }
+
                         if(hasDamaged) {
-                           e.setOnGround(true);
-                            mc.thePlayer.motionY = 0.05;
-                            MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 4);
+                           mc.timer.timerSpeed = 0.8f;
+                            e.setOnGround(true);
+                            //mc.thePlayer.onGround = true;
+                            mc.timer.timerSpeed = 0.4f;
+
+
+
+                            mc.thePlayer.motionY = 0.00;
+                            MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 10);
                         }
                     }
                 }
@@ -273,6 +284,7 @@ public final class Flight extends Module {
                     } else if(mc.thePlayer.ticksExisted % 3 == 0) {
                         mc.thePlayer.motionY = 0.42f;
                     }
+
                     MovementUtils.setSpeed(mc.gameSettings.keyBindJump.isKeyDown() ? 0 : 0.33);
                 }
                 break;
@@ -373,8 +385,9 @@ public final class Flight extends Module {
     public void onPacketSendEvent(PacketSendEvent event) {
         if(mode.is("Libercraft")) {
 
-            if(hasDamaged && event.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition) {
-                event.cancel();
+
+            if(event.getPacket() instanceof C0FPacketConfirmTransaction || event.getPacket() instanceof C0BPacketEntityAction || event.getPacket() instanceof C00PacketKeepAlive) {
+               event.cancel();
             }
 
         }
@@ -399,6 +412,12 @@ public final class Flight extends Module {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
+        }
+
+        if(mode.is("Libercraft") && hasDamaged) {
+
+           // final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            //event.setBoundingBox(axisAlignedBB);
         }
 
 
@@ -435,6 +454,10 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
+        if (mode.is("Verus")) {
+            DamageUtils.damage(DamageUtils.DamageType.VERUS);
+
+        }
         if (mode.is("VulcanFast")) {
             runningTicks = 0;
             setback = false;

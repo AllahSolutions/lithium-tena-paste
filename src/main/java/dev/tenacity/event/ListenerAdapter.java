@@ -45,6 +45,7 @@ public abstract class ListenerAdapter implements EventListener {
     public void onMotionEvent(MotionEvent event) {}
     public void onMoveEvent(MoveEvent event) {}
     public void onStrafeEvent(StrafeEvent event) {}
+    public void onMoveInputEvent(MoveInputEvent event) {}
     public void onPlayerSendMessageEvent(PlayerSendMessageEvent event) {}
     public void onPushOutOfBlockEvent(PushOutOfBlockEvent event) {}
     public void onSafeWalkEvent(SafeWalkEvent event) {}
@@ -112,6 +113,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(MotionEvent.class, this::onMotionEvent);
         registerEvent(MoveEvent.class, this::onMoveEvent);
         registerEvent(StrafeEvent.class, this::onStrafeEvent);
+        registerEvent(MoveInputEvent.class, this::onMoveInputEvent);
         registerEvent(PlayerSendMessageEvent.class, this::onPlayerSendMessageEvent);
         registerEvent(PushOutOfBlockEvent.class, this::onPushOutOfBlockEvent);
         registerEvent(SafeWalkEvent.class, this::onSafeWalkEvent);

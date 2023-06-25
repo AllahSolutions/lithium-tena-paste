@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.movement.speed;
 
 import dev.tenacity.event.ListenerAdapter;
-import dev.tenacity.module.impl.movement.longs.impl.LatestNCPLongJump;
+import dev.tenacity.module.impl.movement.speed.impl.LatestNCPSpeed;
 import dev.tenacity.utils.Utils;
 
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class SpeedMode extends ListenerAdapter implements Utils {
     }
 
     public static void init() {
-
+        modes.put(LatestNCPSpeed.class, new LatestNCPSpeed());
     }
 
     public String getName() {

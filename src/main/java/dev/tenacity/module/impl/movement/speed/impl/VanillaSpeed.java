@@ -8,5 +8,4 @@ public class VanillaSpeed extends SpeedMode {
         super("BlocksMC");
     }
 
-
 }

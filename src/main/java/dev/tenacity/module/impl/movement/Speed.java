@@ -21,16 +21,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class Speed extends Module {
     private final ModeSetting mode = new ModeSetting("Mode", "BlocksMC","Vanilla","NoRule","Watchdog","Strafe", "BlocksMC");
 
-    private final TimerUtil timerUtil = new TimerUtil();
-    private final float r = ThreadLocalRandom.current().nextFloat();
-    private double speed, lastDist;
-    private float movementSpeed = 0;
-    private float speedChangingDirection;
-    private int stage;
-    private boolean strafe, wasOnGround;
-    private double moveSpeed;
-    private int inAirTicks;
-
     public Speed() {
         super("Speed", Category.MOVEMENT, "Makes you go faster");
         this.addSettings(mode);

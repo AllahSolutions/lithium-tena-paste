@@ -7,10 +7,13 @@ import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.settings.impl.ModeSetting;
+import dev.tenacity.utils.misc.Random;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,8 +48,15 @@ public final class Speed extends Module {
 
 
             case"Strafe":
-                TargetStrafe.strafe(e, MovementUtils.getSpeed());
-                MovementUtils.strafe(MovementUtils.getSpeed() * 1.01f);
+
+                final boolean haspeed = mc.thePlayer.isPotionActive(Potion.moveSpeed);
+                if(haspeed) {
+                    TargetStrafe.strafe(e, MovementUtils.getSpeed() * 1.04);
+                    MovementUtils.strafe(MovementUtils.getSpeed() * 1.04f);
+                } else{
+                    TargetStrafe.strafe(e, MovementUtils.getSpeed() * 1.02f);
+                    MovementUtils.strafe(MovementUtils.getSpeed() * 1.02f);
+                }
 
 
                 break;

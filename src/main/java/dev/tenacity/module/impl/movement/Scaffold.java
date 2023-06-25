@@ -470,6 +470,7 @@ public class Scaffold extends Module {
         }
     }
 
+
     public void renderCounter() {
         anim.setDirection(enabled ? Direction.FORWARDS : Direction.BACKWARDS);
         if (!enabled && anim.isDone()) return;
@@ -496,7 +497,7 @@ public class Scaffold extends Module {
                 float height = 20;
                 RenderUtil.scissorStart(x - 1.5, y - 1.5, totalWidth + 3, height + 3);
 
-                RoundedUtil.drawRound(x, y, totalWidth, height, 5, ColorUtil.tripleColor(20, .45f));
+             //   RoundedUtil.drawRound(x, y, totalWidth, height, 5, ColorUtil.tripleColor(20, .45f));
 
                 tenacityFont18.drawString(text, x + 3 + blockWH + spacing, y + tenacityFont18.getMiddleOfBox(height) + .5f, -1);
 

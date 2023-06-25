@@ -38,7 +38,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -187,6 +187,9 @@ public final class Flight extends Module {
                     }
                 }
                 break;
+
+
+
 
 
             case"VulcanFast":
@@ -454,6 +457,10 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
+        if (mode.is("VerusDMG")) {
+           mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
+
+        }
         if (mode.is("Verus")) {
             DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
@@ -522,6 +529,12 @@ public final class Flight extends Module {
          MovementUtils.setSpeed(0);
 
         }
+        if (mode.is("VerusDMG")) {
+            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SPRINTING));
+            MovementUtils.setSpeed(0);
+
+        }
+
         Flags = 0;
 
         shift = false;

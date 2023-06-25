@@ -1,7 +1,7 @@
-package dev.tenacity.utils.PlayerShit;
+package dev.tenacity.utils.skidded;
 
-import dev.tenacity.Tenacity;
-import dev.tenacity.module.impl.movement.Scaffold;
+import dev.tenacity.event.impl.player.MoveEvent;
+import dev.tenacity.event.impl.player.MoveInputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -45,7 +45,7 @@ public class MoveUtils {
      *
      * @return player moving
      */
-    public boolean isMoving() {
+    public static boolean isMoving() {
         return mc.thePlayer.moveForward != 0 || mc.thePlayer.moveStrafing != 0;
     }
 
@@ -54,7 +54,7 @@ public class MoveUtils {
      *
      * @return movement input enough for sprinting
      */
-    public boolean enoughMovementForSprinting() {
+    public static boolean enoughMovementForSprinting() {
         return Math.abs(mc.thePlayer.moveForward) >= 0.8F || Math.abs(mc.thePlayer.moveStrafing) >= 0.8F;
     }
 
@@ -64,7 +64,7 @@ public class MoveUtils {
      * @param legit should the player follow vanilla sprinting rules?
      * @return player able to sprint
      */
-    public boolean canSprint(final boolean legit) {
+    public static boolean canSprint(final boolean legit) {
         return (legit ? mc.thePlayer.moveForward >= 0.8F
                 && !mc.thePlayer.isCollidedHorizontally
                 && (mc.thePlayer.getFoodStats().getFoodLevel() > 6 || mc.thePlayer.capabilities.allowFlying)
@@ -79,11 +79,11 @@ public class MoveUtils {
      *
      * @return last tick distance
      */
-    public double movementDelta() {
+    public static double movementDelta() {
         return Math.hypot(mc.thePlayer.posX - mc.thePlayer.prevPosX, mc.thePlayer.posZ - mc.thePlayer.prevPosZ);
     }
 
-    public double speedPotionAmp(final double amp) {
+    public static double speedPotionAmp(final double amp) {
         return mc.thePlayer.isPotionActive(Potion.moveSpeed) ? ((mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getAmplifier() + 1) * amp) : 0;
     }
 
@@ -92,7 +92,7 @@ public class MoveUtils {
      *
      * @return player jump motion
      */
-    public double jumpMotion() {
+    public static double jumpMotion() {
         return jumpBoostMotion(JUMP_HEIGHT);
     }
 
@@ -102,7 +102,7 @@ public class MoveUtils {
      * @param motionY input motion
      * @return modified motion
      */
-    public double jumpBoostMotion(final double motionY) {
+    public static double jumpBoostMotion(final double motionY) {
         if (mc.thePlayer.isPotionActive(Potion.jump)) {
             return motionY + (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;
         }
@@ -110,7 +110,7 @@ public class MoveUtils {
         return motionY;
     }
 
-    public static javax.vecmath.Vector2d getMotion(double moveSpeed) {
+    public static double[] getMotion(double moveSpeed) {
         MovementInput movementInput = mc.thePlayer.movementInput;
 
         double moveForward = movementInput.moveForward;
@@ -142,9 +142,9 @@ public class MoveUtils {
 
             double cos = Math.cos(Math.toRadians(rotationYaw + 90.0F));
             double sin = Math.sin(Math.toRadians(rotationYaw + 90.0F));
-            return new javax.vecmath.Vector2d(moveForward * moveSpeed * cos + moveStrafe * moveSpeed * sin, moveForward * moveSpeed * sin - moveStrafe * moveSpeed * cos);
+            return new double[] { moveForward * moveSpeed * cos + moveStrafe * moveSpeed * sin, moveForward * moveSpeed * sin - moveStrafe * moveSpeed * cos };
         }
-        return new javax.vecmath.Vector2d(0.0D, 0.0D);
+        return new double[] { 0.0D, 0.0D };
     }
 
     /**
@@ -152,7 +152,7 @@ public class MoveUtils {
      *
      * @return depth strider modifier
      */
-    public int depthStriderLevel() {
+    public static int depthStriderLevel() {
         return EnchantmentHelper.getDepthStriderModifier(mc.thePlayer);
     }
 
@@ -172,7 +172,7 @@ public class MoveUtils {
      *
      * @return valid ground position
      */
-    public double roundToGround(final double posY) {
+    public static double roundToGround(final double posY) {
         return Math.round(posY / 0.015625) * 0.015625;
     }
 
@@ -181,11 +181,11 @@ public class MoveUtils {
      *
      * @return predicted jump motion
      */
-    public double predictedMotion(final double motion) {
+    public static double predictedMotion(final double motion) {
         return (motion - 0.08) * 0.98F;
     }
 
-    public void forward(final double speed) {
+    public static void forward(final double speed) {
         final double yaw = direction();
 
         mc.thePlayer.motionX = -Math.sin(yaw) * speed;
@@ -197,7 +197,7 @@ public class MoveUtils {
      *
      * @return predicted jump motion
      */
-    public double predictedMotion(final double motion, final int ticks) {
+    public static double predictedMotion(final double motion, final int ticks) {
         if (ticks == 0) return motion;
         double predicted = motion;
 
@@ -213,13 +213,13 @@ public class MoveUtils {
      *
      * @return allowed horizontal distance in one tick
      */
-    public double getAllowedHorizontalDistance() {
+    public static double getAllowedHorizontalDistance() {
         double horizontalDistance;
         boolean useBaseModifiers = false;
 
         if (mc.thePlayer.isInWeb) {
             horizontalDistance = MOD_WEB * WALK_SPEED;
-        } else if (PlayerUtilss.inLiquid()) {
+        } else if (PlayerUtils.isInLiquid()) {
             horizontalDistance = MOD_SWIM * WALK_SPEED;
 
             final int depthStriderLevel = depthStriderLevel();
@@ -256,21 +256,21 @@ public class MoveUtils {
     /**
      * Sets the players' jump motion to the specified value with random to bypass value patches
      */
-    public void jumpRandom(final double motion) {
+    public static void jumpRandom(final double motion) {
         mc.thePlayer.motionY = motion + (Math.random() / 500);
     }
 
     /**
      * Makes the player strafe
      */
-    public void strafe() {
+    public static void strafe() {
         strafe(speed());
     }
 
     /**
      * Makes the player strafe at the specified speed
      */
-    public void strafe(final double speed) {
+    public static void strafe(final double speed) {
         if (!isMoving()) {
             return;
         }
@@ -280,7 +280,7 @@ public class MoveUtils {
         mc.thePlayer.motionZ = MathHelper.cos((float) yaw) * speed;
     }
 
-    public void strafe(final double speed, float yaw) {
+    public static void strafe(final double speed, float yaw) {
         if (!isMoving()) {
             return;
         }
@@ -293,7 +293,7 @@ public class MoveUtils {
     /**
      * Stops the player from moving
      */
-    public void stop() {
+    public static void stop() {
         mc.thePlayer.motionX = 0;
         mc.thePlayer.motionZ = 0;
     }
@@ -301,7 +301,7 @@ public class MoveUtils {
     /**
      * Gets the players' movement yaw
      */
-    public double direction() {
+    public static double direction() {
         float rotationYaw = mc.thePlayer.movementYaw;
 
         if (mc.thePlayer.moveForward < 0) {
@@ -330,7 +330,7 @@ public class MoveUtils {
     /**
      * Gets the players' movement yaw wrapped to 90
      */
-    public double wrappedDirection() {
+    public static double wrappedDirection() {
         float rotationYaw = mc.thePlayer.movementYaw;
 
         if (mc.thePlayer.moveForward < 0 && mc.thePlayer.moveStrafing == 0) {
@@ -351,7 +351,7 @@ public class MoveUtils {
     /**
      * Gets the players' movement yaw
      */
-    public double direction(float rotationYaw, final double moveForward, final double moveStrafing) {
+    public static double direction(float rotationYaw, final double moveForward, final double moveStrafing) {
         if (moveForward < 0F) rotationYaw += 180F;
 
         float forward = 1F;
@@ -368,15 +368,15 @@ public class MoveUtils {
     /**
      * Used to get the players speed
      */
-    public double speed() {
+    public static double speed() {
         return Math.hypot(mc.thePlayer.motionX, mc.thePlayer.motionZ);
     }
 
-    public void setMoveEvent(final MoveEvent moveEvent, final double moveSpeed) {
+    public static void setMoveEvent(final MoveEvent moveEvent, final double moveSpeed) {
         setMoveEvent(moveEvent, moveSpeed, mc.thePlayer.movementYaw, mc.thePlayer.movementInput.moveStrafe, mc.thePlayer.movementInput.moveForward);
     }
 
-    public void setMoveEvent(final MoveEvent moveEvent, final double moveSpeed, final float pseudoYaw, final double pseudoStrafe, final double pseudoForward) {
+    public static void setMoveEvent(final MoveEvent moveEvent, final double moveSpeed, final float pseudoYaw, final double pseudoStrafe, final double pseudoForward) {
         double forward = pseudoForward;
         double strafe = pseudoStrafe;
         float yaw = pseudoYaw;
@@ -399,14 +399,14 @@ public class MoveUtils {
 
         final double mx = Math.cos(Math.toRadians((yaw + 90.0F)));
         final double mz = Math.sin(Math.toRadians((yaw + 90.0F)));
-        moveEvent.setPosX(forward * moveSpeed * mx + strafe * moveSpeed * mz);
-        moveEvent.setPosZ(forward * moveSpeed * mz - strafe * moveSpeed * mx);
+        moveEvent.setX(forward * moveSpeed * mx + strafe * moveSpeed * mz);
+        moveEvent.setZ(forward * moveSpeed * mz - strafe * moveSpeed * mx);
     }
 
     /**
      * Fixes the players movement
      */
-    public void fixMovement(final MoveInputEvent event, final float yaw) {
+    public static void fixMovement(final MoveInputEvent event, final float yaw) {
         final float forward = event.getForward();
         final float strafe = event.getStrafe();
 
@@ -422,7 +422,7 @@ public class MoveUtils {
             for (float predictedStrafe = -1F; predictedStrafe <= 1F; predictedStrafe += 1F) {
                 if (predictedStrafe == 0 && predictedForward == 0) continue;
 
-                final double predictedAngle = MathHelper.wrapAngleTo180_double(Math.toDegrees(MoveUtil.direction(yaw, predictedForward, predictedStrafe)));
+                final double predictedAngle = MathHelper.wrapAngleTo180_double(Math.toDegrees(MoveUtils.direction(yaw, predictedForward, predictedStrafe)));
                 final double difference = Math.abs(angle - predictedAngle);
 
                 if (difference < closestDifference) {
@@ -437,7 +437,7 @@ public class MoveUtils {
         event.setStrafe(closestStrafe);
     }
 
-    public double getMCFriction() {
+    public static double getMCFriction() {
         float f = 0.91F;
 
         if (mc.thePlayer.onGround) {
@@ -447,7 +447,7 @@ public class MoveUtils {
         return f;
     }
 
-    public double[] moveFlying(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
+    public static double[] moveFlying(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
         float friction = 0.02f;
         final float playerWalkSpeed = mc.thePlayer.getAIMoveSpeed();
 
@@ -486,13 +486,13 @@ public class MoveUtils {
         return null;
     }
 
-    public Vector2d moveFlyingVec(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
+    public static double[] moveFlyingVec(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
         double[] values = moveFlying(strafe, forward, onGround, yaw, sprinting);
         if (values == null) return null;
-        return new Vector2d(values[0], values[1]);
+        return new double[] { values[0], values[1] };
     }
 
-    public Double moveFlyingSpeed(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
+    public static Double moveFlyingSpeed(float strafe, float forward, final boolean onGround, final float yaw, final boolean sprinting) {
         double[] speed = moveFlying(strafe, forward, onGround, yaw, sprinting);
 
         if (speed == null) return null;
@@ -500,7 +500,7 @@ public class MoveUtils {
         return Math.hypot(speed[0], speed[1]);
     }
 
-    public Double moveFlyingSpeed(final boolean sprinting) {
+    public static Double moveFlyingSpeed(final boolean sprinting) {
         double[] speed = moveFlying(0.98f, 0.98f, mc.thePlayer.onGround, 180, sprinting);
 
         if (speed == null) return null;
@@ -508,7 +508,7 @@ public class MoveUtils {
         return Math.hypot(speed[0], speed[1]);
     }
 
-    public void partialStrafeMax(double maxStrafe) {
+    public static void partialStrafeMax(double maxStrafe) {
         double motionX = mc.thePlayer.motionX;
         double motionZ = mc.thePlayer.motionZ;
 
@@ -518,7 +518,7 @@ public class MoveUtils {
         mc.thePlayer.motionZ = motionZ + Math.max(-maxStrafe, Math.min(maxStrafe, mc.thePlayer.motionZ - motionZ));
     }
 
-    public void partialStrafePercent(double percentage) {
+    public static void partialStrafePercent(double percentage) {
         percentage /= 100;
         percentage = Math.min(1, Math.max(0, percentage));
 
@@ -531,7 +531,7 @@ public class MoveUtils {
         mc.thePlayer.motionZ = motionZ + (mc.thePlayer.motionZ - motionZ) * percentage;
     }
 
-    public double moveMaxFlying(final boolean onGround) {
+    public static double moveMaxFlying(final boolean onGround) {
         float friction = 0.02f;
         final float playerWalkSpeed = mc.thePlayer.getAIMoveSpeed() / 2;
         float strafe = 0.98f;
@@ -571,7 +571,7 @@ public class MoveUtils {
         return 0;
     }
 
-    public float simulationStrafeAngle(float currentMoveYaw, float maxAngle) {
+    public static float simulationStrafeAngle(float currentMoveYaw, float maxAngle) {
         float workingYaw;
         float target = (float) Math.toDegrees(direction());
 
@@ -590,7 +590,7 @@ public class MoveUtils {
         return workingYaw;
     }
 
-    public float simulationStrafe(float currentMoveYaw) {
+    public static float simulationStrafe(float currentMoveYaw) {
         double moveFlying = 0.02599999835384377;
         double friction = 0.9100000262260437;
 
@@ -631,14 +631,12 @@ public class MoveUtils {
         return workingYaw;
     }
 
-    public void useDiagonalSpeed() {
+    public static void useDiagonalSpeed() {
         KeyBinding[] gameSettings = new KeyBinding[]{mc.gameSettings.keyBindForward, mc.gameSettings.keyBindRight, mc.gameSettings.keyBindBack, mc.gameSettings.keyBindLeft};
 
         final int[] down = {0};
 
-        Arrays.stream(gameSettings).forEach(keyBinding -> {
-            down[0] = down[0] + (keyBinding.isKeyDown() ? 1 : 0);
-        });
+        Arrays.stream(gameSettings).forEach(keyBinding -> down[0] = down[0] + (keyBinding.isKeyDown() ? 1 : 0));
 
         boolean active = down[0] == 1;
 
@@ -651,12 +649,11 @@ public class MoveUtils {
         moveFlying(increase);
     }
 
-    public void moveFlying(double increase) {
+    public static void moveFlying(double increase) {
         if (!isMoving()) return;
         final double yaw = direction();
         mc.thePlayer.motionX += -MathHelper.sin((float) yaw) * increase;
         mc.thePlayer.motionZ += MathHelper.cos((float) yaw) * increase;
     }
-
 
 }

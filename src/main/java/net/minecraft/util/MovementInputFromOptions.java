@@ -1,6 +1,7 @@
 package net.minecraft.util;
 
 import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.player.MoveInputEvent;
 import dev.tenacity.module.impl.movement.Speed;
 import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.client.settings.GameSettings;
@@ -35,9 +36,20 @@ public class MovementInputFromOptions extends MovementInput {
         this.jump = this.gameSettings.keyBindJump.isKeyDown();
         this.sneak = this.gameSettings.keyBindSneak.isKeyDown();
 
+        MoveInputEvent moveInputEvent = new MoveInputEvent(moveForward, moveStrafe, jump, sneak, 0.3D);
+        Tenacity.INSTANCE.getEventProtocol().handleEvent(moveInputEvent);
+
+        this.moveForward = moveInputEvent.getForward();
+        this.moveStrafe = moveInputEvent.getStrafe();
+        this.jump = moveInputEvent.isJump();
+        this.sneak = moveInputEvent.isSneak();
+
+        final double sneakMultiplier = moveInputEvent.getSneakSlowDownMultiplier();
+
+
         if (this.sneak) {
-            this.moveStrafe = (float) ((double) this.moveStrafe * 0.3D);
-            this.moveForward = (float) ((double) this.moveForward * 0.3D);
+            this.moveStrafe = (float) ((double) this.moveStrafe * sneakMultiplier);
+            this.moveForward = (float) ((double) this.moveForward * sneakMultiplier);
         }
     }
 }

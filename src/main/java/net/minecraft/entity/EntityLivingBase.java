@@ -201,6 +201,8 @@ public abstract class EntityLivingBase extends Entity {
     public float moveForward;
     protected float randomYawVelocity;
 
+    public float movementYaw, lastMovementYaw, velocityYaw, lastVelocityYaw;
+
 
     /**
      * The number of updates over which the new position and rotation are to be applied to the entity.

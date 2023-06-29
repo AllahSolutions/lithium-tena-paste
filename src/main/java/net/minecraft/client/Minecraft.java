@@ -1570,6 +1570,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             thePlayer.lastGround = thePlayer.onGround;
 
             thePlayer.lastMovementYaw = thePlayer.movementYaw;
+            thePlayer.lastVelocityYaw = thePlayer.velocityYaw;
+
             thePlayer.movementYaw = thePlayer.velocityYaw = thePlayer.rotationYaw;
         }
 

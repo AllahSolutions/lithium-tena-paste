@@ -1,14 +1,11 @@
 package dev.tenacity.module.impl.combat;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.AttackEvent;
-import dev.tenacity.event.impl.player.JumpFixEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
-import dev.tenacity.event.impl.player.StrafeEvent;
+import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.player.*;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.module.impl.exploit.Breaker;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.BooleanSetting;
@@ -20,6 +17,7 @@ import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.Random;
 import dev.tenacity.utils.player.Advancedrots;
+import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.server.PacketUtils;
@@ -54,15 +52,6 @@ public final class KillAura extends Module {
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All"),
             blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
-
-
-
-
-
-
-
-
-            
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
 
@@ -194,6 +183,21 @@ public final class KillAura extends Module {
     }
 
     @Override
+    public void onTickEvent(TickEvent event) {
+
+        updateTargets();
+
+        target = (this.list.size() > 0) ? this.list.get(0) : null;
+
+        if (target == null)
+            return;
+
+        calculateRotations(target);
+
+        super.onTickEvent(event);
+    }
+
+    @Override
     public void onMotionEvent(MotionEvent event) {
 
         this.setSuffix(attackMode.getMode());
@@ -207,16 +211,10 @@ public final class KillAura extends Module {
             return;
         }
 
-        updateTargets();
-
-        if (target == null)
-            target = (list.size() > 0) ? list.get(0) : null;
-
-        if (!list.contains(target))
-            return;
+        target = (list.size() > 0) ? list.get(0) : null;
 
         if (target != null)
-            runRotations(event, target);
+            runRotations(event);
 
         if (
                 (event.isPost() && attackTiming.is("Pre")) ||
@@ -245,6 +243,13 @@ public final class KillAura extends Module {
     }
 
     @Override
+    public void onMoveInputEvent(MoveInputEvent event) {
+        if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
+            MovementUtils.fixMovement(event, yaw);
+        }
+    }
+
+    @Override
     public void onStrafeEvent(StrafeEvent event) {
         if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
@@ -258,31 +263,32 @@ public final class KillAura extends Module {
         }
     }
 
-    private void runRotations(MotionEvent event, EntityLivingBase target) {
+    private void calculateRotations(EntityLivingBase target) {
+        lastYaw = yaw;
+        lastPitch = pitch;
 
+        float[] rotations = new float[] {0, 0};
+
+        switch (rotationMode.getMode()) {
+            case "Normal":
+                rotations = RotationUtils.getRotationsNeeded(target);
+                break;
+            case "Advanced":
+                rotations = Advancedrots.basicRotation(target, lastYaw, lastPitch,false);
+                break;
+            case "Smooth":
+                rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
+                break;
+        }
+
+        float[] fixedRotations = RotationUtils.getFixedRotations(rotations, new float[] { lastYaw, lastPitch });
+
+        yaw = fixedRotations[0];
+        pitch = fixedRotations[1];
+    }
+
+    private void runRotations(MotionEvent event) {
         if (!rotationMode.is("None")) {
-            lastYaw = yaw;
-            lastPitch = pitch;
-
-            float[] rotations = new float[] {0, 0};
-
-            switch (rotationMode.getMode()) {
-                case "Normal":
-                    rotations = RotationUtils.getRotationsNeeded(target);
-                    break;
-                case "Advanced":
-                    rotations = Advancedrots.basicRotation(target, lastYaw, lastPitch,false);
-                    break;
-                case "Smooth":
-                    rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
-                    break;
-            }
-
-            float[] fixedRotations = RotationUtils.getFixedRotations(rotations, new float[] { lastYaw, lastPitch });
-
-            yaw = fixedRotations[0];
-            pitch = fixedRotations[1];
-
             if (silentRotations.isEnabled()) {
                 event.setYaw(yaw);
                 event.setPitch(pitch);
@@ -294,7 +300,6 @@ public final class KillAura extends Module {
             if (showRotations.isEnabled())
                 RotationUtils.setVisualRotations(yaw, pitch);
         }
-
     }
 
     private void runPreBlocking(MotionEvent event) {

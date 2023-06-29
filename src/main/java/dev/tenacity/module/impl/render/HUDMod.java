@@ -102,20 +102,31 @@ public class HUDMod extends Module {
             String intentInfo = Tenacity.INSTANCE.getIntentAccount().username;
             switch (watermarkMode.getMode()) {
                 case "Logo":
-                    float WH = 110 / 2f;
-                    float textWidth = tenacityBoldFont32.getStringWidth(finalName);
+                    GradientUtil.applyGradientCornerRL(
+                            1.0F, 1.0F,
+                            107.5F, 67.5F,
+                            1.0F,
+                            ColorUtil.rainbow(10, 0, 0.45F, 0.65F, 1.0F),
+                            ColorUtil.rainbow(10, 200, 0.45F, 0.65F, 1.0F),
+                            () -> {
+                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
+                                Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                            }
+                    );
 
-                    GL11.glEnable(GL11.GL_SCISSOR_TEST);
-                    RenderUtil.scissor(10, 7, 13 + WH + textWidth + 5, WH);
+                    GradientUtil.applyGradientCornerRL(
+                            0, 0,
+                            107.5F, 67.5F,
+                            1.0F,
+                            ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
+                            ColorUtil.rainbow(10, 200, 0.45F, 1.0F, 1.0F),
+                            () -> {
+                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
+                                Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                            }
+                    );
 
-                    tenacityBoldFont32.drawString(finalName, (float) (((13 + WH) - textWidth) + (textWidth * fadeInText.getOutput().floatValue())), 8 + tenacityBoldFont32.getMiddleOfBox(WH), ColorUtil.applyOpacity(glow ? -1 : 0, (float) (fadeInText.getOutput().floatValue())));
-                    GL11.glDisable(GL11.GL_SCISSOR_TEST);
-
-
-                    GradientUtil.applyGradientCornerLR(27, 23, WH - 28, WH - 28, 1, clientColors.getSecond(), clientColors.getFirst(), () -> {
-                        mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/watermarkBack.png"));
-                        Gui.drawModalRectWithCustomSizedTexture(7, 7, 0, 0, WH, WH, WH, WH);
-                    });
+                    tenacityBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
                     break;
                 case "Tenacity":
                     float xVal = 6f;
@@ -191,34 +202,31 @@ public class HUDMod extends Module {
 
         switch (watermarkMode.getMode()) {
             case "Logo":
-                float WH = 110 / 2f;
+                GradientUtil.applyGradientCornerRL(
+                        1.0F, 1.0F,
+                        107.5F, 67.5F,
+                        1.0F,
+                        ColorUtil.rainbow(10, 0, 0.45F, 0.65F, 1.0F),
+                        ColorUtil.rainbow(10, 200, 0.45F, 0.65F, 1.0F),
+                        () -> {
+                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                        }
+                );
 
-                if (MovementUtils.isMoving()) {
-                    ticks = 0;
-                } else {
-                    ticks = Math.min(ticks + 1, 301);
-                }
+                GradientUtil.applyGradientCornerRL(
+                        0, 0,
+                        107.5F, 67.5F,
+                        1.0F,
+                        ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
+                        ColorUtil.rainbow(10, 200, 0.45F, 1.0F, 1.0F),
+                        () -> {
+                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                        }
+                );
 
-                fadeInText.setDirection(ticks < 300 ? Direction.BACKWARDS : Direction.FORWARDS);
-                float textWidth = tenacityBoldFont32.getStringWidth(finalName);
-
-                GL11.glEnable(GL11.GL_SCISSOR_TEST);
-                RenderUtil.scissor(10, 7, 13 + WH + textWidth + 5, WH);
-
-                tenacityBoldFont32.drawString(finalName, (float) (((13 + WH) - textWidth) + (textWidth * fadeInText.getOutput().floatValue())), 8 + tenacityBoldFont32.getMiddleOfBox(WH), ColorUtil.applyOpacity(-1, (float) (.7f * fadeInText.getOutput().floatValue())));
-                GL11.glDisable(GL11.GL_SCISSOR_TEST);
-
-                RenderUtil.color(Color.BLUE.getRGB());
-
-                GradientUtil.applyGradientCornerLR(27, 23, WH - 28, WH - 28, 1, clientColors.getSecond(), clientColors.getFirst(), () -> {
-                    mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/watermarkBack.png"));
-                    Gui.drawModalRectWithCustomSizedTexture(7, 7, 0, 0, WH, WH, WH, WH);
-                });
-
-                RenderUtil.color(-1);
-                GLUtil.startBlend();
-                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/watermarkT.png"));
-                Gui.drawModalRectWithCustomSizedTexture(7, 7, 0, 0, WH, WH, WH, WH);
+                tenacityBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
 
                 break;
 

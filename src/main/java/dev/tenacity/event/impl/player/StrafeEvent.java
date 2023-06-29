@@ -25,7 +25,8 @@ public class StrafeEvent extends Event implements Utils {
 
     public void setSpeed(final double speed) {
         setFriction((float) (getForward() != 0 && getStrafe() != 0 ? speed * 0.98F : speed));
-        MoveUtils.stop();
+        mc.thePlayer.motionX = 0;
+        mc.thePlayer.motionZ = 0;
     }
 
 }

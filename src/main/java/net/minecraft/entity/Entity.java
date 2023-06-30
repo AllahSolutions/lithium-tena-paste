@@ -351,8 +351,6 @@ public abstract class Entity implements ICommandSender {
     * Big Black Movement Correction
     **/
 
-    public float lastMovementYaw, movementYaw, velocityYaw;
-
     public Entity(World worldIn) {
         this.entityId = nextEntityID++;
         this.renderDistanceWeight = 1.0D;

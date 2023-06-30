@@ -26,7 +26,7 @@ public class DamageUtils implements Utils {
                 PacketUtils.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, true));
                 break;
             case NCP:
-                for (int i = 0; i <= MovementUtils.getMaxFallDist() / 0.0625; i++) {
+                for (int i = 0; i <= MovementUtils.getFallDistance() / 0.0625; i++) {
                     send(new C03PacketPlayer.C04PacketPlayerPosition(x, y + 0.0625, z, false));
                     send(new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, false));
                 }

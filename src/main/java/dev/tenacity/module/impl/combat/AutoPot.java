@@ -44,7 +44,7 @@ public class AutoPot extends Module {
 
         int prevSlot = mc.thePlayer.inventory.currentItem;
         if (e.isPre()) {
-            if (MovementUtils.isOnGround(1.0E-5)
+            if (mc.thePlayer.onGround
                     && !(mc.theWorld.getBlockState(new BlockPos(e.getX(), e.getY() - 1, e.getZ())).getBlock() instanceof BlockGlass)
                     && (!mc.thePlayer.isPotionActive(Potion.moveSpeed)
                     || mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getDuration() < 30)

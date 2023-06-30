@@ -21,7 +21,7 @@ import net.minecraft.network.play.server.S27PacketExplosion;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet","MMC","Reverse", "Matrix", "Tick", "Stack", "C0F Cancel");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Cancel", "MMC","Reverse", "Matrix", "Tick", "Stack", "C0F Cancel");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
     private final NumberSetting chance = new NumberSetting("Chance", 100, 100, 0, 1);
@@ -30,7 +30,6 @@ public class Velocity extends Module {
 
     private long lastDamageTimestamp, lastAlertTimestamp;
     private boolean cancel;
-    private int stack;
 
     public Velocity() {
         super("Velocity", Category.COMBAT, "Reduces your knockback");
@@ -74,6 +73,12 @@ public class Velocity extends Module {
                     if (mc.thePlayer != null && s19.getEntityId() == mc.thePlayer.getEntityId() && s19.getOpCode() == 2) {
                         lastDamageTimestamp = System.currentTimeMillis();
                     }
+                }
+                break;
+
+            case "Cancel":
+                if (packet instanceof S12PacketEntityVelocity || packet instanceof S27PacketExplosion) {
+                    e.cancel();
                 }
                 break;
 
@@ -150,11 +155,6 @@ public class Velocity extends Module {
                 }
                 break;
         }
-    }
-
-    @Override
-    public void onWorldEvent(WorldEvent event) {
-        stack = 0;
     }
 
     private boolean cancel(PacketReceiveEvent e) {

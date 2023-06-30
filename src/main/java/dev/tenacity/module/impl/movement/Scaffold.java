@@ -2,10 +2,7 @@ package dev.tenacity.module.impl.movement;
 
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
-import dev.tenacity.event.impl.player.BlockPlaceableEvent;
-import dev.tenacity.event.impl.player.JumpEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
-import dev.tenacity.event.impl.player.SafeWalkEvent;
+import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.ParentAttribute;
@@ -54,6 +51,7 @@ public class Scaffold extends Module {
     private final ModeSetting timerMode = new ModeSetting("Timer Mode", "Normal", "Normal", "Dynamic");
     private final NumberSetting timer = new NumberSetting("Timer", 1, 5, 0.1, 0.1);
     public static final BooleanSetting auto3rdPerson = new BooleanSetting("Auto 3rd Person", false);
+    public static final BooleanSetting movementCorrection = new BooleanSetting("Movement Correction", true);
     public static final BooleanSetting speedSlowdown = new BooleanSetting("Speed Slowdown", true);
     public static final NumberSetting speedSlowdownAmount = new NumberSetting("Slowdown Amount", 0.1, 0.2, 0.01, 0.01);
     public static final BooleanSetting itemSpoof = new BooleanSetting("Item Spoof", false);
@@ -78,16 +76,18 @@ public class Scaffold extends Module {
     private boolean pre;
     private int slot;
     private int prevSlot;
-    private float[] cachedRots = new float[2];
 
     public int onGroundTicks, offGroundTicks;
 
     private final Animation anim = new DecelerateAnimation(250, 1);
 
+    private float[] cachedRotations = new float[] { 0.0F, 0.0F };
+    float yaw = 0;
+
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
         this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay, timerMode, timer,
-                auto3rdPerson, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower, towerTimer,
+                auto3rdPerson, movementCorrection, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower, towerTimer,
                 swing, autoJump, hideJump, baseSpeed, keepY,LowMotion);
         rotationMode.addParent(rotations, ParentAttribute.BOOLEAN_CONDITION);
         sprintMode.addParent(sprint, ParentAttribute.BOOLEAN_CONDITION);
@@ -195,36 +195,34 @@ public class Scaffold extends Module {
 
 
             if (rotations.isEnabled()) {
-                float[] rotations = new float[] {0, 0};
+                cachedRotations = new float[] {0, 0};
 
                 switch (rotationMode.getMode()) {
                     case "Watchdog":
-                        rotations = new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 180, y};
-                        event.setRotations(rotations[0], rotations[1]);
+                        cachedRotations = new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 180, y};
                         break;
                     case "NCP":
-                        rotations = new float[] { mc.thePlayer.rotationYaw + mc.thePlayer.movementInput.moveForward < 0.0f ? 0 : 180, y};
-                        event.setRotations(rotations[0], rotations[1]);
+                        cachedRotations = new float[] { mc.thePlayer.rotationYaw + mc.thePlayer.movementInput.moveForward < 0.0f ? 0 : 180, y};
                         break;
                     case "Back":
-                        rotations = new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 180, 78};
-                        event.setRotations(rotations[0], rotations[1]);
+                        cachedRotations = new float[] { MovementUtils.getMovementDirection(event.getYaw()) - 180, 78 };
                         break;
                     case "Down":
-                        event.setYaw(mc.thePlayer.rotationYaw - 180);
-                        event.setPitch(90);
+                        cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, 90 };
                         break;
                     case "Enum":
                         if (lastBlockCache != null) {
-                            float yaw = RotationUtils.getEnumRotations(lastBlockCache.getFacing());
-                            event.setRotations(yaw, 77);
+                            cachedRotations = new float[] { RotationUtils.getEnumRotations(lastBlockCache.getFacing()), 77 };
                         } else {
-                            event.setRotations(mc.thePlayer.rotationYaw + 180, 77);
+                            cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, 77 };
                         }
                         break;
                 }
 
+                event.setRotations(cachedRotations[0], cachedRotations[1]);
                 RotationUtils.setVisualRotations(event);
+
+                yaw = event.getYaw();
             }
 
             if (speedSlowdown.isEnabled() && mc.thePlayer.isPotionActive(Potion.moveSpeed) && !mc.gameSettings.keyBindJump.isKeyDown() && mc.thePlayer.onGround) {
@@ -368,6 +366,27 @@ public class Scaffold extends Module {
         if (downwards.isEnabled()) {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), false);
             mc.thePlayer.movementInput.sneak = false;
+        }
+    }
+
+    @Override
+    public void onMoveInputEvent(MoveInputEvent event) {
+        if (movementCorrection.isEnabled()) {
+            MovementUtils.fixMovement(event, yaw);
+        }
+    }
+
+    @Override
+    public void onStrafeEvent(StrafeEvent event) {
+        if (movementCorrection.isEnabled()) {
+            event.setYaw(yaw);
+        }
+    }
+
+    @Override
+    public void onJumpFixEvent(JumpFixEvent event) {
+        if (movementCorrection.isEnabled()) {
+            event.setYaw(yaw);
         }
     }
 

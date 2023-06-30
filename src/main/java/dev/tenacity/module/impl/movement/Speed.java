@@ -51,6 +51,9 @@ public final class Speed extends Module {
 
                 final boolean haspeed = mc.thePlayer.isPotionActive(Potion.moveSpeed);
                 if(haspeed) {
+
+                    
+
                     TargetStrafe.strafe(e, MovementUtils.getSpeed() * 1.04);
                     MovementUtils.strafe(MovementUtils.getSpeed() * 1.04f);
                 } else{

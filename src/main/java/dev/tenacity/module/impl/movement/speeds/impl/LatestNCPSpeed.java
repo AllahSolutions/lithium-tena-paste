@@ -2,6 +2,8 @@ package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.MoveEvent;
+import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.potion.Potion;
@@ -11,6 +13,14 @@ public class LatestNCPSpeed extends SpeedMode {
 
     public LatestNCPSpeed() {
         super("Latest NCP");
+    }
+
+    @Override
+    public void onMoveEvent(MoveEvent event) {
+       TargetStrafe.strafe(event,
+                MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F
+        );
+
     }
 
 

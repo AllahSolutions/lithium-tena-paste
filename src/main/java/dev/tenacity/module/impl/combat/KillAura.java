@@ -306,6 +306,9 @@ public final class KillAura extends Module {
         yaw = fixedRotations[0];
         pitch = fixedRotations[1];
     }
+
+
+
     
 
 

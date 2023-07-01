@@ -26,7 +26,7 @@ public class InvadedSpeed extends SpeedMode {
         if(mc.thePlayer.hurtTime >1){
 
            // MovementUtils.strafe(1f);
-            TargetStrafe.strafe(event, 1f);
+             TargetStrafe.strafe(event, 1f);
 
         } else {
            // MovementUtils.strafe(0.50f);

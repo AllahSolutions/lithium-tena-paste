@@ -105,9 +105,6 @@ public class Keystrokes extends Module {
 
         public void renderForEffects(float x, float y, float width, float height, ShaderEvent event) {
             Color color = Color.BLACK;
-            if (event.getBloomOptions().getSetting("Keystrokes").isEnabled()) {
-                color = ColorUtil.interpolateColorC(Color.BLACK, Color.WHITE, (float) clickAnimation.getOutput().floatValue());
-            }
             RoundedUtil.drawRound(x, y, width, height, radius.getValue().floatValue(), color);
         }
 

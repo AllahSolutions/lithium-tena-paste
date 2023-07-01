@@ -9,25 +9,10 @@ import net.minecraft.potion.Potion;
 public class LatestNCPSpeed extends SpeedMode {
 
 
-    public int onGroundTicks, offGroundTicks;
-
     public LatestNCPSpeed() {
         super("Latest NCP");
     }
 
-    @Override
-    public void onTickEvent(TickEvent event) {
-
-        if (mc.thePlayer.onGround) {
-            ++onGroundTicks;
-            offGroundTicks = 0;
-        } else {
-            ++offGroundTicks;
-            onGroundTicks = 0;
-        }
-
-        super.onTickEvent(event);
-    }
 
 
 
@@ -52,7 +37,7 @@ public class LatestNCPSpeed extends SpeedMode {
             }
         }
 
-       // mc.timer.timerSpeed = (float) (1.075f - Math.random() / 100.0F);
+        mc.timer.timerSpeed = (float) (1.075F - (Math.random() - 0.5) / 100.0F);
 
         MovementUtils.strafe(
                 MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F

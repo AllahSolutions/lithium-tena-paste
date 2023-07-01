@@ -88,10 +88,6 @@ public class HUDMod extends Module {
 
 
         if (e.isBloom()) {
-            boolean glow = e.getBloomOptions().getSetting("Watermark").isEnabled();
-            if (!glow) {
-                clientColors = Pair.of(Color.BLACK);
-            }
 
             if (!clientName.getString().equals("")) {
                 name = clientName.getString().replace("%time%", getCurrentTimeStamp());
@@ -106,8 +102,8 @@ public class HUDMod extends Module {
                             1.0F, 1.0F,
                             107.5F, 67.5F,
                             1.0F,
-                            ColorUtil.rainbow(10, 0, 0.45F, 0.65F, 1.0F),
-                            ColorUtil.rainbow(10, 200, 0.45F, 0.65F, 1.0F),
+                            clientColors.getFirst().darker(),
+                            clientColors.getSecond().darker(),
                             () -> {
                                 mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
                                 Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
@@ -118,8 +114,8 @@ public class HUDMod extends Module {
                             0, 0,
                             107.5F, 67.5F,
                             1.0F,
-                            ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
-                            ColorUtil.rainbow(10, 200, 0.45F, 1.0F, 1.0F),
+                            clientColors.getFirst(),
+                            clientColors.getSecond(),
                             () -> {
                                 mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
                                 Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
@@ -175,7 +171,7 @@ public class HUDMod extends Module {
                             + PingerUtils.getPing() + "ms ";
                     float x = 4.5f, y = 4.5f;
 
-                    Gui.drawRect2(x, y, tenacityFont16.getStringWidth(text) + 7, 18.5, glow ? new Color(59, 57, 57).getRGB() : Color.BLACK.getRGB());
+                    Gui.drawRect2(x, y, tenacityFont16.getStringWidth(text) + 7, 18.5, e.isBloom() ? new Color(59, 57, 57).getRGB() : Color.BLACK.getRGB());
                     break;
             }
         }
@@ -206,8 +202,8 @@ public class HUDMod extends Module {
                         1.0F, 1.0F,
                         107.5F, 67.5F,
                         1.0F,
-                        ColorUtil.rainbow(10, 0, 0.45F, 0.65F, 1.0F),
-                        ColorUtil.rainbow(10, 200, 0.45F, 0.65F, 1.0F),
+                        clientColors.getFirst().darker(),
+                        clientColors.getSecond().darker(),
                         () -> {
                             mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
                             Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
@@ -218,8 +214,8 @@ public class HUDMod extends Module {
                         0, 0,
                         107.5F, 67.5F,
                         1.0F,
-                        ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
-                        ColorUtil.rainbow(10, 200, 0.45F, 1.0F, 1.0F),
+                        clientColors.getFirst(),
+                        clientColors.getSecond(),
                         () -> {
                             mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lithium.png"));
                             Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
@@ -227,7 +223,6 @@ public class HUDMod extends Module {
                 );
 
                 tenacityBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
-
                 break;
 
             case "Tenacity":

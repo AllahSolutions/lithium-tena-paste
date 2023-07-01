@@ -2,7 +2,7 @@ package dev.tenacity.ui.clickguis.zeroday.components.settings;
 
 import dev.tenacity.module.settings.impl.StringSetting;
 import dev.tenacity.ui.clickguis.zeroday.components.SettingComponent;
-import dev.tenacity.utils.objects.TextField;
+import dev.tenacity.ui.clickguis.zeroday.components.upd.TextField;
 
 public class StringComponent extends SettingComponent<StringSetting> {
 
@@ -37,8 +37,6 @@ public class StringComponent extends SettingComponent<StringSetting> {
             textField.setCursorPositionZero();
             setDefaultText = true;
         }
-
-
 
         getSetting().setString(textField.getText());
 

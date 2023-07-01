@@ -178,12 +178,11 @@ public class TargetHUDMod extends Module {
 
         if (target != null) {
 
-            boolean glow = e.getBloomOptions().getSetting("TargetHud").isEnabled();
             RenderUtil.scaleStart(x + drag.getWidth() / 2f, y + drag.getHeight() / 2f,
                     (float) (.5 + openAnimation.getOutput().floatValue()) * trackScale);
             float alpha = Math.min(1, openAnimation.getOutput().floatValue() * 2);
 
-            currentTargetHUD.renderEffects(x, y, alpha, glow);
+            currentTargetHUD.renderEffects(x, y, alpha, e.isBloom());
 
             RenderUtil.scaleEnd();
         }

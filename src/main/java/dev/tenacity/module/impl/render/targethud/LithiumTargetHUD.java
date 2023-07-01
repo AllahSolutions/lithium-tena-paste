@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import org.lwjgl.Sys;
 
 import java.awt.*;
 
@@ -35,11 +36,10 @@ public class LithiumTargetHUD extends TargetHUD {
 
         this.target = target;
 
-        Color color = new Color(0, 0, 0, (int) (25 * alpha));
+        Color background = new Color(0, 0, 0, (int) (25 * alpha));
+        Color text = new Color(255, 255, 255, (int) alpha * 255);
 
-        int textColor = ColorUtil.applyOpacity(-1, alpha);
-
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, color);
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, background);
 
         if (target instanceof AbstractClientPlayer) {
             StencilUtil.initStencilToWrite();
@@ -50,47 +50,37 @@ public class LithiumTargetHUD extends TargetHUD {
             StencilUtil.uninitStencilBuffer();
             GlStateManager.disableBlend();
         } else {
-            FontUtil.tenacityBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.tenacityBoldFont32.getHeight() / 2f, textColor);
+            FontUtil.tenacityBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.tenacityBoldFont32.getHeight() / 2f, text.getRGB());
         }
 
-        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, textColor);
+        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, text.getRGB());
+        FontUtil.tenacityBoldFont16.drawStringWithShadow(target.getHealth() >= mc.thePlayer.getHealth() ? EnumChatFormatting.RED + "Losing" : EnumChatFormatting.GREEN + "Winning", x + 44F, y + 18, text.getRGB());
 
-        FontUtil.tenacityBoldFont16.drawStringWithShadow(
-                target.getHealth() >= mc.thePlayer.getHealth() ? EnumChatFormatting.RED + "Losing" : EnumChatFormatting.GREEN + "Winning",
-                x + 44F, y + 18, -1
-        );
+        float percentage = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
 
-        float healthPercent = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
+        float healthWidth = getWidth() - 48;
+        animation.animate(healthWidth * percentage, 20);
 
-        float realHealthWidth = getWidth() - 48;
-        float realHealthHeight = 3;
-        animation.animate(realHealthWidth * healthPercent, 18);
-        Color backgroundHealthColor = new Color(0, 0, 0, ((int) alpha * 110));
+        float animationOutput = animation.getOutput();
 
-        float healthWidth = animation.getOutput();
-
-        RoundedUtil.drawRound(x + 44, (y + getHeight() - 8), 98, realHealthHeight, 1.5f, backgroundHealthColor);
-        RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), healthWidth, realHealthHeight, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
+        RoundedUtil.drawRound(x + 44, (y + getHeight() - 8), 98, 3, 1.5f, background);
+        RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), animationOutput, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
     }
 
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
+        float percentage = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
+        float healthWidth = getWidth() - 48;
 
+        animation.animate(healthWidth * percentage, 20);
+        float animationOutput = animation.getOutput();
 
-
-
-
-        float healthPercent = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
-        float realHealthWidth = getWidth() - 48;
-
-        animation.animate(realHealthWidth * healthPercent, 18);
-        float healthWidth = animation.getOutput();
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(Color.BLACK, alpha));
-
-
-        RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), healthWidth, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
-
+        if (glow) {
+            RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), animationOutput, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
+        } else {
+            RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 5, ColorUtil.applyOpacity(Color.BLACK, alpha));
+        }
     }
 
 }

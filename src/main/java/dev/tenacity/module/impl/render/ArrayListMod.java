@@ -126,7 +126,7 @@ public class ArrayListMod extends Module {
 
             if (background.isEnabled()) {
                 float offset = minecraftFont.isEnabled() ? 4 : 5;
-                int rectColor = e.getBloomOptions().getSetting("Arraylist").isEnabled() ? textcolor.getRGB() : (rectangle.getMode().equals("Outline") && partialGlow.isEnabled() ? textcolor.getRGB() : Color.BLACK.getRGB());
+                int rectColor = e.isBloom() ? textcolor.getRGB() : (rectangle.getMode().equals("Outline") && partialGlow.isEnabled() ? textcolor.getRGB() : Color.BLACK.getRGB());
 
 
                 Gui.drawRect2(x - 2, y, font.getStringWidth(displayText) + offset, heightVal,

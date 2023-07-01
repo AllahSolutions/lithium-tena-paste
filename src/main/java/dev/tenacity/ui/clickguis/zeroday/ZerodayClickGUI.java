@@ -1,6 +1,7 @@
 package dev.tenacity.ui.clickguis.zeroday;
 
 import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.render.ShaderEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.impl.movement.InventoryMove;
 import dev.tenacity.module.impl.render.ClickGUIMod;
@@ -102,7 +103,7 @@ public class ZerodayClickGUI extends GuiScreen {
         Gui.drawRect(
                 0, 0,
                 width, height,
-                0x88000000
+                0xAA000000
         );
 
         GradientUtil.drawGradientLR(
@@ -110,7 +111,7 @@ public class ZerodayClickGUI extends GuiScreen {
                 width, height,
                 0.45F,
                 ColorUtil.rainbow(10, 0, 0.35F, 0.75F, 1.0F),
-                ColorUtil.rainbow(10, width, 0.35F, 0.75F, 0.15F)
+                ColorUtil.rainbow(10, width / 2, 0.35F, 0.75F, 0.15F)
         );
 
         Gui.drawGradientRect(
@@ -152,13 +153,12 @@ public class ZerodayClickGUI extends GuiScreen {
         categoryPanels.forEach(categoryPanel -> categoryPanel.drawToolTips(fakeMouseX, fakeMouseY));
     }
 
-    public void renderEffects() {
+    public void renderEffects(boolean bloom) {
         ScaledResolution sr = new ScaledResolution(mc);
         RenderUtil.scaleStart(sr.getScaledWidth() / 2f, sr.getScaledHeight() / 2f, openingAnimations.getSecond().getOutput().floatValue() + .6f);
         for (CategoryPanel catPanels : categoryPanels) {
-            catPanels.renderEffects();
+            catPanels.renderEffects(bloom);
         }
-
         RenderUtil.scaleEnd();
     }
 

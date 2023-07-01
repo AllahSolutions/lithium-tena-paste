@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.combat;
 
+import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
 import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.player.AttackEvent;
@@ -12,7 +13,6 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.time.TimerUtil;
-import dev.tenacity.viamcp.utils.AttackOrder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;

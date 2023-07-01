@@ -1,5 +1,6 @@
 package dev.tenacity.protection;
 
+import de.florianmichael.viamcp.ViaMCP;
 import dev.tenacity.Tenacity;
 import dev.tenacity.commands.CommandHandler;
 import dev.tenacity.commands.impl.*;
@@ -23,7 +24,6 @@ import dev.tenacity.ui.altmanager.helpers.KingGenApi;
 import dev.tenacity.utils.render.EntityCulling;
 import dev.tenacity.utils.render.Theme;
 import dev.tenacity.utils.server.PingerUtils;
-import dev.tenacity.viamcp.ViaMCP;
 import net.minecraft.client.Minecraft;
 import store.intent.intentguard.annotation.Bootstrap;
 import store.intent.intentguard.annotation.Native;
@@ -186,10 +186,8 @@ public class ProtectedLaunch {
         Tenacity.INSTANCE.setKingGenApi(new KingGenApi());
 
         try {
-            Tenacity.LOGGER.info("Starting ViaMCP...");
-            ViaMCP viaMCP = ViaMCP.getInstance();
-            viaMCP.start();
-            viaMCP.initAsyncSlider(100, 100, 110, 20);
+            ViaMCP.create();
+            ViaMCP.INSTANCE.initAsyncSlider(); // For top left aligned slider
         } catch (Exception e) {
             e.printStackTrace();
         }

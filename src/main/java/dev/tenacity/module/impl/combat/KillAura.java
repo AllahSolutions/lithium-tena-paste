@@ -1,5 +1,7 @@
 package dev.tenacity.module.impl.combat;
 
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
+import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.*;
@@ -418,8 +420,7 @@ public final class KillAura extends Module {
     }
 
     private void attack(MotionEvent event, EntityLivingBase entity) {
-
-        if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue()) {
+        if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isOlderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
         }
 
@@ -434,20 +435,14 @@ public final class KillAura extends Module {
             return;
 
         if (mc.thePlayer.getDistanceToEntity(entity) <= attackRange.getValue()) {
-
             Tenacity.INSTANCE.getEventProtocol().handleEvent(new AttackEvent(target));
 
-            if (bypass.getSetting("Movement Correction").isEnabled()) {
-               // mc.thePlayer.setSprinting(false);
-            }
-
-            if (bypass.getSetting("Keep Sprinting").isEnabled()) {
-                PacketUtils.sendPacket(new C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK));
-            } else {
-                mc.playerController.attackEntity(mc.thePlayer, entity);
-            }
-
+            mc.playerController.attackEntity(mc.thePlayer, entity);
             mc.thePlayer.onCriticalHit(entity);
+        }
+
+        if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isNewerThan(ProtocolVersion.v1_8)) {
+            mc.thePlayer.swingItem();
         }
 
         if (mc.thePlayer.getDistanceToEntity(entity) <= blockRange.getValue()) {

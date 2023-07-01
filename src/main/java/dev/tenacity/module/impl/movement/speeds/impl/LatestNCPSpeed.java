@@ -29,6 +29,8 @@ public class LatestNCPSpeed extends SpeedMode {
         super.onTickEvent(event);
     }
 
+
+
     @Override
     public void onMotionEvent(MotionEvent event) {
 
@@ -50,7 +52,7 @@ public class LatestNCPSpeed extends SpeedMode {
             }
         }
 
-        mc.timer.timerSpeed = (float) (1.12f - Math.random() / 100.0F);
+       // mc.timer.timerSpeed = (float) (1.075f - Math.random() / 100.0F);
 
         MovementUtils.strafe(
                 MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F

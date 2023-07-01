@@ -286,6 +286,8 @@ public final class KillAura extends Module {
         yaw = fixedRotations[0];
         pitch = fixedRotations[1];
     }
+    
+
 
     private void runRotations(MotionEvent event) {
         if (!rotationMode.is("None")) {
@@ -296,6 +298,9 @@ public final class KillAura extends Module {
                 mc.thePlayer.rotationYaw = yaw;
                 mc.thePlayer.rotationPitch = pitch;
             }
+
+
+
 
             if (showRotations.isEnabled())
                 RotationUtils.setVisualRotations(yaw, pitch);
@@ -410,7 +415,7 @@ public final class KillAura extends Module {
             Tenacity.INSTANCE.getEventProtocol().handleEvent(new AttackEvent(target));
 
             if (bypass.getSetting("Movement Correction").isEnabled()) {
-                mc.thePlayer.setSprinting(false);
+               // mc.thePlayer.setSprinting(false);
             }
 
             if (bypass.getSetting("Keep Sprinting").isEnabled()) {

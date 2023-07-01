@@ -64,11 +64,11 @@ public class ProtectedLaunch {
         modules.put(Disabler.class, new Disabler());
         modules.put(AntiInvis.class, new AntiInvis());
         modules.put(Regen.class, new Regen());
-        modules.put(TPAKiller.class, new TPAKiller());
         modules.put(AntiAura.class, new AntiAura());
         modules.put(ResetVL.class, new ResetVL());
         modules.put(Crasher.class, new Crasher());
         modules.put(Damage.class, new Damage());
+        modules.put(Test.class, new Test());
 
         // Misc
         modules.put(AntiDesync.class, new AntiDesync());

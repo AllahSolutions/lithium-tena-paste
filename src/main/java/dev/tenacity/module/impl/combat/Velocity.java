@@ -100,14 +100,10 @@ public class Velocity extends Module {
             case "MMC":
                 if (packet instanceof S12PacketEntityVelocity) {
                     S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if(mc.thePlayer.ticksExisted % 5 == 0) {
-                    if (mc.thePlayer != null && s12.getEntityID() == mc.thePlayer.getEntityId()) {
-                        if (cancel(e)) return;
-                        s12.motionX *= horizontal.getValue() / 100.0;
-                        s12.motionZ *= horizontal.getValue() / 100.0;
-                        s12.motionY *= vertical.getValue() / 100.0;
+                    if(mc.thePlayer.ticksExisted % 2 == 0) {
+                        e.cancel();
                     }
-                    }
+
 
                 }
                 break;

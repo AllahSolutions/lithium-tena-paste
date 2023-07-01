@@ -199,6 +199,7 @@ public class Scaffold extends Module {
 
                 switch (rotationMode.getMode()) {
                     case "Watchdog":
+
                         cachedRotations = new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 180, y};
                         break;
                     case "NCP":
@@ -220,7 +221,12 @@ public class Scaffold extends Module {
                 }
 
                 event.setRotations(cachedRotations[0], cachedRotations[1]);
-                RotationUtils.setVisualRotations(event);
+                if(rotationMode.getMode().equals("Watchdog")) {
+                    RotationUtils.setVisualRotations(new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 360, y});
+
+                } else {
+                    RotationUtils.setVisualRotations(event);
+                }
 
                 yaw = event.getYaw();
             }

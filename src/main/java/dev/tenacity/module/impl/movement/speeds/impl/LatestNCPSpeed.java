@@ -9,15 +9,17 @@ import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.potion.Potion;
 
 public class LatestNCPSpeed extends SpeedMode {
+    private TargetStrafe targetStrafe;
 
 
     public LatestNCPSpeed() {
         super("Latest NCP");
+        targetStrafe = new TargetStrafe();
     }
 
     @Override
     public void onMoveEvent(MoveEvent event) {
-       TargetStrafe.strafe(event,
+       targetStrafe.strafe(event,
                 MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F
         );
 

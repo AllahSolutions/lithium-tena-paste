@@ -82,9 +82,11 @@ public final class Flight extends Module {
 
     private final BooleanSetting speed = new BooleanSetting("Speed", false);
     private final NumberSetting speedAmount = new NumberSetting("Speed Amount", 0.2, 9, 0.05, 0.01);
+    private TargetStrafe targetStrafe;
 
     public Flight() {
         super("Flight", Category.MOVEMENT, "Makes you hover in the air");
+        targetStrafe = new TargetStrafe();
         horizontalSpeed.addParent(mode, m -> m.is("Vanilla"));
         verticalSpeed.addParent(mode, m -> m.is("Vanilla"));
         antiKick.addParent(mode, m -> m.is("Vanilla"));
@@ -103,7 +105,7 @@ public final class Flight extends Module {
         switch (mode.getMode()) {
             case "Vanilla":
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
-                TargetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
+               targetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
                 break;
 
 
@@ -153,8 +155,7 @@ public final class Flight extends Module {
 
                
             default:
-                TargetStrafe.strafe(e);
-                break;
+
 
 
 
@@ -292,7 +293,7 @@ public final class Flight extends Module {
                 }
                 break;
             case "Vanilla":
-                if (TargetStrafe.canStrafe()) {
+                if ( targetStrafe.canStrafe()) {
                     mc.thePlayer.motionY = antiKick.isEnabled() ? -0.0625 : 0;
                 } else {
                     mc.thePlayer.motionY = mc.gameSettings.keyBindJump.isKeyDown() ? verticalSpeed.getValue() : mc.gameSettings.keyBindSneak.isKeyDown() ? -verticalSpeed.getValue() : antiKick.isEnabled() ? -0.0625 : 0;

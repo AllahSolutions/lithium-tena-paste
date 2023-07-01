@@ -7,15 +7,17 @@ import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
 
 public class VanillaSpeed extends SpeedMode {
+    private TargetStrafe targetStrafe;
 
     public VanillaSpeed() {
         super("Vanilla");
+        targetStrafe = new TargetStrafe();
     }
 
     @Override
     public void onMoveEvent(MoveEvent event) {
         MovementUtils.strafe(1.0F);
-         TargetStrafe.strafe(event,1);
+        targetStrafe.strafe(event,1);
 
 
     }

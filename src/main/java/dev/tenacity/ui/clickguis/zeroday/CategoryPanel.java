@@ -225,18 +225,18 @@ public class CategoryPanel implements Screen {
         );
     }
 
-    public void renderEffects() {
-
+    public void renderEffects(boolean bloom) {
         float x = category.getDrag().getX(), y = category.getDrag().getY();
-
         float realHeight = Math.min(actualHeight, Module.allowedClickGuiHeight);
 
-        Gui.drawRect2(
-                x, y,
-                rectWidth,
-                realHeight + categoryRectHeight,
-                0x20000000
-        );
+        if (bloom) {
+            Gui.drawRect2(
+                    x, y,
+                    rectWidth ,
+                    realHeight + categoryRectHeight,
+                    0xFF000000
+            );
+        }
     }
 
     public void drawToolTips(int mouseX, int mouseY) {

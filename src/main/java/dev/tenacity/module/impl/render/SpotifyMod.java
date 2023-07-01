@@ -78,7 +78,7 @@ public class SpotifyMod extends Module {
         float width = albumCoverSize + playerWidth;
 
         if (event.isBloom()) {
-            if (event.getBloomOptions().getSetting("Spotify").isEnabled()) {
+            if (event.isBloom()) {
                 switch (style.getMode()) {
                     case "Lithium":
                         Pair < Color, Color > colors = HUDMod.getClientColors();

@@ -240,8 +240,7 @@ public class CategoryPanel implements Screen {
                     clientFirst, clientSecond);
 
         } else {
-//            RoundedUtil.drawRound(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, 5, (glow && ClickGUIMod.outlineAccent.isEnabled()) ? clientFirst :
-//                    ColorUtil.applyOpacity(Color.BLACK, alpha));
+            Gui.drawRect2(x - .75f, y - .5f, rectWidth + 1.5f, allowedHeight + categoryRectHeight + 1.5f, ColorUtil.applyOpacity(Color.BLACK, alpha).getRGB());
         }
     }
 

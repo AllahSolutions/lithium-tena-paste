@@ -39,7 +39,7 @@ public class ZeroDayTargetHUD extends TargetHUD {
 
         // Colors
         int nameColor = new Color(255, 255, 255).getRGB();
-        int infoColor = new Color(205, 205, 205).getRGB();
+        int infoColor = new Color(225, 225, 225).getRGB();
 
         // Draw name & info
         tenacityFont24.drawString(target.getName(), x + 36, y + 8, nameColor);
@@ -52,11 +52,11 @@ public class ZeroDayTargetHUD extends TargetHUD {
 
         tenacityFont16.drawString(
                 "Range: " + Math.round(mc.thePlayer.getDistanceToEntity(target) - 0.5),
-                x + 36, y + 28,
+                x + 36, y + 30,
                 infoColor
         );
 
-        tenacityFont22.drawString(target.getHealth() < mc.thePlayer.getHealth() ? "Winning" : "Losing", x + 36, y + 38, nameColor);
+        tenacityFont22.drawString(target.getHealth() < mc.thePlayer.getHealth() ? "Winning" : "Losing", x + 36, y + 40, nameColor);
 
         // damage anim
         float endWidth = (float) Math.max(0, getWidth() * healthPercentage);
@@ -89,7 +89,9 @@ public class ZeroDayTargetHUD extends TargetHUD {
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
-        Gui.drawRect2(x, y, getWidth(), getHeight(), ColorUtil.applyOpacity(Color.BLACK.getRGB(), alpha));
+        if (glow) {
+            Gui.drawRect2(x, y, getWidth(), getHeight(), ColorUtil.applyOpacity(Color.BLACK.getRGB(), alpha));
+        }
     }
 
 }

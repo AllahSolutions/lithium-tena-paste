@@ -1,4 +1,4 @@
-package dev.tenacity.ui.clickguis.zeroday.components;
+package dev.tenacity.ui.clickguis.zeroday.components.upd;
 
 import dev.tenacity.ui.Screen;
 import dev.tenacity.utils.animations.Animation;

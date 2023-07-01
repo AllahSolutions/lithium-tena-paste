@@ -185,6 +185,10 @@ public final class KillAura extends Module {
     @Override
     public void onTickEvent(TickEvent event) {
 
+        if (mc.theWorld == null || mc.thePlayer == null) {
+            return;
+        }
+
         updateTargets();
 
         target = (this.list.size() > 0) ? this.list.get(0) : null;
@@ -199,6 +203,10 @@ public final class KillAura extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
+
+        if (mc.theWorld == null || mc.thePlayer == null) {
+            return;
+        }
 
         this.setSuffix(attackMode.getMode());
 
@@ -244,6 +252,10 @@ public final class KillAura extends Module {
 
     @Override
     public void onMoveInputEvent(MoveInputEvent event) {
+        if (mc.theWorld == null || mc.thePlayer == null) {
+            return;
+        }
+
         if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             MovementUtils.fixMovement(event, yaw);
         }
@@ -251,6 +263,10 @@ public final class KillAura extends Module {
 
     @Override
     public void onStrafeEvent(StrafeEvent event) {
+        if (mc.theWorld == null || mc.thePlayer == null) {
+            return;
+        }
+
         if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
         }
@@ -258,6 +274,10 @@ public final class KillAura extends Module {
 
     @Override
     public void onJumpFixEvent(JumpFixEvent event) {
+        if (mc.theWorld == null || mc.thePlayer == null) {
+            return;
+        }
+
         if (bypass.getSetting("Movement Correction").isEnabled() && target != null) {
             event.setYaw(yaw);
         }

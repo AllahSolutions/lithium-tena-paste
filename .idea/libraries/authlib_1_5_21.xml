@@ -50,7 +50,6 @@
       <root url="jar://$PROJECT_DIR$/lib/oshi-core-1.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.30.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/slf4j-nop-2.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/snakeyaml-1.32.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/soundsystem-20120107.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/spotify-web-api-java-6.5.4.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/twitch-6.5.jar!/" />
@@ -59,9 +58,10 @@
       <root url="jar://$PROJECT_DIR$/lib/twitch-platform-6.5-natives-osx.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/twitch-platform-6.5-natives-windows-32.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/twitch-platform-6.5-natives-windows-64.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/viabackwards-4.4.2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/viarewind-core-2.0.3-SNAPSHOT.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/viaversion-4.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ViaBackwards-4.7.0-1.20-pre1-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ViaRewind-2.0.4-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ViaVersion-4.7.0-1.20-pre2-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/snakeyaml-2.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

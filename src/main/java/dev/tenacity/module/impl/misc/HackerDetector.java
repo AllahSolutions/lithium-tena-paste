@@ -10,6 +10,7 @@ import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +20,8 @@ public class HackerDetector extends Module {
 
     private final DetectionManager detectionManager = new DetectionManager();
     private final TimerUtil timer = new TimerUtil();
+
+    public int vl;
     private final MultipleBoolSetting detections = new MultipleBoolSetting("Detections",
             new BooleanSetting("Flight A", true),
             new BooleanSetting("Flight B", true),
@@ -38,17 +41,17 @@ public class HackerDetector extends Module {
         for(Entity entity : mc.theWorld.getLoadedEntityList()) {
             if(entity instanceof EntityPlayer) {
                 EntityPlayer entityPlayer = (EntityPlayer) entity;
-                if(entityPlayer != mc.thePlayer) {
-                    for(Detection d : detectionManager.getDetections()) {
-                        if(detections.getSetting(d.getName()).isEnabled()) {
-                            if(d.runCheck(entityPlayer) && System.currentTimeMillis() > d.getLastViolated() + 500) {
-                                NotificationManager.post(NotificationType.WARNING, entityPlayer.getName(), "has flagged " + d.getName() + " | " + EnumChatFormatting.BOLD + entityPlayer.VL);
-                                entityPlayer.VL++;
-                                d.setLastViolated(System.currentTimeMillis());
-                            }
-                        }
+             //   if(entityPlayer != mc.thePlayer) {
+                    if(entityPlayer.onGround) {
+                        timer.reset();
                     }
-                }
+                    //Maybe do not use falldistance
+                   if(!entityPlayer.onGround && (timer.hasTimeElapsed((long) 600)) && entityPlayer.fallDistance < 2) {
+                       vl++;
+                       ChatUtil.print( "Player: "  +  EnumChatFormatting.DARK_RED + entityPlayer.getName() + EnumChatFormatting.RED  + " Failed FlyA " + "[" + vl + "]");
+                   }
+
+              //  }
             }
         }
     }

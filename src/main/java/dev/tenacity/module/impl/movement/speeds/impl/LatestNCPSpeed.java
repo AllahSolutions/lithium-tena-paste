@@ -1,11 +1,15 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.event.impl.player.MoveEvent;
 import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
 
 public class LatestNCPSpeed extends SpeedMode {
@@ -14,12 +18,24 @@ public class LatestNCPSpeed extends SpeedMode {
 
     public LatestNCPSpeed() {
         super("Latest NCP");
-        targetStrafe = new TargetStrafe();
+
+    }
+
+    @Override
+    public void onPacketSendEvent(PacketSendEvent event) {
+
+
+            //if (event.getPacket() instanceof C0BPacketEntityAction) {
+
+             //   event.cancel();
+         //   }
+
+
     }
 
     @Override
     public void onMoveEvent(MoveEvent event) {
-       targetStrafe.strafe(event,
+        TargetStrafe.strafe(event,
                 MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F
         );
 

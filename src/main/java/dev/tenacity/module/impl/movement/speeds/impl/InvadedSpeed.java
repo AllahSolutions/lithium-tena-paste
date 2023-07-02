@@ -13,11 +13,11 @@ public class InvadedSpeed extends SpeedMode {
 
 
     public int onGroundTicks, offGroundTicks;
-    private TargetStrafe targetStrafe;
+
 
     public InvadedSpeed() {
         super("Invaded");
-        targetStrafe = new TargetStrafe();
+
     }
 
 
@@ -26,9 +26,9 @@ public class InvadedSpeed extends SpeedMode {
 
 
         if (mc.thePlayer.hurtTime > 1) {
-            targetStrafe.strafe(event, 1f);
+            TargetStrafe.strafe(event, 1f);
         } else {
-            targetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed());
+            TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed());
         }
 
 

@@ -11,6 +11,7 @@ import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.Advancedrots;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
@@ -59,7 +60,7 @@ public final class IdleFighter extends Module {
             sortTargets();
             if(!targets.isEmpty()) {
                 target = targets.get(0);
-                final float[] rotations = RotationUtils.getRotations(target.posX, target.posY + 1, target.posZ);
+                final float[] rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),true);
                 mc.thePlayer.rotationYaw = rotations[0];
                 mc.thePlayer.rotationPitch = rotations[1];
 

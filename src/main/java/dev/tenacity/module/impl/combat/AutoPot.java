@@ -39,7 +39,7 @@ public class AutoPot extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent e) {
-        if (Tenacity.INSTANCE.isEnabled(Scaffold.class) || mc.currentScreen instanceof GuiChest)
+        if (Tenacity.INSTANCE.isEnabled(Scaffold.class) || mc.currentScreen instanceof GuiChest || Tenacity.INSTANCE.isEnabled(KillAura.class))
             return;
 
         int prevSlot = mc.thePlayer.inventory.currentItem;

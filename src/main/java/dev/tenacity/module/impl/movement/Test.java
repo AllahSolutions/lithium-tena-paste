@@ -6,6 +6,7 @@ import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
+import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
@@ -20,6 +21,11 @@ public class Test extends Module {
     }
 
     @Override
+    public void onMotionEvent(MotionEvent e) {
+        MovementUtils.strafe(MovementUtils.getSpeed() * (float)1.02);
+    }
+
+    @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
 
         if (e.getPacket() instanceof S12PacketEntityVelocity) {
@@ -27,9 +33,9 @@ public class Test extends Module {
 
 
             S12PacketEntityVelocity velocityPacket = (S12PacketEntityVelocity) e.getPacket();
-            velocityPacket.motionX = velocityPacket.motionX * 5;
-          //  velocityPacket.motionY = velocityPacket.motionY * 5;
-            velocityPacket.motionZ = velocityPacket.motionZ * 5;
+            velocityPacket.motionX = velocityPacket.motionX * 6;
+            velocityPacket.motionY = velocityPacket.motionY * 5;
+            velocityPacket.motionZ = velocityPacket.motionZ * 6;
 
 
         }

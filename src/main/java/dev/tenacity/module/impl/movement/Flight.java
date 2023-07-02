@@ -17,6 +17,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.DamageUtils;
 import dev.tenacity.utils.player.InventoryUtils;
 import dev.tenacity.utils.player.MovementUtils;
@@ -38,7 +39,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -53,6 +54,9 @@ public final class Flight extends Module {
     private double lastX, lastY, lastZ;
     public boolean setback;
     private int runningTicks = 0;
+
+    private final TimerUtil pearlTimer = new TimerUtil();
+
     private final CopyOnWriteArrayList<Packet> packets = new CopyOnWriteArrayList<>();
     private boolean hasClipped;
     private int slot = 0;
@@ -68,6 +72,7 @@ public final class Flight extends Module {
     private boolean up;
     private int airTicks;
     int Flags;
+    private boolean flag;
 
     private boolean adjustSpeed, canSpeed, hasBeenDamaged;
     public double moveSpeed2, lastDist;
@@ -107,6 +112,8 @@ public final class Flight extends Module {
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
                targetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
                 break;
+
+
 
 
             case"VulcanFast":
@@ -199,6 +206,24 @@ public final class Flight extends Module {
 
                 break;
 
+            case"Vulcan Motion":
+                MovementUtils.strafe(1.2f + (float) (Math.random() / 10D));
+                mc.thePlayer.motionY = (mc.gameSettings.keyBindJump.isKeyDown() ? 0.42F : mc.gameSettings.keyBindSneak.isKeyDown() ? -0.42F : 0);
+
+                if (!MovementUtils.isMoving()) {
+                    mc.thePlayer.posX = 0;
+                    mc.thePlayer.posZ = 0;
+                }
+
+                if (pearlTimer.hasTimeElapsed((long) (150 + Math.random() * 50)) && MovementUtils.isMoving()) {
+                    pearlTimer.reset();
+                    mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, true));
+                }
+
+                break;
+
+
+
 
             case"Vulcan Timer":
 
@@ -253,7 +278,7 @@ public final class Flight extends Module {
 
 
 
-                            mc.thePlayer.motionY = 0.00;
+                            mc.thePlayer.motionY = 0.05;
                             MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 10);
                         }
                     }
@@ -275,6 +300,7 @@ public final class Flight extends Module {
                 break;
             case "Verus":
                 if (e.isPre()) {
+
                     if(!mc.gameSettings.keyBindJump.isKeyDown()) {
                         if (mc.thePlayer.onGround) {
                             mc.thePlayer.motionY = 0.42f;
@@ -385,8 +411,16 @@ public final class Flight extends Module {
     public void onUpdateEvent(UpdateEvent event) {
     }
 
+
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
+
+        if(mode.is("Vulcan Motion")) {
+            if (event.getPacket() instanceof C03PacketPlayer) {
+
+                event.cancel();
+            }
+        }
         if(mode.is("Libercraft")) {
 
 
@@ -427,6 +461,8 @@ public final class Flight extends Module {
 
     }
 
+
+
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
         if(mode.is("Vulcan Timer")) {
@@ -436,6 +472,23 @@ public final class Flight extends Module {
                 e.cancel();
             }
         }
+
+        if(mode.is("Vulcan Motion") && e.getPacket() instanceof S08PacketPlayerPosLook) {
+            if (!flag) {
+                S08PacketPlayerPosLook packet = (S08PacketPlayerPosLook) e.getPacket();
+
+                double deltaX = packet.getX() - mc.thePlayer.posX;
+                double deltaY = packet.getY() - mc.thePlayer.posY;
+                double deltaZ = packet.getZ() - mc.thePlayer.posZ;
+
+                if (Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) < 10) {
+                    e.cancel();
+                    mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(packet.getX(), packet.getY(), packet.getZ(), packet.getYaw(), packet.getPitch(), false));
+                }
+            }
+        }
+
+
         if(mode.is("VulcanFast")) {
             if (e.getPacket() instanceof S08PacketPlayerPosLook && !setback) {
                 final S08PacketPlayerPosLook S08 = (S08PacketPlayerPosLook) e.getPacket();
@@ -463,8 +516,22 @@ public final class Flight extends Module {
 
         }
         if (mode.is("Verus")) {
-            DamageUtils.damage(DamageUtils.DamageType.VERUS);
+          //  DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
+        }
+
+        if (mode.is("Vulcan Motion")) {
+            flag = false;
+            pearlTimer.reset();
+
+            if (!mc.thePlayer.onGround) {
+               if(this.isEnabled()) {
+                   ChatUtil.print("U Need to be onground");
+               }
+                return;
+            }
+
+            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY - 2 + Math.random() / 2, mc.thePlayer.posZ, false));
         }
         if (mode.is("VulcanFast")) {
             runningTicks = 0;

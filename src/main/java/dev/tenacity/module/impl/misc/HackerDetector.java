@@ -40,6 +40,7 @@ public class HackerDetector extends Module {
     @Override
     public void onTickEvent(TickEvent event) {
         if(mc.theWorld == null || mc.thePlayer == null) return;
+
         for(Entity entity : mc.theWorld.getLoadedEntityList()) {
             if(entity instanceof EntityPlayer) {
                 EntityPlayer entityPlayer = (EntityPlayer) entity;
@@ -56,8 +57,6 @@ public class HackerDetector extends Module {
                             ChatUtil.print(EnumChatFormatting.DARK_RED + entityPlayer.getName() + EnumChatFormatting.RED + "`s MotionY is Higher By " + (entityPlayer.motionY - nigger) );
                         }
                     }
-
-
 
                 //Maybe do not use falldistance
 

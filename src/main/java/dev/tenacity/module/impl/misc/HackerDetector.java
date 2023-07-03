@@ -57,7 +57,7 @@ public class HackerDetector extends Module {
                         }
                     }
 
-               
+
 
                 //Maybe do not use falldistance
 

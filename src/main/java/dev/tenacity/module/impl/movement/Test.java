@@ -38,12 +38,12 @@ public class Test extends Module {
             damaged = true;
         }
 
-      //  if(mc.thePlayer.hurtTime >1) {
-         //   MovementUtils.strafe(1);
+        if(mc.thePlayer.hurtTime >1) {
+            MovementUtils.strafe(8);
 
-        //} else{
+        } else{
             MovementUtils.strafe(MovementUtils.getSpeed() * (float) 1.01);
-       // }
+        }
     }
 
     @Override

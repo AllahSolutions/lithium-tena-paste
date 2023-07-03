@@ -42,7 +42,7 @@ public final class Blink extends Module {
             return;
         }
 
-        if (event.getPacket() instanceof C03PacketPlayer) {
+        if (event.getPacket() instanceof C03PacketPlayer ) {
             packets.add(event.getPacket());
             event.cancel();
         }

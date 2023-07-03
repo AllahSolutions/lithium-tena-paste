@@ -17,10 +17,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.misc.MathUtils;
-import dev.tenacity.utils.player.ChatUtil;
-import dev.tenacity.utils.player.DamageUtils;
-import dev.tenacity.utils.player.InventoryUtils;
-import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.*;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.init.Blocks;
@@ -39,7 +36,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -53,6 +50,7 @@ public final class Flight extends Module {
     private double x, y, z;
     private double lastX, lastY, lastZ;
     public boolean setback;
+    public boolean HadDamage;
     private int runningTicks = 0;
 
     private final TimerUtil pearlTimer = new TimerUtil();
@@ -111,6 +109,38 @@ public final class Flight extends Module {
             case "Vanilla":
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
                targetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
+                break;
+
+            case "Damage":
+                if(timer.hasTimeElapsed(3000) ) {
+                    HadDamage = false;
+                }
+                if(mc.thePlayer.hurtTime>1) {
+                    HadDamage = true;
+               //     mc.timer.timerSpeed = 0.1f;
+                }
+                if(HadDamage) {
+                    mc.timer.timerSpeed = 0.5f;
+                } else{
+                    mc.timer.timerSpeed = 1.0f;
+                }
+
+
+
+                if(MovementUtils.isMoving()) {
+
+                   if(HadDamage) {
+
+
+                        e.setSpeed(2);
+                        targetStrafe.strafe(e, 2);
+
+                    } else {
+                        e.setSpeed(MovementUtils.getBaseMoveSpeed()* 1.01f);
+                        targetStrafe.strafe(e, MovementUtils.getBaseMoveSpeed() * 1.01f);
+                    }
+                }
+
                 break;
 
 
@@ -175,7 +205,7 @@ public final class Flight extends Module {
         if (viewBobbing.isEnabled()) {
             mc.thePlayer.cameraYaw = mc.thePlayer.cameraPitch = 0.08F;
         }
-        if(!mode.getMode().equals("Libercraft")) {
+        if(!mode.getMode().equals("Libercraft") && !mode.getMode().equals("Damage")) {
             mc.timer.timerSpeed = timerAmount.getValue().floatValue();
         }
 
@@ -452,6 +482,12 @@ public final class Flight extends Module {
             event.setBoundingBox(axisAlignedBB);
         }
 
+        if(mode.is("Damage")) {
+
+            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            event.setBoundingBox(axisAlignedBB);
+        }
+
         if(mode.is("Libercraft") && hasDamaged) {
 
            // final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
@@ -511,12 +547,20 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
+        hasDamaged = false;
         if (mode.is("VerusDMG")) {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
         }
+
+
         if (mode.is("Verus")) {
           //  DamageUtils.damage(DamageUtils.DamageType.VERUS);
+
+        }
+
+        if (mode.is("Damage")) {
+              DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
         }
 

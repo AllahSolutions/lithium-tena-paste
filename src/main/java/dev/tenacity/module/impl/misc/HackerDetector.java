@@ -11,6 +11,8 @@ import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.player.ChatUtil;
+import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.PlayerUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,10 +47,24 @@ public class HackerDetector extends Module {
                     if(entityPlayer.onGround) {
                         timer.reset();
                     }
-                    //Maybe do not use falldistance
+                    float nigger;
+                    nigger = 0.41999998688697815f;
+
+                    if(entityPlayer.motionY > nigger && entityPlayer.fallDistance <= 0) {
+                        if (mc.thePlayer.ticksExisted % 10 == 0) {
+
+                            ChatUtil.print(EnumChatFormatting.DARK_RED + entityPlayer.getName() + EnumChatFormatting.RED + "`s MotionY is Higher By " + (entityPlayer.motionY - nigger) );
+                        }
+                    }
+
+               
+
+                //Maybe do not use falldistance
+
                    if(!entityPlayer.onGround && (timer.hasTimeElapsed((long) 600)) && entityPlayer.fallDistance < 2) {
-                       vl++;
-                       ChatUtil.print( "Player: "  +  EnumChatFormatting.DARK_RED + entityPlayer.getName() + EnumChatFormatting.RED  + " Failed FlyA " + "[" + vl + "]");
+                       if (mc.thePlayer.ticksExisted % 10 == 0) {
+                           ChatUtil.print(EnumChatFormatting.DARK_RED + entityPlayer.getName() + EnumChatFormatting.RED + " Failed Fly");
+                       }
                    }
 
               //  }

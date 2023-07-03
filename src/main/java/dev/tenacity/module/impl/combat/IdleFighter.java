@@ -5,21 +5,27 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.player.AttackEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
+import dev.tenacity.module.impl.movement.Scaffold;
+import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.player.Advancedrots;
 import dev.tenacity.utils.player.RotationUtils;
+import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +33,8 @@ import java.util.List;
 public final class IdleFighter extends Module {
 
     private EntityLivingBase target;
+
+    public static EntityLivingBase  renderTarget;
     private final List<EntityLivingBase> targets = new ArrayList<>();
 
     private final MultipleBoolSetting targetsSetting = new MultipleBoolSetting("Targets",
@@ -47,6 +55,19 @@ public final class IdleFighter extends Module {
         this.addSettings(targetsSetting, minCPS, maxCPS, reach);
     }
 
+    private boolean isBlockUnder() {
+        if (mc.thePlayer.posY < 0) return false;
+        for (int offset = 0; offset < (int) mc.thePlayer.posY + 2; offset += 2) {
+            AxisAlignedBB bb = mc.thePlayer.getEntityBoundingBox().offset(0, -offset, 0);
+            if (!mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, bb).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     @Override
     public void onMotionEvent(MotionEvent event) {
         if(minCPS.getValue() > maxCPS.getValue()) {
@@ -57,6 +78,7 @@ public final class IdleFighter extends Module {
         mc.gameSettings.keyBindJump.pressed = mc.thePlayer.isCollidedHorizontally || mc.thePlayer.isInWater();
 
         if(event.isPre()) {
+
             sortTargets();
             if(!targets.isEmpty()) {
                 target = targets.get(0);

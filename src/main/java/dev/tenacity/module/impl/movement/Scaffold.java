@@ -466,32 +466,7 @@ public class Scaffold extends Module {
                 fr.drawStringWithShadow(str, x, y, 0x000000);
                 RenderUtil.scaleEnd();
                 break;
-            case "Polar":
-                x = sr.getScaledWidth() / 2F - fr.getStringWidth(countStr) / 2F + (heldItem != null ? 6 : 1);
-                y = sr.getScaledHeight() / 2F + 10;
 
-                GlStateManager.pushMatrix();
-                RenderUtil.fixBlendIssues();
-                GL11.glTranslatef(x + (heldItem == null ? 1 : 0), y, 1);
-                GL11.glScaled(anim.getOutput().floatValue(), anim.getOutput().floatValue(), 1);
-                GL11.glTranslatef(-x - (heldItem == null ? 1 : 0), -y, 1);
-
-                fr.drawOutlinedString(countStr, x, y, ColorUtil.applyOpacity(0x000000, output), true);
-
-                if (heldItem != null) {
-                    double scale = 0.7;
-                    GlStateManager.color(1, 1, 1, 1);
-                    GlStateManager.scale(scale, scale, scale);
-                    RenderHelper.enableGUIStandardItemLighting();
-                    mc.getRenderItem().renderItemAndEffectIntoGUI(
-                            heldItem,
-                            (int) ((sr.getScaledWidth() / 2F - fr.getStringWidth(countStr) / 2F - 7) / scale),
-                            (int) ((sr.getScaledHeight() / 2F + 8.5F) / scale)
-                    );
-                    RenderHelper.disableStandardItemLighting();
-                }
-                GlStateManager.popMatrix();
-                break;
         }
     }
 
@@ -545,27 +520,11 @@ public class Scaffold extends Module {
                 x = sr.getScaledWidth() / 2F - fr.getStringWidth(countStr) / 2F + (heldItem != null ? 6 : 1);
                 y = sr.getScaledHeight() / 2F + 10;
 
-                GlStateManager.pushMatrix();
-                RenderUtil.fixBlendIssues();
-                GL11.glTranslatef(x + (heldItem == null ? 1 : 0), y, 1);
-                GL11.glScaled(anim.getOutput().floatValue(), anim.getOutput().floatValue(), 1);
-                GL11.glTranslatef(-x - (heldItem == null ? 1 : 0), -y, 1);
 
                 fr.drawOutlinedString(countStr, x, y, ColorUtil.applyOpacity(color, output), true);
 
-                if (heldItem != null) {
-                    double scale = 0.7;
-                    GlStateManager.color(1, 1, 1, 1);
-                    GlStateManager.scale(scale, scale, scale);
-                    RenderHelper.enableGUIStandardItemLighting();
-                    mc.getRenderItem().renderItemAndEffectIntoGUI(
-                            heldItem,
-                            (int) ((sr.getScaledWidth() / 2F - fr.getStringWidth(countStr) / 2F - 7) / scale),
-                            (int) ((sr.getScaledHeight() / 2F + 8.5F) / scale)
-                    );
-                    RenderHelper.disableStandardItemLighting();
-                }
-                GlStateManager.popMatrix();
+
+
                 break;
         }
     }

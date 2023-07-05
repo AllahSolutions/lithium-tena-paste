@@ -371,19 +371,15 @@ public class RenderUtil implements Utils {
         GLUtil.setup2DRendering();
 
         glBegin(GL_TRIANGLE_STRIP);
-
         double interpolation = interpolate(0.0, size / 2.0, animation.getOutput().floatValue());
-
         if (animation.getOutput().floatValue() >= .48) {
             glVertex2d(size / 2f, interpolate(size / 2.0, 0.0, animation.getOutput().floatValue()));
         }
-
         glVertex2d(0, interpolation);
 
         if (animation.getOutput().floatValue() < .48) {
             glVertex2d(size / 2f, interpolate(size / 2.0, 0.0, animation.getOutput().floatValue()));
         }
-
         glVertex2d(size, interpolation);
 
         glEnd();
@@ -391,8 +387,6 @@ public class RenderUtil implements Utils {
         GLUtil.end2DRendering();
 
         glTranslatef(-x, -y, 0);
-
-        fakeCircleGlow(x + size / 2.25F, y + size / 4.75F, size / 1.35F, new Color(color), 0.15F);
     }
 
     // Draws a circle using traditional methods of rendering
@@ -404,52 +398,8 @@ public class RenderUtil implements Utils {
         glBegin(GL_TRIANGLE_FAN);
 
         for (double i = 0; i <= 360; i++) {
-            double angle = 2 * Math.PI * i / 360;
+            double angle = i * .01745;
             glVertex2d(x + (radius * Math.cos(angle)) + radius, y + (radius * Math.sin(angle)) + radius);
-        }
-
-        glEnd();
-        glEnable(GL_CULL_FACE);
-        GLUtil.end2DRendering();
-    }
-
-    public static void drawCircleNotSmoothHollow(float x, float y, float radius, float line, int segments, int color) {
-        GlStateManager.scale(0.25, 0.25, 1.0);
-
-        x *= 4;
-        y *= 4;
-
-        radius *= 2;
-
-        GLUtil.setup2DRendering();
-        glDisable(GL_CULL_FACE);
-        color(color);
-
-        glLineWidth(line);
-        glBegin(GL_LINES);
-
-        for (double i = 0; i <= 360; i++) {
-            double angle = 2 * Math.PI * i / 360;
-            glVertex2d(x + (radius * Math.cos(angle)) + radius, y + (radius * Math.sin(angle)) + radius);
-        }
-
-        glEnd();
-        glEnable(GL_CULL_FACE);
-        GLUtil.end2DRendering();
-    }
-
-    public static void drawCircleCompass(double x, double y, double radius, int color) {
-        radius /= 2;
-        GLUtil.setup2DRendering();
-        glDisable(GL_CULL_FACE);
-        color(color);
-        glLineWidth(GL_LINES);
-        glBegin(GL_LINES);
-
-        for (double i = 0; i <= 15; i++) {
-            double angle = 2 * Math.PI * i / 15;
-            glVertex2d(x + (radius * Math.cos(angle)) + radius, y + (radius * Math.sin(angle)) + radius);
-            glVertex2d(x + (radius / 2 * Math.cos(angle)) + radius, y + (radius / 2 * Math.sin(angle)) + radius);
         }
 
         glEnd();

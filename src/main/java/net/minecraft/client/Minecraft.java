@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
+import com.google.common.eventbus.EventBus;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -13,11 +14,9 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
+import dev.tenacity.event.EventProtocol;
 import dev.tenacity.event.impl.game.*;
-import dev.tenacity.event.impl.player.BlockEvent;
-import dev.tenacity.event.impl.player.BlockPlaceableEvent;
-import dev.tenacity.event.impl.player.ClickEvent;
-import dev.tenacity.event.impl.player.ClickEventRight;
+import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.impl.render.ClickGUIMod;
 import dev.tenacity.protection.ProtectedLaunch;
 import dev.tenacity.ui.SplashScreen;
@@ -1865,8 +1864,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             if (this.currentScreen == null && Keyboard.isKeyDown(Keyboard.KEY_PERIOD) && flag) {
                 this.displayGuiScreen(new GuiChat("."));
             }
-
-
+            
+            LegitClick LegitClick = new LegitClick();
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(LegitClick);
             if (this.thePlayer.isUsingItem()) {
                 BlockEvent blockEvent = new BlockEvent();
                 Tenacity.INSTANCE.getEventProtocol().handleEvent(blockEvent);

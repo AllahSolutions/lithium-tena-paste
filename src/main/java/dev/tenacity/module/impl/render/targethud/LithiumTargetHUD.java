@@ -75,11 +75,10 @@ public class LithiumTargetHUD extends TargetHUD {
 
         animation.animate(healthWidth * percentage, 20);
         float animationOutput = animation.getOutput();
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 5, ColorUtil.applyOpacity(Color.BLACK, alpha));
 
         if (glow) {
             RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), animationOutput, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
-        } else {
-            RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 5, ColorUtil.applyOpacity(Color.BLACK, alpha));
         }
     }
 

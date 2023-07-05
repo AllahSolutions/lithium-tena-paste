@@ -34,7 +34,6 @@ public enum Theme {
     PACIFIC_BLUE("Pacific Blue", new Color(5, 169, 199), new Color(4, 115, 135)),
     TROPICAL_ICE("Tropical Ice", new Color(102, 255, 209), new Color(6, 149, 255), true),
     TENACITY("Tenacity", Tenacity.INSTANCE.getClientColor(), Tenacity.INSTANCE.getAlternateClientColor(), true),
-    GHOST("Ghost", new Color(255, 255, 255), new Color(205, 205, 205), true),
     CUSTOM_THEME("Custom Theme", HUDMod.color1.getColor(), HUDMod.color2.getColor());
 
     private static final Map<String, Theme> themeMap = new HashMap<>();

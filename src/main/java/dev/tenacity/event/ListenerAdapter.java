@@ -10,6 +10,7 @@ import dev.tenacity.event.impl.render.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import dev.tenacity.event.impl.player.LegitClick;
 
 /**
  * @author cedo
@@ -19,6 +20,8 @@ public abstract class ListenerAdapter implements EventListener {
 
     // Game
     public void onGameCloseEvent(GameCloseEvent event) {}
+
+    public void onLegitClick(LegitClick event) {}
     public void onKeyPressEvent(KeyPressEvent event) {}
     public void onRenderTickEvent(RenderTickEvent event) {}
     public void onTickEvent(TickEvent event) {}
@@ -93,6 +96,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(WorldEvent.Load.class, this::onWorldEvent);
         registerEvent(WorldEvent.Unload.class, this::onWorldEvent);
         registerEvent(WorldEvent.class, this::onWorldEvent);
+        registerEvent(LegitClick.class, this::onLegitClick);
 
         registerEvent(PacketReceiveEvent.class, this::onPacketReceiveEvent);
         registerEvent(PacketSendEvent.class, this::onPacketSendEvent);

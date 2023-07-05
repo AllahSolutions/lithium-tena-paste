@@ -51,7 +51,6 @@ public abstract class TargetHUD implements Utils {
         targetHuds.put(LithiumTargetHUD.class, new LithiumTargetHUD());
         targetHuds.put(JelloTargetHUD.class, new JelloTargetHUD());
         targetHuds.put(RiseTargetHUD.class, new RiseTargetHUD());
-        targetHuds.put(VapeTargetHUD.class, new VapeTargetHUD());
         targetHuds.put(ExhiTargetHUD.class, new ExhiTargetHUD());
         targetHuds.put(AutoDoxTargetHUD.class, new AutoDoxTargetHUD());
         targetHuds.put(AkrienTargetHUD.class, new AkrienTargetHUD());

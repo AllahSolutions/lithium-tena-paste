@@ -54,8 +54,9 @@ public final class Step extends Module {
             isStepping = true;
             switch(mode.getMode()) {
                 case "NCP":
-                    for (double offset : new double[]{0.41999998688698, 0.7531999805212})
-                        mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + offset, mc.thePlayer.posZ, false));
+
+                    for (double offset : new double[]{0.41999998688698, 0.7531999805212, 1.00133597911214, 1.16610926093821, 1.24918707874468, 1.24918707874468, 1.1707870772188, 1.0155550727022})
+                        mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + offset, mc.thePlayer.posZ, true));
                     break;
                 case "Full Jump Packets":
                     for (double offset : new double[]{0.41999998688698, 0.7531999805212, 1.00133597911214, 1.16610926093821, 1.24918707874468, 1.24918707874468, 1.1707870772188, 1.0155550727022})

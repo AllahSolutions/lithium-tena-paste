@@ -40,7 +40,7 @@ public class PostProcessing extends Module {
 
 
     public PostProcessing() {
-        super("PostProcessing", Category.RENDER, "blurs shit");
+        super("Shaders", Category.RENDER, "blurs shit");
         shadowRadius.addParent(bloom, ParentAttribute.BOOLEAN_CONDITION);
         shadowOffset.addParent(bloom, ParentAttribute.BOOLEAN_CONDITION);
         glowOptions.addParent(bloom, ParentAttribute.BOOLEAN_CONDITION);
@@ -48,6 +48,10 @@ public class PostProcessing extends Module {
     }
 
     private String currentMode;
+
+    public PostProcessing(String name, Category category, String description) {
+        super(name, category, description);
+    }
 
     public void stuffToBlur(boolean bloom) {
 

@@ -17,27 +17,6 @@ public class ColorUtil {
         return new Color(rgbValue, rgbValue, rgbValue, (int) (255 * alpha));
     }
 
-    public static Color blendColors(float[] fractions, Color[] colors, float progress) {
-        int startPoint = 0;
-        int[] indices = new int[2];
-
-        while (startPoint < fractions.length && fractions[startPoint] <= progress) startPoint++;
-        if (startPoint >= fractions.length) {
-            startPoint = fractions.length - 1;
-        }
-
-        indices[0] = startPoint - 1;
-        indices[1] = startPoint;
-
-        float[] range = new float[] { fractions[indices[0]], fractions[indices[1]] };
-        Color[] colorRange = new Color[] { colors[indices[0]], colors[indices[1]] };
-
-        float max = range[1] - range[0];
-        float value = progress - range[0];
-        float weight = value / max;
-
-        return interpolateColorC(colorRange[0], colorRange[1], 1.0f - weight);
-    }
 
     public static Color[] getAnalogousColor(Color color) {
         Color[] colors = new Color[2];

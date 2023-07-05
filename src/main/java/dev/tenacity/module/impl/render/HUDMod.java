@@ -30,6 +30,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -336,8 +337,8 @@ public class HUDMod extends Module {
                 tenacityFont16.drawString(text, x + 4.5f, y + 5.5f, clientColors.getSecond().getRGB());
                 break;
             case "Tenabition":
-                StringBuilder stringBuilder = new StringBuilder(name.replace("tenacity", "Tenabition")).insert(1, "§7");
-                stringBuilder.append(" [§fPING:"+ PingerUtils.getPing() + "§7]");
+                StringBuilder stringBuilder = new StringBuilder(name.replace("tenacity", "Tenabition")).insert(1, EnumChatFormatting.WHITE);
+
                 RenderUtil.resetColor();
                 mc.fontRendererObj.drawStringWithShadow(stringBuilder.toString(), 4, 4, clientColors.getFirst().getRGB());
                 break;

@@ -23,13 +23,13 @@ public class Strafe extends SpeedMode {
 
 
         if (mc.thePlayer.hurtTime > 1) {
-            TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed() * 1.04f);
+           // TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed() * 1.04f);
         } else {
             if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
                 TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed() * 1.02f);
             } else {
 
-                TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed() * 1.01f);
+                TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed());
             }
         }
 
@@ -42,10 +42,18 @@ public class Strafe extends SpeedMode {
         if (event.isPost() || !MovementUtils.isMoving() || MovementUtils.isInLiquid()) {
             return;
         }
-
-        if(mc.thePlayer.onGround) {
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.04f);
+        if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
+            if (mc.thePlayer.onGround) {
+                MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.04f);
+            }
+        } else{
+            if (mc.thePlayer.onGround) {
+                MovementUtils.strafe(
+                        MovementUtils.getBaseMoveSpeed()
+                );
+            }
         }
+
 
 
 
@@ -53,7 +61,7 @@ public class Strafe extends SpeedMode {
 
         if(mc.thePlayer.hurtTime >1) {
 
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.04f);
+          //  MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.04f);
         } else {
             if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
                 MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.02f);

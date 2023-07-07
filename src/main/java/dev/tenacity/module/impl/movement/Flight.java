@@ -240,10 +240,10 @@ public final class Flight extends Module {
                 MovementUtils.strafe(1.2f + (float) (Math.random() / 10D));
                 mc.thePlayer.motionY = (mc.gameSettings.keyBindJump.isKeyDown() ? 0.42F : mc.gameSettings.keyBindSneak.isKeyDown() ? -0.42F : 0);
 
-                if (!MovementUtils.isMoving()) {
-                    mc.thePlayer.posX = 0;
-                    mc.thePlayer.posZ = 0;
-                }
+               // if (!MovementUtils.isMoving()) {
+                 //   mc.thePlayer.posX = 0;
+                  //  mc.thePlayer.posZ = 0;
+                //}
 
                 if (pearlTimer.hasTimeElapsed((long) (150 + Math.random() * 50)) && MovementUtils.isMoving()) {
                     pearlTimer.reset();
@@ -257,7 +257,9 @@ public final class Flight extends Module {
 
             case"Vulcan Timer":
 
-
+               // if(mc.thePlayer.onGround) {
+                 //   mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY + 1,mc.thePlayer.posZ);
+           //     }
 
 
                 if(mc.gameSettings.keyBindSneak.isPressed()) {
@@ -265,7 +267,7 @@ public final class Flight extends Module {
                 }
                 if(Flags>3 && MovementUtils.isMoving() && !shift) {
 
-                    mc.timer.timerSpeed = 5.0f;
+                    mc.timer.timerSpeed = 10.0f;
                 }
 
                 if(shift) {
@@ -349,11 +351,32 @@ public final class Flight extends Module {
                 }
                 break;
             case "Vanilla":
-                if ( targetStrafe.canStrafe()) {
-                    mc.thePlayer.motionY = antiKick.isEnabled() ? -0.0625 : 0;
-                } else {
-                    mc.thePlayer.motionY = mc.gameSettings.keyBindJump.isKeyDown() ? verticalSpeed.getValue() : mc.gameSettings.keyBindSneak.isKeyDown() ? -verticalSpeed.getValue() : antiKick.isEnabled() ? -0.0625 : 0;
+                if(mc.gameSettings.keyBindJump.isKeyDown()) {
+                    mc.thePlayer.motionY = verticalSpeed.getValue();
                 }
+                if(mc.gameSettings.keyBindSneak.isKeyDown()) {
+                    mc.thePlayer.motionY = -verticalSpeed.getValue();
+                }
+
+
+                    if(antiKick.isEnabled()) {
+                        if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                            mc.thePlayer.motionY = 0.0;
+
+                          //  if (!MovementUtils.isMoving()) {
+                                if (mc.thePlayer.ticksExisted % 2 == 0) {
+                                    mc.thePlayer.motionY = 0.1;
+                                } else {
+                                    mc.thePlayer.motionY = -0.1;
+                                }
+                          //  }
+                        }
+                    } else{
+
+                        if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                            mc.thePlayer.motionY = 0.0f;
+                        }
+                    }
                 break;
             case "AirWalk":
                 break;
@@ -447,7 +470,6 @@ public final class Flight extends Module {
 
         if(mode.is("Vulcan Motion")) {
             if (event.getPacket() instanceof C03PacketPlayer) {
-
                 event.cancel();
             }
         }
@@ -508,6 +530,7 @@ public final class Flight extends Module {
                 e.cancel();
             }
         }
+        
 
         if(mode.is("Vulcan Motion") && e.getPacket() instanceof S08PacketPlayerPosLook) {
             if (!flag) {

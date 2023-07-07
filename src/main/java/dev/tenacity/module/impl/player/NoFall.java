@@ -12,7 +12,7 @@ import net.minecraft.util.AxisAlignedBB;
 @SuppressWarnings("unused")
 public final class NoFall extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", "Vanilla", "Packet", "Verus");
+    private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", "Vanilla", "Packet", "Vulcan");
     private double dist;
     private boolean doNofall;
     private double lastFallDistance;
@@ -43,7 +43,7 @@ public final class NoFall extends Module {
 
     @Override
     public void onBoundingBoxEvent(BoundingBoxEvent event) {
-        if(mode.is("Verus") && mc.thePlayer.fallDistance > 2) {
+        if(mode.is("Vulcan") && mc.thePlayer.fallDistance > 2.5) {
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
         }

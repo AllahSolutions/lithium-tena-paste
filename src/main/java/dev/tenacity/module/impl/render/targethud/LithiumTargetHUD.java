@@ -5,10 +5,7 @@ import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.utils.animations.ContinualAnimation;
 import dev.tenacity.utils.font.FontUtil;
 import dev.tenacity.utils.misc.MathUtils;
-import dev.tenacity.utils.render.ColorUtil;
-import dev.tenacity.utils.render.RenderUtil;
-import dev.tenacity.utils.render.RoundedUtil;
-import dev.tenacity.utils.render.StencilUtil;
+import dev.tenacity.utils.render.*;
 import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,7 +20,9 @@ public class LithiumTargetHUD extends TargetHUD {
 
     private EntityLivingBase target;
 
+
     private final ContinualAnimation animation = new ContinualAnimation();
+
 
     public LithiumTargetHUD() {
         super("Lithium");
@@ -43,7 +42,7 @@ public class LithiumTargetHUD extends TargetHUD {
 
         if (target instanceof AbstractClientPlayer) {
             StencilUtil.initStencilToWrite();
-            RenderUtil.renderRoundedRect(x + 3, y + 3, 36, 36, 4, -1);
+            RenderUtil.renderRoundedRect(x + 3, y + 3, 36, 36, 15, -1);
             StencilUtil.readStencilBuffer(1);
             RenderUtil.color(-1, alpha);
             renderPlayer2D(x + 3, y + 3, 36, 36, (AbstractClientPlayer) target);
@@ -63,6 +62,14 @@ public class LithiumTargetHUD extends TargetHUD {
 
         float animationOutput = animation.getOutput();
 
+
+        int i = 0;
+
+        int index = (int) (i * 20);
+        Pair<Color, Color> colors = HUDMod.getClientColors();
+
+        Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false);
+        RoundedUtil.drawRoundOutline(x, y, getWidth(), getHeight(), 5,1,new Color(0,0,0,0),textcolor);
         RoundedUtil.drawRound(x + 44, (y + getHeight() - 8), 98, 3, 1.5f, background);
         RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), animationOutput, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());
     }
@@ -75,7 +82,13 @@ public class LithiumTargetHUD extends TargetHUD {
 
         animation.animate(healthWidth * percentage, 20);
         float animationOutput = animation.getOutput();
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 5, ColorUtil.applyOpacity(Color.BLACK, alpha));
+        int i = 0;
+
+        int index = (int) (i * 20);
+        Pair<Color, Color> colors = HUDMod.getClientColors();
+
+        Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false);
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 5, textcolor);
 
         if (glow) {
             RoundedUtil.drawGradientHorizontal(x + 44, (y + getHeight() - 8), animationOutput, 3, 1.5f, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond());

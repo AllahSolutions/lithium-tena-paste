@@ -13,13 +13,14 @@ public class FlagCheck extends Module {
 
 
     public FlagCheck() {
-        super("Flag Check", Category.MISC, "Disables shit on flag");
-
+        super("FlagCheck", Category.MISC, "Disables shit on flag");
     }
 
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
-
+            if(Tenacity.INSTANCE.isEnabled(Flight.class)) {
+                return;
+            }
             if(e.getPacket() instanceof S08PacketPlayerPosLook) {
                 NotificationManager.post(NotificationType.WARNING,"LagBack","Disabled Speed");
 

@@ -1,6 +1,7 @@
 package dev.tenacity.ui.notifications;
 
 import dev.tenacity.Tenacity;
+import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.impl.render.PostProcessing;
 import dev.tenacity.utils.Utils;
 import dev.tenacity.utils.animations.Animation;
@@ -11,6 +12,7 @@ import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.time.TimerUtil;
+import dev.tenacity.utils.tuples.Pair;
 import lombok.Getter;
 import net.minecraft.client.gui.Gui;
 
@@ -40,18 +42,13 @@ public class Notification implements Utils {
 
 
     public void drawDefault(float x, float y, float width, float height, float alpha, boolean onlyTitle) {
-        Color color = ColorUtil.applyOpacity(ColorUtil.interpolateColorC(Color.BLACK, getNotificationType().getColor(), .65f), .7f * alpha);
 
-
-        RoundedUtil.drawRound(x, y, width, height, 4, color);
-
-        Color notificationColor = ColorUtil.applyOpacity(getNotificationType().getColor(), alpha);
         Color textColor = ColorUtil.applyOpacity(Color.WHITE, alpha);
 
 
         //Icon
-        String icon = getNotificationType().getIcon();
-        FontUtil.iconFont35.drawString(getNotificationType().getIcon(), x + 5, (y + FontUtil.iconFont35.getMiddleOfBox(height) + 1), notificationColor);
+       // String icon = getNotificationType().getIcon();
+     //   FontUtil.iconFont35.drawString(getNotificationType().getIcon(), x + 5, (y + FontUtil.iconFont35.getMiddleOfBox(height) + 1), notificationColor);
 
         if (onlyTitle) {
             tenacityBoldFont22.drawString(getTitle(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()),
@@ -64,8 +61,14 @@ public class Notification implements Utils {
     }
 
     public void blurDefault(float x, float y, float width, float height, float alpha, boolean glow) {
-        Color color = ColorUtil.applyOpacity(ColorUtil.interpolateColorC(Color.BLACK, getNotificationType().getColor(), glow ? .65f : 0), alpha);
-        RoundedUtil.drawRound(x, y, width, height, 4, color);
+        int i = 0;
+
+        int index = (int) (i * 20);
+        Pair<Color, Color> colors = HUDMod.getClientColors();
+
+        Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false);
+        Color color = ColorUtil.applyOpacity(ColorUtil.interpolateColorC(Color.BLACK, textcolor.brighter().brighter(), glow ? .65f : 0), alpha);
+        RoundedUtil.drawRound(x + 20, y, width, height, 4, color);
     }
 
 

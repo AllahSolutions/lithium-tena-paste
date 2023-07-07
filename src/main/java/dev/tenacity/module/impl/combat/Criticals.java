@@ -23,7 +23,7 @@ public final class Criticals extends Module {
     private boolean stage;
     private double offset;
     private int groundTicks;
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog", "Packet", "Dev", "Verus");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog", "Packet", "Test", "Verus");
     private final ModeSetting watchdogMode = new ModeSetting("Watchdog Mode", "Packet", "Packet", "Edit");
     private final NumberSetting delay = new NumberSetting("Delay", 1, 20, 0, 1);
     private final TimerUtil timer = new TimerUtil();
@@ -75,7 +75,7 @@ public final class Criticals extends Module {
                     }
                 }
                 break;
-            case "Dev":
+            case "Test":
                 if (mc.objectMouseOver.entityHit != null && mc.thePlayer.onGround) {
                     if (mc.objectMouseOver.entityHit.hurtResistantTime > delay.getValue().intValue()) {
                         for (double offset : new double[]{0.06253453, 0.02253453, 0.001253453, 0.0001135346}) {

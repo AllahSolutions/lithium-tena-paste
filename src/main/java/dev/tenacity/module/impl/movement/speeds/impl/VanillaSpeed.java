@@ -5,6 +5,7 @@ import dev.tenacity.event.impl.player.MoveEvent;
 import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.PlayerUtils;
 
 public class VanillaSpeed extends SpeedMode {
     private TargetStrafe targetStrafe;

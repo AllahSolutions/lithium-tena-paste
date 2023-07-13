@@ -28,7 +28,6 @@ public class Strafe extends SpeedMode {
             if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
                 TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed() * 1.02f);
             } else {
-
                 TargetStrafe.strafe(event, MovementUtils.getBaseMoveSpeed());
             }
         }

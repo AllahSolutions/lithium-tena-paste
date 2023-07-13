@@ -43,7 +43,7 @@ public final class NoFall extends Module {
 
     @Override
     public void onBoundingBoxEvent(BoundingBoxEvent event) {
-        if(mode.is("Vulcan") && mc.thePlayer.fallDistance > 2.5) {
+        if(mode.is("Vulcan") && mc.thePlayer.fallDistance > 2.6f) {
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
         }

@@ -240,10 +240,11 @@ public final class Flight extends Module {
                 MovementUtils.strafe(1.2f + (float) (Math.random() / 10D));
                 mc.thePlayer.motionY = (mc.gameSettings.keyBindJump.isKeyDown() ? 0.42F : mc.gameSettings.keyBindSneak.isKeyDown() ? -0.42F : 0);
 
-               // if (!MovementUtils.isMoving()) {
-                 //   mc.thePlayer.posX = 0;
+                if (!MovementUtils.isMoving()) {
+                  //  MovementUtils.strafe(0.0f);
+                   //mc.thePlayer.posX = 0;
                   //  mc.thePlayer.posZ = 0;
-                //}
+                }
 
                 if (pearlTimer.hasTimeElapsed((long) (150 + Math.random() * 50)) && MovementUtils.isMoving()) {
                     pearlTimer.reset();
@@ -256,7 +257,7 @@ public final class Flight extends Module {
 
 
             case"Vulcan Timer":
-
+                
                // if(mc.thePlayer.onGround) {
                  //   mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY + 1,mc.thePlayer.posZ);
            //     }
@@ -267,8 +268,10 @@ public final class Flight extends Module {
                 }
                 if(Flags>3 && MovementUtils.isMoving() && !shift) {
 
+                  //  ChatUtil.print("Started");
                     mc.timer.timerSpeed = 10.0f;
                 }
+
 
                 if(shift) {
                     mc.timer.timerSpeed = 1.0f;
@@ -357,6 +360,7 @@ public final class Flight extends Module {
                 if(mc.gameSettings.keyBindSneak.isKeyDown()) {
                     mc.thePlayer.motionY = -verticalSpeed.getValue();
                 }
+
 
 
                     if(antiKick.isEnabled()) {
@@ -499,6 +503,12 @@ public final class Flight extends Module {
         }
 
         if(mode.is("Vulcan Timer")) {
+
+            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            event.setBoundingBox(axisAlignedBB);
+        }
+
+        if(mode.is("Vulcan Motion")) {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);

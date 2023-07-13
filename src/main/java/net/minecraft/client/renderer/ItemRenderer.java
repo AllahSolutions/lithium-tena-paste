@@ -392,6 +392,7 @@ public class ItemRenderer {
                                         GlStateManager.popMatrix();
                                         //GL11.glRotated(25, 0, 0.2, 0);
                                         this.transformFirstPersonItem(0.0f, swingProgress);
+                                        GlStateManager.translate(0.0F, 0.1F, 0.0F);
                                       //  GlStateManager.scale(0.9F, 0.9F, 0.9F);
                                         this.doBlockTransformations();
                                         GlStateManager.pushMatrix();

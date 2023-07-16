@@ -28,11 +28,12 @@ public class AutoGapple extends Module {
     @Override
     public void onMotionEvent(MotionEvent e) {
         if (mc.thePlayer != null && mc.theWorld != null && e.isPre()
+                && !(mc.thePlayer.isPotionActive(Potion.moveSpeed) && mc.thePlayer.isPotionActive(Potion.regeneration))
                 && (mc.thePlayer.getHealth() / mc.thePlayer.getMaxHealth()) * 100 <= healPercent.getValue()
                 && timer.hasTimeElapsed(delay.getValue().longValue())) {
             for (int i = 0; i < 45; i++) {
                 ItemStack is = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
-                if (is != null && is.getItem() instanceof ItemAppleGold) {
+                if (is != null && is.getItem() instanceof ItemAppleGold && is.getDisplayName().contains("Golden Apple")) {
                     int prevSlot = mc.thePlayer.inventory.currentItem;
                     if (i - 36 < 0) {
                         InventoryUtils.swap(i, 8);

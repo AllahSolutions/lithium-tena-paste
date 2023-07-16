@@ -82,7 +82,7 @@ public final class IdleFighter extends Module {
             sortTargets();
             if(!targets.isEmpty()) {
                 target = targets.get(0);
-                final float[] rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),true);
+                final float[] rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
                 mc.thePlayer.rotationYaw = rotations[0];
                 mc.thePlayer.rotationPitch = rotations[1];
 

@@ -369,9 +369,10 @@ public final class Flight extends Module {
 
                           //  if (!MovementUtils.isMoving()) {
                                 if (mc.thePlayer.ticksExisted % 2 == 0) {
-                                    mc.thePlayer.motionY = 0.1;
+                                    mc.thePlayer.motionY = 0.01;
+                                    //0.1
                                 } else {
-                                    mc.thePlayer.motionY = -0.1;
+                                    mc.thePlayer.motionY = -0.01;
                                 }
                           //  }
                         }
@@ -493,6 +494,8 @@ public final class Flight extends Module {
         if(mode.is("Watchdog") && event.getPacket() instanceof C03PacketPlayer) {
             event.cancel();
         }
+
+
     }
 
     @Override

@@ -48,14 +48,14 @@ import java.util.stream.Collectors;
 
 public final class KillAura extends Module {
 
-    public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
-            blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "PostAttack", "BlocksMC"),
-            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth"),
-            sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
-            attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All"),
-            blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
+    public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi");
+    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla","Hypixckle", "PostAttack", "BlocksMC");
+    public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth");
+    public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
+    public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All");
+    public ModeSetting blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
-
+            
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);
@@ -331,6 +331,18 @@ public final class KillAura extends Module {
         }
     }
 
+    @Override
+    public void onSlowDownEvent(SlowDownEvent event) {
+        switch (blockMode.getMode()) {
+            case"Hypixckle":
+           if(mc.thePlayer.hurtTime>1) {
+               event.cancel();
+           }
+            break;
+        }
+    }
+
+
     private void runPreBlocking(MotionEvent event) {
         boolean shouldInteract = blockInteract.isEnabled();
 
@@ -347,6 +359,13 @@ public final class KillAura extends Module {
             switch (blockMode.getMode()) {
                 case "Vanilla":
                     block(shouldInteract);
+                    break;
+                case"Hypixckle":
+                    if(mc.thePlayer.hurtTime >1) {
+                        block(shouldInteract);
+                    } else{
+                        unblock();
+                    }
                     break;
                 case "BlocksMC":
                     if (mc.thePlayer.ticksExisted % 3 == 0)

@@ -68,17 +68,17 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
 
         Gui.drawRect(boxX, boxY, boxX + boxWidth, boxY + boxHeight, rectColor.getRGB());
 
-        tenacityFont16.drawString(
+        lithiumFont16.drawString(
                 modeSetting.name,
-                boxX + tenacityFont16.getMiddleOfBox(boxHeight),
-                boxY + tenacityFont16.getMiddleOfBox(boxHeight),
+                boxX + lithiumFont16.getMiddleOfBox(boxHeight),
+                boxY + lithiumFont16.getMiddleOfBox(boxHeight),
                 textColor
         );
 
-        tenacityFont16.drawString(
+        lithiumFont16.drawString(
                 modeSetting.getMode(),
-                boxX + boxWidth - tenacityFont16.getStringWidth(modeSetting.getMode()) - 15,
-                boxY + tenacityFont16.getMiddleOfBox(boxHeight),
+                boxX + boxWidth - lithiumFont16.getStringWidth(modeSetting.getMode()) - 15,
+                boxY + lithiumFont16.getMiddleOfBox(boxHeight),
                 textColor
         );
 
@@ -138,8 +138,8 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
                 );
 
                 RenderUtil.resetColor();
-                tenacityFont16.drawString(mode, modeX + 15,
-                        modeY + ((tenacityFont16.getMiddleOfBox(rectHeight) + (rectHeight * rectCount)) * openAnimation.getOutput().floatValue()),
+                lithiumFont16.drawString(mode, modeX + 15,
+                        modeY + ((lithiumFont16.getMiddleOfBox(rectHeight) + (rectHeight * rectCount)) * openAnimation.getOutput().floatValue()),
                         ColorUtil.applyOpacity(textColor, openAnim));
 
                 rectCount++;

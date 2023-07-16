@@ -30,7 +30,7 @@ public class LithiumTargetHUD extends TargetHUD {
 
     @Override
     public void render(float x, float y, float alpha, EntityLivingBase target) {
-        setWidth(Math.max(150, FontUtil.tenacityBoldFont26.getStringWidth(target.getName()) + 45));
+        setWidth(Math.max(150, FontUtil.lithiumBoldFont26.getStringWidth(target.getName()) + 45));
         setHeight(42);
 
         this.target = target;
@@ -49,11 +49,11 @@ public class LithiumTargetHUD extends TargetHUD {
             StencilUtil.uninitStencilBuffer();
             GlStateManager.disableBlend();
         } else {
-            FontUtil.tenacityBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.tenacityBoldFont32.getHeight() / 2f, text.getRGB());
+            FontUtil.lithiumBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.lithiumBoldFont32.getHeight() / 2f, text.getRGB());
         }
 
-        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, text.getRGB());
-        FontUtil.tenacityBoldFont16.drawStringWithShadow(target.getHealth() >= mc.thePlayer.getHealth() ? EnumChatFormatting.RED + "Losing" : EnumChatFormatting.GREEN + "Winning", x + 44F, y + 18, text.getRGB());
+        FontUtil.lithiumBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, text.getRGB());
+        FontUtil.lithiumBoldFont16.drawStringWithShadow(target.getHealth() >= mc.thePlayer.getHealth() ? EnumChatFormatting.RED + "Losing" : EnumChatFormatting.GREEN + "Winning", x + 44F, y + 18, text.getRGB());
 
         float percentage = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
 

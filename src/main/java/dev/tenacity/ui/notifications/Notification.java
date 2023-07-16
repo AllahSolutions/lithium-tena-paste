@@ -51,11 +51,11 @@ public class Notification implements Utils {
      //   FontUtil.iconFont35.drawString(getNotificationType().getIcon(), x + 5, (y + FontUtil.iconFont35.getMiddleOfBox(height) + 1), notificationColor);
 
         if (onlyTitle) {
-            tenacityBoldFont22.drawString(getTitle(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()),
-                    y + tenacityBoldFont22.getMiddleOfBox(height), textColor);
+            lithiumBoldFont22.drawString(getTitle(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()),
+                    y + lithiumBoldFont22.getMiddleOfBox(height), textColor);
         } else {
-            tenacityBoldFont22.drawString(getTitle(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()), y + 4, textColor);
-            tenacityFont18.drawString(getDescription(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()), y + 7 + tenacityBoldFont22.getHeight(), textColor);
+            lithiumBoldFont22.drawString(getTitle(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()), y + 4, textColor);
+            lithiumFont18.drawString(getDescription(), x + 10 + FontUtil.iconFont35.getStringWidth(getNotificationType().getIcon()), y + 7 + lithiumBoldFont22.getHeight(), textColor);
         }
 
     }
@@ -95,8 +95,8 @@ public class Notification implements Utils {
 
         RoundedUtil.drawRound(x, y, width, height, 4, new Color(255, 255, 255, 15));
 
-        tenacityBoldFont22.drawCenteredString(title, x + width / 2f,
-                yVal + tenacityBoldFont22.getMiddleOfBox(heightVal), ColorUtil.applyOpacity(Color.WHITE, animation - .5f));
+        lithiumBoldFont22.drawCenteredString(title, x + width / 2f,
+                yVal + lithiumBoldFont22.getMiddleOfBox(heightVal), ColorUtil.applyOpacity(Color.WHITE, animation - .5f));
 
     }
 

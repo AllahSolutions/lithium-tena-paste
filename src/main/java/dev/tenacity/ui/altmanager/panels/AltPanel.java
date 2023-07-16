@@ -330,26 +330,26 @@ public class AltPanel extends Panel {
             int textColor = ColorUtil.applyOpacity(-1, 1 - credsAnim);
             String usernameText = "No username";
             if (alt.username != null) {
-                usernameText = tenacityBoldFont16.trimStringToWidth(alt.username, (int) (width - (altSize + 10)));
+                usernameText = lithiumBoldFont16.trimStringToWidth(alt.username, (int) (width - (altSize + 10)));
             }
-            float totalHeight = tenacityBoldFont16.getHeight() + 6 + tenacityFont14.getHeight();
+            float totalHeight = lithiumBoldFont16.getHeight() + 6 + lithiumFont14.getHeight();
             boolean hasBan = false;
             if (alt.hypixelBan != null) {
                 HypixelBan ban = alt.hypixelBan;
                 long diff = ban.getUnbanDate() - System.currentTimeMillis();
                 if (diff > 0 || ban.getUnbanDate() == 0) {
                     hasBan = true;
-                    totalHeight += tenacityBoldFont14.getHeight() + 4;
+                    totalHeight += lithiumBoldFont14.getHeight() + 4;
                 }
             }
 
 
             float usernameY = y + getHeight() / 2f - totalHeight / 2f;
             RenderUtil.resetColor();
-            tenacityBoldFont16.drawString(usernameText, x + 3 + altSize + 3.5f, usernameY, textColor);
+            lithiumBoldFont16.drawString(usernameText, x + 3 + altSize + 3.5f, usernameY, textColor);
 
-            float typeX = x + 7 + altSize + tenacityBoldFont16.getStringWidth(usernameText);
-            float size = tenacityBoldFont16.getHeight() + 2;
+            float typeX = x + 7 + altSize + lithiumBoldFont16.getStringWidth(usernameText);
+            float size = lithiumBoldFont16.getHeight() + 2;
             switch (alt.getType()) {
                 case "Microsoft":
                     RenderUtil.drawMicrosoftLogo(typeX + 2, usernameY - 1, size, 1, 1 - credsAnim);
@@ -364,16 +364,16 @@ public class AltPanel extends Panel {
                     break;
                 case "Cracked":
                     Color red = Tenacity.INSTANCE.getSideGui().getRedBadColor();
-                    tenacityBoldFont14.drawString(" Cracked", typeX, usernameY + 1, ColorUtil.applyOpacity(red, 1 - credsAnim));
+                    lithiumBoldFont14.drawString(" Cracked", typeX, usernameY + 1, ColorUtil.applyOpacity(red, 1 - credsAnim));
                     break;
                 case "Not logged in":
-                    tenacityBoldFont14.drawString("§bNot logged in", typeX, usernameY + 1, ColorUtil.applyOpacity(-1, 1 - credsAnim));
+                    lithiumBoldFont14.drawString("§bNot logged in", typeX, usernameY + 1, ColorUtil.applyOpacity(-1, 1 - credsAnim));
                     break;
             }
 
-            drawBan(x + altSize + 6.5f, usernameY + tenacityBoldFont16.getHeight() + 6, 1 - credsAnim);
+            drawBan(x + altSize + 6.5f, usernameY + lithiumBoldFont16.getHeight() + 6, 1 - credsAnim);
             if (hasBan) {
-                usernameY += tenacityBoldFont14.getHeight() + 6;
+                usernameY += lithiumBoldFont14.getHeight() + 6;
             }
 
 
@@ -382,12 +382,12 @@ public class AltPanel extends Panel {
 
             String credsText = (showCreds ? "Hide" : "Show") + " credentials";
 
-            hoveringCreds = HoveringUtil.isHovering(x + 3 + altSize + 1.5f, (usernameY + tenacityBoldFont16.getHeight() + 6) - 2,
-                    tenacityFont14.getStringWidth("§n" + credsText) + 4, tenacityFont14.getHeight() + 4, mouseX, mouseY);
+            hoveringCreds = HoveringUtil.isHovering(x + 3 + altSize + 1.5f, (usernameY + lithiumBoldFont16.getHeight() + 6) - 2,
+                    lithiumFont14.getStringWidth("§n" + credsText) + 4, lithiumFont14.getHeight() + 4, mouseX, mouseY);
 
             float opacity = showCreds ? (hoveringCreds ? .75f : 0.5f) : hoveringCreds ? .5f : .35f;
-            tenacityFont14.drawString("§n" + credsText, x + 3 + altSize + 3.5f,
-                    usernameY + tenacityBoldFont16.getHeight() + 6, ColorUtil.applyOpacity(-1, opacity));
+            lithiumFont14.drawString("§n" + credsText, x + 3 + altSize + 3.5f,
+                    usernameY + lithiumBoldFont16.getHeight() + 6, ColorUtil.applyOpacity(-1, opacity));
 
             credsAnimation.setDirection(showCreds ? Direction.FORWARDS : Direction.BACKWARDS);
 
@@ -397,11 +397,11 @@ public class AltPanel extends Panel {
 
                 RenderUtil.scaleStart(x + width / 2f, y + height / 2f, 1.3f - (.3f * credsAnim));
                 if (alt.email != null) {
-                    tenacityFont14.drawString("Email: " + alt.email, xVal, yVal, ColorUtil.applyOpacity(-1, credsAnim));
-                    yVal += tenacityFont14.getHeight() + 4;
+                    lithiumFont14.drawString("Email: " + alt.email, xVal, yVal, ColorUtil.applyOpacity(-1, credsAnim));
+                    yVal += lithiumFont14.getHeight() + 4;
                 }
 
-                tenacityFont14.drawString("Password: " + alt.password, xVal, yVal, ColorUtil.applyOpacity(-1, credsAnim));
+                lithiumFont14.drawString("Password: " + alt.password, xVal, yVal, ColorUtil.applyOpacity(-1, credsAnim));
                 RenderUtil.scaleEnd();
             }
 
@@ -409,8 +409,8 @@ public class AltPanel extends Panel {
             if (removeShit) return;
             if (Tenacity.INSTANCE.getAltManager().currentSessionAlt == alt) {
                 Color green = Tenacity.INSTANCE.getSideGui().getGreenEnabledColor();
-                tenacityBoldFont14.drawString("Logged in", x + width - (tenacityBoldFont14.getStringWidth("Logged in") + 5),
-                        y + height - (tenacityBoldFont14.getHeight() + 5), green);
+                lithiumBoldFont14.drawString("Logged in", x + width - (lithiumBoldFont14.getStringWidth("Logged in") + 5),
+                        y + height - (lithiumBoldFont14.getHeight() + 5), green);
             } else {
                 if (loadingAltRect == this) {
                     float iconWidth = iconFont16.getStringWidth(FontUtil.REFRESH);
@@ -497,9 +497,9 @@ public class AltPanel extends Panel {
                     if (diffMinutes > 0) str = diffMinutes + "m " + str;
                     if (diffHours > 0) str = diffHours + "h " + str;
                     if (diffDays > 0) str = diffDays + "d " + str;
-                    tenacityFont14.drawString("§lBanned §ron Hypixel for §l" + str, x, y, ColorUtil.applyOpacity(-1, alpha * .5f));
+                    lithiumFont14.drawString("§lBanned §ron Hypixel for §l" + str, x, y, ColorUtil.applyOpacity(-1, alpha * .5f));
                 } else if (ban.getUnbanDate() == 0) {
-                    tenacityFont14.drawString("§lBanned §ron Hypixel permanently", x, y, ColorUtil.applyOpacity(-1, alpha * .5f));
+                    lithiumFont14.drawString("§lBanned §ron Hypixel permanently", x, y, ColorUtil.applyOpacity(-1, alpha * .5f));
                 }
             }
         }

@@ -156,9 +156,9 @@ public class CompactClickgui extends GuiScreen {
         mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/modernlogo.png"));
         Gui.drawModalRectWithCustomSizedTexture(x + 5, y + 5, 0, 0, 20.5f, 20.5f, 20.5f, 20.5f);
 
-        FontUtil.tenacityBoldFont22.drawString(Tenacity.NAME, x + 33, y + 7, -1);
-        FontUtil.tenacityFont16.drawCenteredString(Tenacity.VERSION,
-                (float) (x + 31 + FontUtil.tenacityBoldFont22.getStringWidth(Tenacity.NAME) / 2f), y + 19, -1);
+        FontUtil.lithiumBoldFont22.drawString(Tenacity.NAME, x + 33, y + 7, -1);
+        FontUtil.lithiumFont16.drawCenteredString(Tenacity.VERSION,
+                (float) (x + 31 + FontUtil.lithiumBoldFont22.getStringWidth(Tenacity.NAME) / 2f), y + 19, -1);
 
         boolean searching = Tenacity.INSTANCE.getSearchBar().isFocused();
 
@@ -201,19 +201,19 @@ public class CompactClickgui extends GuiScreen {
 
             float middleY = (y + rectHeight - (avatarSize - 9));
 
-            FontUtil.tenacityBoldFont18.drawString(discordTag.substring(0, discordTag.indexOf("#")), x + 5,
+            FontUtil.lithiumBoldFont18.drawString(discordTag.substring(0, discordTag.indexOf("#")), x + 5,
                     middleY, -1);
 
             //Move the tag around if the username is too long
             Color tagColor = hoveringDiscord ? ColorUtil.tripleColor(175) : Color.WHITE;
             if ((discordTag.length() - 4) > 13) {
-                FontUtil.tenacityFont14.drawString(discordTag.substring(discordTag.indexOf("#")),
-                        x + 5 + FontUtil.tenacityBoldFont18.getStringWidth(discordTag.substring(0, discordTag.indexOf("#"))) -
-                                FontUtil.tenacityFont14.getStringWidth(discordTag.substring(discordTag.indexOf("#"))),
+                FontUtil.lithiumFont14.drawString(discordTag.substring(discordTag.indexOf("#")),
+                        x + 5 + FontUtil.lithiumBoldFont18.getStringWidth(discordTag.substring(0, discordTag.indexOf("#"))) -
+                                FontUtil.lithiumFont14.getStringWidth(discordTag.substring(discordTag.indexOf("#"))),
                         middleY - 6, tagColor);
             } else {
-                FontUtil.tenacityFont14.drawString(discordTag.substring(discordTag.indexOf("#")),
-                        x + 5 + FontUtil.tenacityBoldFont18.getStringWidth(discordTag.substring(0, discordTag.indexOf("#"))),
+                FontUtil.lithiumFont14.drawString(discordTag.substring(discordTag.indexOf("#")),
+                        x + 5 + FontUtil.lithiumBoldFont18.getStringWidth(discordTag.substring(0, discordTag.indexOf("#"))),
                         middleY + 2, tagColor);
             }
         }
@@ -235,7 +235,7 @@ public class CompactClickgui extends GuiScreen {
             }
 
             RenderUtil.resetColor();
-            tenacityBoldFont22.drawString(category.name, x + 8, catY + tenacityFont22.getMiddleOfBox(catHeight), selectColor.getRGB());
+            lithiumBoldFont22.drawString(category.name, x + 8, catY + lithiumFont22.getMiddleOfBox(catHeight), selectColor.getRGB());
             RenderUtil.resetColor();
             seperation += catHeight;
         }

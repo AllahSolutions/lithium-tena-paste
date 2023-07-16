@@ -195,7 +195,7 @@ public class CategoryPanel implements Screen {
         }
 
         RenderUtil.resetColor();
-        float textWidth = tenacityBoldFont22.getStringWidth(category.name);
+        float textWidth = lithiumBoldFont22.getStringWidth(category.name);
 
         iconFont20.drawCenteredString(
                 category.icon,
@@ -206,10 +206,10 @@ public class CategoryPanel implements Screen {
 
         RenderUtil.resetColor();
 
-        tenacityBoldFont22.drawString(
+        lithiumBoldFont22.drawString(
                 category.name,
                 x + rectWidth - textWidth - 3,
-                y + tenacityBoldFont22.getMiddleOfBox(categoryRectHeight),
+                y + lithiumBoldFont22.getMiddleOfBox(categoryRectHeight),
                 textColor
         );
 

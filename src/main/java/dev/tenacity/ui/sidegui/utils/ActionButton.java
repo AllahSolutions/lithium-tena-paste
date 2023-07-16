@@ -55,9 +55,9 @@ public class ActionButton implements Screen {
             font.drawCenteredString(name, x + width / 2f, y + font.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, alpha));
         } else {
             if (bold) {
-                tenacityBoldFont18.drawCenteredString(name, x + width / 2f, y + tenacityFont18.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, alpha));
+                lithiumBoldFont18.drawCenteredString(name, x + width / 2f, y + lithiumFont18.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, alpha));
             } else {
-                tenacityFont18.drawCenteredString(name, x + width / 2f, y + tenacityFont18.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, alpha));
+                lithiumFont18.drawCenteredString(name, x + width / 2f, y + lithiumFont18.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, alpha));
             }
         }
 

@@ -106,7 +106,7 @@ public class ModuleRect implements Screen {
         hoverAnimation.setDirection(hoveringModule ? Direction.FORWARDS : Direction.BACKWARDS);
         hoverAnimation.setDuration(hoveringModule ? 250 : 400);
 
-        boolean hoveringText = HoveringUtil.isHovering(x + 5, y + tenacityFont18.getMiddleOfBox(height), tenacityFont18.getStringWidth(module.getName()), tenacityFont18.getHeight(), mouseX, mouseY);
+        boolean hoveringText = HoveringUtil.isHovering(x + 5, y + lithiumFont18.getMiddleOfBox(height), lithiumFont18.getStringWidth(module.getName()), lithiumFont18.getHeight(), mouseX, mouseY);
 
         tooltipObject.setTip(module.getDescription());
         tooltipObject.setHovering(hoveringText);
@@ -141,10 +141,10 @@ public class ModuleRect implements Screen {
 
         RenderUtil.resetColor();
 
-        tenacityFont22.drawString(
+        lithiumFont22.drawString(
                 module.getName(),
-                x + tenacityFont22.getMiddleOfBox(height),
-                y + tenacityFont22.getMiddleOfBox(height),
+                x + lithiumFont22.getMiddleOfBox(height),
+                y + lithiumFont22.getMiddleOfBox(height),
                 moduleTextColor
         );
 

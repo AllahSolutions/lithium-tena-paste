@@ -36,27 +36,27 @@ public class InfoPanel extends Panel {
     @Override
     public void drawScreen(int mouseX, int mouseY) {
         super.drawScreen(mouseX, mouseY);
-        tenacityBoldFont32.drawCenteredString("Information", getX() + getWidth() / 2f, getY() + 3, ColorUtil.applyOpacity(-1, .75f));
+        lithiumBoldFont32.drawCenteredString("Information", getX() + getWidth() / 2f, getY() + 3, ColorUtil.applyOpacity(-1, .75f));
 
-        float controlY = getY() + tenacityBoldFont32.getHeight() + 8;
+        float controlY = getY() + lithiumBoldFont32.getHeight() + 8;
         for (Pair<String, String> control : controlInfo) {
-            tenacityBoldFont18.drawString(control.getFirst() + " -", getX() + 12, controlY, ColorUtil.applyOpacity(-1, .5f));
-            tenacityFont18.drawString(control.getSecond(), getX() +
-                    tenacityBoldFont18.getStringWidth(control.getFirst() + " -") + 14, controlY, ColorUtil.applyOpacity(-1, .35f));
+            lithiumBoldFont18.drawString(control.getFirst() + " -", getX() + 12, controlY, ColorUtil.applyOpacity(-1, .5f));
+            lithiumFont18.drawString(control.getSecond(), getX() +
+                    lithiumBoldFont18.getStringWidth(control.getFirst() + " -") + 14, controlY, ColorUtil.applyOpacity(-1, .35f));
 
-            controlY += tenacityBoldFont18.getHeight() + 6;
+            controlY += lithiumBoldFont18.getHeight() + 6;
         }
 
         String text = "Combos must be formatted in the following format: ";
         String text2 = "email:password";
-        float textWidth = tenacityFont18.getStringWidth(text);
-        float text2Width = tenacityBoldFont18.getStringWidth(text2);
+        float textWidth = lithiumFont18.getStringWidth(text);
+        float text2Width = lithiumBoldFont18.getStringWidth(text2);
         float middleX = getX() + getWidth() / 2f - (textWidth + text2Width) / 2f;
 
-        tenacityFont18.drawString(text, middleX, controlY + 4, ColorUtil.applyOpacity(-1, .5f));
-        tenacityBoldFont18.drawString(text2, middleX + textWidth, controlY + 4, ColorUtil.applyOpacity(-1, .5f));
+        lithiumFont18.drawString(text, middleX, controlY + 4, ColorUtil.applyOpacity(-1, .5f));
+        lithiumBoldFont18.drawString(text2, middleX + textWidth, controlY + 4, ColorUtil.applyOpacity(-1, .5f));
 
-        tenacityFont18.drawCenteredString("Combo lists must have a new line seperating each combo",
+        lithiumFont18.drawCenteredString("Combo lists must have a new line seperating each combo",
                 getX() + getWidth() /2f, controlY + 16, ColorUtil.applyOpacity(-1, .5f));
 
     }

@@ -58,11 +58,11 @@ public class TooltipRect implements Screen {
             RoundedUtil.drawRound(x - .75f, y - .75f, width + 1.5f, height + 1.5f, 3, ColorUtil.tripleColor(45, fadeAnim));
             RoundedUtil.drawRound(x, y, width, height, 2.5f, ColorUtil.applyOpacity(ColorUtil.tripleColor(15), fadeAnim));
 
-            MutablePair<Float, Float> whPair = tenacityFont20.drawNewLineText(tooltip, x + 2, y + 2, ColorUtil.applyOpacity(-1, fadeAnim), 3);
+            MutablePair<Float, Float> whPair = lithiumFont20.drawNewLineText(tooltip, x + 2, y + 2, ColorUtil.applyOpacity(-1, fadeAnim), 3);
 
             float additionalHeight = 0;
             if (additionalInformation != null) {
-                additionalHeight = tenacityFont20.drawWrappedText(additionalInformation, x + 2,
+                additionalHeight = lithiumFont20.drawWrappedText(additionalInformation, x + 2,
                         y + 1.5f + whPair.getSecond(), ColorUtil.applyOpacity(-1, fadeAnim), width, 3);
             }
 
@@ -79,8 +79,8 @@ public class TooltipRect implements Screen {
 
         } else {
 
-            width = tenacityFont20.getStringWidth(tooltip) + 4;
-            height = tenacityFont20.getHeight() + 2;
+            width = lithiumFont20.getStringWidth(tooltip) + 4;
+            height = lithiumFont20.getHeight() + 2;
 
             RenderUtil.scissorStart(x - 1.5f, y - 1.5f, (width + 4) * fadeAnim, height + 4);
 
@@ -92,7 +92,7 @@ public class TooltipRect implements Screen {
                     ColorUtil.rainbow(10, (int) (x + width) / 10, 0.45F, 0.65F, 1.0F)
             );
 
-            tenacityFont20.drawCenteredString(tooltip, x + width / 2f, y + tenacityFont20.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, 0.8F));
+            lithiumFont20.drawCenteredString(tooltip, x + width / 2f, y + lithiumFont20.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, 0.8F));
 
             RenderUtil.scissorEnd();
         }

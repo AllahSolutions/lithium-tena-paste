@@ -75,13 +75,13 @@ public class ModuleRect implements Screen {
         }
 
 
-        tenacityBoldFont20.drawString(module.getName(), x + 5, y + tenacityBoldFont20.getMiddleOfBox(20), -1);
+        lithiumBoldFont20.drawString(module.getName(), x + 5, y + lithiumBoldFont20.getMiddleOfBox(20), -1);
 
         KeybindSetting keybindSetting = module.getKeybind();
 
-        float bindWidth = (float) (tenacityFont14.getStringWidth(Keyboard.getKeyName(keybindSetting.getCode())) + 4);
+        float bindWidth = (float) (lithiumFont14.getStringWidth(Keyboard.getKeyName(keybindSetting.getCode())) + 4);
 
-        boolean hovered = HoveringUtil.isHovering((float) (x + tenacityFont20.getStringWidth(module.getName()) + 13), y + 6, bindWidth, 8, mouseX, mouseY);
+        boolean hovered = HoveringUtil.isHovering((float) (x + lithiumFont20.getStringWidth(module.getName()) + 13), y + 6, bindWidth, 8, mouseX, mouseY);
         boolean hoveringModule = HoveringUtil.isHovering(x, y, width, 20, mouseX, mouseY);
 
         if (!hoveringModule) {
@@ -94,11 +94,11 @@ public class ModuleRect implements Screen {
 
 
         Color bindRect = new Color(64, 68, 75);
-        Gui.drawRect2(x + tenacityFont20.getStringWidth(module.getName()) + 13, y + 6,
-                tenacityFont14.getStringWidth(Keyboard.getKeyName(keybindSetting.getCode())) + 4, 8,
+        Gui.drawRect2(x + lithiumFont20.getStringWidth(module.getName()) + 13, y + 6,
+                lithiumFont14.getStringWidth(Keyboard.getKeyName(keybindSetting.getCode())) + 4, 8,
                 hovered ? bindRect.brighter().getRGB() : bindRect.getRGB());
 
-        tenacityFont14.drawCenteredString(Keyboard.getKeyName(keybindSetting.getCode()), (float) (x + tenacityFont20.getStringWidth(module.getName()) + 13 + bindWidth / 2f),
+        lithiumFont14.drawCenteredString(Keyboard.getKeyName(keybindSetting.getCode()), (float) (x + lithiumFont20.getStringWidth(module.getName()) + 13 + bindWidth / 2f),
                 y + 8, -1);
 
         Gui.drawRect2(x, y + 20, rectWidth, rectHeight, new Color(35, 35, 35).getRGB());
@@ -135,8 +135,8 @@ public class ModuleRect implements Screen {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int button) {
-        float bindWidth = tenacityFont14.getStringWidth(Keyboard.getKeyName(module.getKeybind().getCode())) + 4;
-        boolean hovered = HoveringUtil.isHovering(x + tenacityFont20.getStringWidth(module.getName()) + 13, y + 6, bindWidth, 8, mouseX, mouseY);
+        float bindWidth = lithiumFont14.getStringWidth(Keyboard.getKeyName(module.getKeybind().getCode())) + 4;
+        boolean hovered = HoveringUtil.isHovering(x + lithiumFont20.getStringWidth(module.getName()) + 13, y + 6, bindWidth, 8, mouseX, mouseY);
         if (!hovered && HoveringUtil.isHovering(x, y, rectWidth, 20, mouseX, mouseY)) {
             if (button == 0) {
                 module.toggleSilent();

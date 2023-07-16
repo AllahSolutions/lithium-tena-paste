@@ -40,9 +40,9 @@ public class SearchPanel extends Panel {
 
     @Override
     public void drawScreen(int mouseX, int mouseY) {
-        tenacityFont18.drawString("Press ESC to return to the menu", getX() + 8, getY() + 8 + tenacityBoldFont40.getHeight() + 2, ColorUtil.applyOpacity(getTextColor(), .3f));
+        lithiumFont18.drawString("Press ESC to return to the menu", getX() + 8, getY() + 8 + lithiumBoldFont40.getHeight() + 2, ColorUtil.applyOpacity(getTextColor(), .3f));
 
-        tenacityBoldFont40.drawString("Search Results", getX() + 8, getY() + 8, getTextColor());
+        lithiumBoldFont40.drawString("Search Results", getX() + 8, getY() + 8, getTextColor());
 
         float spacing = 8;
         float backgroundX = getX() + spacing, backgroundY = getY() + (45 + spacing), backgroundWidth = getWidth() - (spacing * 2), backgroundHeight = getHeight() - (45 + spacing * 2);

@@ -28,7 +28,7 @@ import java.awt.*;
 public class RenderBinding implements Utils {
 
     private AbstractFontRenderer getFont() {
-        return HUDMod.customFont.isEnabled() ? tenacityFont20 : mc.fontRendererObj;
+        return HUDMod.customFont.isEnabled() ? lithiumFont20 : mc.fontRendererObj;
     }
 
     //

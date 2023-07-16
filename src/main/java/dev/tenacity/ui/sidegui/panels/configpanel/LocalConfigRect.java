@@ -71,11 +71,11 @@ public class LocalConfigRect implements Screen {
     public void drawScreen(int mouseX, int mouseY) {
         Color textColor = ColorUtil.applyOpacity(Color.WHITE, alpha);
         RoundedUtil.drawRound(x, y, width, height, 5, ColorUtil.tripleColor(37, alpha));
-        tenacityBoldFont26.drawString(config.getName(), x + 3, y + 3, textColor);
+        lithiumBoldFont26.drawString(config.getName(), x + 3, y + 3, textColor);
 
         if (bfa != null) {
-            tenacityFont16.drawString(CloudDataUtils.getLastEditedTime(String.valueOf(bfa.lastModifiedTime().toMillis() / 1000)),
-                    x + 4, y + 2.5f + tenacityBoldFont32.getHeight(),
+            lithiumFont16.drawString(CloudDataUtils.getLastEditedTime(String.valueOf(bfa.lastModifiedTime().toMillis() / 1000)),
+                    x + 4, y + 2.5f + lithiumBoldFont32.getHeight(),
                     ColorUtil.applyOpacity(textColor, .5f));
         }
 

@@ -198,7 +198,7 @@ public class GuiChat extends GuiScreen {
 
         AbstractFontRenderer abstractFontRenderer = this.mc2.fontRendererObj;
         if (HUDMod.customFont.isEnabled()) {
-            abstractFontRenderer = FontUtil.tenacityFont20;
+            abstractFontRenderer = FontUtil.lithiumFont20;
         }
         inputField.font = abstractFontRenderer;
 
@@ -233,7 +233,7 @@ public class GuiChat extends GuiScreen {
         RoundedUtil.drawRoundOutline(width / 2f - 50, 20, 100, 20, 10, 2,
                 new Color(40, 40, 40, (int) (255 * alpha)), color);
 
-        FontUtil.tenacityBoldFont20.drawCenteredString("Reset Draggables", width / 2f, 20 + FontUtil.tenacityBoldFont20.getMiddleOfBox(20), -1);
+        FontUtil.lithiumBoldFont20.drawCenteredString("Reset Draggables", width / 2f, 20 + FontUtil.lithiumBoldFont20.getMiddleOfBox(20), -1);
 
 
         if (spotifyMod.isEnabled()) {

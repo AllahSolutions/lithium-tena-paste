@@ -126,22 +126,22 @@ public class NumberComponent extends SettingComponent<NumberSetting> {
 
         // Name & Value
         String string = numberSetting.name;
-        tenacityFont20.drawString(string, sliderX, y + 5, textColor);
+        lithiumFont20.drawString(string, sliderX, y + 5, textColor);
 
         String val = "§l" + value;
 
         Gui.drawRect(
-                sliderX + sliderWidth / 2 - tenacityBoldFont20.getStringWidth(val) / 2.0F - 1.0F,
+                sliderX + sliderWidth / 2 - lithiumBoldFont20.getStringWidth(val) / 2.0F - 1.0F,
                 sliderY - 1.0F,
-                sliderX + sliderWidth / 2 + tenacityBoldFont20.getStringWidth(val) / 2.0F + 2.0F,
-                sliderY + tenacityBoldFont20.getHeight() - 2,
+                sliderX + sliderWidth / 2 + lithiumBoldFont20.getStringWidth(val) / 2.0F + 2.0F,
+                sliderY + lithiumBoldFont20.getHeight() - 2,
                 settingRectColor.getRGB()
         );
 
-        tenacityBoldFont20.drawString(
+        lithiumBoldFont20.drawString(
                 val,
-                sliderX + sliderWidth / 2 - tenacityBoldFont20.getStringWidth(val) / 2.0F,
-                sliderY - tenacityBoldFont20.getHeight() / 4.0F,
+                sliderX + sliderWidth / 2 - lithiumBoldFont20.getStringWidth(val) / 2.0F,
+                sliderY - lithiumBoldFont20.getHeight() / 4.0F,
                 ColorUtil.applyOpacity(textColor, 0.8F).getRGB()
         );
 

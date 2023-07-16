@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class FontBinding implements Utils {
 
     public AbstractFontRenderer getCustomFont(String fontName, int fontSize) {
-        FontUtil.FontType fontType = Arrays.stream(FontUtil.FontType.values()).filter(fontType1 -> fontType1.name().equals(fontName)).findFirst().orElse(FontUtil.FontType.TENACITY);
+        FontUtil.FontType fontType = Arrays.stream(FontUtil.FontType.values()).filter(fontType1 -> fontType1.name().equals(fontName)).findFirst().orElse(FontUtil.FontType.LITHIUM);
         return fontType.size(fontSize);
     }
 
@@ -21,15 +21,15 @@ public class FontBinding implements Utils {
     }
 
 
-    public AbstractFontRenderer getTenacityFont14() {return tenacityFont14; }
-    public AbstractFontRenderer getTenacityFont16() {return tenacityFont16; }
-    public AbstractFontRenderer getTenacityFont18() {return tenacityFont18; }
-    public AbstractFontRenderer getTenacityFont20() {return tenacityFont20; }
-    public AbstractFontRenderer getTenacityFont22() {return tenacityFont22; }
-    public AbstractFontRenderer getTenacityFont24() {return tenacityFont24; }
-    public AbstractFontRenderer getTenacityFont26() {return tenacityFont26; }
-    public AbstractFontRenderer getTenacityFont28() {return tenacityFont28; }
-    public AbstractFontRenderer getTenacityFont32() {return tenacityFont32; }
-    public AbstractFontRenderer getTenacityFont40() {return tenacityFont40; }
-    public AbstractFontRenderer getTenacityFont80() {return tenacityFont80; }
+    public AbstractFontRenderer getlithiumFont14() {return lithiumFont14; }
+    public AbstractFontRenderer getlithiumFont16() {return lithiumFont16; }
+    public AbstractFontRenderer getlithiumFont18() {return lithiumFont18; }
+    public AbstractFontRenderer getlithiumFont20() {return lithiumFont20; }
+    public AbstractFontRenderer getlithiumFont22() {return lithiumFont22; }
+    public AbstractFontRenderer getlithiumFont24() {return lithiumFont24; }
+    public AbstractFontRenderer getlithiumFont26() {return lithiumFont26; }
+    public AbstractFontRenderer getlithiumFont28() {return lithiumFont28; }
+    public AbstractFontRenderer getlithiumFont32() {return lithiumFont32; }
+    public AbstractFontRenderer getlithiumFont40() {return lithiumFont40; }
+    public AbstractFontRenderer getlithiumFont80() {return lithiumFont80; }
 }

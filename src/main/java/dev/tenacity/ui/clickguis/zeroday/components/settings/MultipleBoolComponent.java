@@ -69,9 +69,9 @@ public class MultipleBoolComponent extends SettingComponent<MultipleBoolSetting>
                 settingRectColor.getRGB()
         );
 
-        tenacityFont20.drawString(
+        lithiumFont20.drawString(
                 getSetting().name,
-                x + width / 2.0F - tenacityFont20.getStringWidth(getSetting().name) / 2.0F,
+                x + width / 2.0F - lithiumFont20.getStringWidth(getSetting().name) / 2.0F,
                 y + 2,
                 textColor
         );
@@ -85,7 +85,7 @@ public class MultipleBoolComponent extends SettingComponent<MultipleBoolSetting>
 
         for (BooleanSetting setting : sortedSettings) {
             float enabledWidth = getEnabledWidth(setting);
-            float enabledHeight = tenacityFont14.getHeight() + 4;
+            float enabledHeight = lithiumFont14.getHeight() + 4;
 
             if (xOffset + enabledWidth > avaliableWidth) {
                 xOffset = 2;
@@ -121,7 +121,7 @@ public class MultipleBoolComponent extends SettingComponent<MultipleBoolSetting>
                             : settingRectColor.getRGB()
             );
 
-            tenacityFont14.drawString(setting.name, enabledX + 2, enabledY + 2,
+            lithiumBoldFont14.drawString(setting.name, enabledX + 2, enabledY + 3,
                     ColorUtil.applyOpacity(textColor, .5f + (.5f * toggleAnimation.getOutput().floatValue())));
 
 
@@ -137,7 +137,7 @@ public class MultipleBoolComponent extends SettingComponent<MultipleBoolSetting>
     }
 
     private float getEnabledWidth(BooleanSetting setting) {
-        return (tenacityFont14.getStringWidth(setting.name) + 4);
+        return (lithiumFont14.getStringWidth(setting.name) + 4);
     }
 
     @Override
@@ -158,7 +158,7 @@ public class MultipleBoolComponent extends SettingComponent<MultipleBoolSetting>
 
         for (BooleanSetting setting : sortedSettings) {
             float enabledWidth = getEnabledWidth(setting);
-            float enabledHeight = tenacityFont14.getHeight() + 4;
+            float enabledHeight = lithiumFont14.getHeight() + 4;
 
             //If the width exceeds the available space, we need to add a new line
             if (xOffset + enabledWidth > avaliableWidth) {

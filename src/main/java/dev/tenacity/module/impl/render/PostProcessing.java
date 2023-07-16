@@ -70,6 +70,10 @@ public class PostProcessing extends Module {
             ClickGUIMod.zeroDayClickGUI.renderEffects(bloom);
         }
 
+        if (mc.currentScreen == ClickGUIMod.lithiumClickGUI) {
+            ClickGUIMod.lithiumClickGUI.renderEffects(bloom);
+        }
+
         if (mc.currentScreen == ClickGUIMod.dropdownClickGui || mc.currentScreen == ClickGUIMod.modernClickGui || mc.currentScreen == ClickGUIMod.compactClickgui) {
             Tenacity.INSTANCE.getSideGui().drawForEffects(bloom);
             Tenacity.INSTANCE.getSearchBar().drawEffects();

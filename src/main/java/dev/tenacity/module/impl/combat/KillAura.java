@@ -323,15 +323,9 @@ public final class KillAura extends Module {
 
     @Override
     public void onSlowDownEvent(SlowDownEvent event) {
-        switch (blockMode.getMode()) {
-            case "Watchdog": {
-                if (mc.thePlayer.hurtTime >= 2) {
-                    event.cancel();
-                }
-                break;
-            }
-            default: {
-                break;
+        if (blockMode.getMode().equals("Watchdog")) {
+            if (mc.thePlayer.hurtTime >= 2) {
+                event.cancel();
             }
         }
     }
@@ -424,11 +418,13 @@ public final class KillAura extends Module {
 
         if (chance <= blockChance.getValue()) {
             switch (blockMode.getMode()) {
-                case "PostAttack":
+                case "PostAttack": {
                     block(shouldInteract);
                     break;
-                default:
+                }
+                default: {
                     break;
+                }
             }
         }
     }

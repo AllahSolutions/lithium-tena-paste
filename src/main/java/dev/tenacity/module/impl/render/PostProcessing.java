@@ -47,12 +47,6 @@ public class PostProcessing extends Module {
         addSettings(blur, iterations, offset, bloom, glowOptions, shadowRadius, shadowOffset);
     }
 
-    private String currentMode;
-
-    public PostProcessing(String name, Category category, String description) {
-        super(name, category, description);
-    }
-
     public void stuffToBlur(boolean bloom) {
 
         ScaledResolution sr = new ScaledResolution(mc);

@@ -22,7 +22,6 @@ import dev.tenacity.utils.player.Advancedrots;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.render.RenderUtil;
-import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +33,6 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
-import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.util.BlockPos;
@@ -49,7 +47,7 @@ import java.util.stream.Collectors;
 public final class KillAura extends Module {
 
     public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi");
-    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla","Hypixckle", "PostAttack", "BlocksMC");
+    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla","Watchdog", "PostAttack", "BlocksMC");
     public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth");
     public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
     public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All");
@@ -308,11 +306,6 @@ public final class KillAura extends Module {
         pitch = fixedRotations[1];
     }
 
-
-
-    
-
-
     private void runRotations(MotionEvent event) {
         if (!rotationMode.is("None")) {
             if (silentRotations.isEnabled()) {
@@ -323,9 +316,6 @@ public final class KillAura extends Module {
                 mc.thePlayer.rotationPitch = pitch;
             }
 
-
-
-
             if (showRotations.isEnabled())
                 RotationUtils.setVisualRotations(yaw, pitch);
         }
@@ -334,14 +324,17 @@ public final class KillAura extends Module {
     @Override
     public void onSlowDownEvent(SlowDownEvent event) {
         switch (blockMode.getMode()) {
-            case"Hypixckle":
-           if(mc.thePlayer.hurtTime>1) {
-               event.cancel();
-           }
-            break;
+            case "Watchdog": {
+                if (mc.thePlayer.hurtTime >= 2) {
+                    event.cancel();
+                }
+                break;
+            }
+            default: {
+                break;
+            }
         }
     }
-
 
     private void runPreBlocking(MotionEvent event) {
         boolean shouldInteract = blockInteract.isEnabled();
@@ -357,22 +350,25 @@ public final class KillAura extends Module {
 
         if (chance <= blockChance.getValue()) {
             switch (blockMode.getMode()) {
-                case "Vanilla":
+                case "Vanilla": {
                     block(shouldInteract);
                     break;
-                case"Hypixckle":
-                    if(mc.thePlayer.hurtTime >1) {
+                }
+                case "Watchdog": {
+                    if (mc.thePlayer.hurtTime > 1) {
                         block(shouldInteract);
-                    } else{
+                    } else {
                         unblock();
                     }
                     break;
-                case "BlocksMC":
+                }
+                case "BlocksMC": {
                     if (mc.thePlayer.ticksExisted % 3 == 0)
                         block(shouldInteract);
                     else
                         unblock();
                     break;
+                }
                 default:
                     break;
             }

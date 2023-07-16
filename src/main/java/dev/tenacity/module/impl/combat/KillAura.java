@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 public final class KillAura extends Module {
 
     public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi");
-    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla","Watchdog", "PostAttack", "BlocksMC");
+    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC");
     public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth");
     public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
     public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All");

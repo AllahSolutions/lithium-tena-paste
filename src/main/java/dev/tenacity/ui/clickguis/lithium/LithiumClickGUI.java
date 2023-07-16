@@ -4,6 +4,8 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.impl.movement.InventoryMove;
 import dev.tenacity.module.impl.render.ClickGUIMod;
+import dev.tenacity.ui.searchbar.SearchBar;
+import dev.tenacity.ui.sidegui.SideGUI;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.EaseBackIn;
@@ -126,6 +128,15 @@ public class LithiumClickGUI extends GuiScreen {
         RenderUtil.scaleEnd();
 
         categoryPanels.forEach(categoryPanel -> categoryPanel.drawToolTips(fakeMouseX, fakeMouseY));
+
+        // Draw Side GUI
+        SideGUI sideGUI = Tenacity.INSTANCE.getSideGui();
+        sideGUI.getOpenAnimation().setDirection(openingAnimations.getFirst().getDirection());
+        sideGUI.drawScreen(mouseX, mouseY);
+
+        SearchBar searchBar = Tenacity.INSTANCE.getSearchBar();
+        searchBar.setAlpha(openingAnimations.getFirst().getOutput().floatValue() * (1 - sideGUI.getClickAnimation().getOutput().floatValue()));
+        searchBar.drawScreen(fakeMouseX, fakeMouseY);
     }
 
     public void renderEffects(boolean bloom) {

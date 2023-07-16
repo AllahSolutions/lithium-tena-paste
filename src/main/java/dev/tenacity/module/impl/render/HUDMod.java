@@ -152,20 +152,31 @@ public class HUDMod extends Module {
 
                     break;
                 case "Neverlose":
-                    CustomFont t18 = lithiumFont18;
-                    String str = String.format(" §8|§f %s fps §8|§f %s §8|§f %s",
-                            Minecraft.getDebugFPS(), intentInfo,
-                            mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
-                    name = name.toUpperCase();
-                    float nw = neverloseFont.size(22).getStringWidth(name);
-                    int i = 0;
+                    CustomFont m22 = neverloseFont.size(22), t18 = lithiumFont18;
 
-                    int index = (int) (i * 20);
+                    String str = String.format(
+                            " §8|§f %s fps §8|§f %s §8|§f %s",
+                            Minecraft.getDebugFPS(),
+                            mc.session.getUsername(),
+                            mc.isSingleplayer() || mc.getCurrentServerData() == null ? "Singleplayer" : mc.getCurrentServerData().serverIP
+                    );
+
+                    name = name.toUpperCase();
+
+                    float nw = m22.getStringWidth(name);
+
                     Pair<Color, Color> colors = HUDMod.getClientColors();
 
-                    Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).darker();
+                    RoundedUtil.drawGradientCornerLR(
+                            7.5F,
+                            7.5F,
+                            nw + t18.getStringWidth(str) + 6f,
+                            t18.getHeight() + 6,
+                            2,
+                            ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true),
+                            ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
+                    );
 
-                    RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2,  textcolor);
                     break;
                 case "Tenasense":
                     String text = "§ftena§rsense§f" + " - " + intentInfo + " - " + (mc.isSingleplayer() ? "singleplayer" : mc.getCurrentServerData().serverIP) + " - "
@@ -290,21 +301,33 @@ public class HUDMod extends Module {
                 break;
             case "Neverlose":
                 CustomFont m22 = neverloseFont.size(22), t18 = lithiumFont18;
-                String str = String.format(" §8|§f %s fps §8|§f %s §8|§f %s",
-                        Minecraft.getDebugFPS(), "Nyghtfull",
-                        mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
-                name = name.toUpperCase();
-                float nw = m22.getStringWidth(name);
-                int i = 0;
 
-                int index = (int) (i * 20);
+                String str = String.format(
+                        " §0|§f %s fps §0|§f %s §0|§f %s",
+                        Minecraft.getDebugFPS(),
+                        mc.session.getUsername(),
+                        mc.isSingleplayer() || mc.getCurrentServerData() == null ? "Singleplayer" : mc.getCurrentServerData().serverIP
+                );
+
+                name = name.toUpperCase();
+
+                float nw = m22.getStringWidth(name);
+
                 Pair<Color, Color> colors = HUDMod.getClientColors();
 
-                Color textcolor = ColorUtil.interpolateColorsBackAndForth(5, index, colors.getFirst(), colors.getSecond(), false).darker();
-                RoundedUtil.drawRound(4, 4.5F, nw + t18.getStringWidth(str) + 6f, t18.getHeight() + 6, 2,true, textcolor);
-                t18.drawString(str, 7.5F + nw, 7.5F, -1);
-                m22.drawString(name, 7.5F, 8, Color.BLACK);
-                m22.drawString(name, 7, 7.5F, -1);
+                RoundedUtil.drawGradientCornerLR(
+                        7.5F,
+                        7.5F,
+                        nw + t18.getStringWidth(str) + 6f,
+                        t18.getHeight() + 6,
+                        2,
+                        ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true),
+                        ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
+                );
+
+                t18.drawString(str, 10.0F + nw, 10.0F, Color.WHITE);
+                m22.drawString(name, 10.0F, 10.0F, Color.BLACK);
+                m22.drawString(name, 10.0F, 10.0F, Color.WHITE);
                 break;
             case "Tenasense":
                 String text = "§ftena§rsense§f" + " - " + intentInfo + " - " + (mc.isSingleplayer() ? "singleplayer" : mc.getCurrentServerData().serverIP) + " - "

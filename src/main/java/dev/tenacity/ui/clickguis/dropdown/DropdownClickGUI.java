@@ -129,8 +129,7 @@ public class DropdownClickGUI extends GuiScreen {
         RenderUtil.scaleEnd();
         categoryPanels.forEach(categoryPanel -> categoryPanel.drawToolTips(fakeMouseX, fakeMouseY));
 
-        //Draw Side GUI
-
+        // Draw Side GUI
         SideGUI sideGUI = Tenacity.INSTANCE.getSideGui();
         sideGUI.getOpenAnimation().setDirection(openingAnimations.getFirst().getDirection());
         sideGUI.drawScreen(mouseX, mouseY);

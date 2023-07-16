@@ -211,10 +211,10 @@ public class CategoryPanel implements Screen {
 
         RenderUtil.resetColor();
 
-        tenacityBoldFont26.drawString(
+        lithiumBoldFont26.drawString(
                 category.name,
                 x + categoryRectHeight + 5,
-                y + tenacityBoldFont26.getMiddleOfBox(categoryRectHeight),
+                y + lithiumBoldFont26.getMiddleOfBox(categoryRectHeight),
                 textColor
         );
 

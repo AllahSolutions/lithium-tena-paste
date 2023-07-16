@@ -25,7 +25,7 @@ public class Gui {
 
 
     protected AbstractFontRenderer getFont(){
-        return HUDMod.customFont.isEnabled() ? FontUtil.tenacityFont20 : Minecraft.getMinecraft().fontRendererObj;
+        return HUDMod.customFont.isEnabled() ? FontUtil.lithiumFont20 : Minecraft.getMinecraft().fontRendererObj;
     }
 
     /**

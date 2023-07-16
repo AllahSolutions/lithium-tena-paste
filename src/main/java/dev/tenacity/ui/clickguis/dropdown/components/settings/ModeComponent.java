@@ -75,12 +75,12 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
         RoundedUtil.drawRound(boxX, boxY, boxWidth, boxHeight, 0, outlineColor);
         RoundedUtil.drawRound(boxX + 1, boxY + 1, boxWidth - 2, boxHeight - 2, 0, rectColor);
 
-        tenacityFont14.drawString(modeSetting.name, boxX + 1, y + 3, textColor);
+        lithiumFont14.drawString(modeSetting.name, boxX + 1, y + 3, textColor);
 
-        tenacityFont16.drawString(
+        lithiumFont16.drawString(
                 modeSetting.getMode(),
-                boxX + tenacityFont16.getMiddleOfBox(boxHeight),
-                boxY + tenacityFont16.getMiddleOfBox(boxHeight),
+                boxX + lithiumFont16.getMiddleOfBox(boxHeight),
+                boxY + lithiumFont16.getMiddleOfBox(boxHeight),
                 textColor
         );
 
@@ -94,9 +94,9 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
             float width = 8;
             float middleOfRect = boxHeight /2f - height /2f;
             float spacing = 3;
-            RoundedUtil.drawRound(boxX + 7.5f + tenacityFont16.getStringWidth(modeSetting.getMode()), boxY + middleOfRect,
+            RoundedUtil.drawRound(boxX + 7.5f + lithiumFont16.getStringWidth(modeSetting.getMode()), boxY + middleOfRect,
                     width, height, 0, themeColors.getFirst());
-            RoundedUtil.drawRound(boxX + 7.5f + tenacityFont16.getStringWidth(modeSetting.getMode()) + (spacing + width), boxY + middleOfRect,
+            RoundedUtil.drawRound(boxX + 7.5f + lithiumFont16.getStringWidth(modeSetting.getMode()) + (spacing + width), boxY + middleOfRect,
                     width, height, 0, themeColors.getSecond());
         }
 
@@ -146,8 +146,8 @@ public class ModeComponent extends SettingComponent<ModeSetting> {
 
 
                 RenderUtil.resetColor();
-                tenacityFont16.drawString(mode, modeX + 5,
-                        modeY + ((tenacityFont16.getMiddleOfBox(rectHeight) + (rectHeight * rectCount)) * openAnimation.getOutput().floatValue()),
+                lithiumFont16.drawString(mode, modeX + 5,
+                        modeY + ((lithiumFont16.getMiddleOfBox(rectHeight) + (rectHeight * rectCount)) * openAnimation.getOutput().floatValue()),
                         ColorUtil.applyOpacity(textColor, openAnim));
 
                 if(themeSetting){

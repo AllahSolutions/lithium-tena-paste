@@ -23,7 +23,7 @@ public class JelloTargetHUD extends TargetHUD {
 
     @Override
     public void render(float x, float y, float alpha, EntityLivingBase target) {
-        setWidth(Math.max(150, FontUtil.tenacityBoldFont26.getStringWidth(target.getName()) + 45));
+        setWidth(Math.max(150, FontUtil.lithiumBoldFont26.getStringWidth(target.getName()) + 45));
         setHeight(42);
 
         Color c1 = ColorUtil.applyOpacity(new Color(255, 255, 255), alpha);
@@ -44,12 +44,12 @@ public class JelloTargetHUD extends TargetHUD {
             StencilUtil.uninitStencilBuffer();
             GlStateManager.disableBlend();
         } else {
-            FontUtil.tenacityBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.tenacityBoldFont32.getHeight() / 2f, textColor);
+            FontUtil.lithiumBoldFont32.drawCenteredStringWithShadow("?", x + 20, y + 17 - FontUtil.lithiumBoldFont32.getHeight() / 2f, textColor);
         }
 
-        FontUtil.tenacityBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, textColor);
+        FontUtil.lithiumBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, textColor);
 
-        FontUtil.tenacityBoldFont16.drawStringWithShadow(
+        FontUtil.lithiumBoldFont16.drawStringWithShadow(
                 target.getHealth() >= mc.thePlayer.getHealth() ? "Losing" : "Winning",
                 x + 44F, y + 18, textColor
         );

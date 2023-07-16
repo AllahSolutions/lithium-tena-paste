@@ -40,7 +40,7 @@ public class MenuButton implements Screen {
 
         RoundedUtil.drawRound(x, y, width, height, 5, hovered ? new Color(255, 255, 255, 35) : new Color(205, 205, 205, 25));
 
-        tenacityFont22.drawCenteredString(text, x + width / 2f, y + tenacityFont22.getMiddleOfBox(height), -1);
+        lithiumFont22.drawCenteredString(text, x + width / 2f, y + lithiumFont22.getMiddleOfBox(height), -1);
     }
 
     @Override

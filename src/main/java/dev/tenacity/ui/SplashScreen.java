@@ -82,7 +82,7 @@ public class SplashScreen implements Utils {
         GL11.glEnable(GL11.GL_BLEND);
         RenderUtil.setAlphaLimit(0);
 
-        CustomFont fr = tenacityBoldFont80;
+        CustomFont fr = lithiumBoldFont80;
 
         if(count > 3){
             count = 0;
@@ -123,7 +123,7 @@ public class SplashScreen implements Utils {
 
         drawSplashBackground(width, height, 1);
 
-        CustomFont fr = tenacityBoldFont80;
+        CustomFont fr = lithiumBoldFont80;
 
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < count; i++){
@@ -146,13 +146,13 @@ public class SplashScreen implements Utils {
 
         if (versionAnim != null) {
 
-            float versionWidth = tenacityFont32.getStringWidth(Tenacity.VERSION) / 2f;
+            float versionWidth = lithiumFont32.getStringWidth(Tenacity.VERSION) / 2f;
             float versionX = width / 2f + fr.getStringWidth("Lithium") / 2f - (versionWidth);
-            float versionY = (tenacityFont32.getMiddleOfBox(height) - 57) - (48 * yMovement);
+            float versionY = (lithiumFont32.getMiddleOfBox(height) - 57) - (48 * yMovement);
 
-            RenderUtil.scaleStart(versionX + versionWidth, versionY + tenacityFont32.getHeight() / 2f, versionAnim.getOutput().floatValue());
+            RenderUtil.scaleStart(versionX + versionWidth, versionY + lithiumFont32.getHeight() / 2f, versionAnim.getOutput().floatValue());
 
-            tenacityFont32.drawSmoothString(Tenacity.VERSION, versionX, versionY, ColorUtil.applyOpacity(-1, versionAnim.getOutput().floatValue()));
+            lithiumFont32.drawSmoothString(Tenacity.VERSION, versionX, versionY, ColorUtil.applyOpacity(-1, versionAnim.getOutput().floatValue()));
             RenderUtil.scaleEnd();
         }
 
@@ -179,7 +179,7 @@ public class SplashScreen implements Utils {
 
 
             float textAlpha = progress2Anim.getDirection().forwards() ? progress2Anim.getOutput().floatValue() : 1;
-            tenacityFont18.drawCenteredString("by Liticane, Nyghtfull", width / 2f, actualY + 42, ColorUtil.applyOpacity(-1, textAlpha));
+            lithiumFont18.drawCenteredString("by Liticane, Nyghtfull", width / 2f, actualY + 42, ColorUtil.applyOpacity(-1, textAlpha));
 
 
             if (progressAnim.finished(Direction.FORWARDS) && progress2Anim.finished(Direction.FORWARDS)) {

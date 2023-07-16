@@ -163,20 +163,20 @@ public class SpotifyMod extends Module {
                 scrollArtist.reset();
             }
 
-            boolean needsToScrollTrack = tenacityBoldFont26.getStringWidth(currentTrack.getName()) > playerWidth;
-            boolean needsToScrollArtist = tenacityFont22.getStringWidth(artistsDisplay.toString()) > playerWidth;
+            boolean needsToScrollTrack = lithiumBoldFont26.getStringWidth(currentTrack.getName()) > playerWidth;
+            boolean needsToScrollArtist = lithiumFont22.getStringWidth(artistsDisplay.toString()) > playerWidth;
 
-            float trackX = (float)(((x + albumCoverSize) - tenacityBoldFont22.getStringWidth(currentTrack.getName())) + ((tenacityBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
+            float trackX = (float)(((x + albumCoverSize) - lithiumBoldFont22.getStringWidth(currentTrack.getName())) + ((lithiumBoldFont22.getStringWidth(currentTrack.getName()) + playerWidth) * scrollTrack.getLinearOutput()));
 
-            tenacityBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 10, y + 5, -1);
+            lithiumBoldFont22.drawString(currentTrack.getName(), needsToScrollTrack ? trackX : x + albumCoverSize + 10, y + 5, -1);
 
-            float artistX = (float) (((x + albumCoverSize) - tenacityFont18.getStringWidth(artistsDisplay.toString())) +
-                    ((tenacityFont18.getStringWidth(artistsDisplay.toString()) + playerWidth) * scrollArtist.getLinearOutput()));
+            float artistX = (float) (((x + albumCoverSize) - lithiumFont18.getStringWidth(artistsDisplay.toString())) +
+                    ((lithiumFont18.getStringWidth(artistsDisplay.toString()) + playerWidth) * scrollArtist.getLinearOutput()));
 
-            tenacityFont16.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 10, y + 18, -1);
+            lithiumFont16.drawString(artistsDisplay.toString(), needsToScrollArtist ? artistX : x + albumCoverSize + 10, y + 18, -1);
         });
 
-        tenacityFont16.drawString(trackRemaining, x + width - (tenacityFont16.getStringWidth(trackRemaining) + 3), y + height - (tenacityFont16.getHeight() + 5), -1);
+        lithiumFont16.drawString(trackRemaining, x + width - (lithiumFont16.getStringWidth(trackRemaining) + 3), y + height - (lithiumFont16.getHeight() + 5), -1);
 
         float progressBarWidth = (playerWidth - 40);
         float progressBarHeight = 4;

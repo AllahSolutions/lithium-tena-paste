@@ -109,8 +109,8 @@ public class CustomMainMenu extends GuiScreen {
             button.drawScreen(mouseX, mouseY);
         }
 
-        tenacityBoldFont80.drawCenteredString("Lithium", width / 2f, height / 2f - 110, Color.WHITE.getRGB());
-        tenacityFont18.drawCenteredString("by Liticane, Nyghtfull", width / 2f, height / 2f - 68, Color.WHITE.getRGB());
+        lithiumBoldFont80.drawCenteredString("Lithium", width / 2f, height / 2f - 110, Color.WHITE.getRGB());
+        lithiumFont18.drawCenteredString("by Liticane, Nyghtfull", width / 2f, height / 2f - 68, Color.WHITE.getRGB());
 
     }
 

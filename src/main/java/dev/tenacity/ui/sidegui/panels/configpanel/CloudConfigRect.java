@@ -70,14 +70,14 @@ public class CloudConfigRect implements Screen {
 
         Color textColor = ColorUtil.applyOpacity(Color.WHITE, alpha);
         RoundedUtil.drawRound(x, y, width, height, 5, ColorUtil.tripleColor(37, alpha));
-        tenacityBoldFont26.drawString(config.getName(), x + 3, y + 3, textColor);
+        lithiumBoldFont26.drawString(config.getName(), x + 3, y + 3, textColor);
 
         float yOffset = compact ? 2.5f : 2;
 
-        tenacityFont16.drawString(config.getAuthor(), x + 3, y + yOffset + tenacityBoldFont32.getHeight(), accentColor);
+        lithiumFont16.drawString(config.getAuthor(), x + 3, y + yOffset + lithiumBoldFont32.getHeight(), accentColor);
 
-        tenacityFont16.drawString(CloudDataUtils.getLastEditedTime(config.getLastUpdated()),
-                x + 5 + tenacityFont16.getStringWidth(config.getAuthor()), y + yOffset + tenacityBoldFont32.getHeight(), ColorUtil.applyOpacity(textColor, .5f));
+        lithiumFont16.drawString(CloudDataUtils.getLastEditedTime(config.getLastUpdated()),
+                x + 5 + lithiumFont16.getStringWidth(config.getAuthor()), y + yOffset + lithiumBoldFont32.getHeight(), ColorUtil.applyOpacity(textColor, .5f));
 
         boolean hovering = SideGUI.isHovering(x, y, width, height, mouseX, mouseY);
         hoverAnimation.setDirection(hovering ? Direction.FORWARDS : Direction.BACKWARDS);
@@ -85,8 +85,8 @@ public class CloudConfigRect implements Screen {
 
         if (!compact) {
 
-            tenacityFont16.drawWrappedText(config.getDescription(), x + 3,
-                    y + 6 + tenacityBoldFont32.getHeight() + tenacityFont16.getHeight(),
+            lithiumFont16.drawWrappedText(config.getDescription(), x + 3,
+                    y + 6 + lithiumBoldFont32.getHeight() + lithiumFont16.getHeight(),
                     ColorUtil.applyOpacity(textColor.getRGB(), .5f + (.5f * hoverAnimation.getOutput().floatValue())), width - 12, 3);
         }
 
@@ -193,9 +193,9 @@ public class CloudConfigRect implements Screen {
 
         hoverInformation.setAdditionalInformation(compact ? (formatCode + "Description§r: " + config.getDescription()) : null);
 
-        boolean hoveringInfo = SideGUI.isHovering(getX() + 3, getY() + getHeight() - (tenacityFont14.getHeight() + 3),
-                iconFont20.getStringWidth(FontUtil.INFO) + 2 + tenacityFont14.getStringWidth("Hover for more information"),
-                tenacityFont14.getHeight() + 3, mouseX, mouseY);
+        boolean hoveringInfo = SideGUI.isHovering(getX() + 3, getY() + getHeight() - (lithiumFont14.getHeight() + 3),
+                iconFont20.getStringWidth(FontUtil.INFO) + 2 + lithiumFont14.getStringWidth("Hover for more information"),
+                lithiumFont14.getHeight() + 3, mouseX, mouseY);
 
         hoverInformation.setHovering(hoveringInfo);
 
@@ -206,8 +206,8 @@ public class CloudConfigRect implements Screen {
         iconFont16.drawString(FontUtil.INFO, getX() + 3, getY() + getHeight() - (iconFont16.getHeight() + 3), ColorUtil.applyOpacity(textColor, .35f + additionalAlpha));
 
 
-        tenacityFont14.drawString("Hover for more information", getX() + 5 + iconFont16.getStringWidth(FontUtil.INFO),
-                getY() + getHeight() - (tenacityFont14.getHeight() + 3), ColorUtil.applyOpacity(textColor, .35f + additionalAlpha));
+        lithiumFont14.drawString("Hover for more information", getX() + 5 + iconFont16.getStringWidth(FontUtil.INFO),
+                getY() + getHeight() - (lithiumFont14.getHeight() + 3), ColorUtil.applyOpacity(textColor, .35f + additionalAlpha));
 
     }
 

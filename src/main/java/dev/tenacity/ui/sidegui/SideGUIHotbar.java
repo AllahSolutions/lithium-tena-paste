@@ -28,7 +28,7 @@ public class SideGUIHotbar implements Screen {
 
     public float x, y, width, height, alpha;
 
-    public final TextField searchField = new TextField(tenacityFont20);
+    public final TextField searchField = new TextField(lithiumFont20);
     private final Animation searchAnimation = new DecelerateAnimation(250, 1).setDirection(Direction.BACKWARDS);
 
     public final DropdownObject searchType = new DropdownObject("Type", "Configs", "Scripts");
@@ -71,9 +71,9 @@ public class SideGUIHotbar implements Screen {
         Color textColor = ColorUtil.applyOpacity(Color.WHITE, alpha);
 
 
-        tenacityBoldFont32.drawString("Lithium", x + 9.5f, y + tenacityBoldFont32.getMiddleOfBox(height), textColor);
-        tenacityFont18.drawString(Tenacity.VERSION, x + 9.5f + tenacityBoldFont32.getStringWidth("Lithium") - 2,
-                y + tenacityBoldFont32.getMiddleOfBox(height) - 2.5f, ColorUtil.applyOpacity(textColor, .5f));
+        lithiumBoldFont32.drawString("Lithium", x + 9.5f, y + lithiumBoldFont32.getMiddleOfBox(height), textColor);
+        lithiumFont18.drawString(Tenacity.VERSION, x + 9.5f + lithiumBoldFont32.getStringWidth("Lithium") - 2,
+                y + lithiumBoldFont32.getMiddleOfBox(height) - 2.5f, ColorUtil.applyOpacity(textColor, .5f));
 
         searchAnimation.setDirection(searchField.isFocused() || !searchField.getText().equals("") ? Direction.FORWARDS : Direction.BACKWARDS);
         float searchAnim = searchAnimation.getOutput().floatValue();
@@ -90,8 +90,8 @@ public class SideGUIHotbar implements Screen {
         if(!searching) {
             refreshText.setDirection(refreshTimer.getTime() > 12000 ? Direction.BACKWARDS : Direction.FORWARDS);
 
-            tenacityFont14.drawString(String.valueOf(Math.round(refreshTimer.getTime() / 1000f)), refreshButton.getX() - 15,
-                    y + tenacityFont14.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, refreshText.getOutput().floatValue()));
+            lithiumFont14.drawString(String.valueOf(Math.round(refreshTimer.getTime() / 1000f)), refreshButton.getX() - 15,
+                    y + lithiumFont14.getMiddleOfBox(height), ColorUtil.applyOpacity(-1, refreshText.getOutput().floatValue()));
 
             refreshButton.setAlpha(carouselAlpha);
             refreshButton.setX(carouselButtons.getX() - (refreshButton.getWidth() + 10));

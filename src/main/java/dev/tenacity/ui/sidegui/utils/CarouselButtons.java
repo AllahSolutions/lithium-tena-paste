@@ -82,7 +82,7 @@ public class CarouselButtons implements Screen {
             animation.setDirection(hovering ? Direction.FORWARDS : Direction.BACKWARDS);
 
             float textAlpha = (.5f + (.3f * animation.getOutput().floatValue()));
-            tenacityFont24.drawCenteredString(entry.getKey(), x + rectWidth / 2f + seperation, y + tenacityFont24.getMiddleOfBox(rectHeight),
+            lithiumFont24.drawCenteredString(entry.getKey(), x + rectWidth / 2f + seperation, y + lithiumFont24.getMiddleOfBox(rectHeight),
                     ColorUtil.applyOpacity(isCurrentButton ? textColor : ColorUtil.applyOpacity(textColor, textAlpha), getAlpha()));
 
 

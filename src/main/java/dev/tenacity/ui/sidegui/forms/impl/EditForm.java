@@ -27,7 +27,7 @@ public class EditForm extends Form {
 
     private final DropdownObject scriptFiles = new DropdownObject("File");
 
-    private final TextField descriptionField = new TextField(tenacityFont18);
+    private final TextField descriptionField = new TextField(lithiumFont18);
 
     private final String type;
 
@@ -53,13 +53,13 @@ public class EditForm extends Form {
     public void drawScreen(int mouseX, int mouseY) {
         super.drawScreen(mouseX, mouseY);
 
-        float infoX = getX() + tenacityBoldFont40.getStringWidth(getTitle()) + 15;
-        float infoY = getY() + 3 + tenacityFont16.getMiddleOfBox(tenacityBoldFont40.getHeight()) + 2;
+        float infoX = getX() + lithiumBoldFont40.getStringWidth(getTitle()) + 15;
+        float infoY = getY() + 3 + lithiumFont16.getMiddleOfBox(lithiumBoldFont40.getHeight()) + 2;
 
-        tenacityFont16.drawString("Choose to either update or delete your " + type.toLowerCase(),
+        lithiumFont16.drawString("Choose to either update or delete your " + type.toLowerCase(),
                 infoX, infoY, ColorUtil.applyOpacity(getTextColor(), .5f));
 
-        tenacityBoldFont16.drawString(data.getName(), getX() + 5, getY() + 5.5f + tenacityBoldFont40.getHeight(), getAccentColor());
+        lithiumBoldFont16.drawString(data.getName(), getX() + 5, getY() + 5.5f + lithiumBoldFont40.getHeight(), getAccentColor());
 
         float totalSpacing = getSpacing() * 3;
         float updateWidth = (getWidth() - totalSpacing) * .7f;
@@ -71,7 +71,7 @@ public class EditForm extends Form {
         //Update background
         RoundedUtil.drawRound(getX() + getSpacing(), getY() + 40, updateWidth, updateHeight, 5, ColorUtil.tripleColor(29, getAlpha()));
 
-        tenacityBoldFont26.drawString("Update", updateX + 5, updateY + 3, getTextColor());
+        lithiumBoldFont26.drawString("Update", updateX + 5, updateY + 3, getTextColor());
 
 
         Color noColor = ColorUtil.applyOpacity(Color.WHITE, 0);
@@ -81,13 +81,13 @@ public class EditForm extends Form {
         descriptionField.setTextAlpha(getAlpha());
         descriptionField.setMaxStringLength(210);
         descriptionField.setHeight(script ? 18 : 20);
-        descriptionField.setFont(tenacityFont16);
+        descriptionField.setFont(lithiumFont16);
         descriptionField.setFill(ColorUtil.tripleColor(17, getAlpha()));
         descriptionField.setOutline(noColor);
         descriptionField.drawTextBox();
 
-        tenacityFont18.drawString("Description", descriptionField.getXPosition(),
-                descriptionField.getYPosition() - (tenacityFont18.getHeight() + 5), getTextColor());
+        lithiumFont18.drawString("Description", descriptionField.getXPosition(),
+                descriptionField.getYPosition() - (lithiumFont18.getHeight() + 5), getTextColor());
 
         updateButton.setBypass(true);
         updateButton.setWidth(70);
@@ -104,15 +104,15 @@ public class EditForm extends Form {
 
 
         if (error) {
-            tenacityFont16.drawCenteredStringWithShadow("Error please fill out the required fields",
-                    updateButton.getX() + updateButton.getWidth() / 2f, updateButton.getY() - (tenacityFont16.getHeight() + 5),
+            lithiumFont16.drawCenteredStringWithShadow("Error please fill out the required fields",
+                    updateButton.getX() + updateButton.getWidth() / 2f, updateButton.getY() - (lithiumFont16.getHeight() + 5),
                     Tenacity.INSTANCE.getSideGui().getRedBadColor().getRGB());
         }
 
         if (script) {
-            tenacityFont16.drawString("Update the script with one of your local scripts",
-                    updateX + 10 + tenacityBoldFont26.getStringWidth("Update"),
-                    updateY + 4 + tenacityFont16.getMiddleOfBox(tenacityBoldFont26.getHeight()), ColorUtil.applyOpacity(getTextColor(), .5f));
+            lithiumFont16.drawString("Update the script with one of your local scripts",
+                    updateX + 10 + lithiumBoldFont26.getStringWidth("Update"),
+                    updateY + 4 + lithiumFont16.getMiddleOfBox(lithiumBoldFont26.getHeight()), ColorUtil.applyOpacity(getTextColor(), .5f));
 
             scriptFiles.setWidth(160);
             scriptFiles.setHeight(18);
@@ -124,9 +124,9 @@ public class EditForm extends Form {
             scriptFiles.drawScreen(mouseX, mouseY);
 
         }else {
-            tenacityFont16.drawString("Update the config with your current settings",
-                    updateX + 10 + tenacityBoldFont26.getStringWidth("Update"),
-                    updateY + 4 + tenacityFont16.getMiddleOfBox(tenacityBoldFont26.getHeight()), ColorUtil.applyOpacity(getTextColor(), .5f));
+            lithiumFont16.drawString("Update the config with your current settings",
+                    updateX + 10 + lithiumBoldFont26.getStringWidth("Update"),
+                    updateY + 4 + lithiumFont16.getMiddleOfBox(lithiumBoldFont26.getHeight()), ColorUtil.applyOpacity(getTextColor(), .5f));
         }
 
 
@@ -137,11 +137,11 @@ public class EditForm extends Form {
         RoundedUtil.drawRound(deleteX, deleteY, deleteWidth, deleteHeight, 5, new Color(251, 14, 14, (int) (255 * (.22f * getAlpha()))));
 
 
-        tenacityBoldFont26.drawString("Delete", deleteX + 5, deleteY + 3, getTextColor());
-        iconFont26.drawString(FontUtil.TRASH, deleteX + 10 + tenacityBoldFont26.getStringWidth("Delete"), deleteY + 4.5f, getTextColor());
+        lithiumBoldFont26.drawString("Delete", deleteX + 5, deleteY + 3, getTextColor());
+        iconFont26.drawString(FontUtil.TRASH, deleteX + 10 + lithiumBoldFont26.getStringWidth("Delete"), deleteY + 4.5f, getTextColor());
 
-        tenacityFont16.drawString("Delete the " + type.toLowerCase() + " from the", deleteX + 5, deleteY + 22, ColorUtil.applyOpacity(getTextColor(), .5f));
-        tenacityFont16.drawString("cloud", deleteX + 5, deleteY + 22 + tenacityFont16.getHeight() + 3, ColorUtil.applyOpacity(getTextColor(), .5f));
+        lithiumFont16.drawString("Delete the " + type.toLowerCase() + " from the", deleteX + 5, deleteY + 22, ColorUtil.applyOpacity(getTextColor(), .5f));
+        lithiumFont16.drawString("cloud", deleteX + 5, deleteY + 22 + lithiumFont16.getHeight() + 3, ColorUtil.applyOpacity(getTextColor(), .5f));
 
         deleteButton.setWidth(70);
         deleteButton.setX(deleteX + deleteWidth / 2f - deleteButton.getWidth() / 2f);

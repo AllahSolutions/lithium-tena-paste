@@ -123,22 +123,22 @@ public class HUDMod extends Module {
                             }
                     );
 
-                    tenacityBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
+                    lithiumBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
                     break;
                 case "Tenacity":
                     float xVal = 6f;
                     float yVal = 6f;
-                    float versionWidth = tenacityFont16.getStringWidth(Tenacity.INSTANCE.getVersion());
-                    float versionX = xVal + tenacityBoldFont40.getStringWidth(finalName);
-                    float width = version ? (versionX + versionWidth) - xVal : tenacityBoldFont40.getStringWidth(finalName);
+                    float versionWidth = lithiumFont16.getStringWidth(Tenacity.INSTANCE.getVersion());
+                    float versionX = xVal + lithiumBoldFont40.getStringWidth(finalName);
+                    float width = version ? (versionX + versionWidth) - xVal : lithiumBoldFont40.getStringWidth(finalName);
 
 
                     RenderUtil.resetColor();
                     GradientUtil.applyGradientHorizontal(xVal, yVal, width, 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
                         RenderUtil.setAlphaLimit(0);
-                        tenacityBoldFont40.drawString(finalName, xVal, yVal, 0);
+                        lithiumBoldFont40.drawString(finalName, xVal, yVal, 0);
                         if (version) {
-                            tenacityFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX, yVal, 0);
+                            lithiumFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX, yVal, 0);
                         }
                     });
 
@@ -147,12 +147,12 @@ public class HUDMod extends Module {
                     RenderUtil.resetColor();
                     GradientUtil.applyGradientHorizontal(5, 5, 75, 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
                         RenderUtil.setAlphaLimit(0);
-                        tenacityBoldFont40.drawString(finalName, 5, 5, 0);
+                        lithiumBoldFont40.drawString(finalName, 5, 5, 0);
                     });
 
                     break;
                 case "Neverlose":
-                    CustomFont t18 = tenacityFont18;
+                    CustomFont t18 = lithiumFont18;
                     String str = String.format(" §8|§f %s fps §8|§f %s §8|§f %s",
                             Minecraft.getDebugFPS(), intentInfo,
                             mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
@@ -172,7 +172,7 @@ public class HUDMod extends Module {
                             + PingerUtils.getPing() + "ms ";
                     float x = 4.5f, y = 4.5f;
 
-                    Gui.drawRect2(x, y, tenacityFont16.getStringWidth(text) + 7, 18.5, e.isBloom() ? new Color(59, 57, 57).getRGB() : Color.BLACK.getRGB());
+                    Gui.drawRect2(x, y, lithiumFont16.getStringWidth(text) + 7, 18.5, e.isBloom() ? new Color(59, 57, 57).getRGB() : Color.BLACK.getRGB());
                     break;
             }
         }
@@ -223,25 +223,25 @@ public class HUDMod extends Module {
                         }
                 );
 
-                tenacityBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
+                lithiumBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
                 break;
 
             case "Tenacity":
                 float xVal = 5;
                 float yVal = 5;
                 float spacing = 1;
-                float versionWidth = tenacityFont16.getStringWidth(Tenacity.INSTANCE.getVersion());
-                float versionX = xVal + tenacityBoldFont40.getStringWidth(finalName);
-                float width = version ? (versionX + versionWidth) - xVal : tenacityBoldFont40.getStringWidth(finalName);
+                float versionWidth = lithiumFont16.getStringWidth(Tenacity.INSTANCE.getVersion());
+                float versionX = xVal + lithiumBoldFont40.getStringWidth(finalName);
+                float width = version ? (versionX + versionWidth) - xVal : lithiumBoldFont40.getStringWidth(finalName);
 
                 Pair<Color, Color> darkerColors = clientColors.apply((c1, c2) -> Pair.of(ColorUtil.darker(c1, .6f), ColorUtil.darker(c2, .6f)));
 
                 GradientUtil.applyGradientHorizontal(xVal + spacing, yVal + spacing, width + spacing,
                         20, 1, darkerColors.getFirst(), darkerColors.getSecond(), () -> {
                             RenderUtil.setAlphaLimit(0);
-                            tenacityBoldFont40.drawString(finalName, xVal + spacing, yVal + spacing, 0);
+                            lithiumBoldFont40.drawString(finalName, xVal + spacing, yVal + spacing, 0);
                             if (version) {
-                                tenacityFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX + (spacing / 2f), yVal + (spacing / 2f), 0);
+                                lithiumFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX + (spacing / 2f), yVal + (spacing / 2f), 0);
                             }
                         });
 
@@ -249,9 +249,9 @@ public class HUDMod extends Module {
                 RenderUtil.resetColor();
                 GradientUtil.applyGradientHorizontal(xVal, yVal, width, 20, 1, clientColors.getFirst(), clientColors.getSecond(), () -> {
                     RenderUtil.setAlphaLimit(0);
-                    tenacityBoldFont40.drawString(finalName, xVal, yVal, 0);
+                    lithiumBoldFont40.drawString(finalName, xVal, yVal, 0);
                     if (version) {
-                        tenacityFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX, yVal, 0);
+                        lithiumFont16.drawString(Tenacity.INSTANCE.getVersion(), versionX, yVal, 0);
                     }
                 });
                 break;
@@ -259,13 +259,13 @@ public class HUDMod extends Module {
             case "ZeroDay":
                 GradientUtil.applyGradientHorizontal(
                         7, 7,
-                        tenacityFont40.getStringWidth(Tenacity.NAME),
-                        tenacityFont40.getHeight(),
+                        lithiumFont40.getStringWidth(Tenacity.NAME),
+                        lithiumFont40.getHeight(),
                         1.0F,
                         ColorUtil.rainbow(10, 0, 0.45F, 1.0F, 1.0F),
                         ColorUtil.rainbow(10, 50, 0.45F, 1.0F, 1.0F),
                         () -> {
-                            tenacityFont40.drawStringWithShadow(
+                            lithiumFont40.drawStringWithShadow(
                                     Tenacity.NAME,
                                     7, 7,
                                     Color.BLACK.getRGB()
@@ -273,9 +273,9 @@ public class HUDMod extends Module {
                         }
                 );
 
-                tenacityBoldFont16.drawString(
+                lithiumBoldFont16.drawString(
                         Tenacity.VERSION,
-                        tenacityFont40.getStringWidth(Tenacity.NAME) + 7, 7,
+                        lithiumFont40.getStringWidth(Tenacity.NAME) + 7, 7,
                         Color.WHITE.getRGB()
                 );
                 break;
@@ -284,12 +284,12 @@ public class HUDMod extends Module {
                 RenderUtil.resetColor();
                 GradientUtil.applyGradientHorizontal(5, 5, 25, 20, 0.6F, new Color(235, 235, 235), new Color(205, 205, 205), () -> {
                     RenderUtil.setAlphaLimit(0);
-                    tenacityBoldFont40.drawString(finalName, 5, 5, 0);
+                    lithiumBoldFont40.drawString(finalName, 5, 5, 0);
                 });
 
                 break;
             case "Neverlose":
-                CustomFont m22 = neverloseFont.size(22), t18 = tenacityFont18;
+                CustomFont m22 = neverloseFont.size(22), t18 = lithiumFont18;
                 String str = String.format(" §8|§f %s fps §8|§f %s §8|§f %s",
                         Minecraft.getDebugFPS(), "Nyghtfull",
                         mc.isSingleplayer() || mc.getCurrentServerData() == null ? "singleplayer" : mc.getCurrentServerData().serverIP);
@@ -313,28 +313,28 @@ public class HUDMod extends Module {
                 float x = 4.5f, y = 4.5f;
 
                 int lineColor = new Color(59, 57, 57).darker().getRGB();
-                Gui.drawRect2(x, y, tenacityFont16.getStringWidth(text) + 7, 18.5, new Color(59, 57, 57).getRGB());
+                Gui.drawRect2(x, y, lithiumFont16.getStringWidth(text) + 7, 18.5, new Color(59, 57, 57).getRGB());
 
-                Gui.drawRect2(x + 2.5, y + 2.5, tenacityFont16.getStringWidth(text) + 2, 13, new Color(23, 23, 23).getRGB());
+                Gui.drawRect2(x + 2.5, y + 2.5, lithiumFont16.getStringWidth(text) + 2, 13, new Color(23, 23, 23).getRGB());
 
                 // Top small bar
-                Gui.drawRect2(x + 1, y + 1, tenacityFont16.getStringWidth(text) + 5, .5, lineColor);
+                Gui.drawRect2(x + 1, y + 1, lithiumFont16.getStringWidth(text) + 5, .5, lineColor);
 
                 // Bottom small bar
-                Gui.drawRect2(x + 1, y + 17, tenacityFont16.getStringWidth(text) + 5, .5, lineColor);
+                Gui.drawRect2(x + 1, y + 17, lithiumFont16.getStringWidth(text) + 5, .5, lineColor);
 
                 // Left bar
                 Gui.drawRect2(x + 1, y + 1.5, .5, 16, lineColor);
 
                 // Right Bar
-                Gui.drawRect2((x + 1.5) + tenacityFont16.getStringWidth(text) + 4, y + 1.5, .5, 16, lineColor);
+                Gui.drawRect2((x + 1.5) + lithiumFont16.getStringWidth(text) + 4, y + 1.5, .5, 16, lineColor);
 
                 // Lowly saturated rainbow bar
-                GradientUtil.drawGradientLR(x + 2.5f, y + 14.5f, tenacityFont16.getStringWidth(text) + 2, 1, 1, clientColors.getFirst(), clientColors.getSecond());
+                GradientUtil.drawGradientLR(x + 2.5f, y + 14.5f, lithiumFont16.getStringWidth(text) + 2, 1, 1, clientColors.getFirst(), clientColors.getSecond());
 
                 // Bottom of the rainbow bar
-                Gui.drawRect2(x + 2.5, y + 16, tenacityFont16.getStringWidth(text) + 2, .5, lineColor);
-                tenacityFont16.drawString(text, x + 4.5f, y + 5.5f, clientColors.getSecond().getRGB());
+                Gui.drawRect2(x + 2.5, y + 16, lithiumFont16.getStringWidth(text) + 2, .5, lineColor);
+                lithiumFont16.drawString(text, x + 4.5f, y + 5.5f, clientColors.getSecond().getRGB());
                 break;
             case "Tenabition":
                 StringBuilder stringBuilder = new StringBuilder(name.replace("tenacity", "Tenabition")).insert(1, EnumChatFormatting.WHITE);
@@ -355,7 +355,7 @@ public class HUDMod extends Module {
     }
 
     private void drawBottomRight() {
-        AbstractFontRenderer fr = customFont.isEnabled() ? tenacityFont20 : mc.fontRendererObj;
+        AbstractFontRenderer fr = customFont.isEnabled() ? lithiumFont20 : mc.fontRendererObj;
         ScaledResolution sr = new ScaledResolution(mc);
         float yOffset = (float) (14.5 * GuiChat.openingAnimation.getOutput().floatValue());
 
@@ -409,7 +409,7 @@ public class HUDMod extends Module {
         }
 
         //InfoStuff
-        AbstractFontRenderer nameInfoFr = tenacityFont20;
+        AbstractFontRenderer nameInfoFr = lithiumFont20;
         if (!customFont.isEnabled()) {
             nameInfoFr = mc.fontRendererObj;
         }

@@ -84,7 +84,7 @@ public class ScriptPanel extends Panel {
 
         Tenacity.INSTANCE.getCloudDataManager().applyVotes();
 
-        tenacityBoldFont40.drawString("Scripts", getX() + 8, getY() + 8, getTextColor());
+        lithiumBoldFont40.drawString("Scripts", getX() + 8, getY() + 8, getTextColor());
 
 
         carouselButtons.setAlpha(getAlpha());

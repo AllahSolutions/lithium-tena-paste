@@ -34,7 +34,7 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
     public float openedHeight;
     private boolean opened;
 
-    private final TextField hexField = new TextField(FontUtil.tenacityFont16);
+    private final TextField hexField = new TextField(FontUtil.lithiumFont16);
 
     private boolean draggingPicker;
     private boolean draggingHue;
@@ -83,7 +83,7 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
 
         openAnimation.setDirection(opened ? Direction.FORWARDS : Direction.BACKWARDS);
 
-        tenacityFont16.drawString(colorSetting.name, x + 5, y + tenacityFont16.getMiddleOfBox(realHeight), textColor);
+        lithiumFont16.drawString(colorSetting.name, x + 5, y + lithiumFont16.getMiddleOfBox(realHeight), textColor);
 
         float spacing = 4;
         float colorHeight = 6.5f;
@@ -120,8 +120,8 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
 
 
         String text = colorSetting.isRainbow() ? "Shift + Click for picker" : "Shift + Click for rainbow";
-        tenacityFont14.drawCenteredStringWithShadow(text, colorX + colorWidth / 2f,
-                colorY + tenacityFont14.getMiddleOfBox(colorHeight),
+        lithiumFont14.drawCenteredStringWithShadow(text, colorX + colorWidth / 2f,
+                colorY + lithiumFont14.getMiddleOfBox(colorHeight),
                 ColorUtil.applyOpacity(-1, hoverAnimation.getOutput().floatValue() * (openAnim * openAnim)));
 
         rainbowAnimation.setDirection(colorSetting.isRainbow() ? Direction.FORWARDS : Direction.BACKWARDS);
@@ -224,7 +224,7 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
 
                 whiteColor = ColorUtil.applyOpacity(whiteColor, rainbowInverse);
 
-                tenacityFont20.drawString("Hex", gradientX, newYVal + tenacityFont20.getMiddleOfBox(heightLeft) - 10, whiteColor);
+                lithiumFont20.drawString("Hex", gradientX, newYVal + lithiumFont20.getMiddleOfBox(heightLeft) - 10, whiteColor);
 
 
                 hexField.setWidth(50);
@@ -252,7 +252,7 @@ public class ColorComponent extends SettingComponent<ColorSetting> {
                             blinkAnimation.changeDirection();
                         }
 
-                        tenacityFont14.drawString("Invalid Hex Code", hexField.getXPosition() - .5f, newYVal - (tenacityFont14.getHeight() - .5f),
+                        lithiumFont14.drawString("Invalid Hex Code", hexField.getXPosition() - .5f, newYVal - (lithiumFont14.getHeight() - .5f),
                                 ColorUtil.applyOpacity(Color.RED, blinkAnimation.getOutput().floatValue()));
                     }
                 }

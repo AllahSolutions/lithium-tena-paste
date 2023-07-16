@@ -57,7 +57,7 @@ public class CategoryButton extends Component {
 
 
         float xDiff = 10 * expandAnimation.getOutput().floatValue();
-        tenacityFont24.drawString(category.name, x + 27 + xDiff, y, color);
+        lithiumFont24.drawString(category.name, x + 27 + xDiff, y, color);
 
 
     }

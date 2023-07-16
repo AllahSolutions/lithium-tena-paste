@@ -41,10 +41,10 @@ public class BooleanComponent extends SettingComponent<BooleanSetting> {
         toggleAnimation.setDirection(getSetting().isEnabled() ? Direction.FORWARDS : Direction.BACKWARDS);
         RenderUtil.resetColor();
 
-        tenacityFont20.drawString(
+        lithiumFont20.drawString(
                 getSetting().name,
-                x + tenacityFont20.getMiddleOfBox(height) / 1.8F,
-                y + tenacityFont16.getMiddleOfBox(height) / 2.8F,
+                x + lithiumFont20.getMiddleOfBox(height) / 1.8F,
+                y + lithiumFont16.getMiddleOfBox(height) / 2.8F,
                 ColorUtil.applyOpacity(textColor, .5f + (.5f * toggleAnimation.getOutput().floatValue()))
         );
 

@@ -51,10 +51,10 @@ public class NotificationsMod extends Module {
                     actualOffset = 8;
                     if (onlyTitle.isEnabled()) {
                         notificationHeight = 19;
-                        notificationWidth = (int) tenacityBoldFont22.getStringWidth(notification.getTitle()) + 35;
+                        notificationWidth = (int) lithiumBoldFont22.getStringWidth(notification.getTitle()) + 35;
                     } else {
                         notificationHeight = 28;
-                        notificationWidth = (int) Math.max(tenacityBoldFont22.getStringWidth(notification.getTitle()), tenacityFont18.getStringWidth(notification.getDescription())) + 35;
+                        notificationWidth = (int) Math.max(lithiumBoldFont22.getStringWidth(notification.getTitle()), lithiumFont18.getStringWidth(notification.getDescription())) + 35;
                     }
 
                     x = sr.getScaledWidth() - (notificationWidth + 5) * (float) animation.getOutput().floatValue();
@@ -67,7 +67,7 @@ public class NotificationsMod extends Module {
                     notificationHeight = 16;
                     String editTitle = notification.getTitle() + (notification.getTitle().endsWith(".") || notification.getTitle().endsWith("/") ? " " : ". ") + notification.getDescription();
 
-                    notificationWidth = (int) tenacityBoldFont22.getStringWidth(editTitle) + 5;
+                    notificationWidth = (int) lithiumBoldFont22.getStringWidth(editTitle) + 5;
 
                     x = sr.getScaledWidth() - (notificationWidth + 5);
                     y = sr.getScaledHeight() - (yOffset + 18 + HUDMod.offsetValue + notificationHeight + (15 * GuiChat.openingAnimation.getOutput().floatValue()));
@@ -117,10 +117,10 @@ public class NotificationsMod extends Module {
                     actualOffset = 8;
                     if(onlyTitle.isEnabled()) {
                         notificationHeight = 19;
-                        notificationWidth = (int) tenacityBoldFont22.getStringWidth(notification.getTitle()) + 35;
+                        notificationWidth = (int) lithiumBoldFont22.getStringWidth(notification.getTitle()) + 35;
                     }else {
                         notificationHeight = 28;
-                        notificationWidth = (int) Math.max(tenacityBoldFont22.getStringWidth(notification.getTitle()), tenacityFont18.getStringWidth(notification.getDescription())) + 35;
+                        notificationWidth = (int) Math.max(lithiumBoldFont22.getStringWidth(notification.getTitle()), lithiumFont18.getStringWidth(notification.getDescription())) + 35;
                     }
 
                     x = sr.getScaledWidth() - (notificationWidth + 5) * animation.getOutput().floatValue();
@@ -133,7 +133,7 @@ public class NotificationsMod extends Module {
                     notificationHeight = 16;
                     String editTitle = notification.getTitle() + (notification.getTitle().endsWith(".") || notification.getTitle().endsWith("/") ? " " : ". ") + notification.getDescription();
 
-                    notificationWidth = (int) tenacityBoldFont22.getStringWidth(editTitle) + 5;
+                    notificationWidth = (int) lithiumBoldFont22.getStringWidth(editTitle) + 5;
 
                     x = sr.getScaledWidth() - (notificationWidth + 5);
                     y = sr.getScaledHeight() - (yOffset + 18 + HUDMod.offsetValue + notificationHeight + (15 * GuiChat.openingAnimation.getOutput().floatValue()));

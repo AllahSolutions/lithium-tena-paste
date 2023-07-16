@@ -88,11 +88,11 @@ public class VoteRect implements Screen {
             voteColor = redColor;
         }
 
-        RenderUtil.scissorStart(x, y + height / 2f - (tenacityBoldFont16.getHeight() / 2f + 1.5), width, tenacityBoldFont16.getHeight() + 3);
+        RenderUtil.scissorStart(x, y + height / 2f - (lithiumBoldFont16.getHeight() / 2f + 1.5), width, lithiumBoldFont16.getHeight() + 3);
         drawAnimatedVote(totalVotes, voteColor);
         RenderUtil.scissorEnd();
 
-        //      tenacityBoldFont16.drawCenteredString(s, x + width / 2f, y + tenacityBoldFont16.getMiddleOfBox(height), ColorUtil.applyOpacity(voteColor, alpha));
+        //      lithiumBoldFont16.drawCenteredString(s, x + width / 2f, y + lithiumBoldFont16.getMiddleOfBox(height), ColorUtil.applyOpacity(voteColor, alpha));
     }
 
     @Override
@@ -122,7 +122,7 @@ public class VoteRect implements Screen {
 
             if (voteAnimation == null) {
                 voteAnimation = new DecelerateAnimation(Math.min(500, 200 * Math.abs(additionalVotes)),
-                        additionalVotes * (tenacityBoldFont16.getHeight() + 3));
+                        additionalVotes * (lithiumBoldFont16.getHeight() + 3));
             }
 
             float animation = voteAnimation.getOutput().floatValue();
@@ -131,18 +131,18 @@ public class VoteRect implements Screen {
             if (additionalVotes > 0) {
 
                 for (int i = lastVote; i < (vote + 1); i++) {
-                    int additionalY = count * (tenacityBoldFont16.getHeight() + 3);
+                    int additionalY = count * (lithiumBoldFont16.getHeight() + 3);
 
-                    float voteY = y + tenacityBoldFont16.getMiddleOfBox(height) + additionalY;
-                    tenacityBoldFont16.drawCenteredString(String.valueOf(i), x + width / 2f, voteY - (animation), ColorUtil.applyOpacity(color, alpha));
+                    float voteY = y + lithiumBoldFont16.getMiddleOfBox(height) + additionalY;
+                    lithiumBoldFont16.drawCenteredString(String.valueOf(i), x + width / 2f, voteY - (animation), ColorUtil.applyOpacity(color, alpha));
                     count++;
                 }
 
             } else {
                 for (int i = lastVote; i > (vote - 1); i--) {
-                    int additionalY = count * (tenacityBoldFont16.getHeight() + 3);
-                    float voteY = y + tenacityBoldFont16.getMiddleOfBox(height) - additionalY;
-                    tenacityBoldFont16.drawCenteredString(String.valueOf(i), x + width / 2f, voteY - animation, ColorUtil.applyOpacity(color, alpha));
+                    int additionalY = count * (lithiumBoldFont16.getHeight() + 3);
+                    float voteY = y + lithiumBoldFont16.getMiddleOfBox(height) - additionalY;
+                    lithiumBoldFont16.drawCenteredString(String.valueOf(i), x + width / 2f, voteY - animation, ColorUtil.applyOpacity(color, alpha));
                     count++;
                 }
             }
@@ -153,8 +153,8 @@ public class VoteRect implements Screen {
                 voteAnimation = null;
             }
         } else {
-            tenacityBoldFont16.drawCenteredString(String.valueOf(vote), x + width / 2f,
-                    y + tenacityBoldFont16.getMiddleOfBox(height), ColorUtil.applyOpacity(color, alpha));
+            lithiumBoldFont16.drawCenteredString(String.valueOf(vote), x + width / 2f,
+                    y + lithiumBoldFont16.getMiddleOfBox(height), ColorUtil.applyOpacity(color, alpha));
         }
 
 

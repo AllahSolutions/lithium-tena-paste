@@ -448,7 +448,7 @@ public class Scaffold extends Module {
                 float blockWH = heldItem != null ? 15 : -2;
                 int spacing = 3;
                 String text = "§l" + countStr + "§r block" + (count != 1 ? "s" : "");
-                float textWidth = tenacityFont18.getStringWidth(text);
+                float textWidth = lithiumFont18.getStringWidth(text);
 
                 float totalWidth = ((textWidth + blockWH + spacing) + 6) * output;
                 x = sr.getScaledWidth() / 2f - (totalWidth / 2f);
@@ -489,7 +489,7 @@ public class Scaffold extends Module {
                 float blockWH = heldItem != null ? 15 : -2;
                 int spacing = 3;
                 String text = "§l" + countStr + "§r block" + (count != 1 ? "s" : "");
-                float textWidth = tenacityFont18.getStringWidth(text);
+                float textWidth = lithiumFont18.getStringWidth(text);
 
                 float totalWidth = ((textWidth + blockWH + spacing) + 6) * output;
                 x = sr.getScaledWidth() / 2f - (totalWidth / 2f);
@@ -499,7 +499,7 @@ public class Scaffold extends Module {
 
              //   RoundedUtil.drawRound(x, y, totalWidth, height, 5, ColorUtil.tripleColor(20, .45f));
 
-                tenacityFont18.drawString(text, x + 3 + blockWH + spacing, y + tenacityFont18.getMiddleOfBox(height) + .5f, -1);
+                lithiumFont18.drawString(text, x + 3 + blockWH + spacing, y + lithiumFont18.getMiddleOfBox(height) + .5f, -1);
 
                 if (heldItem != null) {
                     RenderHelper.enableGUIStandardItemLighting();

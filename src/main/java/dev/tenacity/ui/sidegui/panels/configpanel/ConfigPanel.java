@@ -85,7 +85,7 @@ public class ConfigPanel extends Panel {
 
         Tenacity.INSTANCE.getCloudDataManager().applyVotes();
 
-        tenacityBoldFont40.drawString("Configs", getX() + 8, getY() + 8, getTextColor());
+        lithiumBoldFont40.drawString("Configs", getX() + 8, getY() + 8, getTextColor());
 
         boolean filterVersion = toggleButtons.get(1).isEnabled();
         boolean filterAuthor = toggleButtons.get(2).isEnabled();

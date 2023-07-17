@@ -29,6 +29,12 @@ public class LatestNCPSpeed extends SpeedMode {
             return;
         }
 
+        if(mc.thePlayer.hurtTime >1) {
+            MovementUtils.strafe(
+                    MovementUtils.getSpeed() * 1.2F
+            );
+        }
+
         if (mc.thePlayer.onGround) {
             MovementUtils.strafe(
                     MovementUtils.getBaseMoveSpeed()
@@ -44,6 +50,7 @@ public class LatestNCPSpeed extends SpeedMode {
         }
 
         mc.timer.timerSpeed = (float) (1.075F - (Math.random() - 0.5) / 100.0F);
+
 
         MovementUtils.strafe(
                 MovementUtils.getSpeed() - (float) (Math.random() - 0.5F) / 100.0F

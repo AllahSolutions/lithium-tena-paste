@@ -537,7 +537,7 @@ public final class Flight extends Module {
               DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
         }
-
+        
         if (mode.is("Vulcan Motion")) {
             flag = false;
             pearlTimer.reset();

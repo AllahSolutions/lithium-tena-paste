@@ -50,8 +50,8 @@ public final class KillAura extends Module {
     public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC");
     public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth");
     public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
-    public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "All");
-    public ModeSetting blockTiming = new ModeSetting("Block Timing", "Pre", "Pre", "Post", "All");
+    public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All");
+
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
             
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
@@ -77,14 +77,12 @@ public final class KillAura extends Module {
             new BooleanSetting("Players", true),
             new BooleanSetting("Animals", false),
             new BooleanSetting("Monsters", false),
-            new BooleanSetting("Others", false),
             new BooleanSetting("Invisible", false)
 
     );
 
     public MultipleBoolSetting bypass = new MultipleBoolSetting(
             "Bypass",
-            new BooleanSetting("Keep Sprinting", true),
             new BooleanSetting("Movement Correction", true),
             new BooleanSetting("Through Walls", true),
             new BooleanSetting("Ray Tracing", false)
@@ -134,7 +132,7 @@ public final class KillAura extends Module {
         this.rotationSmoothness.addParent(rotationMode, a -> rotationMode.is("Smooth"));
 
         this.addSettings(
-                attackMode, blockMode, rotationMode, sortingMode, attackTiming, blockTiming,
+                attackMode, blockMode, rotationMode, sortingMode, attackTiming,
                 blockInteract, maxTargets, blockChance, switchDelay,
 
                 minAPS, maxAPS,
@@ -209,6 +207,8 @@ public final class KillAura extends Module {
 
         this.setSuffix(attackMode.getMode());
 
+        attacking = target != null && !Tenacity.INSTANCE.isEnabled(Scaffold.class);
+
         if (mc.thePlayer.ticksExisted == 0 && features.getSetting("Auto Disable").isEnabled()) {
             this.toggle();
             return;
@@ -226,27 +226,34 @@ public final class KillAura extends Module {
         if (
                 (event.isPost() && attackTiming.is("Pre")) ||
                 (event.isPre() && attackTiming.is("Post")) ||
+                attackTiming.is("Legit") ||
                 target == null
         ) {
             return;
         }
 
-        attacking = !list.isEmpty() && !Tenacity.INSTANCE.isEnabled(Scaffold.class);
-
-        if (attacking) {
-            if (attackTimer.hasTimeElapsed(1000 / currentAPS)) {
-                runAttackLoop(event);
-
-                currentAPS = Random.nextDouble(
-                        minAPS.getValue(),
-                        maxAPS.getValue()
-                );
-
-                attackTimer.reset();
-            }
-        }
+        runAttackLoop();
 
         super.onMotionEvent(event);
+    }
+
+    @Override
+    public void onLegitClick(LegitClick event) {
+
+        if (target == null) {
+            return;
+        }
+
+        if (
+                attackTiming.is("Pre") &&
+                attackTiming.is("Post")
+        ) {
+            return;
+        }
+
+        runAttackLoop();
+
+        super.onLegitClick(event);
     }
 
     @Override
@@ -330,15 +337,8 @@ public final class KillAura extends Module {
         }
     }
 
-    private void runPreBlocking(MotionEvent event) {
+    private void runPreBlocking() {
         boolean shouldInteract = blockInteract.isEnabled();
-
-        if (
-                (event.isPre() && blockTiming.is("Post")) ||
-                (event.isPost() && blockTiming.is("Pre"))
-        ) {
-            return;
-        }
 
         int chance = (int) Math.round(100 * Math.random());
 
@@ -369,73 +369,72 @@ public final class KillAura extends Module {
         }
     }
 
-    private void runAttackLoop(MotionEvent event) {
+    private void runAttackLoop() {
 
-        // Attack
-        switch (attackMode.getMode()) {
-            case "Single":
-                target = (list.size() > 0) ? list.get(0) : null;
+        if (attacking) {
+            if (attackTimer.hasTimeElapsed(1000 / currentAPS)) {
 
-                if (target != null)
-                    attack(event, target);
+                // Attack
+                switch (attackMode.getMode()) {
+                    case "Single":
+                        target = (list.size() > 0) ? list.get(0) : null;
 
-                break;
-            case "Switch":
+                        if (target != null)
+                            attack(target);
 
-                if (list.size() >= targetIndex)
-                    targetIndex = 0;
+                        break;
+                    case "Switch":
 
-                target = (list.size() > 0) ? list.get(targetIndex) : null;
+                        if (list.size() >= targetIndex)
+                            targetIndex = 0;
 
-                if (target != null)
-                    attack(event, target);
+                        target = (list.size() > 0) ? list.get(targetIndex) : null;
 
-                if (switchTimer.hasTimeElapsed(switchDelay.getValue())) {
-                    targetIndex++;
+                        if (target != null)
+                            attack(target);
 
-                    switchTimer.reset();
+                        if (switchTimer.hasTimeElapsed(switchDelay.getValue())) {
+                            targetIndex++;
+
+                            switchTimer.reset();
+                        }
+
+                        break;
+                    case "Multi":
+                        target = (list.size() > 0) ? list.get(0) : null;
+                        list.forEach(entity -> this.attack(entity));
+                        break;
                 }
 
-                break;
-            case "Multi":
-                target = (list.size() > 0) ? list.get(0) : null;
-                list.forEach(entity -> this.attack(event, entity));
-                break;
-        }
-    }
+                currentAPS = Random.nextDouble(
+                        minAPS.getValue(),
+                        maxAPS.getValue()
+                );
 
-    private void runPostBlocking(MotionEvent event) {
-        boolean shouldInteract = blockInteract.isEnabled();
-
-        if (
-                (event.isPre() && blockTiming.is("Post")) ||
-                (event.isPost() && blockTiming.is("Pre"))
-        ) {
-            return;
-        }
-
-        int chance = (int) Math.round(100 * Math.random());
-
-        if (chance <= blockChance.getValue()) {
-            switch (blockMode.getMode()) {
-                case "PostAttack": {
-                    block(shouldInteract);
-                    break;
-                }
-                default: {
-                    break;
-                }
+                attackTimer.reset();
             }
         }
     }
 
-    private void attack(MotionEvent event, EntityLivingBase entity) {
+    private void runPostBlocking() {
+        boolean shouldInteract = blockInteract.isEnabled();
+
+        int chance = (int) Math.round(100 * Math.random());
+
+        if (chance <= blockChance.getValue()) {
+            if (blockMode.getMode().equals("PostAttack")) {
+                block(shouldInteract);
+            }
+        }
+    }
+
+    private void attack(EntityLivingBase entity) {
         if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isOlderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
         }
 
         if (mc.thePlayer.getDistanceToEntity(entity) <= blockRange.getValue()) {
-            runPreBlocking(event);
+            runPreBlocking();
         }
 
         if (!mc.thePlayer.canEntityBeSeen(entity) && mc.thePlayer.getDistanceToEntity(entity) > wallsRange.getValue())
@@ -456,7 +455,7 @@ public final class KillAura extends Module {
         }
 
         if (mc.thePlayer.getDistanceToEntity(entity) <= blockRange.getValue()) {
-            runPostBlocking(event);
+            runPostBlocking();
         }
     }
 
@@ -473,8 +472,6 @@ public final class KillAura extends Module {
                 .map(entity -> (EntityLivingBase) entity)
 
                 .filter(livingEntity -> {
-
-
 
                     if (!this.targets.getSetting("Players").isEnabled() && livingEntity instanceof EntityPlayer) {
                         return false;

@@ -49,8 +49,7 @@ public class ProtectedLaunch {
         Tenacity.INSTANCE.setModuleCollection(new ModuleCollection());
 
         // Combat
-        modules.put(SuperKnockback.class, new SuperKnockback());
-        modules.put(IdleFighter.class, new IdleFighter());
+        modules.put(PlayBot.class, new PlayBot());
         modules.put(KillAura.class, new KillAura());
         modules.put(Velocity.class, new Velocity());
         modules.put(Criticals.class, new Criticals());
@@ -76,7 +75,7 @@ public class ProtectedLaunch {
         modules.put(Spammer.class, new Spammer());
         modules.put(AntiFreeze.class, new AntiFreeze());
         modules.put(LightningTracker.class, new LightningTracker());
-        modules.put(HackerDetector.class, new HackerDetector());
+        modules.put(AntiCheat.class, new AntiCheat());
         modules.put(MurderDetector.class, new MurderDetector());
         modules.put(AutoHypixel.class, new AutoHypixel());
         modules.put(NoRotate.class, new NoRotate());
@@ -94,7 +93,6 @@ public class ProtectedLaunch {
         modules.put(Flight.class, new Flight());
         modules.put(LongJump.class, new LongJump());
         modules.put(Step.class, new Step());
-        modules.put(TargetStrafe.class, new TargetStrafe());
         modules.put(FastLadder.class, new FastLadder());
         modules.put(InventoryMove.class, new InventoryMove());
         modules.put(Jesus.class, new Jesus());
@@ -116,7 +114,6 @@ public class ProtectedLaunch {
         modules.put(AutoTool.class, new AutoTool());
         modules.put(AntiVoid.class, new AntiVoid());
         modules.put(Scaffold.class, new Scaffold());
-        modules.put(FastBow.class, new FastBow());
 
         // Render
         modules.put(ArrayListMod.class, new ArrayListMod());

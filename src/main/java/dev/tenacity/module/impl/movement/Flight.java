@@ -9,14 +9,12 @@ import dev.tenacity.event.impl.player.MoveEvent;
 import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.module.impl.combat.TargetStrafe;
 import dev.tenacity.module.settings.ParentAttribute;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
-import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.player.*;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
@@ -85,11 +83,9 @@ public final class Flight extends Module {
 
     private final BooleanSetting speed = new BooleanSetting("Speed", false);
     private final NumberSetting speedAmount = new NumberSetting("Speed Amount", 0.2, 9, 0.05, 0.01);
-    private TargetStrafe targetStrafe;
 
     public Flight() {
         super("Flight", Category.MOVEMENT, "Makes you hover in the air");
-        targetStrafe = new TargetStrafe();
         horizontalSpeed.addParent(mode, m -> m.is("Vanilla"));
         verticalSpeed.addParent(mode, m -> m.is("Vanilla"));
         antiKick.addParent(mode, m -> m.is("Vanilla"));
@@ -108,66 +104,44 @@ public final class Flight extends Module {
         switch (mode.getMode()) {
             case "Vanilla":
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
-               targetStrafe.strafe(e, horizontalSpeed.getValue().floatValue());
                 break;
 
             case "Damage":
-                if(timer.hasTimeElapsed(3000) ) {
+                if (timer.hasTimeElapsed(3000) ) {
                     HadDamage = false;
                 }
-                if(mc.thePlayer.hurtTime>1) {
+
+                if (mc.thePlayer.hurtTime>1) {
                     HadDamage = true;
-               //     mc.timer.timerSpeed = 0.1f;
                 }
-                if(HadDamage) {
+
+                if (HadDamage) {
                     mc.timer.timerSpeed = 0.5f;
                 } else{
                     mc.timer.timerSpeed = 1.0f;
                 }
 
-
-
-                if(MovementUtils.isMoving()) {
-
-                   if(HadDamage) {
-
-
+                if (MovementUtils.isMoving()) {
+                   if (HadDamage) {
                         e.setSpeed(2);
-                        targetStrafe.strafe(e, 2);
-
                     } else {
                         e.setSpeed(MovementUtils.getBaseMoveSpeed()* 1.01f);
-                        targetStrafe.strafe(e, MovementUtils.getBaseMoveSpeed() * 1.01f);
                     }
                 }
-
                 break;
 
-
-
-
-            case"VulcanFast":
+            case "VulcanFast":
                 mc.timer.timerSpeed = 0.58f;
                 if (!setback) {
-
                     MovementUtils.setSpeed(e, 0.0);
-
                 } else {
-
                    MovementUtils.setSpeed(e, 9);
                 }
-                //maybe dont set the ground
-                //mc.thePlayer.onGround = false;
 
-
-                //runningTicks++;
                 if(mc.thePlayer.ticksExisted % 6 == 0) {
-                    //  if (runningTicks >= 6) {
                     MovementUtils.strafe(0.0f);
-
                     return;
                 }
-
 
                 break;
             case "Watchdog":
@@ -181,21 +155,6 @@ public final class Flight extends Module {
             case "Packet":
                 e.setSpeed(0);
                 break;
-            case "Libercraft":
-                if(!hasDamaged)
-                    e.setSpeed(0);
-                break;
-
-
-
-
-
-               
-            default:
-
-
-
-
         }
     }
 
@@ -205,7 +164,7 @@ public final class Flight extends Module {
         if (viewBobbing.isEnabled()) {
             mc.thePlayer.cameraYaw = mc.thePlayer.cameraPitch = 0.08F;
         }
-        if(!mode.getMode().equals("Libercraft") && !mode.getMode().equals("Damage")) {
+        if (!mode.getMode().equals("Libercraft") && !mode.getMode().equals("Damage")) {
             mc.timer.timerSpeed = timerAmount.getValue().floatValue();
         }
 
@@ -225,10 +184,6 @@ public final class Flight extends Module {
                     }
                 }
                 break;
-
-
-
-
 
             case"VulcanFast":
                 mc.thePlayer.motionY = 0.0;
@@ -256,31 +211,19 @@ public final class Flight extends Module {
 
 
 
-            case"Vulcan Timer":
-                
-               // if(mc.thePlayer.onGround) {
-                 //   mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY + 1,mc.thePlayer.posZ);
-           //     }
-
-
-                if(mc.gameSettings.keyBindSneak.isPressed()) {
+            case "Vulcan Timer":
+                if (mc.gameSettings.keyBindSneak.isPressed()) {
                     shift = true;
                 }
-                if(Flags>3 && MovementUtils.isMoving() && !shift) {
 
-                  //  ChatUtil.print("Started");
+                if (Flags>3 && MovementUtils.isMoving() && !shift) {
                     mc.timer.timerSpeed = 10.0f;
                 }
 
-
-                if(shift) {
+                if (shift) {
                     mc.timer.timerSpeed = 1.0f;
                 }
-
-
                 break;
-
-
 
             case "Vulcan":
                 if(e.isPre()) {
@@ -292,7 +235,6 @@ public final class Flight extends Module {
             case "Libercraft":
                 if(e.isPre()) {
                     mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getCurrentEquippedItem()));
-
 
                     if(stage < 3) {
                         e.setOnGround(false);
@@ -308,11 +250,7 @@ public final class Flight extends Module {
                         if(hasDamaged) {
                            mc.timer.timerSpeed = 0.8f;
                             e.setOnGround(true);
-                            //mc.thePlayer.onGround = true;
                             mc.timer.timerSpeed = 0.4f;
-
-
-
                             mc.thePlayer.motionY = 0.05;
                             MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 10);
                         }

@@ -5,18 +5,13 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.player.AttackEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
-import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.module.impl.movement.Scaffold;
-import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.player.Advancedrots;
-import dev.tenacity.utils.player.RotationUtils;
-import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,12 +20,11 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class IdleFighter extends Module {
+public final class PlayBot extends Module {
 
     private EntityLivingBase target;
 
@@ -50,8 +44,8 @@ public final class IdleFighter extends Module {
 
     private final TimerUtil attackTimer = new TimerUtil();
 
-    public IdleFighter() {
-        super("PvpBot", Category.COMBAT, "Automatically finds the nearest player and attempts to kill them");
+    public PlayBot() {
+        super("PlayBot", Category.COMBAT, "Automatically finds the nearest player and attempts to kill them");
         this.addSettings(targetsSetting, minCPS, maxCPS, reach);
     }
 

@@ -1,4 +1,4 @@
-package dev.tenacity.hackerdetector.checks;
+package dev.tenacity.hackerdetector.checks.flight;
 
 import dev.tenacity.hackerdetector.Category;
 import dev.tenacity.hackerdetector.Detection;

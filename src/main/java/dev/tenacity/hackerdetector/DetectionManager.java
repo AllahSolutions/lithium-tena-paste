@@ -1,8 +1,9 @@
 package dev.tenacity.hackerdetector;
 
-import dev.tenacity.hackerdetector.checks.FlightA;
-import dev.tenacity.hackerdetector.checks.FlightB;
-import dev.tenacity.hackerdetector.checks.ReachA;
+import dev.tenacity.hackerdetector.checks.flight.FlightA;
+import dev.tenacity.hackerdetector.checks.flight.FlightB;
+import dev.tenacity.hackerdetector.checks.combat.ReachA;
+import dev.tenacity.hackerdetector.checks.phase.PhaseA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,8 @@ public class DetectionManager {
 
                 // Movement
                 new FlightA(),
-                new FlightB()
+                new FlightB(),
+                new PhaseA()
 
                 // Player
 

@@ -29,8 +29,8 @@ public class SpeedMode extends ListenerAdapter implements Utils {
         modes.put(NoRulesSpeed.class, new NoRulesSpeed());
         modes.put(VanillaSpeed.class, new VanillaSpeed());
         modes.put(WatchdogSpeed.class, new WatchdogSpeed());
-        modes.put(InvadedSpeed.class, new InvadedSpeed());
-        modes.put(Strafe.class, new Strafe());
+        modes.put(StrafeSpeed.class, new StrafeSpeed());
+        modes.put(PolarSpeed.class, new PolarSpeed());
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.combat;
 
+import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
@@ -21,186 +22,78 @@ import net.minecraft.network.play.server.S27PacketExplosion;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet","Dev","Universocraft", "Cancel", "MMC","Reverse", "Matrix", "Tick", "Stack", "C0F Cancel");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
-    private final NumberSetting chance = new NumberSetting("Chance", 100, 100, 0, 1);
-    private final BooleanSetting onlyWhileMoving = new BooleanSetting("Only while moving", false);
-    private final BooleanSetting staffCheck = new BooleanSetting("Staff check", false);
 
-    private long lastDamageTimestamp, lastAlertTimestamp;
-    private boolean cancel;
 
     public Velocity() {
-        super("Velocity", Category.COMBAT, "Reduces your knockback");
-        Setting.addParent(mode, m -> m.is("Packet"), horizontal, vertical, staffCheck);
-        this.addSettings(mode, horizontal, vertical, chance, onlyWhileMoving, staffCheck);
+        super("Velocity", Category.COMBAT, "Reduces your velocity.");
+        this.addSettings(mode, horizontal, vertical);
     }
 
     @Override
-    public void onPacketSendEvent(PacketSendEvent event) {
-        if (mode.is("C0F Cancel")) {
-            if (event.getPacket() instanceof C0FPacketConfirmTransaction && mc.thePlayer.hurtTime > 0) {
-                event.cancel();
+    public void onPacketReceiveEvent(PacketReceiveEvent event) {
+
+        Packet <?> packet = event.getPacket();
+
+        if (packet instanceof S12PacketEntityVelocity) {
+            S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) packet;
+
+            switch (mode.getMode()) {
+                case "Packet": {
+                    s12.motionX *= horizontal.getValue() / 100;
+                    s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= horizontal.getValue() / 100;
+                    break;
+                }
+                case "Reverse": {
+                    s12.motionX *= -1 * horizontal.getValue() / 100;
+                    s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= -1 * horizontal.getValue() / 100;
+                    break;
+                }
+                default: {
+                    System.out.println("Invalid velocity string.");
+                    break;
+                }
             }
         }
+
+        if (packet instanceof S27PacketExplosion) {
+            S27PacketExplosion s12 = (S27PacketExplosion) packet;
+
+            switch (mode.getMode()) {
+                case "Packet": {
+                    s12.motionX *= horizontal.getValue() / 100;
+                    s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= horizontal.getValue() / 100;
+                    break;
+                }
+                case "Reverse": {
+                    s12.motionX *= -1 * horizontal.getValue() / 100;
+                    s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= -1 * horizontal.getValue() / 100;
+                    break;
+                }
+                default: {
+                    System.out.println("Invalid velocity string.");
+                    break;
+                }
+            }
+        }
+
+        super.onPacketReceiveEvent(event);
     }
 
     @Override
-    public void onPacketReceiveEvent(PacketReceiveEvent e) {
-        this.setSuffix(mode.getMode());
-        if ((onlyWhileMoving.isEnabled() && !MovementUtils.isMoving()) || (chance.getValue() != 100 && MathUtils.getRandomInRange(0, 100) > chance.getValue()))
-            return;
-        Packet<?> packet = e.getPacket();
-        switch (mode.getMode()) {
-            case "Packet":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if (mc.thePlayer != null && s12.getEntityID() == mc.thePlayer.getEntityId()) {
-                        if (cancel(e)) return;
-                        s12.motionX *= horizontal.getValue() / 100.0;
-                        s12.motionZ *= horizontal.getValue() / 100.0;
-                        s12.motionY *= vertical.getValue() / 100.0;
-                    }
-                } else if (packet instanceof S27PacketExplosion) {
-                    if (cancel(e)) return;
-                    S27PacketExplosion s27 = (S27PacketExplosion) e.getPacket();
-                    s27.motionX *= horizontal.getValue() / 100.0;
-                    s27.motionZ *= horizontal.getValue() / 100.0;
-                    s27.motionY *= vertical.getValue() / 100.0;
-                } else if (e.getPacket() instanceof S19PacketEntityStatus) {
-                    S19PacketEntityStatus s19 = (S19PacketEntityStatus) e.getPacket();
-                    if (mc.thePlayer != null && s19.getEntityId() == mc.thePlayer.getEntityId() && s19.getOpCode() == 2) {
-                        lastDamageTimestamp = System.currentTimeMillis();
-                    }
-                }
-                break;
+    public void onTickEvent(TickEvent event) {
 
-            case "Dev":
-                if (e.getPacket() instanceof S12PacketEntityVelocity) {
-
-
-                    S12PacketEntityVelocity packet3 = (S12PacketEntityVelocity)e.getPacket();
-
-                    packet3.motionX = 100;
-                    packet3.motionY = -packet3.motionY;
-                    packet3.motionZ = 100;
-
-                    //e.setCancelled(true);
-                }
-                break;
-
-            case "Cancel":
-                if (packet instanceof S12PacketEntityVelocity || packet instanceof S27PacketExplosion) {
-                    e.cancel();
-                }
-                break;
-
-
-            case"Reverse":
-                if (e.getPacket() instanceof S12PacketEntityVelocity) {
-
-
-                    S12PacketEntityVelocity packet3 = (S12PacketEntityVelocity)e.getPacket();
-
-                    packet3.motionX = -packet3.motionX;
-                    packet3.motionZ = -packet3.motionZ;
-                    //e.setCancelled(true);
-                }
-
-
-                break;
-
-            case"Universocraft":
-                if (!mc.thePlayer.isSwingInProgress) return;
-
-                final Packet<?> p = e.getPacket();
-
-                if (p instanceof S12PacketEntityVelocity) {
-                    final S12PacketEntityVelocity wrapper = (S12PacketEntityVelocity) p;
-
-                    if (wrapper.getEntityID() == mc.thePlayer.getEntityId()) {
-                        e.cancel();
-                        mc.thePlayer.motionY += 0.1 - Math.random() / 100f;
-                    }
-                }
-
-                if (p instanceof S27PacketExplosion) {
-                    e.cancel();
-                    mc.thePlayer.motionY += 0.1 - Math.random() / 100f;
-                }
-
-                break;
-
-            case "MMC":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if(mc.thePlayer.ticksExisted % 2 == 0) {
-                        e.cancel();
-                    }
-
-
-                }
-                break;
-            case "C0F Cancel":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if (mc.thePlayer != null && s12.getEntityID() == mc.thePlayer.getEntityId()) {
-                        e.cancel();
-                    }
-                }
-                if (packet instanceof S27PacketExplosion) {
-                    e.cancel();
-                }
-                break;
-            case "Stack":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) packet;
-                    cancel = !cancel;
-                    if (cancel) {
-                        e.cancel();
-                    }
-                }
-                if (packet instanceof S27PacketExplosion) {
-                    e.cancel();
-                }
-                break;
-            case "Matrix":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if (mc.thePlayer != null && s12.getEntityID() == mc.thePlayer.getEntityId()) {
-                        s12.motionX *= 5 / 100.0;
-                        s12.motionZ *= 5 / 100.0;
-                        s12.motionY *= 100 / 100.0;
-                    }
-                }
-                break;
-            case "Tick":
-                if (packet instanceof S12PacketEntityVelocity) {
-                    S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) e.getPacket();
-                    if (mc.thePlayer != null && s12.getEntityID() == mc.thePlayer.getEntityId() && mc.thePlayer.ticksExisted % 3 == 0) {
-                        s12.motionX *= 5 / 100.0;
-                        s12.motionZ *= 5 / 100.0;
-                        s12.motionY *= 100 / 100.0;
-                    }
-                }
-                break;
+        if ("Polar".equals(this.mode.getMode()) && mc.thePlayer.hurtTime > 0) {
+            mc.thePlayer.motionX /= (mc.thePlayer.hurtTime / 5.0D);
+            mc.thePlayer.motionZ /= (mc.thePlayer.hurtTime / 5.0D);
         }
+
+        super.onTickEvent(event);
     }
-
-    private boolean cancel(PacketReceiveEvent e) {
-        if (staffCheck.isEnabled() && System.currentTimeMillis() - lastDamageTimestamp > 500) {
-            if (System.currentTimeMillis() - lastAlertTimestamp > 250) {
-                NotificationManager.post(NotificationType.WARNING, "Velocity", "Suspicious knockback detected!", 2);
-                lastAlertTimestamp = System.currentTimeMillis();
-            }
-            return true;
-        }
-        if (horizontal.getValue() == 0 && vertical.getValue() == 0) {
-            e.cancel();
-            return true;
-        }
-        return false;
-    }
-
 }

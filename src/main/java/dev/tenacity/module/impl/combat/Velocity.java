@@ -4,6 +4,7 @@ import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
+import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.Setting;
@@ -54,7 +55,6 @@ public class Velocity extends Module {
                     break;
                 }
                 default: {
-                    System.out.println("Invalid velocity string.");
                     break;
                 }
             }
@@ -77,7 +77,6 @@ public class Velocity extends Module {
                     break;
                 }
                 default: {
-                    System.out.println("Invalid velocity string.");
                     break;
                 }
             }
@@ -87,13 +86,16 @@ public class Velocity extends Module {
     }
 
     @Override
-    public void onTickEvent(TickEvent event) {
+    public void onMotionEvent(MotionEvent event) {
 
         if ("Polar".equals(this.mode.getMode()) && mc.thePlayer.hurtTime > 0) {
-            mc.thePlayer.motionX /= (mc.thePlayer.hurtTime / 5.0D);
-            mc.thePlayer.motionZ /= (mc.thePlayer.hurtTime / 5.0D);
+            if (mc.thePlayer.motionX >= 0.001 && mc.thePlayer.motionZ >= 0.001) {
+                mc.thePlayer.motionX /= 1.2;
+                mc.thePlayer.motionZ /= 1.2;
+                mc.thePlayer.onGround = true;
+            }
         }
 
-        super.onTickEvent(event);
+        super.onMotionEvent(event);
     }
 }

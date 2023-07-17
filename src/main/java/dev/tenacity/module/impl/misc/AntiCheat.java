@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.misc;
 
 import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.hackerdetector.DetectionManager;
+import dev.tenacity.anticheat.DetectionManager;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.utils.player.ChatUtil;

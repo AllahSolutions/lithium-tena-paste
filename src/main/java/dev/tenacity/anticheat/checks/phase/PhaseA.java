@@ -1,11 +1,10 @@
-package dev.tenacity.hackerdetector.checks.phase;
+package dev.tenacity.anticheat.checks.phase;
 
-import dev.tenacity.hackerdetector.Category;
-import dev.tenacity.hackerdetector.Detection;
+import dev.tenacity.anticheat.Category;
+import dev.tenacity.anticheat.Detection;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 
 import java.util.Arrays;
 import java.util.List;

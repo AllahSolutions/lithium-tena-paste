@@ -1,4 +1,4 @@
-package dev.tenacity.hackerdetector;
+package dev.tenacity.anticheat;
 
 import dev.tenacity.utils.Utils;
 import lombok.Getter;

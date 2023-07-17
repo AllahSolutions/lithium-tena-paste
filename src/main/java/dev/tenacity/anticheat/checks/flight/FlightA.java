@@ -1,8 +1,8 @@
-package dev.tenacity.hackerdetector.checks.flight;
+package dev.tenacity.anticheat.checks.flight;
 
-import dev.tenacity.hackerdetector.Category;
-import dev.tenacity.hackerdetector.Detection;
-import dev.tenacity.hackerdetector.utils.MovementUtils;
+import dev.tenacity.anticheat.Category;
+import dev.tenacity.anticheat.Detection;
+import dev.tenacity.anticheat.utils.MovementUtils;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class FlightA extends Detection {

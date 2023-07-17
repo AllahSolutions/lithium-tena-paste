@@ -58,6 +58,7 @@ public class Scaffold extends Module {
     public static final BooleanSetting downwards = new BooleanSetting("Downwards", false);
     public static final BooleanSetting safewalk = new BooleanSetting("Safewalk", false);
     public static final BooleanSetting sprint = new BooleanSetting("Sprint", false);
+    public static final BooleanSetting intave = new BooleanSetting("funny", false);
     private final BooleanSetting sneak = new BooleanSetting("Sneak", false);
     public static final BooleanSetting tower = new BooleanSetting("Tower", false);
     private final NumberSetting towerTimer = new NumberSetting("Tower Timer Boost", 1.2, 5, 0.1, 0.1);
@@ -88,7 +89,7 @@ public class Scaffold extends Module {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
         this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay, timerMode, timer,
                 auto3rdPerson, movementCorrection, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower, towerTimer,
-                swing, autoJump, hideJump, baseSpeed, keepY,LowMotion);
+                swing, autoJump, hideJump, baseSpeed, keepY,LowMotion,intave);
         rotationMode.addParent(rotations, ParentAttribute.BOOLEAN_CONDITION);
         sprintMode.addParent(sprint, ParentAttribute.BOOLEAN_CONDITION);
         towerMode.addParent(tower, ParentAttribute.BOOLEAN_CONDITION);
@@ -113,6 +114,10 @@ public class Scaffold extends Module {
     public void onMotionEvent(MotionEvent event) {
         if(LowMotion.isEnabled() && mc.thePlayer.onGround && MovementUtils.isMoving()) {
             MovementUtils.strafe(0.10f);
+        }
+        if(intave.isEnabled()&& mc.thePlayer.onGround && MovementUtils.isMoving()) {
+
+            MovementUtils.strafe(0.30f);
         }
 
         // Timer Stuff

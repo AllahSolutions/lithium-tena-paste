@@ -1,9 +1,9 @@
-package dev.tenacity.hackerdetector;
+package dev.tenacity.anticheat;
 
-import dev.tenacity.hackerdetector.checks.flight.FlightA;
-import dev.tenacity.hackerdetector.checks.flight.FlightB;
-import dev.tenacity.hackerdetector.checks.combat.ReachA;
-import dev.tenacity.hackerdetector.checks.phase.PhaseA;
+import dev.tenacity.anticheat.checks.flight.FlightA;
+import dev.tenacity.anticheat.checks.flight.FlightB;
+import dev.tenacity.anticheat.checks.combat.ReachA;
+import dev.tenacity.anticheat.checks.phase.PhaseA;
 
 import java.util.ArrayList;
 import java.util.Arrays;

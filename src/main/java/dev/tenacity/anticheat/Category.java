@@ -1,4 +1,4 @@
-package dev.tenacity.hackerdetector;
+package dev.tenacity.anticheat;
 
 public enum Category {
 

@@ -1,4 +1,4 @@
-package dev.tenacity.hackerdetector.utils;
+package dev.tenacity.anticheat.utils;
 
 import net.minecraft.entity.player.EntityPlayer;
 

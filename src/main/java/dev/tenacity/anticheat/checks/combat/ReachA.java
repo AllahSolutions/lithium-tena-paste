@@ -1,7 +1,7 @@
-package dev.tenacity.hackerdetector.checks.combat;
+package dev.tenacity.anticheat.checks.combat;
 
-import dev.tenacity.hackerdetector.Category;
-import dev.tenacity.hackerdetector.Detection;
+import dev.tenacity.anticheat.Category;
+import dev.tenacity.anticheat.Detection;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ReachA extends Detection {

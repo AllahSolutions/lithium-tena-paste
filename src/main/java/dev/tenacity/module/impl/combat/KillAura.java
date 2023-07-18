@@ -3,6 +3,7 @@ package dev.tenacity.module.impl.combat;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import dev.tenacity.Tenacity;
+import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -429,6 +430,7 @@ public final class KillAura extends Module {
     }
 
     private void attack(EntityLivingBase entity) {
+
         if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isOlderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
         }

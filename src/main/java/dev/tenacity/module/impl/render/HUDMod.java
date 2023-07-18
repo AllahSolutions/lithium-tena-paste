@@ -372,7 +372,7 @@ public class HUDMod extends Module {
         drawBottomRight();
 
         RenderUtil.resetColor();
-        drawInfo(clientColors);
+//        drawInfo(clientColors);
 
         drawArmor(sr);
     }
@@ -417,7 +417,6 @@ public class HUDMod extends Module {
         boolean whiteInfo = infoCustomization.isEnabled("White Info");
         String titleBold = semiBold ? "§l" : "";
         ScaledResolution sr = new ScaledResolution(mc);
-
 
         bottomLeftText.put("XYZ", Math.round(mc.thePlayer.posX) + " " + Math.round(mc.thePlayer.posY) + " " + Math.round(mc.thePlayer.posZ));
         bottomLeftText.put("Speed", String.valueOf(calculateBPS()));

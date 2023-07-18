@@ -24,7 +24,6 @@ import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -33,7 +32,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 

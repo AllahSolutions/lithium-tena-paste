@@ -5,6 +5,7 @@ import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.Setting;
@@ -20,53 +21,40 @@ import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 import net.minecraft.network.play.server.S27PacketExplosion;
+import net.minecraft.network.play.server.S32PacketConfirmTransaction;
 
 public class Velocity extends Module {
 
     private final ModeSetting mode = new ModeSetting("Mode", "Packet","Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
-    private int count;
-    private boolean velo;
-
 
     public Velocity() {
         super("Velocity", Category.COMBAT, "Reduces your velocity.");
         this.addSettings(mode, horizontal, vertical);
     }
+
+    /* Grim Velocity variables */
+    private static int grim_ticks = 0;
+    private static int grim_updates = 0;
+    private static int grim_resets = 8;
+
     @Override
-    public void onDisable() {
-        count = 0;
-        velo = false;
+    public void onEnable() {
+        grim_ticks = 0;
+        super.onEnable();
     }
 
     @Override
-    public void onPacketSendEvent(PacketSendEvent event) {
-        switch (mode.getMode()) {
-            case "Grim": {
-                if(velo) {
-                    if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
-                        if (count <= 7) {
-                            event.cancel();
-                        }
-                        count++;
-                    }
-                }else{
-                    count = 0;
-                }
-            }
-        }
+    public void onDisable() {
+        super.onDisable();
     }
 
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent event) {
 
         Packet <?> packet = event.getPacket();
-        if (packet instanceof S12PacketEntityVelocity) {
-            velo = true;
-        } else{
-            velo = false;
-        }
+
         if (packet instanceof S12PacketEntityVelocity) {
             S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) packet;
 
@@ -79,20 +67,24 @@ public class Velocity extends Module {
                 }
                 case "Reverse": {
                     s12.motionX *= -s12.motionX;
-                    // s12.motionY *= vertical.getValue() / 100;
+                    s12.motionY *= vertical.getValue() / 100;
                     s12.motionZ *= -s12.motionZ;
                     break;
                 }
                 case "Grim": {
-                    s12.motionX *= horizontal.getValue() / 100;
-                    s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= horizontal.getValue() / 100;
+                    event.cancel();
+                    grim_ticks = 6;
                     break;
                 }
                 default: {
                     break;
                 }
             }
+        }
+
+        if (mode.is("Grim") && packet instanceof S32PacketConfirmTransaction && grim_ticks > 0) {
+            event.cancel();
+            --grim_ticks;
         }
 
 
@@ -108,14 +100,8 @@ public class Velocity extends Module {
                 }
                 case "Reverse": {
                     s12.motionX *= -s12.motionX;
-                   // s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= -s12.motionZ;
-                    break;
-                }
-                case "Grim": {
-                    s12.motionX *= horizontal.getValue() / 100;
                     s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= horizontal.getValue() / 100;
+                    s12.motionZ *= -s12.motionZ;
                     break;
                 }
                 default: {
@@ -139,5 +125,21 @@ public class Velocity extends Module {
         }
 
         super.onMotionEvent(event);
+    }
+
+
+    @Override
+    public void onUpdateEvent(UpdateEvent event) {
+        ++grim_updates;
+
+        if (grim_updates >= 0 || grim_updates >= grim_resets) {
+            grim_updates = 0;
+
+            if (grim_ticks > 0) {
+                --grim_ticks;
+            }
+        }
+
+        super.onUpdateEvent(event);
     }
 }

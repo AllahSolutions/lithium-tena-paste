@@ -49,6 +49,7 @@ public class StringComponent extends SettingComponent<StringSetting> {
         textField.setWidth(boxWidth);
         textField.setHeight(boxHeight);
         textField.setFill(settingRectColor);
+        textField.setOutline(settingRectColor);
 
         textField.drawTextBox();
 

@@ -159,7 +159,7 @@ public class ModuleRect implements Screen {
                     continue;
 
                 settingComponent.panelLimitY = panelLimitY;
-                settingComponent.settingRectColor = new Color(0, 0, 0, 50);
+                settingComponent.settingRectColor = new Color(255, 255, 255, 35);
                 settingComponent.textColor = textColor;
                 settingComponent.clientColors = HUDMod.getClientColors();
                 settingComponent.alpha = alpha;

@@ -27,6 +27,9 @@ public class StrafeSpeed extends SpeedMode {
                 );
             }
         }
+        if(mc.thePlayer.hurtTime>1) {
+            MovementUtils.strafe(0.7f);
+        }
 
         if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
             MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.02f);

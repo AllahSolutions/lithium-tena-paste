@@ -53,7 +53,7 @@ public final class KillAura extends Module {
     public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
-            
+
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);

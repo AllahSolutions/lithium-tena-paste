@@ -22,10 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -223,6 +220,25 @@ public final class Flight extends Module {
                 if (shift) {
                     mc.timer.timerSpeed = 1.0f;
                 }
+                break;
+
+            case "Invaded":
+
+
+                if (Flags>3 && MovementUtils.isMoving()) {
+                   MovementUtils.setSpeed(2);
+                }
+                if(Flags<3) {
+                    if(mc.thePlayer.ticksExisted % 10 ==0) {
+                        ChatUtil.print(EnumChatFormatting.ITALIC +"*intensively waiting for s08*");
+                    }
+                    MovementUtils.strafe(0);
+                   // mc.thePlayer.posX = 0;
+                  //  mc.thePlayer.posZ = 0;
+                }
+
+
+
                 break;
 
             case "Vulcan":
@@ -449,6 +465,12 @@ public final class Flight extends Module {
             event.setBoundingBox(axisAlignedBB);
         }
 
+        if(mode.is("Invaded")) {
+
+            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            event.setBoundingBox(axisAlignedBB);
+        }
+
         if(mode.is("Vulcan Motion")) {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
@@ -475,12 +497,22 @@ public final class Flight extends Module {
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
         if(mode.is("Vulcan Timer")) {
+
+            if (e.getPacket() instanceof S08PacketPlayerPosLook) {
+                Flags++;
+                
+                e.cancel();
+            }
+        }
+
+        if(mode.is("Invaded")) {
             if (e.getPacket() instanceof S08PacketPlayerPosLook) {
                 Flags++;
 
                 e.cancel();
             }
         }
+
         
 
         if(mode.is("Vulcan Motion") && e.getPacket() instanceof S08PacketPlayerPosLook) {
@@ -537,6 +569,10 @@ public final class Flight extends Module {
               DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
         }
+        if (mode.is("Invaded")) {
+            mc.thePlayer.jump();
+
+        }
         
         if (mode.is("Vulcan Motion")) {
             flag = false;
@@ -569,6 +605,10 @@ public final class Flight extends Module {
 
         }
         Flags = 0;
+        if (mode.is("Invaded")) {
+            mc.timer.timerSpeed = 1.0f;
+        }
+
 
         if (mode.is("Vulcan Timer")) {
             mc.timer.timerSpeed = 1.0f;
@@ -625,6 +665,11 @@ public final class Flight extends Module {
 
         shift = false;
         if (mode.is("Vulcan Timer")) {
+            mc.timer.timerSpeed = 1.0f;
+
+        }
+
+        if (mode.is("Invaded")) {
             mc.timer.timerSpeed = 1.0f;
 
         }

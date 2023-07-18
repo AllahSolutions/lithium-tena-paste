@@ -22,21 +22,50 @@ import net.minecraft.network.play.server.S27PacketExplosion;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet", "Packet", "Reverse", "Polar");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
+    private int count;
+    private boolean velo;
 
 
     public Velocity() {
         super("Velocity", Category.COMBAT, "Reduces your velocity.");
         this.addSettings(mode, horizontal, vertical);
     }
+    @Override
+    public void onDisable() {
+        count = 0;
+        velo = false;
+    }
+
+    @Override
+    public void onPacketSendEvent(PacketSendEvent event) {
+        switch (mode.getMode()) {
+            case "Grim": {
+                if(velo) {
+                    if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
+                        if (count <= 7) {
+                            event.cancel();
+                        }
+                        count++;
+                    }
+                }else{
+                    count = 0;
+                }
+            }
+        }
+    }
 
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent event) {
 
         Packet <?> packet = event.getPacket();
-
+        if (packet instanceof S12PacketEntityVelocity) {
+            velo = true;
+        } else{
+            velo = false;
+        }
         if (packet instanceof S12PacketEntityVelocity) {
             S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) packet;
 
@@ -48,9 +77,15 @@ public class Velocity extends Module {
                     break;
                 }
                 case "Reverse": {
-                    s12.motionX *= -1 * horizontal.getValue() / 100;
+                    s12.motionX *= -s12.motionX;
+                    // s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= -s12.motionZ;
+                    break;
+                }
+                case "Grim": {
+                    s12.motionX *= horizontal.getValue() / 100;
                     s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= -1 * horizontal.getValue() / 100;
+                    s12.motionZ *= horizontal.getValue() / 100;
                     break;
                 }
                 default: {
@@ -59,6 +94,7 @@ public class Velocity extends Module {
                 }
             }
         }
+
 
         if (packet instanceof S27PacketExplosion) {
             S27PacketExplosion s12 = (S27PacketExplosion) packet;
@@ -71,9 +107,15 @@ public class Velocity extends Module {
                     break;
                 }
                 case "Reverse": {
-                    s12.motionX *= -1 * horizontal.getValue() / 100;
+                    s12.motionX *= -s12.motionX;
+                   // s12.motionY *= vertical.getValue() / 100;
+                    s12.motionZ *= -s12.motionZ;
+                    break;
+                }
+                case "Grim": {
+                    s12.motionX *= horizontal.getValue() / 100;
                     s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= -1 * horizontal.getValue() / 100;
+                    s12.motionZ *= horizontal.getValue() / 100;
                     break;
                 }
                 default: {

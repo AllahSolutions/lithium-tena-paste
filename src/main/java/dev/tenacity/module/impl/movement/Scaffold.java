@@ -45,7 +45,7 @@ public class Scaffold extends Module {
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
-    public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Watchdog", "BlocksMC");
+    public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Intave","Watchdog", "BlocksMC");
     public static ModeSetting swingMode = new ModeSetting("Swing Mode", "Client", "Client", "Silent");
     public static NumberSetting delay = new NumberSetting("Delay", 0, 2, 0, 0.05);
     private final ModeSetting timerMode = new ModeSetting("Timer Mode", "Normal", "Normal", "Dynamic");
@@ -254,6 +254,12 @@ public class Scaffold extends Module {
                 switch (towerMode.getMode()) {
                     case "Vanilla":
                         mc.thePlayer.motionY = 0.60f;
+                        break;
+
+                    case"Intave":
+                        if(mc.thePlayer.onGround) {
+                            mc.thePlayer.motionY = 0.37f;
+                        }
                         break;
 
                 }

@@ -3,7 +3,6 @@ package dev.tenacity.module.impl.combat;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import dev.tenacity.Tenacity;
-import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -18,8 +17,9 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
+import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.misc.Random;
-import dev.tenacity.utils.player.Advancedrots;
+import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.render.RenderUtil;
@@ -43,21 +43,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public final class KillAura extends Module {
 
     public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi");
     public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC");
-    public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Advanced", "Smooth");
+    public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal");
     public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
     public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All");
+    public ModeSetting randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
 
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);
+
+    public NumberSetting minTurnSpeed = new NumberSetting("Min Turn Speed", 120, 180, 10, 10);
+    public NumberSetting maxTurnSpeed = new NumberSetting("Max Turn Speed", 160, 180, 10, 10);
+    public NumberSetting randomization = new NumberSetting("Randomization", 0, 3, 0.1, 0.1);
 
     public NumberSetting swingRange = new NumberSetting("Swing Range", 3, 10, 3, 0.1),
             attackRange = new NumberSetting("Attack Range", 3, 10, 3, 0.1),
@@ -70,8 +76,6 @@ public final class KillAura extends Module {
 
     public BooleanSetting silentRotations = new BooleanSetting("Silent Rotations", true),
             showRotations = new BooleanSetting("Show Rotations", true);
-
-    public NumberSetting rotationSmoothness = new NumberSetting("Rotation Smoothness", 10, 180, 10, 10);
 
     public MultipleBoolSetting targets = new MultipleBoolSetting(
             "Targets",
@@ -130,7 +134,7 @@ public final class KillAura extends Module {
         this.silentRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
         this.showRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
 
-        this.rotationSmoothness.addParent(rotationMode, a -> rotationMode.is("Smooth"));
+        this.minTurnSpeed.addParent(rotationMode, a -> rotationMode.is("Smooth"));
 
         this.addSettings(
                 attackMode, blockMode, rotationMode, sortingMode, attackTiming,
@@ -140,7 +144,7 @@ public final class KillAura extends Module {
                 swingRange, attackRange, wallsRange, blockRange, rotationRange,
 
                 silentRotations, showRotations,
-                rotationSmoothness,
+                minTurnSpeed, maxTurnSpeed,
 
                 targets, bypass, features, renders
         );
@@ -297,36 +301,77 @@ public final class KillAura extends Module {
         float[] rotations = new float[] {0, 0};
 
         switch (rotationMode.getMode()) {
-            case "Normal":
-                rotations = RotationUtils.getRotationsNeeded(target);
+            case "None": {
+                rotations = new float[] { mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch };
                 break;
-            case "Advanced":
-                rotations = Advancedrots.basicRotation(target, lastYaw, lastPitch,false);
+            }
+            case "Normal": {
+                rotations = KillauraRotationUtil.basicRotation(target, lastYaw, lastPitch);
                 break;
-            case "Smooth":
-                rotations = RotationUtils.getSmoothRotations(target, rotationSmoothness.getValue().floatValue());
+            }
+            default: {
                 break;
+            }
         }
 
-        float[] fixedRotations = RotationUtils.getFixedRotations(rotations, new float[] { lastYaw, lastPitch });
+        yaw = rotations[0];
+        pitch = rotations[1];
+
+        switch (randomMode.getMode()) {
+            case "Normal": {
+                yaw += Math.random() * randomization.getValue();
+                pitch += Math.random() * randomization.getValue();
+                break;
+            }
+            case "Doubled": {
+                yaw += Math.random() * randomization.getValue();
+                pitch += Math.random() * randomization.getValue();
+
+                if (mc.thePlayer.ticksExisted % 3 == 0) {
+                    yaw += Math.random() * randomization.getValue();
+                    pitch += Math.random() * randomization.getValue();
+                }
+
+                break;
+            }
+            case "Gaussian": {
+                yaw += ThreadLocalRandom.current().nextGaussian() * randomization.getValue();
+                pitch += ThreadLocalRandom.current().nextGaussian() * randomization.getValue();
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        float speed = MathUtils.getRandomInRange(
+                minTurnSpeed.getValue().floatValue(),
+                maxTurnSpeed.getValue().floatValue()
+        );
+
+        yaw = KillauraRotationUtil.smoothRotation(lastYaw, yaw, speed);
+        pitch = KillauraRotationUtil.smoothRotation(lastPitch, pitch, speed);
+
+        float[] fixedRotations = RotationUtils.getFixedRotations(
+                new float[] { yaw, pitch },
+                new float[] { lastYaw, lastPitch }
+        );
 
         yaw = fixedRotations[0];
         pitch = fixedRotations[1];
     }
 
     private void runRotations(MotionEvent event) {
-        if (!rotationMode.is("None")) {
-            if (silentRotations.isEnabled()) {
-                event.setYaw(yaw);
-                event.setPitch(pitch);
-            } else {
-                mc.thePlayer.rotationYaw = yaw;
-                mc.thePlayer.rotationPitch = pitch;
-            }
-
-            if (showRotations.isEnabled())
-                RotationUtils.setVisualRotations(yaw, pitch);
+        if (silentRotations.isEnabled()) {
+            event.setYaw(yaw);
+            event.setPitch(pitch);
+        } else {
+            mc.thePlayer.rotationYaw = yaw;
+            mc.thePlayer.rotationPitch = pitch;
         }
+
+        if (showRotations.isEnabled())
+            RotationUtils.setVisualRotations(yaw, pitch);
     }
 
     @Override
@@ -343,13 +388,12 @@ public final class KillAura extends Module {
 
         int chance = (int) Math.round(100 * Math.random());
 
-        if(KillAura.target!=null && !blockMode.is("None")){
+        if (target != null && !blockMode.is("None")) {
             unblock();
         }
+
         if (chance <= blockChance.getValue()) {
-
             switch (blockMode.getMode()) {
-
                 case "Vanilla": {
                     block(shouldInteract);
                     break;
@@ -408,7 +452,7 @@ public final class KillAura extends Module {
                         break;
                     case "Multi":
                         target = (list.size() > 0) ? list.get(0) : null;
-                        list.forEach(entity -> this.attack(entity));
+                        list.forEach(this::attack);
                         break;
                 }
 
@@ -426,6 +470,10 @@ public final class KillAura extends Module {
         boolean shouldInteract = blockInteract.isEnabled();
 
         int chance = (int) Math.round(100 * Math.random());
+
+        if (target != null && !blockMode.is("None")) {
+            unblock();
+        }
 
         if (chance <= blockChance.getValue()) {
             if (blockMode.getMode().equals("PostAttack")) {

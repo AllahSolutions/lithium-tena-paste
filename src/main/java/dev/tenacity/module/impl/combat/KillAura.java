@@ -3,6 +3,7 @@ package dev.tenacity.module.impl.combat;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import dev.tenacity.Tenacity;
+import dev.tenacity.commands.impl.FriendCommand;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -58,11 +59,11 @@ public final class KillAura extends Module {
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);
 
-    public NumberSetting swingRange = new NumberSetting("Swing Range", 3, 6, 3, 0.1),
-            attackRange = new NumberSetting("Attack Range", 3, 6, 3, 0.1),
-            wallsRange = new NumberSetting("Walls Range", 0.5, 6, 0.5, 0.1),
-            blockRange = new NumberSetting("Block Range", 3, 6, 3, 0.1),
-            rotationRange = new NumberSetting("Rotation Range", 3, 6, 3, 0.1);
+    public NumberSetting swingRange = new NumberSetting("Swing Range", 3, 10, 3, 0.1),
+            attackRange = new NumberSetting("Attack Range", 3, 10, 3, 0.1),
+            wallsRange = new NumberSetting("Walls Range", 0.5, 10, 0.5, 0.1),
+            blockRange = new NumberSetting("Block Range", 3, 10, 3, 0.1),
+            rotationRange = new NumberSetting("Rotation Range", 3, 10, 3, 0.1);
 
     public NumberSetting blockChance = new NumberSetting("Block Chance", 100, 100, 0, 1);
     public NumberSetting switchDelay = new NumberSetting("Switch Delay", 350, 5000, 50, 50);
@@ -434,6 +435,7 @@ public final class KillAura extends Module {
     }
 
     private void attack(EntityLivingBase entity) {
+
         if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isOlderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
         }

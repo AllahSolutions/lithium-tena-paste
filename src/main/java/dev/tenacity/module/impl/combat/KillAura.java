@@ -342,8 +342,13 @@ public final class KillAura extends Module {
 
         int chance = (int) Math.round(100 * Math.random());
 
+        if(KillAura.target!=null && !blockMode.is("None")){
+            unblock();
+        }
         if (chance <= blockChance.getValue()) {
+
             switch (blockMode.getMode()) {
+
                 case "Vanilla": {
                     block(shouldInteract);
                     break;

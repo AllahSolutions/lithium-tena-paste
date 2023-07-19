@@ -72,6 +72,8 @@ public final class Flight extends Module {
     public int stage3;
     private boolean shift;
 
+    private double startx,starty,startz;
+
     // Custom fly settings
     private final BooleanSetting damage = new BooleanSetting("Damage", false);
     private final ModeSetting damageMode = new ModeSetting("Damage Mode", "Vanilla", "Vanilla", "Suffocate", "NCP");
@@ -213,9 +215,15 @@ public final class Flight extends Module {
                     shift = true;
                 }
 
-                if (Flags>3 && MovementUtils.isMoving() && !shift) {
+
+                if (Flags>3) {
                     mc.timer.timerSpeed = 10.0f;
+                } else{
+
+                        //mc.thePlayer.setPosition(startx, starty + 1, startz);
+
                 }
+
 
                 if (shift) {
                     mc.timer.timerSpeed = 1.0f;
@@ -558,6 +566,10 @@ public final class Flight extends Module {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
         }
+
+        startx = mc.thePlayer.posX;
+        startz = mc.thePlayer.posZ;
+        starty = mc.thePlayer.posY;
 
 
         if (mode.is("Verus")) {

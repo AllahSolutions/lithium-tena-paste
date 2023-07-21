@@ -347,9 +347,7 @@ public final class KillAura extends Module {
             unblock();
         }
         if (chance <= blockChance.getValue()) {
-
             switch (blockMode.getMode()) {
-
                 case "Vanilla": {
                     block(shouldInteract);
                     break;

@@ -48,12 +48,12 @@ import java.util.stream.Collectors;
 
 public final class KillAura extends Module {
 
-    public ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi");
-    public static ModeSetting blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC");
-    public ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal");
-    public ModeSetting sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime");
-    public ModeSetting attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All");
-    public ModeSetting randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
+    public static ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
+            blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
+            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal"),
+            sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
+            attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All"),
+            randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
 
@@ -126,7 +126,7 @@ public final class KillAura extends Module {
         super("KillAura", Category.COMBAT, "Automatically hits entities for you.");
 
         this.blockInteract.addParent(blockMode, a -> !blockMode.is("None") && !blockMode.is("Fake"));
-        this.maxTargets.addParent(attackMode, a -> !attackMode.is("Single"));
+        this.maxTargets.addParent(attackMode, a -> attackMode.is("Single"));
 
         this.blockChance.addParent(blockMode, a -> !blockMode.is("None") && !blockMode.is("Fake"));
         this.switchDelay.addParent(rotationMode, a -> rotationMode.is("Switch"));
@@ -137,7 +137,7 @@ public final class KillAura extends Module {
         this.minTurnSpeed.addParent(rotationMode, a -> rotationMode.is("Smooth"));
 
         this.addSettings(
-                attackMode, blockMode, rotationMode, sortingMode, attackTiming,
+                attackMode, blockMode, rotationMode, sortingMode, attackTiming, randomMode,
                 blockInteract, maxTargets, blockChance, switchDelay,
 
                 minAPS, maxAPS,
@@ -205,12 +205,11 @@ public final class KillAura extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
+        this.setSuffix(attackMode.getMode());
 
         if (mc.theWorld == null || mc.thePlayer == null) {
             return;
         }
-
-        this.setSuffix(attackMode.getMode());
 
         attacking = target != null && !Tenacity.INSTANCE.isEnabled(Scaffold.class);
 
@@ -306,7 +305,7 @@ public final class KillAura extends Module {
                 break;
             }
             case "Normal": {
-                rotations = KillauraRotationUtil.basicRotation(target, lastYaw, lastPitch);
+                rotations = KillauraRotationUtil.getRotations(target, lastYaw, lastPitch);
                 break;
             }
             default: {
@@ -399,7 +398,7 @@ public final class KillAura extends Module {
                     break;
                 }
                 case "Watchdog": {
-                    if (mc.thePlayer.hurtTime > 1) {
+                    if (mc.thePlayer.hurtTime >= 2) {
                         block(shouldInteract);
                     } else {
                         unblock();
@@ -420,7 +419,6 @@ public final class KillAura extends Module {
     }
 
     private void runAttackLoop() {
-
         if (attacking) {
             if (attackTimer.hasTimeElapsed(1000 / currentAPS)) {
 
@@ -434,7 +432,6 @@ public final class KillAura extends Module {
 
                         break;
                     case "Switch":
-
                         if (list.size() >= targetIndex)
                             targetIndex = 0;
 
@@ -483,7 +480,6 @@ public final class KillAura extends Module {
     }
 
     private void attack(EntityLivingBase entity) {
-
         if (mc.thePlayer.getDistanceToEntity(entity) <= swingRange.getValue() && ViaLoadingBase.getInstance().getTargetVersion().isOlderThanOrEqualTo(ProtocolVersion.v1_8)) {
             mc.thePlayer.swingItem();
         }
@@ -653,5 +649,4 @@ public final class KillAura extends Module {
             }
         }
     }
-
 }

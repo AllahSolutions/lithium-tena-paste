@@ -49,8 +49,8 @@ public class ScaffoldUtils implements Utils {
     public static BlockCache getBlockInfo() {
         final BlockPos belowBlockPos = new BlockPos(mc.thePlayer.posX, getYLevel() - (Scaffold.isDownwards() ? 1 : 0), mc.thePlayer.posZ);
         if (mc.theWorld.getBlockState(belowBlockPos).getBlock() instanceof BlockAir) {
-            for (int x = 0; x < 4; x++) {
-                for (int z = 0; z < 4; z++) {
+            for (int x = 0; x < 1; x++) {
+                for (int z = 0; z < 1; z++) {
                     for (int i = 1; i > -3; i -= 2) {
                         final BlockPos blockPos = belowBlockPos.add(x * i, 0, z * i);
                         if (mc.theWorld.getBlockState(blockPos).getBlock() instanceof BlockAir) {
@@ -127,20 +127,6 @@ public class ScaffoldUtils implements Utils {
             x += 0.15;
         }
         return new Vec3(x, y, z);
-    }
-
-    public static float[] getRotationsToBlock(double blockX, double blockY, double blockZ) {
-
-        double x = blockX - (mc.thePlayer.posX);
-        double y = blockY - (mc.thePlayer.posY + mc.thePlayer.getEyeHeight());
-        double z = blockZ - (mc.thePlayer.posZ);
-
-        double distance = MathHelper.sqrt_double(x * x + z * z);
-
-        float yaw   = (float) ( (Math.atan2(z, x) * 180.0D / Math.PI) - 90.0F);
-        float pitch = (float) (-(Math.atan2(y, distance) * 180.0D / Math.PI));
-
-        return new float[] { yaw, pitch };
     }
 
 }

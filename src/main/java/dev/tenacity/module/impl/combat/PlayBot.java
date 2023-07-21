@@ -76,7 +76,7 @@ public final class PlayBot extends Module {
             sortTargets();
             if(!targets.isEmpty()) {
                 target = targets.get(0);
-                final float[] rotations = KillauraRotationUtil.basicRotation(target,event.getYaw(),event.getPitch(),false);
+                final float[] rotations = KillauraRotationUtil.getRotations(target,event.getYaw(),event.getPitch());
                 mc.thePlayer.rotationYaw = rotations[0];
                 mc.thePlayer.rotationPitch = rotations[1];
 

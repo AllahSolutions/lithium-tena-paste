@@ -40,7 +40,7 @@ public class KillauraRotationUtil implements Utils {
         return new Vec3(x, y, z);
     }
 
-    public static float[] basicRotation(Entity entity, float currentYaw, float currentPitch) {
+    public static float[] getRotations(Entity entity, float currentYaw, float currentPitch) {
         Vec3 vec3 = KillauraRotationUtil.getHitVec3(entity);
 
         double x = vec3.xCoord - mc.thePlayer.posX;

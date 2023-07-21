@@ -41,6 +41,7 @@ import net.minecraft.util.EnumFacing;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -51,7 +52,7 @@ public final class KillAura extends Module {
     public static ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
             blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
             rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal"),
-            sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime"),
+            sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime", "Armor"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All"),
             randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
@@ -107,6 +108,8 @@ public final class KillAura extends Module {
             new BooleanSetting("Tracer", false)
     );
 
+    public BooleanSetting reverseSorting = new BooleanSetting("Reverse Sorting", false);
+
     public static EntityLivingBase target, renderTarget;
     public List<EntityLivingBase> list;
 
@@ -134,8 +137,6 @@ public final class KillAura extends Module {
         this.silentRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
         this.showRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
 
-        this.minTurnSpeed.addParent(rotationMode, a -> rotationMode.is("Smooth"));
-
         this.addSettings(
                 attackMode, blockMode, rotationMode, sortingMode, attackTiming, randomMode,
                 blockInteract, maxTargets, blockChance, switchDelay,
@@ -146,7 +147,8 @@ public final class KillAura extends Module {
                 silentRotations, showRotations,
                 minTurnSpeed, maxTurnSpeed,
 
-                targets, bypass, features, renders
+                targets, bypass, features, renders,
+                reverseSorting
         );
 
         this.list = new ArrayList<>();
@@ -577,13 +579,19 @@ public final class KillAura extends Module {
                         case "Range":
                             return mc.thePlayer.getDistanceToEntity(entity);
                         case "HurtTime":
-                            return entity.hurtTime;
+                            return entity.getHurtTime();
+                        case "Armor":
+                            return entity.getTotalArmorValue();
                         default:
                             return -1;
                     }
                 }))
 
                 .collect(Collectors.toList());
+
+        if (this.reverseSorting.isEnabled()) {
+            Collections.reverse(list);
+        }
 
     }
 

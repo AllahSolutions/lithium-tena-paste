@@ -24,7 +24,8 @@ public class NoRulesSpeed extends SpeedMode {
             mc.thePlayer.jump();
         }
 
-        MovementUtils.strafe(0.46f);
+
+        MovementUtils.strafe(0.60f);
 
         super.onMotionEvent(event);
     }

@@ -346,6 +346,7 @@ public final class KillAura extends Module {
         if(KillAura.target!=null && !blockMode.is("None")){
             unblock();
         }
+        
         if (chance <= blockChance.getValue()) {
 
             switch (blockMode.getMode()) {

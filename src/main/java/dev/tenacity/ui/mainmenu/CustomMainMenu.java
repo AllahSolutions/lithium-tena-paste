@@ -6,6 +6,7 @@ import dev.tenacity.ui.mainmenu.particles.ParticleEngine;
 import dev.tenacity.utils.misc.*;
 import dev.tenacity.utils.render.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 
 import java.awt.*;
@@ -73,7 +74,7 @@ public class CustomMainMenu extends GuiScreen {
                 new Color(0, 0, 0, 80),
                 new Color(0, 0, 0, 80)
         );
-
+      //  RenderUtil.drawImage(new ResourceLocation("Tenacity/idk.png"),0,0,990,550);
         float buttonWidth = 140;
         float buttonHeight = 25;
 

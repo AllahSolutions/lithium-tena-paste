@@ -363,7 +363,8 @@ public class ItemRenderer {
             if (this.itemToRender != null) {
                 if (this.itemToRender.getItem() instanceof ItemMap) {
                     this.renderItemMap(player, f2, f, swingProgress);
-                } else if (player.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.blockMode.is("Watchdog") && InventoryUtils.getHeldItem() instanceof ItemSword && KillAura.target!=null)) {
+                   // KillAura.blockMode.is("Watchdog")
+                } else if (player.getItemInUseCount() > 0 || (KillAura.blocking || KillAura.fake && InventoryUtils.getHeldItem() instanceof ItemSword && KillAura.target!=null)) {
                     EnumAction enumaction = this.itemToRender.getItemUseAction();
                     float var15 = MathHelper.sin(swingProgress * swingProgress * 3.1415927F);
                     float var16 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * 3.1415927F);
@@ -391,8 +392,9 @@ public class ItemRenderer {
                                     case "Old":
                                         GlStateManager.popMatrix();
                                         //GL11.glRotated(25, 0, 0.2, 0);
-                                        GlStateManager.translate(0.0F, 0.0F, -0.2F);
+                                      //  GlStateManager.translate(0.0F, 0.0F, -0.2F);
                                         this.transformFirstPersonItem(0.0f, swingProgress);
+                                        GlStateManager.translate(0.0F, 0.1F, 0.0F);
 
                                       //  GlStateManager.scale(0.9F, 0.9F, 0.9F);
                                         this.doBlockTransformations();

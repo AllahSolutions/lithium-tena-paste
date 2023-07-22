@@ -17,6 +17,7 @@ import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
+import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
@@ -81,6 +82,7 @@ public class Scaffold extends Module {
     private final Animation anim = new DecelerateAnimation(250, 1);
 
     private float[] cachedRotations = new float[] { 0.0F, 0.0F };
+    private float[] lastRotations = new float[] { 0.0F, 0.0F };
     float yaw = 0;
 
     public Scaffold() {
@@ -194,15 +196,11 @@ public class Scaffold extends Module {
                 mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX - offset[0], mc.thePlayer.posY, mc.thePlayer.posZ - offset[1], true));
             }
 
-
-
-
             if (rotations.isEnabled()) {
-                cachedRotations = new float[] {0, 0};
+                lastRotations = cachedRotations;
 
                 switch (rotationMode.getMode()) {
                     case "Watchdog":
-
                         cachedRotations = new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 180, y};
                         break;
                     case "NCP":
@@ -223,13 +221,10 @@ public class Scaffold extends Module {
                         break;
                 }
 
-                event.setRotations(cachedRotations[0], cachedRotations[1]);
-                if(rotationMode.getMode().equals("Watchdog")) {
-                    RotationUtils.setVisualRotations(new float[]{MovementUtils.getMovementDirection(event.getYaw()) - 360, y});
+                float[] fixedRotations = RotationUtils.getFixedRotations(cachedRotations, lastRotations);
 
-                } else {
-                    RotationUtils.setVisualRotations(event);
-                }
+                event.setRotations(fixedRotations[0], fixedRotations[1]);
+                RotationUtils.setVisualRotations(event);
 
                 yaw = event.getYaw();
             }
@@ -437,6 +432,12 @@ public class Scaffold extends Module {
         }
         timerUtil.reset();
         y = 80;
+
+        lastRotations = new float[] {
+                mc.thePlayer.rotationYaw,
+                mc.thePlayer.rotationPitch
+        };
+
         super.onEnable();
     }
 

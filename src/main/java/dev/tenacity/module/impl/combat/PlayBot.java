@@ -11,7 +11,7 @@ import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.MultipleBoolSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.misc.MathUtils;
-import dev.tenacity.utils.player.Advancedrots;
+import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -76,7 +76,7 @@ public final class PlayBot extends Module {
             sortTargets();
             if(!targets.isEmpty()) {
                 target = targets.get(0);
-                final float[] rotations = Advancedrots.basicRotation(target,event.getYaw(),event.getPitch(),false);
+                final float[] rotations = KillauraRotationUtil.getRotations(target,event.getYaw(),event.getPitch());
                 mc.thePlayer.rotationYaw = rotations[0];
                 mc.thePlayer.rotationPitch = rotations[1];
 

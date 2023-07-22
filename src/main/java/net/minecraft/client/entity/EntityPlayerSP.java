@@ -31,6 +31,8 @@ import net.minecraft.world.World;
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
     private final StatFileWriter statWriter;
+    public int rotIncrement;
+
 
     /**
      * The last X position which was transmitted to the server, used to determine when the X position changes and needs
@@ -231,6 +233,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                     this.lastReportedYaw = rotationYaw;
                     this.lastReportedPitch = rotationPitch;
                 }
+                final EntityPlayerSP thePlayer = Minecraft.getMinecraft().thePlayer;
+                --thePlayer.rotIncrement;
             }
             motionEvent.setPost();
             Tenacity.INSTANCE.getEventProtocol().handleEvent(motionEvent);

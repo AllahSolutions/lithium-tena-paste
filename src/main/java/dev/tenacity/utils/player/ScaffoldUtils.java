@@ -12,7 +12,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
 public class ScaffoldUtils implements Utils {
@@ -49,8 +48,8 @@ public class ScaffoldUtils implements Utils {
     public static BlockCache getBlockInfo() {
         final BlockPos belowBlockPos = new BlockPos(mc.thePlayer.posX, getYLevel() - (Scaffold.isDownwards() ? 1 : 0), mc.thePlayer.posZ);
         if (mc.theWorld.getBlockState(belowBlockPos).getBlock() instanceof BlockAir) {
-            for (int x = 0; x < 1; x++) {
-                for (int z = 0; z < 1; z++) {
+            for (int x = 0; x < 4; x++) {
+                for (int z = 0; z < 4; z++) {
                     for (int i = 1; i > -3; i -= 2) {
                         final BlockPos blockPos = belowBlockPos.add(x * i, 0, z * i);
                         if (mc.theWorld.getBlockState(blockPos).getBlock() instanceof BlockAir) {

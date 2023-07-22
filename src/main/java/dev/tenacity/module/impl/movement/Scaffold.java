@@ -33,8 +33,10 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Scaffold extends Module {
 
@@ -117,7 +119,7 @@ public class Scaffold extends Module {
         }
         if(intave.isEnabled()&& mc.thePlayer.onGround && MovementUtils.isMoving()) {
 
-            MovementUtils.strafe(0.30f);
+            MovementUtils.strafe(MathHelper.randomFloatClamp(new Random(),0.20f,0.25f));
         }
 
         // Timer Stuff

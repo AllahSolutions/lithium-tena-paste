@@ -18,6 +18,7 @@ import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.player.*;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
+import net.minecraft.block.BlockAir;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
@@ -31,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -43,6 +44,7 @@ public final class Flight extends Module {
     private int ticks;
     private boolean doFly;
     private double x, y, z;
+    private double gayY;
     private double lastX, lastY, lastZ;
     public boolean setback;
     public boolean HadDamage;
@@ -182,6 +184,16 @@ public final class Flight extends Module {
                         }
                     }
                 }
+                break;
+
+            case"Hypixckel":
+                if (mc.gameSettings.keyBindJump.isKeyDown() || mc.gameSettings.keyBindSneak.isKeyDown()) {
+                    gayY = mc.thePlayer.posY;
+                }
+                if (mc.thePlayer.onGround) {
+                    mc.thePlayer.jump();
+                }
+
                 break;
 
             case"VulcanFast":
@@ -473,6 +485,23 @@ public final class Flight extends Module {
             event.setBoundingBox(axisAlignedBB);
         }
 
+        if(mode.is("Hypixckel")) {
+            if (event.getBlock() instanceof BlockAir && !mc.gameSettings.keyBindSneak.isKeyDown() && (mc.thePlayer.posY < gayY+ 1 || mc.gameSettings.keyBindJump.isKeyDown())) {
+                final double x = event.getBlockPos().getX(), G = event.getBlockPos().getY(), z = event.getBlockPos().getZ();
+
+                if (gayY < mc.thePlayer.posY) {
+                    event.setBoundingBox(AxisAlignedBB.fromBounds(
+                            -15,
+                            -1,
+                            -15,
+                            15,
+                            1,
+                            15
+                    ).offset(x, y, z));
+                }
+            }
+        }
+
         if(mode.is("Invaded")) {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
@@ -566,6 +595,7 @@ public final class Flight extends Module {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
         }
+        gayY = Math.floor(mc.thePlayer.posY);
 
         startx = mc.thePlayer.posX;
         startz = mc.thePlayer.posZ;

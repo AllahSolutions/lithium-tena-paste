@@ -59,6 +59,7 @@ public class ProtectedLaunch {
         modules.put(AntiBot.class, new AntiBot());
         modules.put(Teams.class, new Teams());
         modules.put(TestModule.class, new TestModule());
+        modules.put(FB.class, new FB());
 
         // Exploit
         modules.put(Disabler.class, new Disabler());

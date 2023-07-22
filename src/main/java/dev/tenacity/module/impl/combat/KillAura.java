@@ -50,13 +50,15 @@ import java.util.stream.Collectors;
 public final class KillAura extends Module {
 
     public static ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
-            blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Fake", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
+            blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
             rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal"),
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime", "Armor"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All"),
             randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
+    public static BooleanSetting Fake = new BooleanSetting("Fake ab", false);
+            
 
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
@@ -147,7 +149,7 @@ public final class KillAura extends Module {
                 silentRotations, showRotations,
                 minTurnSpeed, maxTurnSpeed,
 
-                targets, bypass, features, renders,
+                targets, bypass, features,Fake, renders,
                 reverseSorting
         );
 

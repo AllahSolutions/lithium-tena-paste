@@ -22,10 +22,11 @@ import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S19PacketEntityStatus;
 import net.minecraft.network.play.server.S27PacketExplosion;
 import net.minecraft.network.play.server.S32PacketConfirmTransaction;
+import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Grim", "Packet", "Reverse", "Polar");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave","Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 
@@ -33,6 +34,7 @@ public class Velocity extends Module {
         super("Velocity", Category.COMBAT, "Reduces your velocity.");
         this.addSettings(mode, horizontal, vertical);
     }
+    private boolean attacked;
 
     /* Grim Velocity variables */
     private static int grim_ticks = 0;
@@ -137,6 +139,22 @@ public class Velocity extends Module {
 
             if (grim_ticks > 0) {
                 --grim_ticks;
+            }
+        }
+        if(mode.is("Intave")) {
+            if(mc.thePlayer.isSwingInProgress) {
+                attacked = true;
+            }
+            if (mc.objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.ENTITY) && mc.thePlayer.hurtTime > 0 && !attacked) {
+                mc.thePlayer.motionX *= 0.6D;
+                mc.thePlayer.motionZ *= 0.6D;
+                mc.thePlayer.setSprinting(false);
+            }
+
+            attacked = false;
+
+            if(!mc.thePlayer.isSwingInProgress) {
+                return;
             }
         }
 

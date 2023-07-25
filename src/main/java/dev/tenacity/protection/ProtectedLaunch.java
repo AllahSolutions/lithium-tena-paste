@@ -23,7 +23,6 @@ import dev.tenacity.utils.render.EntityCulling;
 import dev.tenacity.utils.render.Theme;
 import dev.tenacity.utils.server.PingerUtils;
 import net.minecraft.client.Minecraft;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 import store.intent.intentguard.annotation.Bootstrap;
 import store.intent.intentguard.annotation.Native;
 
@@ -47,7 +46,7 @@ public class ProtectedLaunch {
         Tenacity.INSTANCE.setModuleCollection(new ModuleCollection());
 
         // Combat
-        modules.put(PlayBot.class, new PlayBot());
+        modules.put(AutoPlay.class, new AutoPlay());
         modules.put(KillAura.class, new KillAura());
         modules.put(Velocity.class, new Velocity());
         modules.put(Criticals.class, new Criticals());
@@ -83,6 +82,7 @@ public class ProtectedLaunch {
         modules.put(Killsults.class, new Killsults());
         modules.put(Sniper.class, new Sniper());
         modules.put(FlagCheck.class, new FlagCheck());
+        modules.put(AutoRoast.class, new AutoRoast());
 
         // Movement
         modules.put(Sprint.class, new Sprint());

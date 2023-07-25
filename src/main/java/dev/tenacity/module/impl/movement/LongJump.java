@@ -14,18 +14,13 @@ import dev.tenacity.module.settings.impl.ModeSetting;
 
 public final class LongJump extends Module {
 
-    public static final ModeSetting mode = new ModeSetting("Mode", "Latest NCP", "Latest NCP");
-    public static final ModeSetting latestNCPMode = new ModeSetting("Latest NCP Mode", "Normal", "Normal", "Clip");
-
+    public static final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog", "Verus");
     private LongJumpMode jump;
 
     public LongJump() {
         super("LongJump", Category.MOVEMENT, "Allows you to jump further.");
 
-        this.latestNCPMode.addParent(mode, visible -> mode.is("Latest NCP"));
-
-        this.addSettings(mode, latestNCPMode);
-
+        this.addSettings(mode);
         LongJumpMode.init();
     }
 

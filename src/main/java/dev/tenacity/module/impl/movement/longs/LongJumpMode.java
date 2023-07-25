@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.movement.longs;
 
 import dev.tenacity.event.ListenerAdapter;
-import dev.tenacity.module.impl.movement.longs.impl.LatestNCPLongJump;
+import dev.tenacity.module.impl.movement.longs.impl.*;
 import dev.tenacity.utils.Utils;
 
 import java.util.HashMap;
@@ -25,7 +25,8 @@ public class LongJumpMode extends ListenerAdapter implements Utils {
     }
 
     public static void init() {
-        jumps.put(LatestNCPLongJump.class, new LatestNCPLongJump());
+        jumps.put(WatchdogLongJump.class, new WatchdogLongJump());
+        jumps.put(VerusLongJump.class, new VerusLongJump());
     }
 
     public String getName() {

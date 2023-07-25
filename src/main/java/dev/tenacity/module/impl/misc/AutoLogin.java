@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 
-public class AutoAuthenticate extends Module {
+public class AutoLogin extends Module {
 
     private final NumberSetting delay = new NumberSetting("Delay", 2000, 5000, 0, 100);
     private final StringSetting password = new StringSetting("Password", "dog123");
@@ -31,8 +31,8 @@ public class AutoAuthenticate extends Module {
     private String runCommand;
     private HUDMod hudMod;
 
-    public AutoAuthenticate() {
-        super("AutoAuth", Category.MISC, "Auto login/register on cracked servers");
+    public AutoLogin() {
+        super("AutoLogin", Category.MISC, "Auto login/register on cracked servers");
         this.addSettings(delay, password);
     }
 

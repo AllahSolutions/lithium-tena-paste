@@ -3,7 +3,6 @@ package net.minecraft.client.renderer.entity.layers;
 import com.google.common.collect.Maps;
 import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.render.Animations;
-import dev.tenacity.module.impl.render.CustomModel;
 import dev.tenacity.module.impl.render.Glint;
 import dev.tenacity.module.impl.render.GlowESP;
 import dev.tenacity.utils.render.RenderUtil;
@@ -51,8 +50,6 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     }
 
     private void renderLayer(EntityLivingBase entitylivingbaseIn, float p_177182_2_, float p_177182_3_, float partialTicks, float p_177182_5_, float p_177182_6_, float p_177182_7_, float scale, int armorSlot) {
-        if(CustomModel.enabled) return;
-
         ItemStack itemstack = this.getCurrentArmor(entitylivingbaseIn, armorSlot);
 
         if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {

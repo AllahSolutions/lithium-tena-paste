@@ -1,6 +1,5 @@
 package dev.tenacity.utils.render;
 
-import dev.tenacity.module.impl.render.CustomModel;
 import dev.tenacity.utils.Utils;
 import dev.tenacity.utils.misc.MathUtils;
 import net.minecraft.client.gui.ScaledResolution;
@@ -62,18 +61,15 @@ public class ESPUtil implements Utils {
     public static Vector4f getEntityPositionsOn2D(Entity entity) {
         final AxisAlignedBB bb = getInterpolatedBoundingBox(entity);
 
-        float yOffset = CustomModel.enabled ? (float) CustomModel.getYOffset() : 0;
-
-
         final List<Vector3f> vectors = Arrays.asList(
                 new Vector3f((float) bb.minX, (float) bb.minY, (float) bb.minZ),
-                new Vector3f((float) bb.minX, (float) bb.maxY - yOffset, (float) bb.minZ),
+                new Vector3f((float) bb.minX, (float) bb.maxY, (float) bb.minZ),
                 new Vector3f((float) bb.maxX, (float) bb.minY, (float) bb.minZ),
-                new Vector3f((float) bb.maxX, (float) bb.maxY - yOffset, (float) bb.minZ),
+                new Vector3f((float) bb.maxX, (float) bb.maxY, (float) bb.minZ),
                 new Vector3f((float) bb.minX, (float) bb.minY, (float) bb.maxZ),
-                new Vector3f((float) bb.minX, (float) bb.maxY - yOffset, (float) bb.maxZ),
+                new Vector3f((float) bb.minX, (float) bb.maxY, (float) bb.maxZ),
                 new Vector3f((float) bb.maxX, (float) bb.minY, (float) bb.maxZ),
-                new Vector3f((float) bb.maxX, (float) bb.maxY - yOffset, (float) bb.maxZ));
+                new Vector3f((float) bb.maxX, (float) bb.maxY, (float) bb.maxZ));
 
         Vector4f entityPos = new Vector4f(Float.MAX_VALUE, Float.MAX_VALUE, -1.0f, -1.0f);
         ScaledResolution sr = new ScaledResolution(mc);

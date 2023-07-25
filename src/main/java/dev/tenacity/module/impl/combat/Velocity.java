@@ -27,7 +27,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave","Cock","Grim", "Packet", "Reverse", "Polar");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave", "Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 

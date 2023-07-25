@@ -16,8 +16,6 @@ import dev.tenacity.module.impl.misc.*;
 import dev.tenacity.module.impl.movement.*;
 import dev.tenacity.module.impl.player.*;
 import dev.tenacity.module.impl.render.*;
-import dev.tenacity.module.impl.render.killeffects.KillEffects;
-import dev.tenacity.module.impl.render.wings.DragonWings;
 import dev.tenacity.scripting.api.ScriptManager;
 import dev.tenacity.ui.altmanager.GuiAltManager;
 import dev.tenacity.ui.altmanager.helpers.KingGenApi;
@@ -25,7 +23,6 @@ import dev.tenacity.utils.render.EntityCulling;
 import dev.tenacity.utils.render.Theme;
 import dev.tenacity.utils.server.PingerUtils;
 import net.minecraft.client.Minecraft;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 import store.intent.intentguard.annotation.Bootstrap;
 import store.intent.intentguard.annotation.Native;
 
@@ -41,26 +38,23 @@ public class ProtectedLaunch {
     @Native
     @Bootstrap
     public static void start() {
-        // Setup Intent API access
         IntentAccount account = new IntentAccount();
-        account.username = "Liticane";
+        account.username = "Username";
         account.client_uid = 8;
 
         Tenacity.INSTANCE.setIntentAccount(account);
         Tenacity.INSTANCE.setModuleCollection(new ModuleCollection());
 
         // Combat
-        modules.put(PlayBot.class, new PlayBot());
+        modules.put(AutoPlay.class, new AutoPlay());
         modules.put(KillAura.class, new KillAura());
         modules.put(Velocity.class, new Velocity());
         modules.put(Criticals.class, new Criticals());
         modules.put(AutoGapple.class, new AutoGapple());
         modules.put(AutoHead.class, new AutoHead());
-        modules.put(AutoPot.class, new AutoPot());
+        modules.put(AutoPotion.class, new AutoPotion());
         modules.put(AntiBot.class, new AntiBot());
         modules.put(Teams.class, new Teams());
-        modules.put(TestModule.class, new TestModule());
-        modules.put(FB.class, new FB());
         modules.put(ClickTP.class, new ClickTP());
 
         // Exploit
@@ -71,7 +65,6 @@ public class ProtectedLaunch {
         modules.put(ResetVL.class, new ResetVL());
         modules.put(Crasher.class, new Crasher());
         modules.put(Damage.class, new Damage());
-        modules.put(Test.class, new Test());
 
         // Misc
         modules.put(AntiDesync.class, new AntiDesync());
@@ -85,10 +78,11 @@ public class ProtectedLaunch {
         modules.put(NoRotate.class, new NoRotate());
         modules.put(AutoRespawn.class, new AutoRespawn());
         modules.put(MCF.class, new MCF());
-        modules.put(AutoAuthenticate.class, new AutoAuthenticate());
+        modules.put(AutoLogin.class, new AutoLogin());
         modules.put(Killsults.class, new Killsults());
         modules.put(Sniper.class, new Sniper());
         modules.put(FlagCheck.class, new FlagCheck());
+        modules.put(AutoRoast.class, new AutoRoast());
 
         // Movement
         modules.put(Sprint.class, new Sprint());
@@ -97,11 +91,9 @@ public class ProtectedLaunch {
         modules.put(Flight.class, new Flight());
         modules.put(LongJump.class, new LongJump());
         modules.put(Step.class, new Step());
-        modules.put(FastLadder.class, new FastLadder());
         modules.put(InventoryMove.class, new InventoryMove());
         modules.put(Jesus.class, new Jesus());
         modules.put(Spider.class, new Spider());
-        modules.put(AutoHeadHitter.class, new AutoHeadHitter());
         modules.put(NoSlow.class, new NoSlow());
         modules.put(SafeWalk.class, new SafeWalk());
 
@@ -140,20 +132,14 @@ public class ProtectedLaunch {
         modules.put(Glint.class, new Glint());
         modules.put(Breadcrumbs.class, new Breadcrumbs());
         modules.put(Streamer.class, new Streamer());
-        modules.put(Hitmarkers.class, new Hitmarkers());
         modules.put(NoHurtCam.class, new NoHurtCam());
         modules.put(Keystrokes.class, new Keystrokes());
         modules.put(ItemPhysics.class, new ItemPhysics());
         modules.put(XRay.class, new XRay());
         modules.put(EntityCulling.class, new EntityCulling());
-        modules.put(DragonWings.class, new DragonWings());
         modules.put(PlayerList.class, new PlayerList());
         modules.put(JumpCircle.class, new JumpCircle());
-        modules.put(CustomModel.class, new CustomModel());
-        modules.put(EntityEffects.class, new EntityEffects());
         modules.put(Chams.class, new Chams());
-        modules.put(BrightPlayers.class, new BrightPlayers());
-        modules.put(KillEffects.class, new KillEffects());
 
         Tenacity.INSTANCE.getModuleCollection().setModules(modules);
 

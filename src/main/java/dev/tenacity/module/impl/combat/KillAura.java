@@ -149,6 +149,7 @@ public final class KillAura extends Module {
 
                 silentRotations, showRotations,
                 minTurnSpeed, maxTurnSpeed,
+                randomization,
 
                 targets, bypass, features,Fake, renders,
                 reverseSorting

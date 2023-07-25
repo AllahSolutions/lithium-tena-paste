@@ -34,6 +34,9 @@ public final class PlayBot extends Module {
     private final NumberSetting maxCPS = new NumberSetting("Max CPS", 10, 20, 1, 1);
     private final NumberSetting reach = new NumberSetting("Reach", 4, 6, 3, 0.1);
 
+    private final NumberSetting strafeDelay = new NumberSetting("Strafe Delay", 1000, 0, 5000, 10);
+    private final NumberSetting timeStrafing = new NumberSetting("Time Strafing", 1000, 0, 5000, 10);
+
     private EntityLivingBase target;
 
     private final TimerUtil attackTimer = new TimerUtil();
@@ -45,7 +48,7 @@ public final class PlayBot extends Module {
 
     public PlayBot() {
         super("PlayBot", Category.COMBAT, "Automatically finds the nearest player and attempts to kill them");
-        this.addSettings(minCPS, maxCPS, reach);
+        this.addSettings(minCPS, maxCPS, reach, strafeDelay, timeStrafing);
     }
 
 
@@ -83,10 +86,13 @@ public final class PlayBot extends Module {
         mc.gameSettings.keyBindForward.pressed = mc.thePlayer.getDistanceToEntity(target) > reach.getValue();
         mc.gameSettings.keyBindJump.pressed = mc.thePlayer.isCollidedHorizontally || mc.thePlayer.isInWater();
 
-        if (strafeTimer.hasTimeElapsed(1000)) {
+        double delay = strafeDelay.getValue();
+        double strafing = timeStrafing.getValue();
+
+        if (strafeTimer.hasTimeElapsed(delay)) {
             boolean direction = new Random().nextBoolean();
 
-            if (!strafeTimer.hasTimeElapsed(2000)) {
+            if (!strafeTimer.hasTimeElapsed(delay + strafing)) {
                 if (direction) {
                     mc.gameSettings.keyBindLeft.pressed = false;
                     mc.gameSettings.keyBindRight.pressed = true;

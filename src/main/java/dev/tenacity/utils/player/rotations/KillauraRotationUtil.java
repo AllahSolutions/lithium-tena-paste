@@ -53,8 +53,8 @@ public class KillauraRotationUtil implements Utils {
         float pitch = (float) (-(Math.atan2(y, theta) * 180.0 / Math.PI));
 
         return new float[] {
-                MathHelper.wrapAngleTo180_float(yaw),
-                MathHelper.wrapAngleTo180_float(pitch)
+                (mc.thePlayer.rotationYaw + MathHelper.wrapAngleTo180_float(yaw - mc.thePlayer.rotationYaw)) % 360,
+                (mc.thePlayer.rotationPitch + MathHelper.wrapAngleTo180_float(pitch - mc.thePlayer.rotationPitch)) % 360
         };
     }
 

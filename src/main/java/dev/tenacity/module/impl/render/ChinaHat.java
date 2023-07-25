@@ -69,8 +69,7 @@ public class ChinaHat extends Module {
 
             AxisAlignedBB bb = player.getEntityBoundingBox();
 
-            boolean lowerHeight = CustomModel.enabled && mc.gameSettings.thirdPersonView != 0;
-            double height = (lowerHeight ? -CustomModel.getYOffset() : 0) + bb.maxY - bb.minY + 0.02, radius = bb.maxX - bb.minX;
+            double height = bb.maxY - bb.minY + 0.02, radius = bb.maxX - bb.minX;
 
             float yaw = MathUtils.interpolate(player.prevRotationYawHead, player.rotationYawHead, partialTicks).floatValue();
             if (Tenacity.INSTANCE.isEnabled(KillAura.class) || Tenacity.INSTANCE.isEnabled(Scaffold.class)) {

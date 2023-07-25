@@ -7,7 +7,6 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.BlockGlass;
@@ -23,7 +22,7 @@ import net.minecraft.util.BlockPos;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AutoPot extends Module {
+public class AutoPotion extends Module {
 
     private final NumberSetting delay = new NumberSetting("Delay", 750, 2000, 0, 50);
     private final NumberSetting minHealHP = new NumberSetting("Heal HP", 12, 20, 1, 0.5);
@@ -32,8 +31,8 @@ public class AutoPot extends Module {
     public static boolean isPotting;
     private float prevPitch;
 
-    public AutoPot() {
-        super("AutoPot", Category.COMBAT, "auto splashes potions");
+    public AutoPotion() {
+        super("AutoPotion", Category.COMBAT, "auto splashes potions");
         this.addSettings(delay, minHealHP, splashFrogPots);
     }
 

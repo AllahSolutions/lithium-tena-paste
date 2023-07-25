@@ -52,7 +52,7 @@ public class ProtectedLaunch {
         modules.put(Criticals.class, new Criticals());
         modules.put(AutoGapple.class, new AutoGapple());
         modules.put(AutoHead.class, new AutoHead());
-        modules.put(AutoPot.class, new AutoPot());
+        modules.put(AutoPotion.class, new AutoPotion());
         modules.put(AntiBot.class, new AntiBot());
         modules.put(Teams.class, new Teams());
         modules.put(ClickTP.class, new ClickTP());

@@ -17,7 +17,7 @@ public final class LightningTracker extends Module {
         if (event.getPacket() instanceof S29PacketSoundEffect) {
             S29PacketSoundEffect soundPacket = ((S29PacketSoundEffect) event.getPacket());
             if (soundPacket.getSoundName().equals("ambient.weather.thunder")) {
-                ChatUtil.print(String.format("Lightning detected at (%s, %s, %s)", (int) soundPacket.getX(), (int) soundPacket.getY(), (int) soundPacket.getZ()));
+                ChatUtil.print(String.format("Lightning Striked at (%s, %s, %s)", (int) soundPacket.getX(), (int) soundPacket.getY(), (int) soundPacket.getZ()));
             }
         }
     }

@@ -25,6 +25,7 @@ import dev.tenacity.utils.render.EntityCulling;
 import dev.tenacity.utils.render.Theme;
 import dev.tenacity.utils.server.PingerUtils;
 import net.minecraft.client.Minecraft;
+import org.apache.commons.compress.archivers.sevenz.CLI;
 import store.intent.intentguard.annotation.Bootstrap;
 import store.intent.intentguard.annotation.Native;
 
@@ -60,6 +61,7 @@ public class ProtectedLaunch {
         modules.put(Teams.class, new Teams());
         modules.put(TestModule.class, new TestModule());
         modules.put(FB.class, new FB());
+        modules.put(ClickTP.class, new ClickTP());
 
         // Exploit
         modules.put(Disabler.class, new Disabler());

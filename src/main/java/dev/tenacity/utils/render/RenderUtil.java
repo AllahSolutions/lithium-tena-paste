@@ -211,7 +211,8 @@ public class RenderUtil implements Utils {
         float actualAlpha = .3f * alpha;
         glColor4f(color.getRed(), color.getGreen(), color.getBlue(), actualAlpha);
         color(color.getRGB(), actualAlpha);
-        RenderGlobal.renderCustomBoundingBox(bb, true, true);
+        RenderGlobal.renderCustomBoundingBox(bb, false, true);
+        //or true
         glDepthMask(true);
         glEnable(GL_DEPTH_TEST);
 

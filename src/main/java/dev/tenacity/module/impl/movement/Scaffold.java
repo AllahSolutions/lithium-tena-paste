@@ -122,6 +122,7 @@ public class Scaffold extends Module {
             MovementUtils.strafe(MathHelper.randomFloatClamp(new Random(),0.20f,0.25f));
         }
 
+
         // Timer Stuff
         if (!mc.gameSettings.keyBindJump.isKeyDown()) {
             switch (timerMode.getMode()) {

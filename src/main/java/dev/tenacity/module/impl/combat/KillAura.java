@@ -60,6 +60,7 @@ public final class KillAura extends Module {
     public static BooleanSetting Fake = new BooleanSetting("Fake ab", false);
             
 
+
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);
@@ -646,7 +647,7 @@ public final class KillAura extends Module {
 
         if (renderTarget != null) {
             if (renders.getSetting("Box").isEnabled()) {
-                RenderUtil.renderBoundingBox(renderTarget, color, auraESPAnim.getOutput().floatValue());
+                RenderUtil.renderBoundingBox(renderTarget, color, 1);
             }
             if (renders.getSetting("Circle").isEnabled()) {
                 RenderUtil.drawCircle(renderTarget, event.getTicks(), .75f, color.getRGB(), auraESPAnim.getOutput().floatValue());

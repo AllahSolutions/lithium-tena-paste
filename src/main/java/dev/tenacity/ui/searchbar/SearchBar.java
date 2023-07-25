@@ -70,8 +70,8 @@ public class SearchBar implements Screen {
 
         float openAnim = Math.min(1, alpha);
         float searchAlpha = Math.min(1, hover + focusAnim);
-        lithiumFont26.drawCenteredString("Do §lCTRL§r+§lF§r to open the search bar", sr.getScaledWidth() / 2f, sr.getScaledHeight() - 75,
-                ColorUtil.applyOpacity(-1, (.3f * (1 - searchAlpha)) * openAnim));
+      //  lithiumFont26.drawCenteredString("CTRL + F to search for modules", sr.getScaledWidth() / 2f, sr.getScaledHeight() - 75,
+           //     ColorUtil.applyOpacity(-1, (.3f * (1 - searchAlpha)) * openAnim));
 
 
         searchField.setWidth(200);

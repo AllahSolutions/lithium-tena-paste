@@ -135,7 +135,7 @@ public class ChinaHat extends Module {
     private Color getColor(int index, float alpha) {
         Color returnColor;
         if (colorMode.is("Custom")) {
-            returnColor = color.isRainbow() ? color.getRainbow().getColor(index) : color.getColor();
+            returnColor = ColorUtil.rainbow(10, 0, 0.35F, 0.75F, 1.0F);
         } else {
             final Pair<Color, Color> colors = HUDMod.getClientColors();
             if (HUDMod.isRainbowTheme()) {

@@ -15,6 +15,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
@@ -26,7 +27,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave","Grim", "Packet", "Reverse", "Polar");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave","Cock","Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 
@@ -53,6 +54,19 @@ public class Velocity extends Module {
     }
 
     @Override
+    public void onPacketSendEvent(PacketSendEvent event) {
+        if(mode.is("Cock")) {
+            if(mc.thePlayer.hurtTime>1) {
+                if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
+                    event.cancel();
+                    ChatUtil.print("sex");
+                }
+            }
+        }
+        super.onPacketSendEvent(event);
+    }
+
+    @Override
     public void onPacketReceiveEvent(PacketReceiveEvent event) {
 
         Packet <?> packet = event.getPacket();
@@ -71,6 +85,12 @@ public class Velocity extends Module {
                     s12.motionX *= -s12.motionX;
                     s12.motionY *= vertical.getValue() / 100;
                     s12.motionZ *= -s12.motionZ;
+                    break;
+                }
+                case"Cock": {
+                    s12.motionX *= 100;
+                    s12.motionY *= 100;
+                    s12.motionZ *= 100;
                     break;
                 }
                 case "Grim": {

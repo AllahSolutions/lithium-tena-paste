@@ -47,6 +47,16 @@ public class MovementUtils implements Utils {
     public static boolean isInLiquid() {
         return mc.thePlayer != null && (mc.thePlayer.isInWater() || mc.thePlayer.isInLava());
     }
+    public static double predictedMotion(final double motion, final int ticks) {
+        if (ticks == 0) return motion;
+        double predicted = motion;
+
+        for (int i = 0; i < ticks; i++) {
+            predicted = (predicted - 0.08) * 0.98F;
+        }
+
+        return predicted;
+    }
 
     public static void strafe(float speed) {
         if (isMoving()) {

@@ -1,0 +1,68 @@
+package dev.tenacity.module.impl.movement.speeds.impl;
+
+import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.module.impl.movement.speeds.SpeedMode;
+import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.time.TimerUtil;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+
+public class Kokscraft extends SpeedMode {
+    int jumps;
+    private int offGroundTicks;
+    public Kokscraft() {
+        super("Kokscraft");
+    }
+
+
+
+
+    @Override
+    public void onMotionEvent(MotionEvent event) {
+        if(!event.isPost()) {
+            if (mc.thePlayer.ticksExisted % 5 == 0) {
+                mc.thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, new BlockPos(mc.thePlayer), EnumFacing.UP));
+            }
+        }
+        mc.thePlayer.cameraYaw = 0;
+        mc.thePlayer.cameraPitch = 0;
+
+        if (mc.thePlayer.onGround) {
+            offGroundTicks = 0;
+
+        } else {
+            offGroundTicks++;
+        }
+        if (mc.thePlayer.onGround) {
+            if (mc.thePlayer.hurtTime == 0) MovementUtils.strafe((float)MovementUtils.getAllowedHorizontalDistance() * 0.99f);
+
+            mc.thePlayer.jump();
+
+            jumps++;
+        }
+
+        if ( mc.thePlayer.hurtTime == 0) {
+            mc.thePlayer.motionY = MovementUtils.predictedMotion(mc.thePlayer.motionY, jumps % 2 == 0 ? 2 : 4);
+        }
+
+
+        super.onMotionEvent(event);
+    }
+
+    @Override
+    public void onDisable() {
+        offGroundTicks = 0;
+        mc.timer.timerSpeed = 1.0F;
+
+        super.onDisable();
+    }
+
+    @Override
+    public void onEnable() {
+        jumps = 0;
+        mc.timer.timerSpeed = 1.0F;
+
+        super.onEnable();
+    }
+}

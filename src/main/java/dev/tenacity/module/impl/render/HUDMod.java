@@ -123,7 +123,7 @@ public class HUDMod extends Module {
                             }
                     );
 
-                    lithiumBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
+                    lithiumBoldFont24.drawStringWithShadow("Beta", 102, 15, Color.WHITE);
                     break;
                 case "Tenacity":
                     float xVal = 6f;
@@ -234,7 +234,7 @@ public class HUDMod extends Module {
                         }
                 );
 
-                lithiumBoldFont24.drawStringWithShadow(Tenacity.VERSION, 102, 15, Color.WHITE);
+                lithiumBoldFont24.drawStringWithShadow("Beta", 102, 15, Color.WHITE);
                 break;
 
             case "Tenacity":

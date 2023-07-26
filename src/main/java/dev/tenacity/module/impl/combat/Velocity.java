@@ -148,20 +148,6 @@ public class Velocity extends Module {
     }
 
     @Override
-    public void onMotionEvent(MotionEvent event) {
-
-        if ("Polar".equals(this.mode.getMode()) && mc.thePlayer.onGround && mc.thePlayer.hurtTime > 0) {
-            if (mc.thePlayer.motionX >= 0.001 && mc.thePlayer.motionZ >= 0.001) {
-                mc.thePlayer.motionX /= 20;
-                mc.thePlayer.motionZ /= 20;
-            }
-        }
-
-        super.onMotionEvent(event);
-    }
-
-
-    @Override
     public void onUpdateEvent(UpdateEvent event) {
         ++grim_updates;
 
@@ -174,6 +160,20 @@ public class Velocity extends Module {
         }
 
         if (mode.is("Intave")) {
+            if (mc.thePlayer.isSwingInProgress) {
+                attacked = true;
+            }
+
+            if (mc.objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.ENTITY) && mc.thePlayer.hurtTime > 0 && !attacked) {
+                mc.thePlayer.motionX *= 0.6D;
+                mc.thePlayer.motionZ *= 0.6D;
+                mc.thePlayer.setSprinting(false);
+            }
+
+            attacked = false;
+        }
+
+        if (mode.is("Polar")) {
             if (mc.thePlayer.isSwingInProgress) {
                 attacked = true;
             }

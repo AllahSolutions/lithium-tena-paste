@@ -232,5 +232,4 @@ public abstract class AbstractClientPlayer extends EntityPlayer
         return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
     }
 
-    public abstract MovingObjectPosition customRayTrace(double blockReachDistance, float partialTicks, float yaw, float pitch);
 }

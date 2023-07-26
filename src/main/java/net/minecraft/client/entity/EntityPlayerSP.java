@@ -615,8 +615,6 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
-
-    @Override
     public MovingObjectPosition customRayTrace(final double blockReachDistance, final float partialTicks, final float yaw, final float pitch) {
         final Vec3 vec3 = this.getPositionEyes(partialTicks);
         final Vec3 vec4 = this.customGetLook(partialTicks, yaw, pitch);

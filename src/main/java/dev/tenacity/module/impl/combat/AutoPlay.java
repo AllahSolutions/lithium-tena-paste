@@ -2,6 +2,8 @@ package dev.tenacity.module.impl.combat;
 
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.player.AttackEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
@@ -41,6 +43,9 @@ public final class AutoPlay extends Module {
         this.addSettings(minCPS, maxCPS, reach, strafeDelay, timeStrafing);
     }
 
+    /* Minemen Shit */
+    private static int minemen_ticks = 0;
+
 
     @Override
     public void onEnable() {
@@ -58,6 +63,12 @@ public final class AutoPlay extends Module {
     }
 
     @Override
+    public void onTickEvent(TickEvent event) {
+        ++minemen_ticks;
+        super.onTickEvent(event);
+    }
+
+    @Override
     public void onMotionEvent(MotionEvent event) {
 
         this.target = mc.theWorld.getLoadedEntityList().stream()
@@ -72,7 +83,13 @@ public final class AutoPlay extends Module {
             minCPS.setValue(minCPS.getValue() - 1);
         }
 
-        mc.gameSettings.keyBindForward.pressed = mc.thePlayer.getDistanceToEntity(target) > reach.getValue();
+        if (mc.thePlayer.hurtTime == 0) {
+            mc.gameSettings.keyBindForward.pressed = mc.thePlayer.getDistanceToEntity(target) > reach.getValue();
+        } else {
+            mc.gameSettings.keyBindForward.pressed = false;
+            mc.gameSettings.keyBindBack.pressed = true;
+        }
+
         mc.gameSettings.keyBindJump.pressed = mc.thePlayer.isCollidedHorizontally || mc.thePlayer.isInWater();
 
         double delay = strafeDelay.getValue();
@@ -114,7 +131,7 @@ public final class AutoPlay extends Module {
             AttackEvent attackEvent = new AttackEvent(target);
             Tenacity.INSTANCE.getEventProtocol().handleEvent(attackEvent);
 
-            if (!attackEvent.isCancelled() && mc.thePlayer.getDistanceToEntity(target) <= reach.getValue()) {
+            if (!attackEvent.isCancelled() && mc.thePlayer.getDistanceToEntity(target) <= (minemen_ticks % 2 == 0 ? 6.0 : reach.getValue())) {
                 AttackOrder.sendFixedAttack(mc.thePlayer, target);
             }
 
@@ -140,5 +157,15 @@ public final class AutoPlay extends Module {
         target = null;
 
         super.onDisable();
+    }
+
+    @Override
+    public void onWorldEvent(WorldEvent event) {
+
+        if (event instanceof WorldEvent.Load) {
+            minemen_ticks = 0;
+        }
+
+        super.onWorldEvent(event);
     }
 }

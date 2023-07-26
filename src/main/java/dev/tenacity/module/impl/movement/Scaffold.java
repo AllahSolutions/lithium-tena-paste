@@ -346,7 +346,7 @@ public class Scaffold extends Module {
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                    ScaffoldUtils.getHypixelVec3(lastBlockCache))) {
+                    ScaffoldUtils.getHitVec(cachedRotations, lastBlockCache))) {
                 placed = true;
                 y = MathUtils.getRandomInRange(79.5f, 83.5f);
                 if (swing.isEnabled()) {

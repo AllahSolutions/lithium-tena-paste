@@ -48,6 +48,10 @@ public class BlockPos extends Vec3i {
         return x == 0.0D && y == 0.0D && z == 0.0D ? this : new BlockPos((double) this.getX() + x, (double) this.getY() + y, (double) this.getZ() + z);
     }
 
+    public boolean equalsBlockPos(final BlockPos blockPos) {
+        return this.getX() == blockPos.getX() && this.getY() == blockPos.getY() && this.getZ() == blockPos.getZ();
+    }
+
     /**
      * Add the given coordinates to the coordinates of this BlockPos
      */

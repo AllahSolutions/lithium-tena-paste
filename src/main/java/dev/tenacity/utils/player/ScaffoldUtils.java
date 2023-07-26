@@ -134,7 +134,7 @@ public class ScaffoldUtils implements Utils {
     }
 
     public static Vec3 getHitVec(float[] rotation, BlockCache data) {
-        
+
         BlockPos blockFace = data.getPosition();
         EnumFacing enumFacing = data.getFacing();
 

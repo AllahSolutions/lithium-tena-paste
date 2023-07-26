@@ -18,7 +18,6 @@ import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
-import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
@@ -349,7 +348,7 @@ public class Scaffold extends Module {
 
         boolean placed = false;
         if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
-            final BlockPos bb = new BlockPos(ScaffoldWalk.mc.thePlayer.posX, ScaffoldWalk.mc.thePlayer.posY - 1.0, ScaffoldWalk.mc.thePlayer.posZ);
+            final BlockPos bb = new BlockPos(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 1.0, NewScaffold.mc.thePlayer.posZ);
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),

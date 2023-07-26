@@ -28,6 +28,8 @@ public abstract class ListenerAdapter implements EventListener {
     public void onWorldEvent(WorldEvent event) {}
     public void onTeleportEvent(TeleportEvent event) {}
 
+    public void onRaycastEvent(RaycastEvent event) {}
+
     // Network
     public void onPacketReceiveEvent(PacketReceiveEvent event) {}
     public void onPacketSendEvent(PacketSendEvent event) {}
@@ -92,6 +94,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(RenderTickEvent.class, this::onRenderTickEvent);
         registerEvent(TickEvent.class, this::onTickEvent);
         registerEvent(TeleportEvent.class, this::onTeleportEvent);
+        registerEvent(RaycastEvent.class, this::onRaycastEvent);
 
         registerEvent(WorldEvent.Load.class, this::onWorldEvent);
         registerEvent(WorldEvent.Unload.class, this::onWorldEvent);

@@ -2,24 +2,22 @@ package dev.tenacity.module.impl.movement;
 
 import com.sun.javafx.geom.Vec2d;
 import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.player.BlockPlaceableEvent;
-import dev.tenacity.event.impl.player.LegitClick;
-import dev.tenacity.event.impl.player.RaycastEvent;
+import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
+import dev.tenacity.utils.Skid.BlockUtil;
 import dev.tenacity.utils.Skid.FuckingNIgger;
+import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.ScaffoldUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class NewScaffold extends Module {
     private final TimerUtil startTimeHelper;
     private final TimerUtil startTimeHelper2;
     private final TimerUtil adTimeHelper;
-    private final FuckingNigger rotationUtil;
+    private final FuckingNIgger rotationUtil;
     private final double[] lastXYZ;
     private final HashMap<float[], MovingObjectPosition> hashMap;
     public ModeSetting mode;
@@ -51,6 +49,7 @@ public class NewScaffold extends Module {
     private BlockPos blockPos;
     private boolean start;
     private double[] xyz;
+    private static float yaw;
     private MovingObjectPosition objectPosition;
 
     public NewScaffold() {
@@ -73,8 +72,12 @@ public class NewScaffold extends Module {
         this.start = true;
         this.xyz = new double[3];
         this.objectPosition = null;
-        this.rotationUtil = new FuckingNigger();
+        this.rotationUtil = new FuckingNIgger();
 
+        this.addSettings(
+                mode, yawSpeed, pitchSpeed,
+                moveFix, esp, adStrafe, silentMode
+        );
     }
 
     @Override
@@ -102,7 +105,7 @@ public class NewScaffold extends Module {
             return;
         }
         this.blockPos = this.getAimBlockPos();
-        this.start = ((NewScaffold.mc.thePlayer.motionX == 0.0 && NewScaffold.mc.thePlayer.motionZ == 0.0 && NewScaffold.mc.thePlayer.onGround) || !this.startTimeHelper.reached(200L));
+        this.start = ((NewScaffold.mc.thePlayer.motionX == 0.0 && NewScaffold.mc.thePlayer.motionZ == 0.0 && NewScaffold.mc.thePlayer.onGround) || !this.startTimeHelper.hasTimeElapsed(200L));
         if (this.start) {
             this.startTimeHelper2.reset();
         }
@@ -123,6 +126,8 @@ public class NewScaffold extends Module {
             if (floats != null) {
                 this.rots = floats;
             }
+
+            yaw = this.rots[0];
             this.setRotation();
         }
         super.onTickEvent(eventEarlyTick);
@@ -147,7 +152,19 @@ public class NewScaffold extends Module {
         final double miZ = this.blockPos.getZ() - add2;
         if (x > maX || x < miX || z > maZ || z < miZ) {
             final double[] ex = this.getAdvancedDiagonalExpandXZ(this.blockPos);
-            final float[] f = this.rotationUtil.scaffoldRots(this.blockPos.getX() + ex[0], this.blockPos.getY() + 0.85, this.blockPos.getZ() + ex[1], this.lastRots[0], this.lastRots[1], (float)this.yawSpeed.getValue(), (float)this.pitchSpeed.getValue(), false);
+
+            // Rotation
+            float[] f = this.rotationUtil.scaffoldRots(
+                    this.blockPos.getX() + ex[0],
+                    this.blockPos.getY() + 0.85,
+                    this.blockPos.getZ() + ex[1],
+                    this.lastRots[0],
+                    this.lastRots[1],
+                    this.yawSpeed.getValue().floatValue(),
+                    this.pitchSpeed.getValue().floatValue(),
+                    false
+            );
+
             return new float[] { NewScaffold.mc.thePlayer.rotationYaw - 180.0f, f[1] };
         }
         return new float[] { NewScaffold.mc.thePlayer.rotationYaw - 180.0f, this.rots[1] };
@@ -159,13 +176,20 @@ public class NewScaffold extends Module {
         final BlockPos b = new BlockPos(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 0.5, NewScaffold.mc.thePlayer.posZ);
         this.hashMap.clear();
         if (this.start) {
-            final float yaw = this.rotationUtil.rotateToYaw((float)this.yawSpeed.getValue(), this.rots[0], Augustus.getInstance().getYawPitchHelper().realYaw - 180.0f);
-            FuckingNigger.mouseSens(yaw, 80.34f, this.rots[0], this.rots[1]);
+
+            // Yaw ???
+            float yaw = this.rotationUtil.rotateToYaw(
+                    this.yawSpeed.getValue().floatValue(),
+                    this.rots[0], mc.thePlayer.rotationYaw - 180.0f
+            );
+
+            FuckingNIgger.mouseSens(yaw, 80.34f, this.rots[0], this.rots[1]);
+
             floats[1] = 80.34f;
             floats[0] = yaw;
         }
         else {
-            final float yaww = Augustus.getInstance().getYawPitchHelper().realYaw - 180.0f;
+            final float yaww = mc.thePlayer.rotationYaw - 180.0f;
             floats[0] = yaww;
             double x = NewScaffold.mc.thePlayer.posX;
             double z = NewScaffold.mc.thePlayer.posZ;
@@ -184,7 +208,7 @@ public class NewScaffold extends Module {
                 final ArrayList<MovingObjectPosition> movingObjectPositions = new ArrayList<MovingObjectPosition>();
                 final ArrayList<Float> pitchs = new ArrayList<Float>();
                 for (float i = Math.max(this.rots[1] - 20.0f, -90.0f); i < Math.min(this.rots[1] + 20.0f, 90.0f); i += 0.05f) {
-                    final float[] f = FuckingNigger.mouseSens(yaww, i, this.rots[0], this.rots[1]);
+                    final float[] f = FuckingNIgger.mouseSens(yaww, i, this.rots[0], this.rots[1]);
                     final MovingObjectPosition m2 = NewScaffold.mc.thePlayer.customRayTrace(4.5, 1.0f, yaww, f[1]);
                     if (m2.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.isOkBlock(m2.getBlockPos()) && !movingObjectPositions.contains(m2) && m2.getBlockPos().equalsBlockPos(this.blockPos) && m2.sideHit != EnumFacing.DOWN && m2.sideHit != EnumFacing.UP && m2.getBlockPos().getY() <= b.getY()) {
                         movingObjectPositions.add(m2);
@@ -212,22 +236,6 @@ public class NewScaffold extends Module {
             }
         }
         return floats;
-    }
-
-    private boolean canPlace(final float[] yawPitch) {
-        final BlockPos b = new BlockPos(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 0.5, NewScaffold.mc.thePlayer.posZ);
-        final MovingObjectPosition m4 = NewScaffold.mc.thePlayer.customRayTrace(4.5, 1.0f, yawPitch[0], yawPitch[1]);
-        if (m4.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.isOkBlock(m4.getBlockPos()) && m4.getBlockPos().equalsBlockPos(this.blockPos) && m4.sideHit != EnumFacing.DOWN && m4.sideHit != EnumFacing.UP && m4.getBlockPos().getY() <= b.getY()) {
-            this.hashMap.put(yawPitch, m4);
-            return true;
-        }
-        return false;
-    }
-
-    private double distanceToLastRots(final float[] predictRots) {
-        final float diff1 = Math.abs(predictRots[0] - this.rots[0]);
-        final float diff2 = Math.abs(predictRots[1] - this.rots[1]);
-        return diff1 * diff1 + diff2 * diff2;
     }
 
     private double distanceToLastPitch(final float pitch) {
@@ -311,7 +319,6 @@ public class NewScaffold extends Module {
 
     @Override
     public void onBlockPlaceable(final BlockPlaceableEvent eventClick) {
-        eventClick.setCanceled(true);
         if (this.block == null) {
             this.block = NewScaffold.mc.thePlayer.inventory.getCurrentItem();
         }
@@ -323,7 +330,7 @@ public class NewScaffold extends Module {
         if (!this.silentMode.is("None")) {
             for (int i = 36; i < NewScaffold.mc.thePlayer.inventoryContainer.inventorySlots.size(); ++i) {
                 final ItemStack itemStack = NewScaffold.mc.thePlayer.inventoryContainer.getSlot(i).getStack();
-                if (itemStack != null && itemStack.getItem() instanceof ItemBlock && itemStack.stackSize > 0 && Augustus.getInstance().getBlockUtil().isValidStack(itemStack)) {
+                if (itemStack != null && itemStack.getItem() instanceof ItemBlock && itemStack.stackSize > 0 && BlockUtil.getInstance().isValidStack(itemStack)) {
                     this.block = itemStack;
                     this.slotID = i - 36;
                     break;
@@ -411,7 +418,6 @@ public class NewScaffold extends Module {
                     }
                     break;
                 }
-                break;
             }
         }
         if (lastItem != null && this.silentMode.is("Switch")) {
@@ -422,64 +428,24 @@ public class NewScaffold extends Module {
     }
 
     @Override
-    public void onEventSilent(final EventSilent eventSilent) {
-        eventSilent.setSlotID(this.slotID);
-    }
-
-    @Override
-    public void onEventSilentMove(final EventSilentMove eventSilentMove) {
+    public void onMoveInputEvent(MoveInputEvent event) {
         if (this.moveFix.isEnabled()) {
-            eventSilentMove.setSilent(true);
+            MovementUtils.fixMovement(event, yaw);
         }
-        if (this.mode.getSelected().equals("Legit") && this.adStrafe.isEnabled()) {
-            final BlockPos b = new BlockPos(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 0.5, NewScaffold.mc.thePlayer.posZ);
-            if (NewScaffold.mc.theWorld.getBlockState(b).getBlock().getMaterial() == Material.air && NewScaffold.mc.currentScreen == null && !Keyboard.isKeyDown(NewScaffold.mc.gameSettings.keyBindJump.getKeyCodeDefault()) && this.buildForward() && NewScaffold.mc.thePlayer.movementInput.moveForward != 0.0f) {
-                if (NewScaffold.mc.thePlayer.getHorizontalFacing(this.rots[0]) == EnumFacing.EAST) {
-                    if (b.getZ() + 0.5 > NewScaffold.mc.thePlayer.posZ) {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = 1.0f;
-                    }
-                    else {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = -1.0f;
-                    }
-                }
-                else if (NewScaffold.mc.thePlayer.getHorizontalFacing(this.rots[0]) == EnumFacing.WEST) {
-                    if (b.getZ() + 0.5 < NewScaffold.mc.thePlayer.posZ) {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = 1.0f;
-                    }
-                    else {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = -1.0f;
-                    }
-                }
-                else if (NewScaffold.mc.thePlayer.getHorizontalFacing(this.rots[0]) == EnumFacing.SOUTH) {
-                    if (b.getX() + 0.5 < NewScaffold.mc.thePlayer.posX) {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = 1.0f;
-                    }
-                    else {
-                        NewScaffold.mc.thePlayer.movementInput.moveStrafe = -1.0f;
-                    }
-                }
-                else if (b.getX() + 0.5 > NewScaffold.mc.thePlayer.posX) {
-                    NewScaffold.mc.thePlayer.movementInput.moveStrafe = 1.0f;
-                }
-                else {
-                    NewScaffold.mc.thePlayer.movementInput.moveStrafe = -1.0f;
-                }
-                this.adTimeHelper.reset();
-            }
+        super.onMoveInputEvent(event);
+    }
+
+    @Override
+    public void onStrafeEvent(final StrafeEvent eventMove) {
+        if (this.moveFix.isEnabled()) {
+            eventMove.setYaw(yaw);
         }
     }
 
     @Override
-    public void onEventMove(final EventMove eventMove) {
-        if (!this.moveFix.getBoolean()) {
-            eventMove.setYaw(Augustus.getInstance().getYawPitchHelper().realYaw);
-        }
-    }
-
-    @Override
-    public void onEventJump(final EventJump eventJump) {
-        if (!this.moveFix.getBoolean()) {
-            eventJump.setYaw(Augustus.getInstance().getYawPitchHelper().realYaw);
+    public void onJumpFixEvent(JumpFixEvent eventJump) {
+        if (this.moveFix.isEnabled()) {
+            eventJump.setYaw(yaw);
         }
     }
 
@@ -487,6 +453,7 @@ public class NewScaffold extends Module {
         if (NewScaffold.mc.currentScreen != null) {
             return;
         }
+        
         NewScaffold.mc.thePlayer.rotationYaw = this.rots[0];
         NewScaffold.mc.thePlayer.rotationPitch = this.rots[1];
         NewScaffold.mc.thePlayer.prevRotationYaw = this.lastRots[0];
@@ -494,7 +461,7 @@ public class NewScaffold extends Module {
     }
 
     private boolean buildForward() {
-        final float realYaw = MathHelper.wrapAngleTo180_float(Augustus.getInstance().getYawPitchHelper().realYaw);
+        final float realYaw = MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw);
         return (realYaw > 77.5 && realYaw < 102.5) || (realYaw > 167.5 || realYaw < -167.0f) || (realYaw < -77.5 && realYaw > -102.5) || (realYaw > -12.5 && realYaw < 12.5);
     }
 
@@ -557,18 +524,10 @@ public class NewScaffold extends Module {
     }
 
     private void restRotation() {
-        this.rots[0] = Augustus.getInstance().getYawPitchHelper().realYaw;
-        this.rots[1] = Augustus.getInstance().getYawPitchHelper().realPitch;
-        this.lastRots[0] = Augustus.getInstance().getYawPitchHelper().realLastYaw;
-        this.lastRots[1] = Augustus.getInstance().getYawPitchHelper().realLastPitch;
+        this.rots[0] = mc.thePlayer.rotationYaw;
+        this.rots[1] = mc.thePlayer.rotationPitch;
+        this.lastRots[0] = mc.thePlayer.rotationYaw;
+        this.lastRots[1] = mc.thePlayer.rotationPitch;
     }
 
-   
-
-    public int getSlotID() {
-        return this.slotID;
-    }
-
-
-    
 }

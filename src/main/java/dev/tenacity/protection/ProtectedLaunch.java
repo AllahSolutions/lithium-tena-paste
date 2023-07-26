@@ -96,6 +96,8 @@ public class ProtectedLaunch {
         modules.put(Spider.class, new Spider());
         modules.put(NoSlow.class, new NoSlow());
         modules.put(SafeWalk.class, new SafeWalk());
+        modules.put(NewScaffold.class, new NewScaffold());
+        modules.put(Scaffold.class, new Scaffold());
 
         // Player
         modules.put(ChestStealer.class, new ChestStealer());
@@ -109,7 +111,6 @@ public class ProtectedLaunch {
         modules.put(FastPlace.class, new FastPlace());
         modules.put(AutoTool.class, new AutoTool());
         modules.put(AntiVoid.class, new AntiVoid());
-        modules.put(Scaffold.class, new Scaffold());
 
         // Render
         modules.put(ArrayListMod.class, new ArrayListMod());

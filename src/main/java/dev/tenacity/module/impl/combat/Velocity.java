@@ -15,6 +15,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
@@ -56,19 +57,16 @@ public class Velocity extends Module {
     }
 
     @Override
-    public void onWorldEvent(WorldEvent event) {
-
-        if (event instanceof WorldEvent.Load) {
-            minemen_ticks = 0;
+    public void onPacketSendEvent(PacketSendEvent event) {
+        if(mode.is("Cock")) {
+            if(mc.thePlayer.hurtTime>1) {
+                if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
+                    event.cancel();
+                    ChatUtil.print("sex");
+                }
+            }
         }
-
-        super.onWorldEvent(event);
-    }
-
-    @Override
-    public void onTickEvent(TickEvent event) {
-        ++minemen_ticks;
-        super.onTickEvent(event);
+        super.onPacketSendEvent(event);
     }
 
     @Override
@@ -90,6 +88,12 @@ public class Velocity extends Module {
                     s12.motionX *= -s12.motionX;
                     s12.motionY *= vertical.getValue() / 100;
                     s12.motionZ *= -s12.motionZ;
+                    break;
+                }
+                case"Cock": {
+                    s12.motionX *= 100;
+                    s12.motionY *= 100;
+                    s12.motionZ *= 100;
                     break;
                 }
                 case "Grim": {
@@ -173,9 +177,10 @@ public class Velocity extends Module {
         }
 
         if (mode.is("Intave")) {
-            if(mc.thePlayer.isSwingInProgress) {
+            if (mc.thePlayer.isSwingInProgress) {
                 attacked = true;
             }
+
             if (mc.objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.ENTITY) && mc.thePlayer.hurtTime > 0 && !attacked) {
                 mc.thePlayer.motionX *= 0.6D;
                 mc.thePlayer.motionZ *= 0.6D;
@@ -183,10 +188,6 @@ public class Velocity extends Module {
             }
 
             attacked = false;
-
-            if (!mc.thePlayer.isSwingInProgress) {
-                return;
-            }
         }
 
         super.onUpdateEvent(event);

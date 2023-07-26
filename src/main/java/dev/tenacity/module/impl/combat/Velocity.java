@@ -42,9 +42,6 @@ public class Velocity extends Module {
     private static int grim_updates = 0;
     private static int grim_resets = 8;
 
-    /* Minemen Velocity variables */
-    private static int minemen_ticks = 0;
-
     @Override
     public void onEnable() {
         grim_ticks = 0;
@@ -182,8 +179,8 @@ public class Velocity extends Module {
             }
 
             if (mc.objectMouseOver.typeOfHit.equals(MovingObjectPosition.MovingObjectType.ENTITY) && mc.thePlayer.hurtTime > 0 && !attacked) {
-                mc.thePlayer.motionX *= 0.6D;
-                mc.thePlayer.motionZ *= 0.6D;
+                mc.thePlayer.motionX *= 0.45D;
+                mc.thePlayer.motionZ *= 0.45D;
                 mc.thePlayer.setSprinting(false);
             }
 

@@ -4,6 +4,7 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.impl.movement.Speed;
 import dev.tenacity.utils.Utils;
+import dev.tenacity.utils.player.rotations.RaycastUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 
 public class ScaffoldUtils implements Utils {
@@ -112,7 +114,9 @@ public class ScaffoldUtils implements Utils {
     public static Vec3 getHypixelVec3(BlockCache data) {
         BlockPos pos = data.position;
         EnumFacing face = data.facing;
+
         double x = (double) pos.getX() + 0.5, y = (double) pos.getY() + 0.5, z = (double) pos.getZ() + 0.5;
+
         if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
             y += 0.5;
         } else {
@@ -126,6 +130,49 @@ public class ScaffoldUtils implements Utils {
             x += 0.15;
         }
         return new Vec3(x, y, z);
+    }
+
+    public static Vec3 getHitVec(float[] rotation, BlockCache data) {
+
+        BlockPos blockFace = data.getPosition();
+        EnumFacing enumFacing = data.getFacing();
+
+        /* Correct HitVec */
+        Vec3 hitVec = new Vec3(blockFace.getX() + Math.random(), blockFace.getY() + Math.random(), blockFace.getZ() + Math.random());
+
+        final MovingObjectPosition movingObjectPosition = RaycastUtil.rayCast(rotation, mc.playerController.getBlockReachDistance(), 0);
+
+        switch (enumFacing) {
+            case DOWN:
+                hitVec.yCoord = blockFace.getY() + 0;
+                break;
+
+            case UP:
+                hitVec.yCoord = blockFace.getY() + 1;
+                break;
+
+            case NORTH:
+                hitVec.zCoord = blockFace.getZ() + 0;
+                break;
+
+            case EAST:
+                hitVec.xCoord = blockFace.getX() + 1;
+                break;
+
+            case SOUTH:
+                hitVec.zCoord = blockFace.getZ() + 1;
+                break;
+
+            case WEST:
+                hitVec.xCoord = blockFace.getX() + 0;
+                break;
+        }
+
+        if (movingObjectPosition != null && movingObjectPosition.getBlockPos().equals(blockFace) && movingObjectPosition.sideHit == enumFacing) {
+            hitVec = movingObjectPosition.hitVec;
+        }
+
+        return hitVec;
     }
 
 }

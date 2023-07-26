@@ -1413,10 +1413,10 @@ public abstract class Entity implements ICommandSender {
         return this.worldObj.rayTraceBlocks(vec3, vec32, false, false, true);
     }
 
-    public MovingObjectPosition rayTraceScaffoldRotations(double blockReachDistance, float partialTicks, float yaw, float pitch) {
-        Vec3 vec3 = this.getPositionEyes(partialTicks);
-        Vec3 vec31 = this.getVectorForRotation(pitch, yaw);
-        Vec3 vec32 = vec3.addVector(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
+    public MovingObjectPosition rayTraceCustom(double blockReachDistance, float yaw, float pitch) {
+        final Vec3 vec3 = this.getPositionEyes(1.0F);
+        final Vec3 vec31 = this.getLookCustom(yaw, pitch);
+        final Vec3 vec32 = vec3.addVector(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
         return this.worldObj.rayTraceBlocks(vec3, vec32, false, false, true);
     }
 
@@ -1870,6 +1870,10 @@ public abstract class Entity implements ICommandSender {
      */
     public Vec3 getLookVec() {
         return null;
+    }
+
+    public Vec3 getLookCustom(float yaw, float pitch) {
+        return this.getVectorForRotation(pitch, yaw);
     }
 
     /**

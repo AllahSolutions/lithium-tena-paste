@@ -3,10 +3,7 @@ package net.minecraft.client.entity;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class EntityOtherPlayerMP extends AbstractClientPlayer
@@ -27,6 +24,12 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
         this.renderOffsetY = 0.25F;
         this.renderDistanceWeight = 10.0D;
     }
+
+    @Override
+    public MovingObjectPosition customRayTrace(double blockReachDistance, float partialTicks, float yaw, float pitch) {
+        return null;
+    }
+    //THIS MIGHT FUCK ITS UP XD
 
     /**
      * Called when the entity is attacked.

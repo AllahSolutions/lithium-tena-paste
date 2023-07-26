@@ -2,8 +2,6 @@ package dev.tenacity.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockChest;
@@ -13,11 +11,11 @@ import net.minecraft.block.material.Material;
 import java.util.Comparator;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-import java.util.List;
+
 import java.util.Collections;
 import java.util.ArrayList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.EntityLivingBase;
+
 import java.util.concurrent.ThreadLocalRandom;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -447,7 +445,7 @@ public class FuckingNigger {
         return new float[] { yaw, pitch };
     }
 
-    public float[] scaffoldRots(final double bx, final double by, final double bz, final float lastYaw, final float lastPitch, final float yawSpeed, final float pitchSpeed, final boolean random) {
+    public static float[] scaffoldRots(final double bx, final double by, final double bz, final float lastYaw, final float lastPitch, final float yawSpeed, final float pitchSpeed, final boolean random) {
         final double x = bx - mc.thePlayer.posX;
         final double y = by - (mc.thePlayer.posY + mc.thePlayer.getEyeHeight());
         final double z = bz - mc.thePlayer.posZ;

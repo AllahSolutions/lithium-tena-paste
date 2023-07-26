@@ -9,6 +9,7 @@ import dev.tenacity.module.settings.ParentAttribute;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
+import dev.tenacity.utils.FuckingNigger;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
@@ -42,7 +43,7 @@ public class Scaffold extends Module {
 
     private final ModeSetting countMode = new ModeSetting("Block Counter", "Tenacity", "None", "Tenacity", "Basic", "Polar");
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
-    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","None", "NCP", "Back", "Enum", "Down");
+    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","None", "NCP","Dev", "Back", "Enum", "Down");
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
@@ -209,6 +210,11 @@ public class Scaffold extends Module {
                     case "NCP":
                         cachedRotations = new float[] { mc.thePlayer.rotationYaw + mc.thePlayer.movementInput.moveForward < 0.0f ? 0 : 180, y};
                         break;
+                    case"Dev":
+
+                        cachedRotations = FuckingNigger.scaffoldRots(event.getX(), event.getY(), event.getZ(), mc.thePlayer.prevRotationYaw, mc.thePlayer.prevRotationPitch, 70f, 70f, false);
+
+                        break;
                     case "Back":
                         cachedRotations = new float[] { MovementUtils.getMovementDirection(event.getYaw()) - 180, 78 };
                         break;
@@ -343,10 +349,11 @@ public class Scaffold extends Module {
 
         boolean placed = false;
         if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
+            final BlockPos bb = new BlockPos(ScaffoldWalk.mc.thePlayer.posX, ScaffoldWalk.mc.thePlayer.posY - 1.0, ScaffoldWalk.mc.thePlayer.posZ);
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                    ScaffoldUtils.getHitVec(cachedRotations, lastBlockCache))) {
+                    ScaffoldUtils.getAdvancedDiagonalExpandXZ(bb))) {
                 placed = true;
                 y = MathUtils.getRandomInRange(79.5f, 83.5f);
                 if (swing.isEnabled()) {

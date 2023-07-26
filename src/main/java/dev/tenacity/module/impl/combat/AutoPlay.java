@@ -5,6 +5,7 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.player.AttackEvent;
+import dev.tenacity.event.impl.player.LegitClick;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
@@ -126,6 +127,10 @@ public final class AutoPlay extends Module {
 
         mc.thePlayer.rotationYaw = fixedRotations[0];
         mc.thePlayer.rotationPitch = fixedRotations[1];
+    }
+
+    @Override
+    public void onLegitClick(LegitClick event) {
 
         if (attackTimer.hasTimeElapsed(1000 / currentCPS)) {
             AttackEvent attackEvent = new AttackEvent(target);
@@ -138,6 +143,8 @@ public final class AutoPlay extends Module {
             currentCPS = MathUtils.getRandomInRange(minCPS.getValue(), maxCPS.getValue());
             attackTimer.reset();
         }
+
+        super.onLegitClick(event);
     }
 
     @Override

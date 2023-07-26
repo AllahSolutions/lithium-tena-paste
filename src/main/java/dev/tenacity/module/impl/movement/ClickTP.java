@@ -50,8 +50,9 @@ public class ClickTP extends Module {
             if(hasclicked) {
                 if (e.getPacket() instanceof S08PacketPlayerPosLook) {
 
-
-                    e.cancel();
+                   // if(mc.thePlayer != null) {
+                       e.cancel();
+                   // }
                 }
             }
         }
@@ -84,12 +85,7 @@ public class ClickTP extends Module {
     @Override
     public void onTickEvent(TickEvent event) {
         if(mode.is("Cock") && hasclicked) {
-            if (mc.thePlayer == null) return;
-            if (!mc.gameSettings.keyBindJump.isKeyDown() && MovementUtils.isMoving() && !mc.thePlayer.onGround) {
-                mc.thePlayer.posY -= mc.thePlayer.posY - mc.thePlayer.lastTickPosY;
-                mc.thePlayer.lastTickPosY -= mc.thePlayer.posY - mc.thePlayer.lastTickPosY;
-                mc.thePlayer.cameraYaw = mc.thePlayer.cameraPitch = 0.1F;
-            }
+
         }
     }
 

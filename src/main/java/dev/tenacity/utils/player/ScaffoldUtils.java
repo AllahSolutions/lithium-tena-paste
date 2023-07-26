@@ -125,6 +125,7 @@ public class ScaffoldUtils implements Utils {
         if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
             x += 0.15;
         }
+
         return new Vec3(x, y, z);
     }
 

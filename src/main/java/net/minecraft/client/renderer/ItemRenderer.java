@@ -431,6 +431,7 @@ public class ItemRenderer {
                                         this.transformFirstPersonItem(f / 2, 0);
                                         GlStateManager.rotate(-var16 * 60.0F / 2.0F, var16 / 2.0F, -0.0F, 9.0F);
                                         GlStateManager.rotate(-var16 * 50.0F, 1.0F, var16 / 2.0F, -0.0F);
+                                        GlStateManager.translate(0, 0.07F, 0);
                                         this.doBlockTransformations();
                                         GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0.0F, 0.1F);
                                         break;

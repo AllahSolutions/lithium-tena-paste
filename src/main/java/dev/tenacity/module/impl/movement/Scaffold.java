@@ -42,7 +42,7 @@ public class Scaffold extends Module {
 
     private final ModeSetting countMode = new ModeSetting("Block Counter", "Tenacity", "None", "Tenacity", "Basic", "Polar");
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
-    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog", "NCP", "Back", "Enum", "Down");
+    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","None", "NCP", "Back", "Enum", "Down");
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
@@ -225,9 +225,11 @@ public class Scaffold extends Module {
                 }
 
                 float[] fixedRotations = RotationUtils.getFixedRotations(cachedRotations, lastRotations);
+                if(!rotationMode.is("none")) {
+                    event.setRotations(fixedRotations[0], fixedRotations[1]);
 
-                event.setRotations(fixedRotations[0], fixedRotations[1]);
-                RotationUtils.setVisualRotations(event);
+                    RotationUtils.setVisualRotations(event);
+                }
 
                 yaw = event.getYaw();
             }

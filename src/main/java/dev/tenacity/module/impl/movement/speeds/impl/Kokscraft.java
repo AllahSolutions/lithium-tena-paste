@@ -20,11 +20,7 @@ public class Kokscraft extends SpeedMode {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
-        if(!event.isPost()) {
-            if (mc.thePlayer.ticksExisted % 5 == 0) {
-                mc.thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, new BlockPos(mc.thePlayer), EnumFacing.UP));
-            }
-        }
+
         mc.thePlayer.cameraYaw = 0;
         mc.thePlayer.cameraPitch = 0;
 
@@ -42,7 +38,7 @@ public class Kokscraft extends SpeedMode {
             jumps++;
         }
 
-        if ( mc.thePlayer.hurtTime == 0) {
+        if (offGroundTicks == 1 && mc.thePlayer.hurtTime == 0) {
             mc.thePlayer.motionY = MovementUtils.predictedMotion(mc.thePlayer.motionY, jumps % 2 == 0 ? 2 : 4);
         }
 

@@ -11,6 +11,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.Skid.BlockUtil;
 import dev.tenacity.utils.Skid.FuckingNIgger;
 import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.*;
@@ -49,7 +50,7 @@ public class NewScaffold extends Module {
     private BlockPos blockPos;
     private boolean start;
     private double[] xyz;
-    private static float yaw;
+    private static float yaw, pitch;
     private MovingObjectPosition objectPosition;
 
     public NewScaffold() {
@@ -188,7 +189,7 @@ public class NewScaffold extends Module {
             floats[0] = yaw;
         }
         else {
-            final float yaww = mc.thePlayer.rotationYaw - 180.0f;
+            final float yaww = yaw - 180.0f;
             floats[0] = yaww;
             double x = mc.thePlayer.posX;
             double z = mc.thePlayer.posZ;
@@ -452,7 +453,12 @@ public class NewScaffold extends Module {
     @Override
     public void onMotionEvent(MotionEvent event) {
         
-        
+        this.setRotation(event);
+
+        this.yaw = event.getYaw();
+        this.pitch = event.getPitch();
+
+        RotationUtils.setVisualRotations(event);
         
         super.onMotionEvent(event);
     }

@@ -10,7 +10,7 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.utils.FuckingNigger;
+import dev.tenacity.utils.Skid.FuckingNIgger;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;

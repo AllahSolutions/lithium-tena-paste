@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.src.Config;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.Vec3;
@@ -230,4 +231,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer
     {
         return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
     }
+
+    public abstract MovingObjectPosition customRayTrace(double blockReachDistance, float partialTicks, float yaw, float pitch);
 }

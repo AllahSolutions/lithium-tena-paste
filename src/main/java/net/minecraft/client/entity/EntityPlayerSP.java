@@ -615,6 +615,73 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+
+    @Override
+    public MovingObjectPosition customRayTrace(final double blockReachDistance, final float partialTicks, final float yaw, final float pitch) {
+        final Vec3 vec3 = this.getPositionEyes(partialTicks);
+        final Vec3 vec4 = this.customGetLook(partialTicks, yaw, pitch);
+        final Vec3 vec5 = vec3.addVector(vec4.xCoord * blockReachDistance, vec4.yCoord * blockReachDistance, vec4.zCoord * blockReachDistance);
+        return this.worldObj.rayTraceBlocks(vec3, vec5, false, false, true);
+    }
+
+    public MovingObjectPosition customRayTrace(final double blockReachDistance, final float partialTicks, final float yaw, final float pitch, final boolean pitchPredict) {
+        final Vec3 vec3 = this.getPositionEyes(partialTicks);
+        final Vec3 vec4 = this.customGetLook(partialTicks, yaw, pitch, pitchPredict);
+        final Vec3 vec5 = vec3.addVector(vec4.xCoord * blockReachDistance, vec4.yCoord * blockReachDistance, vec4.zCoord * blockReachDistance);
+        return this.worldObj.rayTraceBlocks(vec3, vec5, false, false, true);
+    }
+
+    public MovingObjectPosition customRayTrace(final double blockReachDistance, final float partialTicks, final float yaw, final float pitch, final float lastYaw, final float lastPitch) {
+        final Vec3 vec3 = this.getPositionEyes(partialTicks);
+        final Vec3 vec4 = this.customGetLook(partialTicks, yaw, pitch, lastYaw, lastPitch);
+        final Vec3 vec5 = vec3.addVector(vec4.xCoord * blockReachDistance, vec4.yCoord * blockReachDistance, vec4.zCoord * blockReachDistance);
+        return this.worldObj.rayTraceBlocks(vec3, vec5, false, false, true);
+    }
+
+    public MovingObjectPosition customRayTrace(final double blockReachDistance, final float partialTicks, final float yaw, final float pitch, final double[] xyz, final double[] lastXYZ) {
+        final Vec3 vec3 = this.getCustomPositionEyes(partialTicks, xyz, lastXYZ);
+        final Vec3 vec4 = this.customGetLook(partialTicks, yaw, pitch);
+        final Vec3 vec5 = vec3.addVector(vec4.xCoord * blockReachDistance, vec4.yCoord * blockReachDistance, vec4.zCoord * blockReachDistance);
+        return this.worldObj.rayTraceBlocks(vec3, vec5, false, false, true);
+    }
+    public Vec3 getCustomPositionEyes(final float partialTicks, final double[] xyz, final double[] lastXYZ) {
+        if (partialTicks == 1.0f) {
+            return new Vec3(xyz[0], xyz[1] + this.getEyeHeight(), xyz[2]);
+        }
+        final double d0 = lastXYZ[0] + (xyz[0] - lastXYZ[0]) * partialTicks;
+        final double d2 = lastXYZ[1] + (xyz[1] - lastXYZ[1]) * partialTicks + this.getEyeHeight();
+        final double d3 = lastXYZ[2] + (xyz[2] - lastXYZ[2]) * partialTicks;
+        return new Vec3(d0, d2, d3);
+    }
+
+
+    private Vec3 customGetLook(final float partialTicks, final float yaw, final float pitch) {
+        if (partialTicks == 1.0f || partialTicks == 2.0f) {
+            return this.getVectorForRotation(pitch, yaw);
+        }
+        final float f = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * partialTicks;
+        final float f2 = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * partialTicks;
+        return this.getVectorForRotation(f, f2);
+    }
+
+    private Vec3 customGetLook(final float partialTicks, final float yaw, final float pitch, final boolean pitchPredict) {
+        if (partialTicks == 1.0f) {
+            return this.getVectorForRotation(pitch, yaw);
+        }
+        final float f = pitchPredict ? (this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * partialTicks) : pitch;
+        final float f2 = pitchPredict ? (this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * partialTicks) : yaw;
+        return this.getVectorForRotation(f, f2);
+    }
+
+    private Vec3 customGetLook(final float partialTicks, final float yaw, final float pitch, final float lastYaw, final float lastPitch) {
+        if (partialTicks == 1.0f) {
+            return this.getVectorForRotation(pitch, yaw);
+        }
+        final float f = lastPitch + (pitch - lastPitch) * partialTicks;
+        final float f2 = lastYaw + (yaw - lastYaw) * partialTicks;
+        return this.getVectorForRotation(f, f2);
+    }
+
     protected boolean isCurrentViewEntity() {
         return this.mc.getRenderViewEntity() == this;
     }

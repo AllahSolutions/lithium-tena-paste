@@ -9,7 +9,6 @@ import dev.tenacity.module.settings.ParentAttribute;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.utils.FuckingNigger;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
@@ -18,7 +17,6 @@ import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
-import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
@@ -210,11 +208,6 @@ public class Scaffold extends Module {
                     case "NCP":
                         cachedRotations = new float[] { mc.thePlayer.rotationYaw + mc.thePlayer.movementInput.moveForward < 0.0f ? 0 : 180, y};
                         break;
-                    case"Dev":
-
-                        cachedRotations = FuckingNigger.scaffoldRots(event.getX(), event.getY(), event.getZ(), mc.thePlayer.prevRotationYaw, mc.thePlayer.prevRotationPitch, 70f, 70f, false);
-
-                        break;
                     case "Back":
                         cachedRotations = new float[] { MovementUtils.getMovementDirection(event.getYaw()) - 180, 78 };
                         break;
@@ -353,7 +346,7 @@ public class Scaffold extends Module {
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                    ScaffoldUtils.getAdvancedDiagonalExpandXZ(bb))) {
+                    ScaffoldUtils.getHypixelVec3(blockCache))) {
                 placed = true;
                 y = MathUtils.getRandomInRange(79.5f, 83.5f);
                 if (swing.isEnabled()) {

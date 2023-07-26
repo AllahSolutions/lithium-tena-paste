@@ -26,7 +26,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Intave", "Grim", "Packet", "Reverse", "Polar");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Minemen", "Intave", "Grim", "Packet", "Reverse", "Polar", "Minemen");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 
@@ -41,6 +41,9 @@ public class Velocity extends Module {
     private static int grim_updates = 0;
     private static int grim_resets = 8;
 
+    /* Minemen Velocity variables */
+    private static int minemen_ticks = 0;
+
     @Override
     public void onEnable() {
         grim_ticks = 0;
@@ -50,6 +53,22 @@ public class Velocity extends Module {
     @Override
     public void onDisable() {
         super.onDisable();
+    }
+
+    @Override
+    public void onWorldEvent(WorldEvent event) {
+
+        if (event instanceof WorldEvent.Load) {
+            minemen_ticks = 0;
+        }
+
+        super.onWorldEvent(event);
+    }
+
+    @Override
+    public void onTickEvent(TickEvent event) {
+        ++minemen_ticks;
+        super.onTickEvent(event);
     }
 
     @Override
@@ -76,6 +95,12 @@ public class Velocity extends Module {
                 case "Grim": {
                     event.cancel();
                     grim_ticks = 6;
+                    break;
+                }
+                case "Minemen": {
+                    if (mc.thePlayer.ticksExisted % 2 == 0) {
+                        event.cancel();
+                    }
                     break;
                 }
                 default: {
@@ -106,6 +131,12 @@ public class Velocity extends Module {
                     s12.motionZ *= -s12.motionZ;
                     break;
                 }
+                case "Minemen": {
+                    if (mc.thePlayer.ticksExisted % 2 == 0) {
+                        event.cancel();
+                    }
+                    break;
+                }
                 default: {
                     break;
                 }
@@ -118,11 +149,10 @@ public class Velocity extends Module {
     @Override
     public void onMotionEvent(MotionEvent event) {
 
-        if ("Polar".equals(this.mode.getMode()) && mc.thePlayer.hurtTime > 0) {
+        if ("Polar".equals(this.mode.getMode()) && mc.thePlayer.onGround && mc.thePlayer.hurtTime > 0) {
             if (mc.thePlayer.motionX >= 0.001 && mc.thePlayer.motionZ >= 0.001) {
-                mc.thePlayer.motionX /= 1.2;
-                mc.thePlayer.motionZ /= 1.2;
-                mc.thePlayer.onGround = true;
+                mc.thePlayer.motionX /= 20;
+                mc.thePlayer.motionZ /= 20;
             }
         }
 
@@ -141,7 +171,8 @@ public class Velocity extends Module {
                 --grim_ticks;
             }
         }
-        if(mode.is("Intave")) {
+
+        if (mode.is("Intave")) {
             if(mc.thePlayer.isSwingInProgress) {
                 attacked = true;
             }
@@ -153,7 +184,7 @@ public class Velocity extends Module {
 
             attacked = false;
 
-            if(!mc.thePlayer.isSwingInProgress) {
+            if (!mc.thePlayer.isSwingInProgress) {
                 return;
             }
         }

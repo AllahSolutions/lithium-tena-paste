@@ -15,7 +15,6 @@ import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.font.AbstractFontRenderer;
 import dev.tenacity.utils.font.CustomFont;
 import dev.tenacity.utils.misc.RomanNumeralUtils;
-import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.render.*;
 import dev.tenacity.utils.server.PingerUtils;
 import dev.tenacity.utils.tuples.Pair;
@@ -32,7 +31,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;

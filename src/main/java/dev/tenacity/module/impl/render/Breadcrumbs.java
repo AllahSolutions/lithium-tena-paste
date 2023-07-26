@@ -175,7 +175,7 @@ public final class Breadcrumbs extends Module {
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
         GL11.glShadeModel(GL11.GL_SMOOTH);
-        GL11.glLineWidth(3);
+        GL11.glLineWidth(5);
         GL11.glBegin(GL11.GL_LINE_STRIP);
 
         boolean custom = colorMode.is("Custom") && this.color.isRainbow();

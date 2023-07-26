@@ -57,9 +57,7 @@ public final class KillAura extends Module {
             randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
-    public static BooleanSetting Fake = new BooleanSetting("Fake ab", false);
-            
-
+    public static BooleanSetting fakeAutoblock = new BooleanSetting("Fake AutoBlock", false);
 
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
@@ -151,7 +149,7 @@ public final class KillAura extends Module {
                 minTurnSpeed, maxTurnSpeed,
                 randomization,
 
-                targets, bypass, features,Fake, renders,
+                targets, bypass, features, fakeAutoblock, renders,
                 reverseSorting
         );
 

@@ -467,7 +467,7 @@ public class NewScaffold extends Module {
         if (mc.currentScreen != null) {
             return;
         }
-
+        
         event.setYaw(this.rots[0]);
         event.setPitch(this.rots[1]);
     }

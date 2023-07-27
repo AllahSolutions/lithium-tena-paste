@@ -32,7 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -106,6 +106,14 @@ public final class Flight extends Module {
             case "Vanilla":
                 e.setSpeed(MovementUtils.isMoving() ? horizontalSpeed.getValue().floatValue() : 0);
                 break;
+            case"Kokscraft Vanilla":
+                if(!shift) {
+                    e.setSpeed(MovementUtils.isMoving() ? 2 : 0);
+                }
+                if(shift) {
+                    e.setSpeed(0.1);
+                }
+                break;
 
             case "Damage":
                 if (timer.hasTimeElapsed(3000) ) {
@@ -168,6 +176,9 @@ public final class Flight extends Module {
         if (!mode.getMode().equals("Libercraft") && !mode.getMode().equals("Damage")) {
             mc.timer.timerSpeed = timerAmount.getValue().floatValue();
         }
+        if (mc.thePlayer.isUsingItem()) {
+            shift = true;
+        }
 
         switch (mode.getMode()) {
             case "Watchdog":
@@ -184,6 +195,54 @@ public final class Flight extends Module {
                         }
                     }
                 }
+                break;
+
+            case"Kokscraft Vanilla":
+                if(!shift) {
+                    mc.thePlayer.motionY = 0;
+                }
+                    if (mc.gameSettings.keyBindJump.isKeyDown()) {
+                        mc.thePlayer.motionY = 1;
+                    }
+                    if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+                        mc.thePlayer.motionY = -1;
+                    }
+                    if(shift) {
+                        if(mc.thePlayer.ticksExisted % 50 == 0){
+                      //  mc.thePlayer.setPosition(e.getX(),e.getY() + 1,e.getZ());
+                           mc.thePlayer.jump();
+                        }
+                        if(mc.thePlayer.ticksExisted % 2==0) {
+                            mc.gameSettings.keyBindForward.pressed = true;
+                        } else{
+                            mc.gameSettings.keyBindForward.pressed = false;
+                        }
+                        if(mc.thePlayer.ticksExisted % 3==0) {
+                            mc.gameSettings.keyBindBack.pressed = true;
+                        } else{
+                            mc.gameSettings.keyBindBack.pressed = false;
+                        }
+                        if(mc.thePlayer.ticksExisted % 4==0) {
+                            mc.gameSettings.keyBindRight.pressed = true;
+                        } else{
+                            mc.gameSettings.keyBindRight.pressed = false;
+                        }
+                        if(mc.thePlayer.ticksExisted % 5==0) {
+                            mc.gameSettings.keyBindLeft.pressed = true;
+                        } else{
+                            mc.gameSettings.keyBindLeft.pressed = false;
+                        }
+                        if(Flags >50) {
+                            ChatUtil.print("U can now disable fly");
+                        }
+
+                    } else{
+                        Flags = 0;
+                    }
+
+
+
+
                 break;
 
             case"Hypixckel":
@@ -222,10 +281,9 @@ public final class Flight extends Module {
 
 
 
+
             case "Vulcan Timer":
-                if (mc.gameSettings.keyBindSneak.isPressed()) {
-                    shift = true;
-                }
+
 
 
                 if (Flags>3) {
@@ -446,7 +504,13 @@ public final class Flight extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
-
+        if(mode.is("Kokscraft Vanilla")) {
+            if(!shift) {
+                if (event.getPacket() instanceof C03PacketPlayer) {
+                    event.cancel();
+                }
+            }
+        }
         if(mode.is("Vulcan Motion")) {
             if (event.getPacket() instanceof C03PacketPlayer) {
                 event.cancel();
@@ -483,6 +547,13 @@ public final class Flight extends Module {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
+        }
+
+        if(mode.is("Kokscraft Vanilla")) {
+            if(shift) {
+                final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+                event.setBoundingBox(axisAlignedBB);
+            }
         }
 
         if(mode.is("Hypixckel")) {
@@ -542,6 +613,15 @@ public final class Flight extends Module {
             }
         }
 
+        if(mode.is("Kokscraft Vanilla")) {
+            if(shift) {
+                if (e.getPacket() instanceof S08PacketPlayerPosLook) {
+                    e.cancel();
+                    Flags++;
+                }
+            }
+        }
+
         if(mode.is("Invaded")) {
             if (e.getPacket() instanceof S08PacketPlayerPosLook) {
                 Flags++;
@@ -594,6 +674,9 @@ public final class Flight extends Module {
         if (mode.is("VerusDMG")) {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
+        }
+        if(mode.is("Kokscraft Vanilla")) {
+          ChatUtil.print("right click to land");
         }
         gayY = Math.floor(mc.thePlayer.posY);
 
@@ -654,9 +737,10 @@ public final class Flight extends Module {
 
         if (mode.is("Vulcan Timer")) {
             mc.timer.timerSpeed = 1.0f;
-            shift = false;
+
 
         }
+
         hasDamaged = false;
         doFly = false;
         ticks = 0;
@@ -697,6 +781,14 @@ public final class Flight extends Module {
          MovementUtils.setSpeed(0);
 
         }
+        if(mode.is("Kokscraft Vanilla")) {
+            if(shift) {
+                mc.gameSettings.keyBindForward.pressed = false;
+                mc.gameSettings.keyBindBack.pressed = false;
+                mc.gameSettings.keyBindRight.pressed = false;
+                mc.gameSettings.keyBindLeft.pressed = false;
+            }
+        }
         if (mode.is("VerusDMG")) {
             mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SPRINTING));
             MovementUtils.setSpeed(0);
@@ -715,7 +807,7 @@ public final class Flight extends Module {
             mc.timer.timerSpeed = 1.0f;
 
         }
-        if (mode.is("Vanilla") || mode.is("Minemen") || mode.is("Old NCP") || mode.is("Watchdog")) {
+        if (mode.is("Vanilla") || mode.is("Minemen") || mode.is("Old NCP") || mode.is("Watchdog")|| mode.is("Kokscraft Vanilla")) {
             mc.thePlayer.motionX = mc.thePlayer.motionZ = 0;
         } else if (mode.is("Slime")) {
             mc.thePlayer.inventory.currentItem = slot;

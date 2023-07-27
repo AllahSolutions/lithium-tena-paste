@@ -47,14 +47,14 @@ public class ClickTP extends Module {
     @Override
     public void onPacketReceiveEvent(PacketReceiveEvent e) {
         if (mode.is("Cock")) {
-            if(hasclicked) {
+           // if(hasclicked) {
                 if (e.getPacket() instanceof S08PacketPlayerPosLook) {
 
                    // if(mc.thePlayer != null) {
                        e.cancel();
                    // }
                 }
-            }
+           // }
         }
         super.onPacketReceiveEvent(e);
     }
@@ -65,7 +65,7 @@ public class ClickTP extends Module {
             if(!hasclicked) {
                 if (event.getPacket() instanceof C00PacketKeepAlive || event.getPacket() instanceof C01PacketChatMessage || event.getPacket() instanceof C02PacketUseEntity || event.getPacket() instanceof C03PacketPlayer || event.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition || event.getPacket() instanceof C07PacketPlayerDigging || event.getPacket() instanceof C08PacketPlayerBlockPlacement || event.getPacket() instanceof C07PacketPlayerDigging || event.getPacket() instanceof C07PacketPlayerDigging) {
 
-                    event.cancel();
+                  //  event.cancel();
 
 
                 }

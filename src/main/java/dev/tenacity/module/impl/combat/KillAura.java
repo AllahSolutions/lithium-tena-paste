@@ -402,7 +402,7 @@ public final class KillAura extends Module {
                 }
                 case "Watchdog": {
                     if (mc.thePlayer.hurtTime >= 2) {
-                        block(shouldInteract);
+                        block(true);
                     } else {
                         unblock();
                     }

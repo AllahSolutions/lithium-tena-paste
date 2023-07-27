@@ -1,9 +1,9 @@
 package dev.tenacity.anticheat;
 
-import dev.tenacity.anticheat.checks.flight.FlightA;
-import dev.tenacity.anticheat.checks.flight.FlightB;
-import dev.tenacity.anticheat.checks.combat.ReachA;
-import dev.tenacity.anticheat.checks.phase.PhaseA;
+import dev.tenacity.anticheat.checks.move.flight.FlightACheck;
+import dev.tenacity.anticheat.checks.move.flight.FlightBCheck;
+import dev.tenacity.anticheat.checks.move.sprint.SprintACheck;
+import dev.tenacity.anticheat.checks.move.sprint.SprintBCheck;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,19 +15,11 @@ public class DetectionManager {
     public DetectionManager() {
         addDetections(
 
-                // Combat
-                new ReachA(),
-
                 // Movement
-                new FlightA(),
-                new FlightB(),
-                new PhaseA()
-
-                // Player
-
-                // Misc
-
-                // Exploit
+                new FlightACheck(),
+                new FlightBCheck(),
+                new SprintACheck(),
+                new SprintBCheck()
 
         );
     }

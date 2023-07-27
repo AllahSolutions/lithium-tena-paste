@@ -1,13 +1,13 @@
-package dev.tenacity.anticheat.checks.flight;
+package dev.tenacity.anticheat.checks.move.flight;
 
 import dev.tenacity.anticheat.Category;
 import dev.tenacity.anticheat.Detection;
 import dev.tenacity.anticheat.utils.MovementUtils;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class FlightB extends Detection {
+public class FlightBCheck extends Detection {
 
-    public FlightB() {
+    public FlightBCheck() {
         super("Flight B", Category.MOVEMENT);
     }
 

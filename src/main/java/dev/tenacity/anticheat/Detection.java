@@ -10,14 +10,12 @@ import net.minecraft.entity.player.EntityPlayer;
 public abstract class Detection implements Utils {
 
     private String name;
-    private Category type;
     private long lastViolated;
 
     protected double violations = 0.0D;
 
-    public Detection(String name, Category type) {
+    public Detection(String name) {
         this.name = name;
-        this.type = type;
     }
 
     public abstract boolean runCheck(EntityPlayer player);

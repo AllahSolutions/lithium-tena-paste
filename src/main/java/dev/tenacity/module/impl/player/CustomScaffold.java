@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.player;
 
+import com.sun.javafx.geom.Vec3d;
 import dev.tenacity.event.impl.game.TickEvent;
 import dev.tenacity.event.impl.player.LegitClick;
 import dev.tenacity.event.impl.player.MotionEvent;
@@ -7,8 +8,10 @@ import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.player.RotationUtils;
+import dev.tenacity.utils.player.scaffold.ScaffoldUtil;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.block.Block;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
@@ -31,6 +34,7 @@ public class CustomScaffold extends Module {
     }
 
     public float[] rotations, lastRotations;
+    public BlockPosition position, lastPosition;
 
     public CustomScaffold() {
         super("CustomScaffold", Category.PLAYER, "Automatically places blocks under you.");
@@ -73,6 +77,9 @@ public class CustomScaffold extends Module {
         );
     }
 
+
+
+
     @Override
     public void onTickEvent(TickEvent event) {
         this.calculateRotations();
@@ -94,7 +101,74 @@ public class CustomScaffold extends Module {
 
     @Override
     public void onLegitClick(LegitClick event) {
+
+
         super.onLegitClick(event);
+    }
+
+    public boolean canPlaceAt(BlockPosition position) {
+        BlockPosition test = new BlockPosition(position);
+
+        boolean flag = false;
+
+        for (int x = -1; x <= 1; x++) {
+            final BlockPosition check = position.add(x, 0, 0);
+
+            if (position.getX() == check.getX()) {
+                continue;
+            }
+
+            if (ScaffoldUtil.isValidBlock(check)) {
+                this.lastPosition = check;
+                flag = true;
+            }
+        }
+        for (int z = -1; z <= 1; z++) {
+            final BlockPosition check = test.add(0, 0, z);
+
+            if (position.getZ() == check.getZ()) {
+                continue;
+            }
+
+            if (ScaffoldUtil.isValidBlock(check)) {
+                this.lastPosition = check;
+                flag = true;
+            }
+        }
+
+        BlockPosition check = test.add(0, -1, 0);
+
+        if (ScaffoldUtil.isValidBlock(check)) {
+            this.lastPosition = check;
+            flag = true;
+        }
+
+        return flag;
+    }
+
+    public BlockPosition searchPosition(int radius, int yRadius) {
+        Vec3 bestPosition = null;
+
+        for (int x = -radius; x < radius; x++) { for (int y = -yRadius; y < 0; y++) { for (int z = -radius; z < radius; z++) {
+            Vec3 player = mc.thePlayer.getPositionVector().addVector(x, y, z);
+            BlockPosition position = new BlockPosition(player);
+
+            if (mc.theWorld.isAirBlock(position)) {
+                double radiusVal = (mc.thePlayer.onGround || ScaffoldUtil.isBlockUnder()) ? 0 : radius;
+
+                if (
+                        mc.thePlayer.getEntityBoundingBox().addCoord(0, -1, 0)
+                                .expand(radiusVal, 1, radiusVal)
+                                .isVecInside(new Vec3(player.xCoord, player.yCoord, player.zCoord))
+                ) {
+                    if (canPlaceAt(position) && bestPosition == null || player.distanceTo(mc.thePlayer.getPositionVector()) < bestPosition.distanceTo(mc.thePlayer.getPositionVector())) {
+                        bestPosition = player;
+                    }
+                }
+            }
+        }}}
+
+        return bestPosition != null ? new BlockPosition(bestPosition) : null;
     }
 
 }

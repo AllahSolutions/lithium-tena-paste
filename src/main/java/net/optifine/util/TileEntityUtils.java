@@ -2,16 +2,16 @@ package net.optifine.util;
 
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
 import net.optifine.reflect.Reflector;
 
 public class TileEntityUtils
 {
-    public static String getTileEntityName(IBlockAccess blockAccess, BlockPos blockPos)
+    public static String getTileEntityName(IBlockAccess blockAccess, BlockPosition blockPosition)
     {
-        TileEntity tileentity = blockAccess.getTileEntity(blockPos);
+        TileEntity tileentity = blockAccess.getTileEntity(blockPosition);
         return getTileEntityName(tileentity);
     }
 
@@ -31,7 +31,7 @@ public class TileEntityUtils
 
     public static void updateTileEntityName(TileEntity te)
     {
-        BlockPos blockpos = te.getPos();
+        BlockPosition blockpos = te.getPos();
         String s = getTileEntityRawName(te);
 
         if (s == null)
@@ -42,9 +42,9 @@ public class TileEntityUtils
         }
     }
 
-    public static String getServerTileEntityRawName(BlockPos blockPos)
+    public static String getServerTileEntityRawName(BlockPosition blockPosition)
     {
-        TileEntity tileentity = IntegratedServerUtils.getTileEntity(blockPos);
+        TileEntity tileentity = IntegratedServerUtils.getTileEntity(blockPosition);
         return tileentity == null ? null : getTileEntityRawName(tileentity);
     }
 

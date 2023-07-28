@@ -6,13 +6,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityDiggingFX extends EntityFX
 {
     private IBlockState sourceState;
-    private BlockPos sourcePos;
+    private BlockPosition sourcePos;
 
     protected EntityDiggingFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, IBlockState state)
     {
@@ -27,7 +27,7 @@ public class EntityDiggingFX extends EntityFX
     /**
      * Sets the position of the block that this particle came from. Used for calculating texture and color multiplier.
      */
-    public EntityDiggingFX setBlockPos(BlockPos pos)
+    public EntityDiggingFX setBlockPos(BlockPosition pos)
     {
         this.sourcePos = pos;
 
@@ -47,7 +47,7 @@ public class EntityDiggingFX extends EntityFX
 
     public EntityDiggingFX func_174845_l()
     {
-        this.sourcePos = new BlockPos(this.posX, this.posY, this.posZ);
+        this.sourcePos = new BlockPosition(this.posX, this.posY, this.posZ);
         Block block = this.sourceState.getBlock();
 
         if (block == Blocks.grass)

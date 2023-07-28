@@ -2,7 +2,7 @@ package net.optifine;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class RandomEntity implements IRandomEntity
         return j;
     }
 
-    public BlockPos getSpawnPosition()
+    public BlockPosition getSpawnPosition()
     {
         return this.entity.getDataWatcher().spawnPosition;
     }

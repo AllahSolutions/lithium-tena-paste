@@ -3,7 +3,7 @@ package net.minecraft.crash;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +22,10 @@ public class CrashReportCategory
 
     public static String getCoordinateInfo(double x, double y, double z)
     {
-        return String.format("%.2f,%.2f,%.2f - %s", x, y, z, getCoordinateInfo(new BlockPos(x, y, z)));
+        return String.format("%.2f,%.2f,%.2f - %s", x, y, z, getCoordinateInfo(new BlockPosition(x, y, z)));
     }
 
-    public static String getCoordinateInfo(BlockPos pos)
+    public static String getCoordinateInfo(BlockPosition pos)
     {
         int i = pos.getX();
         int j = pos.getY();
@@ -212,7 +212,7 @@ public class CrashReportCategory
         return this.stackTrace;
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData)
+    public static void addBlockInfo(CrashReportCategory category, final BlockPosition pos, final Block blockIn, final int blockData)
     {
         final int i = Block.getIdFromBlock(blockIn);
         category.addCrashSectionCallable("Block type", () -> {
@@ -239,7 +239,7 @@ public class CrashReportCategory
         category.addCrashSectionCallable("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state)
+    public static void addBlockInfo(CrashReportCategory category, final BlockPosition pos, final IBlockState state)
     {
         category.addCrashSectionCallable("Block", state::toString);
         category.addCrashSectionCallable("Block location", () -> CrashReportCategory.getCoordinateInfo(pos));

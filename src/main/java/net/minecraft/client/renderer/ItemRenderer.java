@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -110,7 +110,7 @@ public class ItemRenderer {
      * Set the OpenGL LightMapTextureCoords based on the AbstractClientPlayer
      */
     private void setLightMapFromPlayer(AbstractClientPlayer clientPlayer) {
-        int i = this.mc.theWorld.getCombinedLight(new BlockPos(clientPlayer.posX, clientPlayer.posY + (double) clientPlayer.getEyeHeight(), clientPlayer.posZ), 0);
+        int i = this.mc.theWorld.getCombinedLight(new BlockPosition(clientPlayer.posX, clientPlayer.posY + (double) clientPlayer.getEyeHeight(), clientPlayer.posZ), 0);
 
         if (Config.isDynamicLights()) {
             i = DynamicLights.getCombinedLight(this.mc.getRenderViewEntity(), i);
@@ -521,15 +521,15 @@ public class ItemRenderer {
         GlStateManager.disableAlpha();
 
         if (this.mc.thePlayer.isEntityInsideOpaqueBlock()) {
-            IBlockState iblockstate = this.mc.theWorld.getBlockState(new BlockPos(this.mc.thePlayer));
-            BlockPos blockpos = new BlockPos(this.mc.thePlayer);
+            IBlockState iblockstate = this.mc.theWorld.getBlockState(new BlockPosition(this.mc.thePlayer));
+            BlockPosition blockpos = new BlockPosition(this.mc.thePlayer);
             EntityPlayer entityplayer = this.mc.thePlayer;
 
             for (int i = 0; i < 8; ++i) {
                 double d0 = entityplayer.posX + (double) (((float) ((i >> 0) % 2) - 0.5F) * entityplayer.width * 0.8F);
                 double d1 = entityplayer.posY + (double) (((float) ((i >> 1) % 2) - 0.5F) * 0.1F);
                 double d2 = entityplayer.posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * entityplayer.width * 0.8F);
-                BlockPos blockpos1 = new BlockPos(d0, d1 + (double) entityplayer.getEyeHeight(), d2);
+                BlockPosition blockpos1 = new BlockPosition(d0, d1 + (double) entityplayer.getEyeHeight(), d2);
                 IBlockState iblockstate1 = this.mc.theWorld.getBlockState(blockpos1);
 
                 if (iblockstate1.getBlock().isVisuallyOpaque()) {

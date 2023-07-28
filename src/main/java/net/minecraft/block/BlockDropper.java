@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityDropper;
 import net.minecraft.tileentity.TileEntityHopper;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -29,7 +29,7 @@ public class BlockDropper extends BlockDispenser
         return new TileEntityDropper();
     }
 
-    protected void dispense(World worldIn, BlockPos pos)
+    protected void dispense(World worldIn, BlockPosition pos)
     {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
         TileEntityDispenser tileentitydispenser = (TileEntityDispenser)blocksourceimpl.getBlockTileEntity();
@@ -49,7 +49,7 @@ public class BlockDropper extends BlockDispenser
                 if (itemstack != null)
                 {
                     EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
-                    BlockPos blockpos = pos.offset(enumfacing);
+                    BlockPosition blockpos = pos.offset(enumfacing);
                     IInventory iinventory = TileEntityHopper.getInventoryAtPosition(worldIn, (double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
                     ItemStack itemstack1;
 

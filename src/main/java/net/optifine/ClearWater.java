@@ -7,7 +7,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.EmptyChunk;
@@ -62,15 +62,15 @@ public class ClearWater
                                     int l2 = j2 << 4;
                                     int i3 = k2 + 16;
                                     int j3 = l2 + 16;
-                                    BlockPosM blockposm = new BlockPosM(0, 0, 0);
-                                    BlockPosM blockposm1 = new BlockPosM(0, 0, 0);
+                                    BlockPositionM blockposm = new BlockPositionM(0, 0, 0);
+                                    BlockPositionM blockposm1 = new BlockPositionM(0, 0, 0);
 
                                     for (int k3 = k2; k3 < i3; ++k3)
                                     {
                                         for (int l3 = l2; l3 < j3; ++l3)
                                         {
                                             blockposm.setXyz(k3, 0, l3);
-                                            BlockPos blockpos = world.getPrecipitationHeight(blockposm);
+                                            BlockPosition blockpos = world.getPrecipitationHeight(blockposm);
 
                                             for (int i4 = 0; i4 < blockpos.getY(); ++i4)
                                             {

@@ -17,7 +17,6 @@
  */
 package de.florianmichael.viamcp.fixes;
 
-import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import de.florianmichael.viamcp.ViaMCP;
 import net.minecraft.block.Block;
@@ -29,7 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -39,7 +38,7 @@ public class FixedSoundEngine {
     /**
      * Fix for block breaking sounds on protocols above 1.8.x
      */
-    public static boolean destroyBlock(World world, BlockPos pos, boolean dropBlock) {
+    public static boolean destroyBlock(World world, BlockPosition pos, boolean dropBlock) {
         IBlockState iblockstate = world.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
@@ -65,7 +64,7 @@ public class FixedSoundEngine {
     /**
      * Fix for block placing sounds on protocols above 1.8.x
      */
-    public static boolean onItemUse(ItemBlock iblock, ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public static boolean onItemUse(ItemBlock iblock, ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();

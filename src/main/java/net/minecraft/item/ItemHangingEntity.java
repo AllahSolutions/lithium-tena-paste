@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class ItemHangingEntity extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (side == EnumFacing.DOWN)
         {
@@ -34,7 +34,7 @@ public class ItemHangingEntity extends Item
         }
         else
         {
-            BlockPos blockpos = pos.offset(side);
+            BlockPosition blockpos = pos.offset(side);
 
             if (!playerIn.canPlayerEdit(blockpos, side, stack))
             {
@@ -59,7 +59,7 @@ public class ItemHangingEntity extends Item
         }
     }
 
-    private EntityHanging createEntity(World worldIn, BlockPos pos, EnumFacing clickedSide)
+    private EntityHanging createEntity(World worldIn, BlockPosition pos, EnumFacing clickedSide)
     {
         return (EntityHanging)(this.hangingEntityClass == EntityPainting.class ? new EntityPainting(worldIn, pos, clickedSide) : (this.hangingEntityClass == EntityItemFrame.class ? new EntityItemFrame(worldIn, pos, clickedSide) : null));
     }

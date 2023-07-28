@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
@@ -21,7 +21,7 @@ public class ChunkCache implements IBlockAccess
     /** Reference to the World object. */
     protected World worldObj;
 
-    public ChunkCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn)
+    public ChunkCache(World worldIn, BlockPosition posFromIn, BlockPosition posToIn, int subIn)
     {
         this.worldObj = worldIn;
         this.chunkX = posFromIn.getX() - subIn >> 4;
@@ -61,14 +61,14 @@ public class ChunkCache implements IBlockAccess
         return this.hasExtendedLevels;
     }
 
-    public TileEntity getTileEntity(BlockPos pos)
+    public TileEntity getTileEntity(BlockPosition pos)
     {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
         return this.chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.IMMEDIATE);
     }
 
-    public int getCombinedLight(BlockPos pos, int lightValue)
+    public int getCombinedLight(BlockPosition pos, int lightValue)
     {
         int i = this.getLightForExt(EnumSkyBlock.SKY, pos);
         int j = this.getLightForExt(EnumSkyBlock.BLOCK, pos);
@@ -81,7 +81,7 @@ public class ChunkCache implements IBlockAccess
         return i << 20 | j << 4;
     }
 
-    public IBlockState getBlockState(BlockPos pos)
+    public IBlockState getBlockState(BlockPosition pos)
     {
         if (pos.getY() >= 0 && pos.getY() < 256)
         {
@@ -102,12 +102,12 @@ public class ChunkCache implements IBlockAccess
         return Blocks.air.getDefaultState();
     }
 
-    public BiomeGenBase getBiomeGenForCoords(BlockPos pos)
+    public BiomeGenBase getBiomeGenForCoords(BlockPosition pos)
     {
         return this.worldObj.getBiomeGenForCoords(pos);
     }
 
-    private int getLightForExt(EnumSkyBlock p_175629_1_, BlockPos pos)
+    private int getLightForExt(EnumSkyBlock p_175629_1_, BlockPosition pos)
     {
         if (p_175629_1_ == EnumSkyBlock.SKY && this.worldObj.provider.getHasNoSky())
         {
@@ -153,12 +153,12 @@ public class ChunkCache implements IBlockAccess
      * Checks to see if an air block exists at the provided location. Note that this only checks to see if the blocks
      * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
      */
-    public boolean isAirBlock(BlockPos pos)
+    public boolean isAirBlock(BlockPosition pos)
     {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.air;
     }
 
-    public int getLightFor(EnumSkyBlock p_175628_1_, BlockPos pos)
+    public int getLightFor(EnumSkyBlock p_175628_1_, BlockPosition pos)
     {
         if (pos.getY() >= 0 && pos.getY() < 256)
         {
@@ -172,7 +172,7 @@ public class ChunkCache implements IBlockAccess
         }
     }
 
-    public int getStrongPower(BlockPos pos, EnumFacing direction)
+    public int getStrongPower(BlockPosition pos, EnumFacing direction)
     {
         IBlockState iblockstate = this.getBlockState(pos);
         return iblockstate.getBlock().getStrongPower(this, pos, iblockstate, direction);

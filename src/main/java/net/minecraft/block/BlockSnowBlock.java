@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
@@ -36,7 +36,7 @@ public class BlockSnowBlock extends Block
         return 4;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11)
         {

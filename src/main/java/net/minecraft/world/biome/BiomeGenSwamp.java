@@ -4,7 +4,7 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -35,18 +35,18 @@ public class BiomeGenSwamp extends BiomeGenBase
         return this.worldGeneratorSwamp;
     }
 
-    public int getGrassColorAtPos(BlockPos pos)
+    public int getGrassColorAtPos(BlockPosition pos)
     {
         double d0 = GRASS_COLOR_NOISE.func_151601_a((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
         return d0 < -0.1D ? 5011004 : 6975545;
     }
 
-    public int getFoliageColorAtPos(BlockPos pos)
+    public int getFoliageColorAtPos(BlockPosition pos)
     {
         return 6975545;
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
+    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPosition pos)
     {
         return BlockFlower.EnumFlowerType.BLUE_ORCHID;
     }

@@ -8,7 +8,7 @@ import net.minecraft.network.play.server.S22PacketMultiBlockChange;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -156,7 +156,7 @@ public class PlayerManager
         return playermanager$playerinstance;
     }
 
-    public void markBlockForUpdate(BlockPos pos)
+    public void markBlockForUpdate(BlockPosition pos)
     {
         int i = pos.getX() >> 4;
         int j = pos.getZ() >> 4;
@@ -613,7 +613,7 @@ public class PlayerManager
                     int k1 = (this.locationOfBlockChange[0] >> 12 & 15) + this.chunkCoords.chunkXPos * 16;
                     int i2 = this.locationOfBlockChange[0] & 255;
                     int k2 = (this.locationOfBlockChange[0] >> 8 & 15) + this.chunkCoords.chunkZPos * 16;
-                    BlockPos blockpos = new BlockPos(k1, i2, k2);
+                    BlockPosition blockpos = new BlockPosition(k1, i2, k2);
                     this.sendToAllPlayersWatchingChunk(new S23PacketBlockChange(PlayerManager.this.theWorldServer, blockpos));
 
                     if (PlayerManager.this.theWorldServer.getBlockState(blockpos).getBlock().hasTileEntity())
@@ -630,7 +630,7 @@ public class PlayerManager
                         int l1 = (this.locationOfBlockChange[j1] >> 12 & 15) + this.chunkCoords.chunkXPos * 16;
                         int j2 = this.locationOfBlockChange[j1] & 255;
                         int l2 = (this.locationOfBlockChange[j1] >> 8 & 15) + this.chunkCoords.chunkZPos * 16;
-                        BlockPos blockpos1 = new BlockPos(l1, j2, l2);
+                        BlockPosition blockpos1 = new BlockPosition(l1, j2, l2);
 
                         if (PlayerManager.this.theWorldServer.getBlockState(blockpos1).getBlock().hasTileEntity())
                         {

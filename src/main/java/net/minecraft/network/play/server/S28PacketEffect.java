@@ -3,14 +3,14 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S28PacketEffect implements Packet<INetHandlerPlayClient>
 {
     private int soundType;
-    private BlockPos soundPos;
+    private BlockPosition soundPos;
 
     /** can be a block/item id or other depending on the soundtype */
     private int soundData;
@@ -22,7 +22,7 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient>
     {
     }
 
-    public S28PacketEffect(int soundTypeIn, BlockPos soundPosIn, int soundDataIn, boolean serverWideIn)
+    public S28PacketEffect(int soundTypeIn, BlockPosition soundPosIn, int soundDataIn, boolean serverWideIn)
     {
         this.soundType = soundTypeIn;
         this.soundPos = soundPosIn;
@@ -75,7 +75,7 @@ public class S28PacketEffect implements Packet<INetHandlerPlayClient>
         return this.soundData;
     }
 
-    public BlockPos getSoundPos()
+    public BlockPosition getSoundPos()
     {
         return this.soundPos;
     }

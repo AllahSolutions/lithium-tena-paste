@@ -6,7 +6,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -255,7 +255,7 @@ public class RandomEntityRule
         {
             if (this.heights != null)
             {
-                BlockPos blockpos = randomEntity.getSpawnPosition();
+                BlockPosition blockpos = randomEntity.getSpawnPosition();
 
                 if (blockpos != null && !this.heights.isInRange(blockpos.getY()))
                 {

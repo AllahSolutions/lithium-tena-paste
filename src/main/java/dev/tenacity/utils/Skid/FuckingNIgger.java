@@ -1,6 +1,6 @@
 package dev.tenacity.utils.Skid;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockChest;
@@ -8,17 +8,13 @@ import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import java.util.Comparator;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
 
 import java.util.Collections;
 import java.util.ArrayList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.entity.EntityLivingBase;
 import java.util.concurrent.ThreadLocalRandom;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+
 import net.minecraft.entity.Entity;
 
 public class FuckingNIgger {
@@ -460,12 +456,12 @@ public class FuckingNIgger {
         return new float[] { yaw, pitch };
     }
 
-    public float[] advancedScaffoldRots(final BlockPos blockPos, final double[] expandXZ, final float yaw, final float[] lastRots, final float yawSpeed, final float pitchSpeed) {
+    public float[] advancedScaffoldRots(final BlockPosition blockPosition, final double[] expandXZ, final float yaw, final float[] lastRots, final float yawSpeed, final float pitchSpeed) {
         final ArrayList<Float> yaws = new ArrayList<Float>();
         final ArrayList<Float> pitches = new ArrayList<Float>();
-        for (int bx = blockPos.getX(); bx <= blockPos.getX() + 1; ++bx) {
-            for (int bz = blockPos.getZ(); bz <= blockPos.getZ() + 1; ++bz) {
-                for (int by = blockPos.getY(); by <= blockPos.getY() + 1; ++by) {
+        for (int bx = blockPosition.getX(); bx <= blockPosition.getX() + 1; ++bx) {
+            for (int bz = blockPosition.getZ(); bz <= blockPosition.getZ() + 1; ++bz) {
+                for (int by = blockPosition.getY(); by <= blockPosition.getY() + 1; ++by) {
                     final double x = bx - FuckingNIgger.mc.thePlayer.posX;
                     final double z = bz - FuckingNIgger.mc.thePlayer.posZ;
                     final double y = by - (FuckingNIgger.mc.thePlayer.posY + FuckingNIgger.mc.thePlayer.getEyeHeight());
@@ -485,7 +481,7 @@ public class FuckingNIgger {
             if ((FuckingNIgger.mc.gameSettings.keyBindJump.isKeyDown() || !FuckingNIgger.mc.thePlayer.onGround) && FuckingNIgger.mc.thePlayer.moveForward != 0.0f) {
                 p = 0.65;
             }
-            return this.scaffoldRots(blockPos.getX() + expandXZ[0], blockPos.getY() + p, blockPos.getZ() + expandXZ[1], lastRots[0], lastRots[1], yawSpeed, pitchSpeed, false);
+            return this.scaffoldRots(blockPosition.getX() + expandXZ[0], blockPosition.getY() + p, blockPosition.getZ() + expandXZ[1], lastRots[0], lastRots[1], yawSpeed, pitchSpeed, false);
         }
         ArrayList<MovingObjectPosition> movingObjectPositions = new ArrayList<MovingObjectPosition>();
         ArrayList<MovingObjectPosition> movingObjectPositions2 = new ArrayList<MovingObjectPosition>();
@@ -503,7 +499,7 @@ public class FuckingNIgger {
         if (movingObjectPositions.size() > 0) {
             k = movingObjectPositions.get(0);
         }
-        BlockPos b = new BlockPos(FuckingNIgger.mc.thePlayer.posX, FuckingNIgger.mc.thePlayer.posY - 1.0, FuckingNIgger.mc.thePlayer.posZ);
+        BlockPosition b = new BlockPosition(FuckingNIgger.mc.thePlayer.posX, FuckingNIgger.mc.thePlayer.posY - 1.0, FuckingNIgger.mc.thePlayer.posZ);
         if (FuckingNIgger.mc.theWorld.getBlockState(b).getBlock().getMaterial() == Material.air && k != null) {
             final float[] f = this.scaffoldRots(k.hitVec.xCoord, k.getBlockPos().getY() + RandomUtil.nextDouble(0.45, 0.55), k.hitVec.zCoord, lastRots[0], lastRots[1], yawSpeed, pitchSpeed, false);
             return new float[] { yaw, f[1] };
@@ -527,7 +523,7 @@ public class FuckingNIgger {
         if (movingObjectPositions.size() > 0) {
             k = movingObjectPositions.get(0);
         }
-        b = new BlockPos(FuckingNIgger.mc.thePlayer.posX, FuckingNIgger.mc.thePlayer.posY - 1.0, FuckingNIgger.mc.thePlayer.posZ);
+        b = new BlockPosition(FuckingNIgger.mc.thePlayer.posX, FuckingNIgger.mc.thePlayer.posY - 1.0, FuckingNIgger.mc.thePlayer.posZ);
         if (FuckingNIgger.mc.theWorld.getBlockState(b).getBlock().getMaterial() == Material.air && k != null) {
             final float[] f = this.scaffoldRots(k.hitVec.xCoord, k.getBlockPos().getY() + RandomUtil.nextDouble(0.45, 0.55), k.hitVec.zCoord, lastRots[0], lastRots[1], yawSpeed, pitchSpeed, false);
             return new float[] { yaw, f[1] };
@@ -538,8 +534,8 @@ public class FuckingNIgger {
         return lastRots;
     }
 
-    private boolean isOkBlock(final BlockPos blockPos) {
-        final Block block = FuckingNIgger.mc.theWorld.getBlockState(blockPos).getBlock();
+    private boolean isOkBlock(final BlockPosition blockPosition) {
+        final Block block = FuckingNIgger.mc.theWorld.getBlockState(blockPosition).getBlock();
         return !(block instanceof BlockLiquid) && !(block instanceof BlockAir) && !(block instanceof BlockChest) && !(block instanceof BlockFurnace);
     }
 

@@ -200,13 +200,13 @@ public class WorldServer extends World implements IThreadListener
         this.sendQueuedBlockEvents();
     }
 
-    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPos pos)
+    public BiomeGenBase.SpawnListEntry getSpawnListEntryForTypeAt(EnumCreatureType creatureType, BlockPosition pos)
     {
         List<BiomeGenBase.SpawnListEntry> list = this.getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() ? (BiomeGenBase.SpawnListEntry)WeightedRandom.getRandomItem(this.rand, list) : null;
     }
 
-    public boolean canCreatureTypeSpawnHere(EnumCreatureType creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPos pos)
+    public boolean canCreatureTypeSpawnHere(EnumCreatureType creatureType, BiomeGenBase.SpawnListEntry spawnListEntry, BlockPosition pos)
     {
         List<BiomeGenBase.SpawnListEntry> list = this.getChunkProvider().getPossibleCreatures(creatureType, pos);
         return list != null && !list.isEmpty() ? list.contains(spawnListEntry) : false;
@@ -297,7 +297,7 @@ public class WorldServer extends World implements IThreadListener
         int j = this.worldInfo.getSpawnZ();
         int k = 0;
 
-        while (this.getGroundAboveSeaLevel(new BlockPos(i, 0, j)).getMaterial() == Material.air)
+        while (this.getGroundAboveSeaLevel(new BlockPosition(i, 0, j)).getMaterial() == Material.air)
         {
             i += this.rand.nextInt(8) - this.rand.nextInt(8);
             j += this.rand.nextInt(8) - this.rand.nextInt(8);
@@ -344,7 +344,7 @@ public class WorldServer extends World implements IThreadListener
                 {
                     this.updateLCG = this.updateLCG * 3 + 1013904223;
                     int i1 = this.updateLCG >> 2;
-                    BlockPos blockpos = this.adjustPosToNearbyEntity(new BlockPos(k + (i1 & 15), 0, l + (i1 >> 8 & 15)));
+                    BlockPosition blockpos = this.adjustPosToNearbyEntity(new BlockPosition(k + (i1 & 15), 0, l + (i1 >> 8 & 15)));
 
                     if (this.isRainingAt(blockpos))
                     {
@@ -358,8 +358,8 @@ public class WorldServer extends World implements IThreadListener
                 {
                     this.updateLCG = this.updateLCG * 3 + 1013904223;
                     int k2 = this.updateLCG >> 2;
-                    BlockPos blockpos2 = this.getPrecipitationHeight(new BlockPos(k + (k2 & 15), 0, l + (k2 >> 8 & 15)));
-                    BlockPos blockpos1 = blockpos2.down();
+                    BlockPosition blockpos2 = this.getPrecipitationHeight(new BlockPosition(k + (k2 & 15), 0, l + (k2 >> 8 & 15)));
+                    BlockPosition blockpos1 = blockpos2.down();
 
                     if (this.canBlockFreezeNoWater(blockpos1))
                     {
@@ -400,7 +400,7 @@ public class WorldServer extends World implements IThreadListener
                                 if (block.getTickRandomly())
                                 {
                                     ++i;
-                                    block.randomTick(this, new BlockPos(l1 + k, j2 + extendedblockstorage.getYLocation(), i2 + l), iblockstate, this.rand);
+                                    block.randomTick(this, new BlockPosition(l1 + k, j2 + extendedblockstorage.getYLocation(), i2 + l), iblockstate, this.rand);
                                 }
                             }
                         }
@@ -412,10 +412,10 @@ public class WorldServer extends World implements IThreadListener
         }
     }
 
-    protected BlockPos adjustPosToNearbyEntity(BlockPos pos)
+    protected BlockPosition adjustPosToNearbyEntity(BlockPosition pos)
     {
-        BlockPos blockpos = this.getPrecipitationHeight(pos);
-        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPos(blockpos.getX(), this.getHeight(), blockpos.getZ()))).expand(3.0D, 3.0D, 3.0D);
+        BlockPosition blockpos = this.getPrecipitationHeight(pos);
+        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos, new BlockPosition(blockpos.getX(), this.getHeight(), blockpos.getZ()))).expand(3.0D, 3.0D, 3.0D);
         List<EntityLivingBase> list = this.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, new Predicate<EntityLivingBase>()
         {
             public boolean apply(EntityLivingBase p_apply_1_)
@@ -426,18 +426,18 @@ public class WorldServer extends World implements IThreadListener
         return !list.isEmpty() ? ((EntityLivingBase)list.get(this.rand.nextInt(list.size()))).getPosition() : blockpos;
     }
 
-    public boolean isBlockTickPending(BlockPos pos, Block blockType)
+    public boolean isBlockTickPending(BlockPosition pos, Block blockType)
     {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockType);
         return this.pendingTickListEntriesThisTick.contains(nextticklistentry);
     }
 
-    public void scheduleUpdate(BlockPos pos, Block blockIn, int delay)
+    public void scheduleUpdate(BlockPosition pos, Block blockIn, int delay)
     {
         this.updateBlockTick(pos, blockIn, delay, 0);
     }
 
-    public void updateBlockTick(BlockPos pos, Block blockIn, int delay, int priority)
+    public void updateBlockTick(BlockPosition pos, Block blockIn, int delay, int priority)
     {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         int i = 0;
@@ -480,7 +480,7 @@ public class WorldServer extends World implements IThreadListener
         }
     }
 
-    public void scheduleBlockUpdate(BlockPos pos, Block blockIn, int delay, int priority)
+    public void scheduleBlockUpdate(BlockPosition pos, Block blockIn, int delay, int priority)
     {
         NextTickListEntry nextticklistentry = new NextTickListEntry(pos, blockIn);
         nextticklistentry.setPriority(priority);
@@ -635,7 +635,7 @@ public class WorldServer extends World implements IThreadListener
             while (iterator.hasNext())
             {
                 NextTickListEntry nextticklistentry = (NextTickListEntry)iterator.next();
-                BlockPos blockpos = nextticklistentry.position;
+                BlockPosition blockpos = nextticklistentry.position;
 
                 if (blockpos.getX() >= structureBB.minX && blockpos.getX() < structureBB.maxX && blockpos.getZ() >= structureBB.minZ && blockpos.getZ() < structureBB.maxZ)
                 {
@@ -704,7 +704,7 @@ public class WorldServer extends World implements IThreadListener
         for (int i = 0; i < this.loadedTileEntityList.size(); ++i)
         {
             TileEntity tileentity = (TileEntity)this.loadedTileEntityList.get(i);
-            BlockPos blockpos = tileentity.getPos();
+            BlockPosition blockpos = tileentity.getPos();
 
             if (blockpos.getX() >= minX && blockpos.getY() >= minY && blockpos.getZ() >= minZ && blockpos.getX() < maxX && blockpos.getY() < maxY && blockpos.getZ() < maxZ)
             {
@@ -715,7 +715,7 @@ public class WorldServer extends World implements IThreadListener
         return list;
     }
 
-    public boolean isBlockModifiable(EntityPlayer player, BlockPos pos)
+    public boolean isBlockModifiable(EntityPlayer player, BlockPosition pos)
     {
         return !this.mcServer.isBlockProtected(this, pos, player) && this.getWorldBorder().contains(pos);
     }
@@ -777,11 +777,11 @@ public class WorldServer extends World implements IThreadListener
     {
         if (!this.provider.canRespawnHere())
         {
-            this.worldInfo.setSpawn(BlockPos.ORIGIN.up(this.provider.getAverageGroundLevel()));
+            this.worldInfo.setSpawn(BlockPosition.ORIGIN.up(this.provider.getAverageGroundLevel()));
         }
         else if (this.worldInfo.getTerrainType() == WorldType.DEBUG_WORLD)
         {
-            this.worldInfo.setSpawn(BlockPos.ORIGIN.up());
+            this.worldInfo.setSpawn(BlockPosition.ORIGIN.up());
         }
         else
         {
@@ -789,7 +789,7 @@ public class WorldServer extends World implements IThreadListener
             WorldChunkManager worldchunkmanager = this.provider.getWorldChunkManager();
             List<BiomeGenBase> list = worldchunkmanager.getBiomesToSpawnIn();
             Random random = new Random(this.getSeed());
-            BlockPos blockpos = worldchunkmanager.findBiomePosition(0, 0, 256, list, random);
+            BlockPosition blockpos = worldchunkmanager.findBiomePosition(0, 0, 256, list, random);
             int i = 0;
             int j = this.provider.getAverageGroundLevel();
             int k = 0;
@@ -818,7 +818,7 @@ public class WorldServer extends World implements IThreadListener
                 }
             }
 
-            this.worldInfo.setSpawn(new BlockPos(i, j, k));
+            this.worldInfo.setSpawn(new BlockPosition(i, j, k));
             this.findingSpawnPoint = false;
 
             if (settings.isBonusChestEnabled())
@@ -839,7 +839,7 @@ public class WorldServer extends World implements IThreadListener
         {
             int j = this.worldInfo.getSpawnX() + this.rand.nextInt(6) - this.rand.nextInt(6);
             int k = this.worldInfo.getSpawnZ() + this.rand.nextInt(6) - this.rand.nextInt(6);
-            BlockPos blockpos = this.getTopSolidOrLiquidBlock(new BlockPos(j, 0, k)).up();
+            BlockPosition blockpos = this.getTopSolidOrLiquidBlock(new BlockPosition(j, 0, k)).up();
 
             if (worldgeneratorbonuschest.generate(this, this.rand, blockpos))
             {
@@ -851,7 +851,7 @@ public class WorldServer extends World implements IThreadListener
     /**
      * Returns null for anything other than the End
      */
-    public BlockPos getSpawnCoordinate()
+    public BlockPosition getSpawnCoordinate()
     {
         return this.provider.getSpawnCoordinate();
     }
@@ -998,7 +998,7 @@ public class WorldServer extends World implements IThreadListener
         return explosion;
     }
 
-    public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam)
+    public void addBlockEvent(BlockPosition pos, Block blockIn, int eventID, int eventParam)
     {
         BlockEventData blockeventdata = new BlockEventData(pos, blockIn, eventID, eventParam);
 
@@ -1126,7 +1126,7 @@ public class WorldServer extends World implements IThreadListener
         for (int i = 0; i < this.playerEntities.size(); ++i)
         {
             EntityPlayerMP entityplayermp = (EntityPlayerMP)this.playerEntities.get(i);
-            BlockPos blockpos = entityplayermp.getPosition();
+            BlockPosition blockpos = entityplayermp.getPosition();
             double d0 = blockpos.distanceSq(xCoord, yCoord, zCoord);
 
             if (d0 <= 256.0D || longDistance && d0 <= 65536.0D)

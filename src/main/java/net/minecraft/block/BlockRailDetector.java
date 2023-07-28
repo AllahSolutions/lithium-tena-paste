@@ -12,7 +12,7 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -58,7 +58,7 @@ public class BlockRailDetector extends BlockRailBase
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {
@@ -72,11 +72,11 @@ public class BlockRailDetector extends BlockRailBase
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote && ((Boolean)state.getValue(POWERED)).booleanValue())
         {
@@ -84,17 +84,17 @@ public class BlockRailDetector extends BlockRailBase
         }
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return ((Boolean)state.getValue(POWERED)).booleanValue() ? 15 : 0;
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return !((Boolean)state.getValue(POWERED)).booleanValue() ? 0 : (side == EnumFacing.UP ? 15 : 0);
     }
 
-    private void updatePoweredState(World worldIn, BlockPos pos, IBlockState state)
+    private void updatePoweredState(World worldIn, BlockPosition pos, IBlockState state)
     {
         boolean flag = ((Boolean)state.getValue(POWERED)).booleanValue();
         boolean flag1 = false;
@@ -129,7 +129,7 @@ public class BlockRailDetector extends BlockRailBase
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
         this.updatePoweredState(worldIn, pos, state);
@@ -145,7 +145,7 @@ public class BlockRailDetector extends BlockRailBase
         return true;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
+    public int getComparatorInputOverride(World worldIn, BlockPosition pos)
     {
         if (((Boolean)worldIn.getBlockState(pos).getValue(POWERED)).booleanValue())
         {
@@ -167,13 +167,13 @@ public class BlockRailDetector extends BlockRailBase
         return 0;
     }
 
-    protected <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPos pos, Class<T> clazz, Predicate<Entity>... filter)
+    protected <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPosition pos, Class<T> clazz, Predicate<Entity>... filter)
     {
         AxisAlignedBB axisalignedbb = this.getDectectionBox(pos);
         return filter.length != 1 ? worldIn.getEntitiesWithinAABB(clazz, axisalignedbb) : worldIn.getEntitiesWithinAABB(clazz, axisalignedbb, filter[0]);
     }
 
-    private AxisAlignedBB getDectectionBox(BlockPos pos)
+    private AxisAlignedBB getDectectionBox(BlockPosition pos)
     {
         float f = 0.2F;
         return new AxisAlignedBB((double)((float)pos.getX() + 0.2F), (double)pos.getY(), (double)((float)pos.getZ() + 0.2F), (double)((float)(pos.getX() + 1) - 0.2F), (double)((float)(pos.getY() + 1) - 0.2F), (double)((float)(pos.getZ() + 1) - 0.2F));

@@ -25,9 +25,9 @@ public class BlockCactus extends Block
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
-        BlockPos blockpos = pos.up();
+        BlockPosition blockpos = pos.up();
 
         if (worldIn.isAirBlock(blockpos))
         {
@@ -57,13 +57,13 @@ public class BlockCactus extends Block
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         float f = 0.0625F;
         return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)((float)(pos.getY() + 1) - f), (double)((float)(pos.getZ() + 1) - f));
     }
 
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPosition pos)
     {
         float f = 0.0625F;
         return new AxisAlignedBB((double)((float)pos.getX() + f), (double)pos.getY(), (double)((float)pos.getZ() + f), (double)((float)(pos.getX() + 1) - f), (double)(pos.getY() + 1), (double)((float)(pos.getZ() + 1) - f));
@@ -82,7 +82,7 @@ public class BlockCactus extends Block
         return false;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
     }
@@ -90,7 +90,7 @@ public class BlockCactus extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!this.canBlockStay(worldIn, pos))
         {
@@ -98,7 +98,7 @@ public class BlockCactus extends Block
         }
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos)
+    public boolean canBlockStay(World worldIn, BlockPosition pos)
     {
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
         {
@@ -115,7 +115,7 @@ public class BlockCactus extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         entityIn.attackEntityFrom(DamageSource.cactus, 1.0F);
     }

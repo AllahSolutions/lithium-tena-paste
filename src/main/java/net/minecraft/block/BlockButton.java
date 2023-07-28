@@ -12,7 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,7 +35,7 @@ public abstract class BlockButton extends Block
         this.wooden = wooden;
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -64,12 +64,12 @@ public abstract class BlockButton extends Block
     /**
      * Check whether this Block can be placed on the given side
      */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side)
     {
         return func_181088_a(worldIn, pos, side.getOpposite());
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
@@ -82,9 +82,9 @@ public abstract class BlockButton extends Block
         return false;
     }
 
-    protected static boolean func_181088_a(World p_181088_0_, BlockPos p_181088_1_, EnumFacing p_181088_2_)
+    protected static boolean func_181088_a(World p_181088_0_, BlockPosition p_181088_1_, EnumFacing p_181088_2_)
     {
-        BlockPos blockpos = p_181088_1_.offset(p_181088_2_);
+        BlockPosition blockpos = p_181088_1_.offset(p_181088_2_);
         return p_181088_2_ == EnumFacing.DOWN ? World.doesBlockHaveSolidTopSurface(p_181088_0_, blockpos) : p_181088_0_.getBlockState(blockpos).getBlock().isNormalCube();
     }
 
@@ -92,7 +92,7 @@ public abstract class BlockButton extends Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return func_181088_a(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(FACING, facing).withProperty(POWERED, Boolean.valueOf(false)) : this.getDefaultState().withProperty(FACING, EnumFacing.DOWN).withProperty(POWERED, Boolean.valueOf(false));
     }
@@ -100,7 +100,7 @@ public abstract class BlockButton extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (this.checkForDrop(worldIn, pos, state) && !func_181088_a(worldIn, pos, ((EnumFacing)state.getValue(FACING)).getOpposite()))
         {
@@ -109,7 +109,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+    private boolean checkForDrop(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (this.canPlaceBlockAt(worldIn, pos))
         {
@@ -123,7 +123,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.updateBlockBounds(worldIn.getBlockState(pos));
     }
@@ -165,7 +165,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (((Boolean)state.getValue(POWERED)).booleanValue())
         {
@@ -182,7 +182,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (((Boolean)state.getValue(POWERED)).booleanValue())
         {
@@ -192,12 +192,12 @@ public abstract class BlockButton extends Block
         super.breakBlock(worldIn, pos, state);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return ((Boolean)state.getValue(POWERED)).booleanValue() ? 15 : 0;
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return !((Boolean)state.getValue(POWERED)).booleanValue() ? 0 : (state.getValue(FACING) == side ? 15 : 0);
     }
@@ -213,11 +213,11 @@ public abstract class BlockButton extends Block
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -252,7 +252,7 @@ public abstract class BlockButton extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {
@@ -266,7 +266,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    private void checkForArrows(World worldIn, BlockPos pos, IBlockState state)
+    private void checkForArrows(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.updateBlockBounds(state);
         List <? extends Entity > list = worldIn.<Entity>getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB((double)pos.getX() + this.minX, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ, (double)pos.getX() + this.maxX, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ));
@@ -295,7 +295,7 @@ public abstract class BlockButton extends Block
         }
     }
 
-    private void notifyNeighbors(World worldIn, BlockPos pos, EnumFacing facing)
+    private void notifyNeighbors(World worldIn, BlockPosition pos, EnumFacing facing)
     {
         worldIn.notifyNeighborsOfStateChange(pos, this);
         worldIn.notifyNeighborsOfStateChange(pos.offset(facing.getOpposite()), this);

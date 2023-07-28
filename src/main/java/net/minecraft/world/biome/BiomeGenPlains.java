@@ -3,7 +3,7 @@ package net.minecraft.world.biome;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -23,7 +23,7 @@ public class BiomeGenPlains extends BiomeGenBase
         this.theBiomeDecorator.grassPerChunk = 10;
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
+    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPosition pos)
     {
         double d0 = GRASS_COLOR_NOISE.func_151601_a((double)pos.getX() / 200.0D, (double)pos.getZ() / 200.0D);
 
@@ -58,7 +58,7 @@ public class BiomeGenPlains extends BiomeGenBase
         }
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         double d0 = GRASS_COLOR_NOISE.func_151601_a((double)(pos.getX() + 8) / 200.0D, (double)(pos.getZ() + 8) / 200.0D);
 

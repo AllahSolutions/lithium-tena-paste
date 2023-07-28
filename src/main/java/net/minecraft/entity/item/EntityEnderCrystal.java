@@ -3,7 +3,7 @@ package net.minecraft.entity.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -58,9 +58,9 @@ public class EntityEnderCrystal extends Entity
         int j = MathHelper.floor_double(this.posY);
         int k = MathHelper.floor_double(this.posZ);
 
-        if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock() != Blocks.fire)
+        if (this.worldObj.provider instanceof WorldProviderEnd && this.worldObj.getBlockState(new BlockPosition(i, j, k)).getBlock() != Blocks.fire)
         {
-            this.worldObj.setBlockState(new BlockPos(i, j, k), Blocks.fire.getDefaultState());
+            this.worldObj.setBlockState(new BlockPosition(i, j, k), Blocks.fire.getDefaultState());
         }
     }
 

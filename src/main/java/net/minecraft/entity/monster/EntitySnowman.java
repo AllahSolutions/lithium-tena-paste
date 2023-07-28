@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -57,7 +57,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob
                 this.attackEntityFrom(DamageSource.drown, 1.0F);
             }
 
-            if (this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(new BlockPos(i, j, k)) > 1.0F)
+            if (this.worldObj.getBiomeGenForCoords(new BlockPosition(i, 0, k)).getFloatTemperature(new BlockPosition(i, j, k)) > 1.0F)
             {
                 this.attackEntityFrom(DamageSource.onFire, 1.0F);
             }
@@ -67,9 +67,9 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob
                 i = MathHelper.floor_double(this.posX + (double)((float)(l % 2 * 2 - 1) * 0.25F));
                 j = MathHelper.floor_double(this.posY);
                 k = MathHelper.floor_double(this.posZ + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-                BlockPos blockpos = new BlockPos(i, j, k);
+                BlockPosition blockpos = new BlockPosition(i, j, k);
 
-                if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.air && this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.snow_layer.canPlaceBlockAt(this.worldObj, blockpos))
+                if (this.worldObj.getBlockState(blockpos).getBlock().getMaterial() == Material.air && this.worldObj.getBiomeGenForCoords(new BlockPosition(i, 0, k)).getFloatTemperature(blockpos) < 0.8F && Blocks.snow_layer.canPlaceBlockAt(this.worldObj, blockpos))
                 {
                     this.worldObj.setBlockState(blockpos, Blocks.snow_layer.getDefaultState());
                 }

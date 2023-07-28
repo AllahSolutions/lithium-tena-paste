@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public class BlockEnchantmentTable extends BlockContainer
         return false;
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         super.randomDisplayTick(worldIn, pos, state, rand);
 
@@ -49,7 +49,7 @@ public class BlockEnchantmentTable extends BlockContainer
                 {
                     for (int k = 0; k <= 1; ++k)
                     {
-                        BlockPos blockpos = pos.add(i, k, j);
+                        BlockPosition blockpos = pos.add(i, k, j);
 
                         if (worldIn.getBlockState(blockpos).getBlock() == Blocks.bookshelf)
                         {
@@ -90,7 +90,7 @@ public class BlockEnchantmentTable extends BlockContainer
         return new TileEntityEnchantmentTable();
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -112,7 +112,7 @@ public class BlockEnchantmentTable extends BlockContainer
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 

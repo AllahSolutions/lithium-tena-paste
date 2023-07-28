@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
-import com.google.common.eventbus.EventBus;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -14,7 +13,6 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.EventProtocol;
 import dev.tenacity.event.impl.game.*;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.impl.render.ClickGUIMod;
@@ -1306,7 +1304,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
         if (this.leftClickCounter <= 0 && !this.thePlayer.isUsingItem()) {
             if (leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                BlockPos blockpos = this.objectMouseOver.getBlockPos();
+                BlockPosition blockpos = this.objectMouseOver.getBlockPos();
 
                 if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air && this.playerController.onPlayerDamageBlock(blockpos, this.objectMouseOver.sideHit)) {
                     this.effectRenderer.addBlockHitEffects(blockpos, this.objectMouseOver.sideHit);
@@ -1340,7 +1338,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         break;
 
                     case BLOCK:
-                        BlockPos blockpos = this.objectMouseOver.getBlockPos();
+                        BlockPosition blockpos = this.objectMouseOver.getBlockPos();
 
                         if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
                             this.playerController.clickBlock(blockpos, this.objectMouseOver.sideHit);
@@ -1379,7 +1377,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         break;
 
                     case BLOCK:
-                        BlockPos blockpos = this.objectMouseOver.getBlockPos();
+                        BlockPosition blockpos = this.objectMouseOver.getBlockPos();
 
                         if (this.theWorld.getBlockState(blockpos).getBlock().getMaterial() != Material.air) {
                             int i = itemstack != null ? itemstack.stackSize : 0;
@@ -2199,7 +2197,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             Item item;
 
             if (this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                BlockPos blockpos = this.objectMouseOver.getBlockPos();
+                BlockPosition blockpos = this.objectMouseOver.getBlockPos();
                 Block block = this.theWorld.getBlockState(blockpos).getBlock();
 
                 if (block.getMaterial() == Material.air) {

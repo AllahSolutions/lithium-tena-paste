@@ -4,7 +4,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ public class BlockWallSign extends BlockSign
     }
 
     @SuppressWarnings("incomplete-switch")
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
         float f = 0.28125F;
@@ -51,7 +51,7 @@ public class BlockWallSign extends BlockSign
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 

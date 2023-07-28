@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.ColorizerFoliage;
@@ -46,12 +46,12 @@ public abstract class BlockLeaves extends BlockLeavesBase
         return ColorizerFoliage.getFoliageColorBasic();
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         return BiomeColorHelper.getFoliageColorAtPos(worldIn, pos);
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         int i = 1;
         int j = i + 1;
@@ -59,7 +59,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
         int l = pos.getY();
         int i1 = pos.getZ();
 
-        if (worldIn.isAreaLoaded(new BlockPos(k - j, l - j, i1 - j), new BlockPos(k + j, l + j, i1 + j)))
+        if (worldIn.isAreaLoaded(new BlockPosition(k - j, l - j, i1 - j), new BlockPosition(k + j, l + j, i1 + j)))
         {
             for (int j1 = -i; j1 <= i; ++j1)
             {
@@ -67,7 +67,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
                 {
                     for (int l1 = -i; l1 <= i; ++l1)
                     {
-                        BlockPos blockpos = pos.add(j1, k1, l1);
+                        BlockPosition blockpos = pos.add(j1, k1, l1);
                         IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
                         if (iblockstate.getBlock().getMaterial() == Material.leaves && !((Boolean)iblockstate.getValue(CHECK_DECAY)).booleanValue())
@@ -80,7 +80,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -100,9 +100,9 @@ public abstract class BlockLeaves extends BlockLeavesBase
                     this.surroundings = new int[j1 * j1 * j1];
                 }
 
-                if (worldIn.isAreaLoaded(new BlockPos(k - j, l - j, i1 - j), new BlockPos(k + j, l + j, i1 + j)))
+                if (worldIn.isAreaLoaded(new BlockPosition(k - j, l - j, i1 - j), new BlockPosition(k + j, l + j, i1 + j)))
                 {
-                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                    BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                     for (int i2 = -i; i2 <= i; ++i2)
                     {
@@ -191,7 +191,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
         }
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (worldIn.isRainingAt(pos.up()) && !World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && rand.nextInt(15) == 1)
         {
@@ -202,7 +202,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
         }
     }
 
-    private void destroy(World worldIn, BlockPos pos)
+    private void destroy(World worldIn, BlockPosition pos)
     {
         this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
         worldIn.setBlockToAir(pos);
@@ -227,7 +227,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         if (!worldIn.isRemote)
         {
@@ -265,7 +265,7 @@ public abstract class BlockLeaves extends BlockLeavesBase
         }
     }
 
-    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance)
+    protected void dropApple(World worldIn, BlockPosition pos, IBlockState state, int chance)
     {
     }
 

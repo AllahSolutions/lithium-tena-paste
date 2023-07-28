@@ -1,7 +1,7 @@
 package net.minecraft.world;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -106,7 +106,7 @@ public abstract class WorldProvider
      */
     public boolean canCoordinateBeSpawn(int x, int z)
     {
-        return this.worldObj.getGroundAboveSeaLevel(new BlockPos(x, 0, z)) == Blocks.grass;
+        return this.worldObj.getGroundAboveSeaLevel(new BlockPosition(x, 0, z)) == Blocks.grass;
     }
 
     /**
@@ -213,7 +213,7 @@ public abstract class WorldProvider
         return true;
     }
 
-    public BlockPos getSpawnCoordinate()
+    public BlockPosition getSpawnCoordinate()
     {
         return null;
     }

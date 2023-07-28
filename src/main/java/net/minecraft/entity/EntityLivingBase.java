@@ -18,7 +18,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -293,7 +292,7 @@ public abstract class EntityLivingBase extends Entity {
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.movementSpeed);
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos) {
         if (!this.isInWater()) {
             this.handleWaterMovement();
         }
@@ -1038,7 +1037,7 @@ public abstract class EntityLivingBase extends Entity {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor_double(this.posZ);
-        Block block = this.worldObj.getBlockState(new BlockPos(i, j, k)).getBlock();
+        Block block = this.worldObj.getBlockState(new BlockPosition(i, j, k)).getBlock();
         return (block == Blocks.ladder || block == Blocks.vine) && (!(this instanceof EntityPlayer) || !((EntityPlayer) this).isSpectator());
     }
 
@@ -1061,7 +1060,7 @@ public abstract class EntityLivingBase extends Entity {
             int j = MathHelper.floor_double(this.posX);
             int k = MathHelper.floor_double(this.posY - 0.20000000298023224D);
             int l = MathHelper.floor_double(this.posZ);
-            Block block = this.worldObj.getBlockState(new BlockPos(j, k, l)).getBlock();
+            Block block = this.worldObj.getBlockState(new BlockPosition(j, k, l)).getBlock();
 
             if (block.getMaterial() != Material.air) {
                 Block.SoundType block$soundtype = block.stepSound;
@@ -1377,12 +1376,12 @@ public abstract class EntityLivingBase extends Entity {
                     AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().offset((double) j, 1.0D, (double) k);
 
                     if (this.worldObj.getCollisionBoxes(axisalignedbb).isEmpty()) {
-                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(l, (int) this.posY, i1))) {
+                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPosition(l, (int) this.posY, i1))) {
                             this.setPositionAndUpdate(this.posX + (double) j, this.posY + 1.0D, this.posZ + (double) k);
                             return;
                         }
 
-                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(l, (int) this.posY - 1, i1)) || this.worldObj.getBlockState(new BlockPos(l, (int) this.posY - 1, i1)).getBlock().getMaterial() == Material.water) {
+                        if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPosition(l, (int) this.posY - 1, i1)) || this.worldObj.getBlockState(new BlockPosition(l, (int) this.posY - 1, i1)).getBlock().getMaterial() == Material.water) {
                             d0 = this.posX + (double) j;
                             d1 = this.posY + 1.0D;
                             d2 = this.posZ + (double) k;
@@ -1452,7 +1451,7 @@ public abstract class EntityLivingBase extends Entity {
                     float f4 = 0.91F;
 
                     if (this.onGround) {
-                        f4 = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
+                        f4 = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
                     }
 
                     float f = 0.16277136F / (f4 * f4 * f4);
@@ -1468,7 +1467,7 @@ public abstract class EntityLivingBase extends Entity {
                     f4 = 0.91F;
 
                     if (this.onGround) {
-                        f4 = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
+                        f4 = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
                     }
 
                     if (this.isOnLadder()) {
@@ -1494,7 +1493,7 @@ public abstract class EntityLivingBase extends Entity {
                         this.motionY = 0.2D;
                     }
 
-                    if (this.worldObj.isRemote && (!this.worldObj.isBlockLoaded(new BlockPos((int) this.posX, 0, (int) this.posZ)) || !this.worldObj.getChunkFromBlockCoords(new BlockPos((int) this.posX, 0, (int) this.posZ)).isLoaded())) {
+                    if (this.worldObj.isRemote && (!this.worldObj.isBlockLoaded(new BlockPosition((int) this.posX, 0, (int) this.posZ)) || !this.worldObj.getChunkFromBlockCoords(new BlockPosition((int) this.posX, 0, (int) this.posZ)).isLoaded())) {
                         if (this.posY > 0.0D) {
                             this.motionY = -0.1D;
                         } else {

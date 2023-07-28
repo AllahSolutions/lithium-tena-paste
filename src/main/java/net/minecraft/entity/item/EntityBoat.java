@@ -378,7 +378,7 @@ public class EntityBoat extends Entity
                 for (int j2 = 0; j2 < 2; ++j2)
                 {
                     int l = MathHelper.floor_double(this.posY) + j2;
-                    BlockPos blockpos = new BlockPos(l1, l, i2);
+                    BlockPosition blockpos = new BlockPosition(l1, l, i2);
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
                     if (block == Blocks.snow_layer)
@@ -524,7 +524,7 @@ public class EntityBoat extends Entity
         }
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos)
     {
         if (onGroundIn)
         {
@@ -553,7 +553,7 @@ public class EntityBoat extends Entity
                 this.fallDistance = 0.0F;
             }
         }
-        else if (this.worldObj.getBlockState((new BlockPos(this)).down()).getBlock().getMaterial() != Material.water && y < 0.0D)
+        else if (this.worldObj.getBlockState((new BlockPosition(this)).down()).getBlock().getMaterial() != Material.water && y < 0.0D)
         {
             this.fallDistance = (float)((double)this.fallDistance - y);
         }

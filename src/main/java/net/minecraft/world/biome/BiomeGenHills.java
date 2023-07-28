@@ -2,7 +2,7 @@ package net.minecraft.world.biome;
 
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -38,7 +38,7 @@ public class BiomeGenHills extends BiomeGenBase
         return (WorldGenAbstractTree)(rand.nextInt(3) > 0 ? this.field_150634_aD : super.genBigTreeChance(rand));
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         super.decorate(worldIn, rand, pos);
         int i = 3 + rand.nextInt(6);
@@ -48,7 +48,7 @@ public class BiomeGenHills extends BiomeGenBase
             int k = rand.nextInt(16);
             int l = rand.nextInt(28) + 4;
             int i1 = rand.nextInt(16);
-            BlockPos blockpos = pos.add(k, l, i1);
+            BlockPosition blockpos = pos.add(k, l, i1);
 
             if (worldIn.getBlockState(blockpos).getBlock() == Blocks.stone)
             {

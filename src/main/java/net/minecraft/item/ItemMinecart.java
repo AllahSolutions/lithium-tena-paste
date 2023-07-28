@@ -10,7 +10,7 @@ import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -26,7 +26,7 @@ public class ItemMinecart extends Item
             double d0 = source.getX() + (double)enumfacing.getFrontOffsetX() * 1.125D;
             double d1 = Math.floor(source.getY()) + (double)enumfacing.getFrontOffsetY();
             double d2 = source.getZ() + (double)enumfacing.getFrontOffsetZ() * 1.125D;
-            BlockPos blockpos = source.getBlockPos().offset(enumfacing);
+            BlockPosition blockpos = source.getBlockPos().offset(enumfacing);
             IBlockState iblockstate = world.getBlockState(blockpos);
             BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() instanceof BlockRailBase ? (BlockRailBase.EnumRailDirection)iblockstate.getValue(((BlockRailBase)iblockstate.getBlock()).getShapeProperty()) : BlockRailBase.EnumRailDirection.NORTH_SOUTH;
             double d3;
@@ -91,7 +91,7 @@ public class ItemMinecart extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 

@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -16,7 +16,7 @@ public abstract class EntityFlying extends EntityLiving
     {
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos)
     {
     }
 
@@ -47,7 +47,7 @@ public abstract class EntityFlying extends EntityLiving
 
             if (this.onGround)
             {
-                f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
+                f = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
             }
 
             float f1 = 0.16277136F / (f * f * f);
@@ -56,7 +56,7 @@ public abstract class EntityFlying extends EntityLiving
 
             if (this.onGround)
             {
-                f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
+                f = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.91F;
             }
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);

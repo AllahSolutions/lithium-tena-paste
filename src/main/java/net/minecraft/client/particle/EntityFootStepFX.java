@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -46,7 +46,7 @@ public class EntityFootStepFX extends EntityFX
         float f3 = (float)(this.posX - interpPosX);
         float f4 = (float)(this.posY - interpPosY);
         float f5 = (float)(this.posZ - interpPosZ);
-        float f6 = this.worldObj.getLightBrightness(new BlockPos(this));
+        float f6 = this.worldObj.getLightBrightness(new BlockPosition(this));
         this.currentFootSteps.bindTexture(FOOTPRINT_TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);

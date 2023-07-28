@@ -4,7 +4,7 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkProviderSettings;
 import net.minecraft.world.gen.GeneratorBushFeature;
@@ -19,7 +19,7 @@ public class BiomeDecorator
 
     /** The Biome Decorator's random number generator. */
     protected Random randomGenerator;
-    protected BlockPos field_180294_c;
+    protected BlockPosition field_180294_c;
     protected ChunkProviderSettings chunkProviderSettings;
 
     /** The clay generator. */
@@ -127,7 +127,7 @@ public class BiomeDecorator
     /** True if decorator should generate surface lava & water */
     public boolean generateLakes = true;
 
-    public void decorate(World worldIn, Random random, BiomeGenBase biome, BlockPos p_180292_4_)
+    public void decorate(World worldIn, Random random, BiomeGenBase biome, BlockPosition p_180292_4_)
     {
         if (this.currentWorld != null)
         {
@@ -204,7 +204,7 @@ public class BiomeDecorator
             int l = this.randomGenerator.nextInt(16) + 8;
             WorldGenAbstractTree worldgenabstracttree = biomeGenBaseIn.genBigTreeChance(this.randomGenerator);
             worldgenabstracttree.func_175904_e();
-            BlockPos blockpos = this.currentWorld.getHeight(this.field_180294_c.add(k6, 0, l));
+            BlockPosition blockpos = this.currentWorld.getHeight(this.field_180294_c.add(k6, 0, l));
 
             if (worldgenabstracttree.generate(this.currentWorld, this.randomGenerator, blockpos))
             {
@@ -228,7 +228,7 @@ public class BiomeDecorator
             if (j14 > 0)
             {
                 int k17 = this.randomGenerator.nextInt(j14);
-                BlockPos blockpos1 = this.field_180294_c.add(i7, k17, l10);
+                BlockPosition blockpos1 = this.field_180294_c.add(i7, k17, l10);
                 BlockFlower.EnumFlowerType blockflower$enumflowertype = biomeGenBaseIn.pickRandomFlower(this.randomGenerator, blockpos1);
                 BlockFlower blockflower = blockflower$enumflowertype.getBlockType().getBlock();
 
@@ -275,8 +275,8 @@ public class BiomeDecorator
             if (i15 > 0)
             {
                 int j18 = this.randomGenerator.nextInt(i15);
-                BlockPos blockpos4;
-                BlockPos blockpos7;
+                BlockPosition blockpos4;
+                BlockPosition blockpos7;
 
                 for (blockpos4 = this.field_180294_c.add(l7, j18, k11); blockpos4.getY() > 0; blockpos4 = blockpos7)
                 {
@@ -298,7 +298,7 @@ public class BiomeDecorator
             {
                 int i8 = this.randomGenerator.nextInt(16) + 8;
                 int l11 = this.randomGenerator.nextInt(16) + 8;
-                BlockPos blockpos2 = this.currentWorld.getHeight(this.field_180294_c.add(i8, 0, l11));
+                BlockPosition blockpos2 = this.currentWorld.getHeight(this.field_180294_c.add(i8, 0, l11));
                 this.mushroomBrownGen.generate(this.currentWorld, this.randomGenerator, blockpos2);
             }
 
@@ -311,7 +311,7 @@ public class BiomeDecorator
                 if (j15 > 0)
                 {
                     int k18 = this.randomGenerator.nextInt(j15);
-                    BlockPos blockpos5 = this.field_180294_c.add(j8, k18, i12);
+                    BlockPosition blockpos5 = this.field_180294_c.add(j8, k18, i12);
                     this.mushroomRedGen.generate(this.currentWorld, this.randomGenerator, blockpos5);
                 }
             }
@@ -406,7 +406,7 @@ public class BiomeDecorator
                 if (i17 > 0)
                 {
                     int k19 = this.randomGenerator.nextInt(i17);
-                    BlockPos blockpos6 = this.field_180294_c.add(i10, k19, l13);
+                    BlockPosition blockpos6 = this.field_180294_c.add(i10, k19, l13);
                     (new WorldGenLiquids(Blocks.flowing_water)).generate(this.currentWorld, this.randomGenerator, blockpos6);
                 }
             }
@@ -416,7 +416,7 @@ public class BiomeDecorator
                 int j10 = this.randomGenerator.nextInt(16) + 8;
                 int i14 = this.randomGenerator.nextInt(16) + 8;
                 int j17 = this.randomGenerator.nextInt(this.randomGenerator.nextInt(this.randomGenerator.nextInt(240) + 8) + 8);
-                BlockPos blockpos3 = this.field_180294_c.add(j10, j17, i14);
+                BlockPosition blockpos3 = this.field_180294_c.add(j10, j17, i14);
                 (new WorldGenLiquids(Blocks.flowing_lava)).generate(this.currentWorld, this.randomGenerator, blockpos3);
             }
         }
@@ -447,7 +447,7 @@ public class BiomeDecorator
 
         for (int j = 0; j < blockCount; ++j)
         {
-            BlockPos blockpos = this.field_180294_c.add(this.randomGenerator.nextInt(16), this.randomGenerator.nextInt(maxHeight - minHeight) + minHeight, this.randomGenerator.nextInt(16));
+            BlockPosition blockpos = this.field_180294_c.add(this.randomGenerator.nextInt(16), this.randomGenerator.nextInt(maxHeight - minHeight) + minHeight, this.randomGenerator.nextInt(16));
             generator.generate(this.currentWorld, this.randomGenerator, blockpos);
         }
     }
@@ -459,7 +459,7 @@ public class BiomeDecorator
     {
         for (int i = 0; i < blockCount; ++i)
         {
-            BlockPos blockpos = this.field_180294_c.add(this.randomGenerator.nextInt(16), this.randomGenerator.nextInt(spread) + this.randomGenerator.nextInt(spread) + centerHeight - spread, this.randomGenerator.nextInt(16));
+            BlockPosition blockpos = this.field_180294_c.add(this.randomGenerator.nextInt(16), this.randomGenerator.nextInt(spread) + this.randomGenerator.nextInt(spread) + centerHeight - spread, this.randomGenerator.nextInt(16));
             generator.generate(this.currentWorld, this.randomGenerator, blockpos);
         }
     }

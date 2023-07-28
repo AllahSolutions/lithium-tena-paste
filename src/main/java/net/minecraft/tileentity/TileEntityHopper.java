@@ -639,7 +639,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         int i = MathHelper.floor_double(x);
         int j = MathHelper.floor_double(y);
         int k = MathHelper.floor_double(z);
-        BlockPos blockpos = new BlockPos(i, j, k);
+        BlockPosition blockpos = new BlockPosition(i, j, k);
         Block block = worldIn.getBlockState(blockpos).getBlock();
 
         if (block.hasTileEntity())

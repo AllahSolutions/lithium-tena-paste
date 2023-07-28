@@ -9,7 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -32,13 +32,13 @@ public class BlockMycelium extends Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         Block block = worldIn.getBlockState(pos.up()).getBlock();
         return state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.snow || block == Blocks.snow_layer));
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -52,7 +52,7 @@ public class BlockMycelium extends Block
                 {
                     for (int i = 0; i < 4; ++i)
                     {
-                        BlockPos blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+                        BlockPosition blockpos = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
                         IBlockState iblockstate = worldIn.getBlockState(blockpos);
                         Block block = worldIn.getBlockState(blockpos.up()).getBlock();
 
@@ -66,7 +66,7 @@ public class BlockMycelium extends Block
         }
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         super.randomDisplayTick(worldIn, pos, state, rand);
 

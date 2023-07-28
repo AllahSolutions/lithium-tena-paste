@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +41,7 @@ public abstract class CommandBase implements ICommand
         return sender.canCommandSenderUseCommand(this.getRequiredPermissionLevel(), this.getCommandName());
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return null;
     }
@@ -111,10 +111,10 @@ public abstract class CommandBase implements ICommand
         }
     }
 
-    public static BlockPos parseBlockPos(ICommandSender sender, String[] args, int startIndex, boolean centerBlock) throws NumberInvalidException
+    public static BlockPosition parseBlockPos(ICommandSender sender, String[] args, int startIndex, boolean centerBlock) throws NumberInvalidException
     {
-        BlockPos blockpos = sender.getPosition();
-        return new BlockPos(parseDouble((double)blockpos.getX(), args[startIndex], -30000000, 30000000, centerBlock), parseDouble((double)blockpos.getY(), args[startIndex + 1], 0, 256, false), parseDouble((double)blockpos.getZ(), args[startIndex + 2], -30000000, 30000000, centerBlock));
+        BlockPosition blockpos = sender.getPosition();
+        return new BlockPosition(parseDouble((double)blockpos.getX(), args[startIndex], -30000000, 30000000, centerBlock), parseDouble((double)blockpos.getY(), args[startIndex + 1], 0, 256, false), parseDouble((double)blockpos.getZ(), args[startIndex + 2], -30000000, 30000000, centerBlock));
     }
 
     public static double parseDouble(String input) throws NumberInvalidException
@@ -599,7 +599,7 @@ public abstract class CommandBase implements ICommand
         return joinNiceString(strings.toArray(new String[strings.size()]));
     }
 
-    public static List<String> func_175771_a(String[] p_175771_0_, int p_175771_1_, BlockPos p_175771_2_)
+    public static List<String> func_175771_a(String[] p_175771_0_, int p_175771_1_, BlockPosition p_175771_2_)
     {
         if (p_175771_2_ == null)
         {
@@ -632,7 +632,7 @@ public abstract class CommandBase implements ICommand
         }
     }
 
-    public static List<String> func_181043_b(String[] p_181043_0_, int p_181043_1_, BlockPos p_181043_2_)
+    public static List<String> func_181043_b(String[] p_181043_0_, int p_181043_1_, BlockPosition p_181043_2_)
     {
         if (p_181043_2_ == null)
         {

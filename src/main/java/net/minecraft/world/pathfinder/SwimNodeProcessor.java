@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -70,7 +70,7 @@ public class SwimNodeProcessor extends NodeProcessor
 
     private int func_176186_b(Entity entityIn, int x, int y, int z)
     {
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int i = x; i < x + this.entitySizeX; ++i)
         {

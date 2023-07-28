@@ -1,7 +1,7 @@
 package net.minecraft.client.particle;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityBubbleFX extends EntityFX
@@ -35,7 +35,7 @@ public class EntityBubbleFX extends EntityFX
         this.motionY *= 0.8500000238418579D;
         this.motionZ *= 0.8500000238418579D;
 
-        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.water)
+        if (this.worldObj.getBlockState(new BlockPosition(this)).getBlock().getMaterial() != Material.water)
         {
             this.setDead();
         }

@@ -16,7 +16,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerRepair;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -56,13 +56,13 @@ public class BlockAnvil extends BlockFalling
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         EnumFacing enumfacing = placer.getHorizontalFacing().rotateY();
         return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(DAMAGE, Integer.valueOf(meta >> 2));
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (!worldIn.isRemote)
         {
@@ -81,7 +81,7 @@ public class BlockAnvil extends BlockFalling
         return ((Integer)state.getValue(DAMAGE)).intValue();
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
 
@@ -110,12 +110,12 @@ public class BlockAnvil extends BlockFalling
         fallingEntity.setHurtEntities(true);
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos)
+    public void onEndFalling(World worldIn, BlockPosition pos)
     {
         worldIn.playAuxSFX(1022, pos, 0);
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return true;
     }
@@ -155,9 +155,9 @@ public class BlockAnvil extends BlockFalling
     public static class Anvil implements IInteractionObject
     {
         private final World world;
-        private final BlockPos position;
+        private final BlockPosition position;
 
-        public Anvil(World worldIn, BlockPos pos)
+        public Anvil(World worldIn, BlockPosition pos)
         {
             this.world = worldIn;
             this.position = pos;

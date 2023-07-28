@@ -1,7 +1,7 @@
 package net.minecraft.client.particle;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntitySuspendFX extends EntityFX
@@ -31,7 +31,7 @@ public class EntitySuspendFX extends EntityFX
         this.prevPosZ = this.posZ;
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
-        if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() != Material.water)
+        if (this.worldObj.getBlockState(new BlockPosition(this)).getBlock().getMaterial() != Material.water)
         {
             this.setDead();
         }

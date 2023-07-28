@@ -4,7 +4,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
@@ -25,7 +25,7 @@ public class BlockSlime extends BlockBreakable
     /**
      * Block's chance to react to a living entity falling on it.
      */
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
+    public void onFallenUpon(World worldIn, BlockPosition pos, Entity entityIn, float fallDistance)
     {
         if (entityIn.isSneaking())
         {
@@ -56,7 +56,7 @@ public class BlockSlime extends BlockBreakable
     /**
      * Triggered whenever an entity collides with this block (enters into the block)
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, Entity entityIn)
     {
         if (Math.abs(entityIn.motionY) < 0.1D && !entityIn.isSneaking())
         {

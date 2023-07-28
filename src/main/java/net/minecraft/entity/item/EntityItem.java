@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -105,7 +105,7 @@ public class EntityItem extends Entity
 
             if (flag || this.ticksExisted % 25 == 0)
             {
-                if (this.worldObj.getBlockState(new BlockPos(this)).getBlock().getMaterial() == Material.lava)
+                if (this.worldObj.getBlockState(new BlockPosition(this)).getBlock().getMaterial() == Material.lava)
                 {
                     this.motionY = 0.20000000298023224D;
                     this.motionX = (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
@@ -123,7 +123,7 @@ public class EntityItem extends Entity
 
             if (this.onGround)
             {
-                f = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.98F;
+                f = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.getEntityBoundingBox().minY) - 1, MathHelper.floor_double(this.posZ))).getBlock().slipperiness * 0.98F;
             }
 
             this.motionX *= (double)f;

@@ -5,7 +5,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -31,7 +31,7 @@ public class ItemGlassBottle extends Item
         {
             if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
-                BlockPos blockpos = movingobjectposition.getBlockPos();
+                BlockPosition blockpos = movingobjectposition.getBlockPos();
 
                 if (!worldIn.isBlockModifiable(playerIn, blockpos))
                 {

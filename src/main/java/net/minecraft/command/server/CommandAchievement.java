@@ -13,7 +13,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.List;
 
@@ -175,7 +175,7 @@ public class CommandAchievement extends CommandBase
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         if (args.length == 1)
         {

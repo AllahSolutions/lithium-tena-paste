@@ -3,7 +3,7 @@ package net.optifine.override;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
@@ -31,7 +31,7 @@ public class ChunkCacheOF implements IBlockAccess
     private static final ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
     private static final ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
 
-    public ChunkCacheOF(ChunkCache chunkCache, BlockPos posFromIn, BlockPos posToIn, int subIn)
+    public ChunkCacheOF(ChunkCache chunkCache, BlockPosition posFromIn, BlockPosition posToIn, int subIn)
     {
         this.chunkCache = chunkCache;
         int i = posFromIn.getX() - subIn >> 4;
@@ -50,7 +50,7 @@ public class ChunkCacheOF implements IBlockAccess
         this.posZ = k << 4;
     }
 
-    private int getPositionIndex(BlockPos pos)
+    private int getPositionIndex(BlockPosition pos)
     {
         int i = pos.getX() - this.posX;
 
@@ -74,7 +74,7 @@ public class ChunkCacheOF implements IBlockAccess
         }
     }
 
-    public int getCombinedLight(BlockPos pos, int lightValue)
+    public int getCombinedLight(BlockPosition pos, int lightValue)
     {
         int i = this.getPositionIndex(pos);
 
@@ -96,7 +96,7 @@ public class ChunkCacheOF implements IBlockAccess
         }
     }
 
-    private int getCombinedLightRaw(BlockPos pos, int lightValue)
+    private int getCombinedLightRaw(BlockPosition pos, int lightValue)
     {
         int i = this.chunkCache.getCombinedLight(pos, lightValue);
 
@@ -108,7 +108,7 @@ public class ChunkCacheOF implements IBlockAccess
         return i;
     }
 
-    public IBlockState getBlockState(BlockPos pos)
+    public IBlockState getBlockState(BlockPosition pos)
     {
         int i = this.getPositionIndex(pos);
 
@@ -163,17 +163,17 @@ public class ChunkCacheOF implements IBlockAccess
         return this.chunkCache.extendedLevelsInChunkCache();
     }
 
-    public BiomeGenBase getBiomeGenForCoords(BlockPos pos)
+    public BiomeGenBase getBiomeGenForCoords(BlockPosition pos)
     {
         return this.chunkCache.getBiomeGenForCoords(pos);
     }
 
-    public int getStrongPower(BlockPos pos, EnumFacing direction)
+    public int getStrongPower(BlockPosition pos, EnumFacing direction)
     {
         return this.chunkCache.getStrongPower(pos, direction);
     }
 
-    public TileEntity getTileEntity(BlockPos pos)
+    public TileEntity getTileEntity(BlockPosition pos)
     {
         return this.chunkCache.getTileEntity(pos);
     }
@@ -187,7 +187,7 @@ public class ChunkCacheOF implements IBlockAccess
      * Checks to see if an air block exists at the provided location. Note that this only checks to see if the blocks
      * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
      */
-    public boolean isAirBlock(BlockPos pos)
+    public boolean isAirBlock(BlockPosition pos)
     {
         return this.chunkCache.isAirBlock(pos);
     }

@@ -3,7 +3,7 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
@@ -12,17 +12,17 @@ import java.io.IOException;
 public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
 {
     private World world;
-    private BlockPos blockPos;
+    private BlockPosition blockPosition;
     private IChatComponent[] lines;
 
     public S33PacketUpdateSign()
     {
     }
 
-    public S33PacketUpdateSign(World worldIn, BlockPos blockPosIn, IChatComponent[] linesIn)
+    public S33PacketUpdateSign(World worldIn, BlockPosition blockPositionIn, IChatComponent[] linesIn)
     {
         this.world = worldIn;
-        this.blockPos = blockPosIn;
+        this.blockPosition = blockPositionIn;
         this.lines = new IChatComponent[] {linesIn[0], linesIn[1], linesIn[2], linesIn[3]};
     }
 
@@ -31,7 +31,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.blockPos = buf.readBlockPos();
+        this.blockPosition = buf.readBlockPos();
         this.lines = new IChatComponent[4];
 
         for (int i = 0; i < 4; ++i)
@@ -45,7 +45,7 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.blockPos);
+        buf.writeBlockPos(this.blockPosition);
 
         for (int i = 0; i < 4; ++i)
         {
@@ -61,9 +61,9 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
         handler.handleUpdateSign(this);
     }
 
-    public BlockPos getPos()
+    public BlockPosition getPos()
     {
-        return this.blockPos;
+        return this.blockPosition;
     }
 
     public IChatComponent[] getLines()

@@ -448,7 +448,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
         WorldServer worldserver = this.serverController.worldServerForDimension(this.playerEntity.dimension);
-        BlockPos blockpos = packetIn.getPosition();
+        BlockPosition blockpos = packetIn.getPosition();
         this.playerEntity.markPlayerActive();
 
         switch (packetIn.getStatus())
@@ -535,7 +535,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
         WorldServer worldserver = this.serverController.worldServerForDimension(this.playerEntity.dimension);
         ItemStack itemstack = this.playerEntity.inventory.getCurrentItem();
         boolean flag = false;
-        BlockPos blockpos = packetIn.getPosition();
+        BlockPosition blockpos = packetIn.getPosition();
         EnumFacing enumfacing = EnumFacing.getFront(packetIn.getPlacedBlockDirection());
         this.playerEntity.markPlayerActive();
 
@@ -1040,7 +1040,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
                 if (nbttagcompound.hasKey("x") && nbttagcompound.hasKey("y") && nbttagcompound.hasKey("z"))
                 {
-                    BlockPos blockpos = new BlockPos(nbttagcompound.getInteger("x"), nbttagcompound.getInteger("y"), nbttagcompound.getInteger("z"));
+                    BlockPosition blockpos = new BlockPosition(nbttagcompound.getInteger("x"), nbttagcompound.getInteger("y"), nbttagcompound.getInteger("z"));
                     TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(blockpos);
 
                     if (tileentity != null)
@@ -1106,7 +1106,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.playerEntity.getServerForPlayer());
         this.playerEntity.markPlayerActive();
         WorldServer worldserver = this.serverController.worldServerForDimension(this.playerEntity.dimension);
-        BlockPos blockpos = packetIn.getPosition();
+        BlockPosition blockpos = packetIn.getPosition();
 
         if (worldserver.isBlockLoaded(blockpos))
         {
@@ -1317,7 +1317,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
 
                     if (j == 0)
                     {
-                        TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(new BlockPos(packetbuffer.readInt(), packetbuffer.readInt(), packetbuffer.readInt()));
+                        TileEntity tileentity = this.playerEntity.worldObj.getTileEntity(new BlockPosition(packetbuffer.readInt(), packetbuffer.readInt(), packetbuffer.readInt()));
 
                         if (tileentity instanceof TileEntityCommandBlock)
                         {

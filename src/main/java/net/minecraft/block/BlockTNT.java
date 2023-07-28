@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class BlockTNT extends Block
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
 
@@ -43,7 +43,7 @@ public class BlockTNT extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (worldIn.isBlockPowered(pos))
         {
@@ -55,7 +55,7 @@ public class BlockTNT extends Block
     /**
      * Called when this Block is destroyed by an Explosion
      */
-    public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn)
+    public void onBlockDestroyedByExplosion(World worldIn, BlockPosition pos, Explosion explosionIn)
     {
         if (!worldIn.isRemote)
         {
@@ -68,12 +68,12 @@ public class BlockTNT extends Block
     /**
      * Called when a player destroys this Block
      */
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.explode(worldIn, pos, state, (EntityLivingBase)null);
     }
 
-    public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter)
+    public void explode(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase igniter)
     {
         if (!worldIn.isRemote)
         {
@@ -86,7 +86,7 @@ public class BlockTNT extends Block
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (playerIn.getCurrentEquippedItem() != null)
         {
@@ -116,7 +116,7 @@ public class BlockTNT extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote && entityIn instanceof EntityArrow)
         {

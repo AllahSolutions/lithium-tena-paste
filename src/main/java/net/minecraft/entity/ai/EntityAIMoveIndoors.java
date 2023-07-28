@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
@@ -24,7 +24,7 @@ public class EntityAIMoveIndoors extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        BlockPos blockpos = new BlockPos(this.entityObj);
+        BlockPosition blockpos = new BlockPosition(this.entityObj);
 
         if ((!this.entityObj.worldObj.isDaytime() || this.entityObj.worldObj.isRaining() && !this.entityObj.worldObj.getBiomeGenForCoords(blockpos).canRain()) && !this.entityObj.worldObj.provider.getHasNoSky())
         {
@@ -71,7 +71,7 @@ public class EntityAIMoveIndoors extends EntityAIBase
     public void startExecuting()
     {
         this.insidePosX = -1;
-        BlockPos blockpos = this.doorInfo.getInsideBlockPos();
+        BlockPosition blockpos = this.doorInfo.getInsideBlockPos();
         int i = blockpos.getX();
         int j = blockpos.getY();
         int k = blockpos.getZ();

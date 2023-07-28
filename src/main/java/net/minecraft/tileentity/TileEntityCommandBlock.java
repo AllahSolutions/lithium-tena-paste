@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -15,7 +15,7 @@ public class TileEntityCommandBlock extends TileEntity
 {
     private final CommandBlockLogic commandBlockLogic = new CommandBlockLogic()
     {
-        public BlockPos getPosition()
+        public BlockPosition getPosition()
         {
             return TileEntityCommandBlock.this.pos;
         }

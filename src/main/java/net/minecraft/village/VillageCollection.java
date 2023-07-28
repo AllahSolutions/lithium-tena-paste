@@ -6,7 +6,7 @@ import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
@@ -18,7 +18,7 @@ import java.util.List;
 public class VillageCollection extends WorldSavedData
 {
     private World worldObj;
-    private final List<BlockPos> villagerPositionsList = Lists.<BlockPos>newArrayList();
+    private final List<BlockPosition> villagerPositionsList = Lists.<BlockPosition>newArrayList();
     private final List<VillageDoorInfo> newDoors = Lists.<VillageDoorInfo>newArrayList();
     private final List<Village> villageList = Lists.<Village>newArrayList();
     private int tickCounter;
@@ -45,7 +45,7 @@ public class VillageCollection extends WorldSavedData
         }
     }
 
-    public void addToVillagerPositionList(BlockPos pos)
+    public void addToVillagerPositionList(BlockPosition pos)
     {
         if (this.villagerPositionsList.size() <= 64)
         {
@@ -99,7 +99,7 @@ public class VillageCollection extends WorldSavedData
         return this.villageList;
     }
 
-    public Village getNearestVillage(BlockPos doorBlock, int radius)
+    public Village getNearestVillage(BlockPosition doorBlock, int radius)
     {
         Village village = null;
         double d0 = 3.4028234663852886E38D;
@@ -127,7 +127,7 @@ public class VillageCollection extends WorldSavedData
     {
         if (!this.villagerPositionsList.isEmpty())
         {
-            this.addDoorsAround((BlockPos)this.villagerPositionsList.remove(0));
+            this.addDoorsAround((BlockPosition)this.villagerPositionsList.remove(0));
         }
     }
 
@@ -151,7 +151,7 @@ public class VillageCollection extends WorldSavedData
         this.newDoors.clear();
     }
 
-    private void addDoorsAround(BlockPos central)
+    private void addDoorsAround(BlockPosition central)
     {
         int i = 16;
         int j = 4;
@@ -163,7 +163,7 @@ public class VillageCollection extends WorldSavedData
             {
                 for (int j1 = -k; j1 < k; ++j1)
                 {
-                    BlockPos blockpos = central.add(l, i1, j1);
+                    BlockPosition blockpos = central.add(l, i1, j1);
 
                     if (this.isWoodDoor(blockpos))
                     {
@@ -186,7 +186,7 @@ public class VillageCollection extends WorldSavedData
     /**
      * returns the VillageDoorInfo if it exists in any village or in the newDoor list, otherwise returns null
      */
-    private VillageDoorInfo checkDoorExistence(BlockPos doorBlock)
+    private VillageDoorInfo checkDoorExistence(BlockPosition doorBlock)
     {
         for (VillageDoorInfo villagedoorinfo : this.newDoors)
         {
@@ -209,7 +209,7 @@ public class VillageCollection extends WorldSavedData
         return null;
     }
 
-    private void addToNewDoorsList(BlockPos doorBlock)
+    private void addToNewDoorsList(BlockPosition doorBlock)
     {
         EnumFacing enumfacing = BlockDoor.getFacing(this.worldObj, doorBlock);
         EnumFacing enumfacing1 = enumfacing.getOpposite();
@@ -225,7 +225,7 @@ public class VillageCollection extends WorldSavedData
     /**
      * Check five blocks in the direction. The centerPos will not be checked.
      */
-    private int countBlocksCanSeeSky(BlockPos centerPos, EnumFacing direction, int limitation)
+    private int countBlocksCanSeeSky(BlockPosition centerPos, EnumFacing direction, int limitation)
     {
         int i = 0;
 
@@ -245,9 +245,9 @@ public class VillageCollection extends WorldSavedData
         return i;
     }
 
-    private boolean positionInList(BlockPos pos)
+    private boolean positionInList(BlockPosition pos)
     {
-        for (BlockPos blockpos : this.villagerPositionsList)
+        for (BlockPosition blockpos : this.villagerPositionsList)
         {
             if (blockpos.equals(pos))
             {
@@ -258,7 +258,7 @@ public class VillageCollection extends WorldSavedData
         return false;
     }
 
-    private boolean isWoodDoor(BlockPos doorPos)
+    private boolean isWoodDoor(BlockPosition doorPos)
     {
         Block block = this.worldObj.getBlockState(doorPos).getBlock();
         return block instanceof BlockDoor ? block.getMaterial() == Material.wood : false;

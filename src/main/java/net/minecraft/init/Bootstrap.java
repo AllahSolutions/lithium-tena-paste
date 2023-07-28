@@ -21,7 +21,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.LoggingPrintStream;
 import net.minecraft.util.StringUtils;
@@ -181,7 +181,7 @@ public class Bootstrap
                 double d0 = source.getX() + (double)((float)enumfacing.getFrontOffsetX() * 1.125F);
                 double d1 = source.getY() + (double)((float)enumfacing.getFrontOffsetY() * 1.125F);
                 double d2 = source.getZ() + (double)((float)enumfacing.getFrontOffsetZ() * 1.125F);
-                BlockPos blockpos = source.getBlockPos().offset(enumfacing);
+                BlockPosition blockpos = source.getBlockPos().offset(enumfacing);
                 Material material = world.getBlockState(blockpos).getBlock().getMaterial();
                 double d3;
 
@@ -215,7 +215,7 @@ public class Bootstrap
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 ItemBucket itembucket = (ItemBucket)stack.getItem();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
                 if (itembucket.tryPlaceContainedLiquid(source.getWorld(), blockpos))
                 {
@@ -237,7 +237,7 @@ public class Bootstrap
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
                 IBlockState iblockstate = world.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
                 Material material = block.getMaterial();
@@ -278,7 +278,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
                 if (world.isAirBlock(blockpos))
                 {
@@ -321,7 +321,7 @@ public class Bootstrap
                 if (EnumDyeColor.WHITE == EnumDyeColor.byDyeDamage(stack.getMetadata()))
                 {
                     World world = source.getWorld();
-                    BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                    BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
 
                     if (ItemDye.applyBonemeal(stack, world, blockpos))
                     {
@@ -359,7 +359,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
                 EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, (EntityLivingBase)null);
                 world.spawnEntityInWorld(entitytntprimed);
                 world.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
@@ -374,7 +374,7 @@ public class Bootstrap
             {
                 World world = source.getWorld();
                 EnumFacing enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
-                BlockPos blockpos = source.getBlockPos().offset(enumfacing);
+                BlockPosition blockpos = source.getBlockPos().offset(enumfacing);
                 BlockSkull blockskull = Blocks.skull;
 
                 if (world.isAirBlock(blockpos) && blockskull.canDispenserPlace(world, blockpos, stack))
@@ -448,7 +448,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+                BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
                 BlockPumpkin blockpumpkin = (BlockPumpkin)Blocks.pumpkin;
 
                 if (world.isAirBlock(blockpos) && blockpumpkin.canDispenserPlace(world, blockpos))

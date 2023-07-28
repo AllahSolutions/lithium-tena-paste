@@ -18,7 +18,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.tileentity.TileEntityDropper;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.RegistryDefaulted;
 import net.minecraft.world.World;
@@ -47,13 +47,13 @@ public class BlockDispenser extends BlockContainer
         return 4;
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
         this.setDefaultDirection(worldIn, pos, state);
     }
 
-    private void setDefaultDirection(World worldIn, BlockPos pos, IBlockState state)
+    private void setDefaultDirection(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {
@@ -88,7 +88,7 @@ public class BlockDispenser extends BlockContainer
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -116,7 +116,7 @@ public class BlockDispenser extends BlockContainer
         }
     }
 
-    protected void dispense(World worldIn, BlockPos pos)
+    protected void dispense(World worldIn, BlockPosition pos)
     {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
         TileEntityDispenser tileentitydispenser = (TileEntityDispenser)blocksourceimpl.getBlockTileEntity();
@@ -151,7 +151,7 @@ public class BlockDispenser extends BlockContainer
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
         boolean flag1 = ((Boolean)state.getValue(TRIGGERED)).booleanValue();
@@ -167,7 +167,7 @@ public class BlockDispenser extends BlockContainer
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -187,7 +187,7 @@ public class BlockDispenser extends BlockContainer
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)).withProperty(TRIGGERED, Boolean.valueOf(false));
     }
@@ -195,7 +195,7 @@ public class BlockDispenser extends BlockContainer
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         worldIn.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)), 2);
 
@@ -210,7 +210,7 @@ public class BlockDispenser extends BlockContainer
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -248,7 +248,7 @@ public class BlockDispenser extends BlockContainer
         return true;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
+    public int getComparatorInputOverride(World worldIn, BlockPosition pos)
     {
         return Container.calcRedstone(worldIn.getTileEntity(pos));
     }

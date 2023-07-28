@@ -1,12 +1,12 @@
 package net.optifine.shaders;
 
-import net.minecraft.util.BlockPos;
-import net.optifine.BlockPosM;
+import net.minecraft.util.BlockPosition;
+import net.optifine.BlockPositionM;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class IteratorAxis implements Iterator<BlockPos>
+public class IteratorAxis implements Iterator<BlockPosition>
 {
     private double yDelta;
     private double zDelta;
@@ -19,10 +19,10 @@ public class IteratorAxis implements Iterator<BlockPos>
     private int xNext;
     private double yNext;
     private double zNext;
-    private BlockPosM pos = new BlockPosM(0, 0, 0);
+    private BlockPositionM pos = new BlockPositionM(0, 0, 0);
     private boolean hasNext = false;
 
-    public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta)
+    public IteratorAxis(BlockPosition posStart, BlockPosition posEnd, double yDelta, double zDelta)
     {
         this.yDelta = yDelta;
         this.zDelta = zDelta;
@@ -43,7 +43,7 @@ public class IteratorAxis implements Iterator<BlockPos>
         return this.hasNext;
     }
 
-    public BlockPos next()
+    public BlockPosition next()
     {
         if (!this.hasNext)
         {
@@ -93,8 +93,8 @@ public class IteratorAxis implements Iterator<BlockPos>
 
     public static void main(String[] args) throws Exception
     {
-        BlockPos blockpos = new BlockPos(-2, 10, 20);
-        BlockPos blockpos1 = new BlockPos(2, 12, 22);
+        BlockPosition blockpos = new BlockPosition(-2, 10, 20);
+        BlockPosition blockpos1 = new BlockPosition(2, 12, 22);
         double d0 = -0.5D;
         double d1 = 0.5D;
         IteratorAxis iteratoraxis = new IteratorAxis(blockpos, blockpos1, d0, d1);
@@ -102,7 +102,7 @@ public class IteratorAxis implements Iterator<BlockPos>
 
         while (iteratoraxis.hasNext())
         {
-            BlockPos blockpos2 = iteratoraxis.next();
+            BlockPosition blockpos2 = iteratoraxis.next();
             System.out.println("" + blockpos2);
         }
     }

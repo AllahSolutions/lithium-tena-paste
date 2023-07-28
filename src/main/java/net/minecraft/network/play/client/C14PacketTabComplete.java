@@ -3,7 +3,7 @@ package net.minecraft.network.play.client;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 public class C14PacketTabComplete implements Packet<INetHandlerPlayServer>
 {
     private String message;
-    private BlockPos targetBlock;
+    private BlockPosition targetBlock;
 
     public C14PacketTabComplete()
     {
@@ -19,10 +19,10 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer>
 
     public C14PacketTabComplete(String msg)
     {
-        this(msg, (BlockPos)null);
+        this(msg, (BlockPosition)null);
     }
 
-    public C14PacketTabComplete(String msg, BlockPos target)
+    public C14PacketTabComplete(String msg, BlockPosition target)
     {
         this.message = msg;
         this.targetBlock = target;
@@ -70,7 +70,7 @@ public class C14PacketTabComplete implements Packet<INetHandlerPlayServer>
         return this.message;
     }
 
-    public BlockPos getTargetBlock()
+    public BlockPosition getTargetBlock()
     {
         return this.targetBlock;
     }

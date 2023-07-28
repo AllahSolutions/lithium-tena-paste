@@ -8,7 +8,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 public class PlayerControllerOF extends PlayerControllerMP
 {
     private boolean acting = false;
-    private BlockPos lastClickBlockPos = null;
+    private BlockPosition lastClickBlockPosition = null;
     private Entity lastClickEntity = null;
 
     public PlayerControllerOF(Minecraft mcIn, NetHandlerPlayClient netHandler)
@@ -28,19 +28,19 @@ public class PlayerControllerOF extends PlayerControllerMP
     /**
      * Called when the player is hitting a block with an item.
      */
-    public boolean clickBlock(BlockPos loc, EnumFacing face)
+    public boolean clickBlock(BlockPosition loc, EnumFacing face)
     {
         this.acting = true;
-        this.lastClickBlockPos = loc;
+        this.lastClickBlockPosition = loc;
         boolean flag = super.clickBlock(loc, face);
         this.acting = false;
         return flag;
     }
 
-    public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing)
+    public boolean onPlayerDamageBlock(BlockPosition posBlock, EnumFacing directionFacing)
     {
         this.acting = true;
-        this.lastClickBlockPos = posBlock;
+        this.lastClickBlockPosition = posBlock;
         boolean flag = super.onPlayerDamageBlock(posBlock, directionFacing);
         this.acting = false;
         return flag;
@@ -57,10 +57,10 @@ public class PlayerControllerOF extends PlayerControllerMP
         return flag;
     }
 
-    public boolean onPlayerRightClick(EntityPlayerSP p_178890_1, WorldClient p_178890_2, ItemStack p_178890_3, BlockPos p_178890_4, EnumFacing p_178890_5, Vec3 p_178890_6)
+    public boolean onPlayerRightClick(EntityPlayerSP p_178890_1, WorldClient p_178890_2, ItemStack p_178890_3, BlockPosition p_178890_4, EnumFacing p_178890_5, Vec3 p_178890_6)
     {
         this.acting = true;
-        this.lastClickBlockPos = p_178890_4;
+        this.lastClickBlockPosition = p_178890_4;
         boolean flag = super.onPlayerRightClick(p_178890_1, p_178890_2, p_178890_3, p_178890_4, p_178890_5, p_178890_6);
         this.acting = false;
         return flag;
@@ -93,9 +93,9 @@ public class PlayerControllerOF extends PlayerControllerMP
         return this.acting;
     }
 
-    public BlockPos getLastClickBlockPos()
+    public BlockPosition getLastClickBlockPos()
     {
-        return this.lastClickBlockPos;
+        return this.lastClickBlockPosition;
     }
 
     public Entity getLastClickEntity()

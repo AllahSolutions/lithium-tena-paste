@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -55,7 +55,7 @@ public class WorldClient extends World
         this.sendQueue = netHandler;
         this.getWorldInfo().setDifficulty(difficulty);
         this.provider.registerWorld(this);
-        this.setSpawnPoint(new BlockPos(8, 64, 8));
+        this.setSpawnPoint(new BlockPosition(8, 64, 8));
         this.chunkProvider = this.createChunkProvider();
         this.mapStorage = new SaveDataMemoryStorage();
         this.calculateInitialSkylight();
@@ -274,7 +274,7 @@ public class WorldClient extends World
 
     }
 
-    public void invalidateRegionAndSetBlock(BlockPos pos, IBlockState state)
+    public void invalidateRegionAndSetBlock(BlockPosition pos, IBlockState state)
     {
         int i = pos.getX();
         int j = pos.getY();
@@ -309,7 +309,7 @@ public class WorldClient extends World
         Random random = new Random();
         ItemStack itemstack = this.mc.thePlayer.getHeldItem();
         boolean flag = this.mc.playerController.getCurrentGameType() == WorldSettings.GameType.CREATIVE && itemstack != null && Block.getBlockFromItem(itemstack.getItem()) == Blocks.barrier;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int j = 0; j < 1000; ++j)
         {
@@ -402,7 +402,7 @@ public class WorldClient extends World
      * @param pitch The pitch of the sound
      * @param distanceDelay True if the sound is delayed over distance
      */
-    public void playSoundAtPos(BlockPos pos, String soundName, float volume, float pitch, boolean distanceDelay) {
+    public void playSoundAtPos(BlockPosition pos, String soundName, float volume, float pitch, boolean distanceDelay) {
         this.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, soundName, volume, pitch, distanceDelay);
     }
 
@@ -453,7 +453,7 @@ public class WorldClient extends World
         super.setWorldTime(time);
     }
 
-    public int getCombinedLight(BlockPos pos, int lightValue)
+    public int getCombinedLight(BlockPosition pos, int lightValue)
     {
         int i = super.getCombinedLight(pos, lightValue);
 
@@ -470,7 +470,7 @@ public class WorldClient extends World
      * clients (you almost always want this). Flag 4 prevents the block from being re-rendered, if this is a client
      * world. Flags can be added together.
      */
-    public boolean setBlockState(BlockPos pos, IBlockState newState, int flags)
+    public boolean setBlockState(BlockPosition pos, IBlockState newState, int flags)
     {
         this.playerUpdate = this.isPlayerActing();
         boolean flag = super.setBlockState(pos, newState, flags);

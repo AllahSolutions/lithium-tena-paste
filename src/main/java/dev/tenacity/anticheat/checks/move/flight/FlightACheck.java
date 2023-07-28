@@ -1,6 +1,5 @@
 package dev.tenacity.anticheat.checks.move.flight;
 
-import dev.tenacity.anticheat.Category;
 import dev.tenacity.anticheat.Detection;
 import dev.tenacity.anticheat.utils.MovementUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class FlightACheck extends Detection {
 
     public FlightACheck() {
-        super("Flight A", Category.MOVEMENT);
+        super("Flight A");
     }
 
     @Override

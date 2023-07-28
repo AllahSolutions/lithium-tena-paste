@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -290,7 +290,7 @@ public class ChunkProviderEnd implements IChunkProvider
     public void populate(IChunkProvider chunkProvider, int x, int z)
     {
         BlockFalling.fallInstantly = true;
-        BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
+        BlockPosition blockpos = new BlockPosition(x * 16, 0, z * 16);
         this.endWorld.getBiomeGenForCoords(blockpos.add(16, 0, 16)).decorate(this.endWorld, this.endWorld.rand, blockpos);
         BlockFalling.fallInstantly = false;
     }
@@ -341,12 +341,12 @@ public class ChunkProviderEnd implements IChunkProvider
         return "RandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         return this.endWorld.getBiomeGenForCoords(pos).getSpawnableList(creatureType);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         return null;
     }
@@ -360,8 +360,8 @@ public class ChunkProviderEnd implements IChunkProvider
     {
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 }

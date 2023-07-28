@@ -162,7 +162,7 @@ public class EntityEnderman extends EntityMob
         {
             float f = this.getBrightness(1.0F);
 
-            if (f > 0.5F && this.worldObj.canSeeSky(new BlockPos(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F)
+            if (f > 0.5F && this.worldObj.canSeeSky(new BlockPosition(this)) && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F)
             {
                 this.setAttackTarget((EntityLivingBase)null);
                 this.setScreaming(false);
@@ -211,7 +211,7 @@ public class EntityEnderman extends EntityMob
         this.posY = y;
         this.posZ = z;
         boolean flag = false;
-        BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, this.posY, this.posZ);
 
         if (this.worldObj.isBlockLoaded(blockpos))
         {
@@ -219,7 +219,7 @@ public class EntityEnderman extends EntityMob
 
             while (!flag1 && blockpos.getY() > 0)
             {
-                BlockPos blockpos1 = blockpos.down();
+                BlockPosition blockpos1 = blockpos.down();
                 Block block = this.worldObj.getBlockState(blockpos1).getBlock();
 
                 if (block.getMaterial().blocksMovement())
@@ -549,7 +549,7 @@ public class EntityEnderman extends EntityMob
             int i = MathHelper.floor_double(this.enderman.posX - 1.0D + random.nextDouble() * 2.0D);
             int j = MathHelper.floor_double(this.enderman.posY + random.nextDouble() * 2.0D);
             int k = MathHelper.floor_double(this.enderman.posZ - 1.0D + random.nextDouble() * 2.0D);
-            BlockPos blockpos = new BlockPos(i, j, k);
+            BlockPosition blockpos = new BlockPosition(i, j, k);
             Block block = world.getBlockState(blockpos).getBlock();
             Block block1 = world.getBlockState(blockpos.down()).getBlock();
 
@@ -560,7 +560,7 @@ public class EntityEnderman extends EntityMob
             }
         }
 
-        private boolean func_179474_a(World worldIn, BlockPos p_179474_2_, Block p_179474_3_, Block p_179474_4_, Block p_179474_5_)
+        private boolean func_179474_a(World worldIn, BlockPosition p_179474_2_, Block p_179474_3_, Block p_179474_4_, Block p_179474_5_)
         {
             return !p_179474_3_.canPlaceBlockAt(worldIn, p_179474_2_) ? false : (p_179474_4_.getMaterial() != Material.air ? false : (p_179474_5_.getMaterial() == Material.air ? false : p_179474_5_.isFullCube()));
         }
@@ -587,7 +587,7 @@ public class EntityEnderman extends EntityMob
             int i = MathHelper.floor_double(this.enderman.posX - 2.0D + random.nextDouble() * 4.0D);
             int j = MathHelper.floor_double(this.enderman.posY + random.nextDouble() * 3.0D);
             int k = MathHelper.floor_double(this.enderman.posZ - 2.0D + random.nextDouble() * 4.0D);
-            BlockPos blockpos = new BlockPos(i, j, k);
+            BlockPosition blockpos = new BlockPosition(i, j, k);
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 

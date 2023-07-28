@@ -34,7 +34,7 @@ public class BlockFire extends Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         int i = pos.getX();
         int j = pos.getY();
@@ -111,7 +111,7 @@ public class BlockFire extends Block
         this.flammabilities.put(blockIn, Integer.valueOf(flammability));
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -145,7 +145,7 @@ public class BlockFire extends Block
         return 30;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (worldIn.getGameRules().getBoolean("doFireTick"))
         {
@@ -227,7 +227,7 @@ public class BlockFire extends Block
                                     j1 += (i1 - 1) * 100;
                                 }
 
-                                BlockPos blockpos = pos.add(k, i1, l);
+                                BlockPosition blockpos = pos.add(k, i1, l);
                                 int k1 = this.getNeighborEncouragement(worldIn, blockpos);
 
                                 if (k1 > 0)
@@ -259,7 +259,7 @@ public class BlockFire extends Block
         }
     }
 
-    protected boolean canDie(World worldIn, BlockPos pos)
+    protected boolean canDie(World worldIn, BlockPosition pos)
     {
         return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east()) || worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
     }
@@ -281,7 +281,7 @@ public class BlockFire extends Block
         return integer == null ? 0 : integer.intValue();
     }
 
-    private void catchOnFire(World worldIn, BlockPos pos, int chance, Random random, int age)
+    private void catchOnFire(World worldIn, BlockPosition pos, int chance, Random random, int age)
     {
         int i = this.getFlammability(worldIn.getBlockState(pos).getBlock());
 
@@ -312,7 +312,7 @@ public class BlockFire extends Block
         }
     }
 
-    private boolean canNeighborCatchFire(World worldIn, BlockPos pos)
+    private boolean canNeighborCatchFire(World worldIn, BlockPosition pos)
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
@@ -325,7 +325,7 @@ public class BlockFire extends Block
         return false;
     }
 
-    private int getNeighborEncouragement(World worldIn, BlockPos pos)
+    private int getNeighborEncouragement(World worldIn, BlockPosition pos)
     {
         if (!worldIn.isAirBlock(pos))
         {
@@ -355,12 +355,12 @@ public class BlockFire extends Block
     /**
      * Checks if the block can be caught on fire
      */
-    public boolean canCatchFire(IBlockAccess worldIn, BlockPos pos)
+    public boolean canCatchFire(IBlockAccess worldIn, BlockPosition pos)
     {
         return this.getEncouragement(worldIn.getBlockState(pos).getBlock()) > 0;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) || this.canNeighborCatchFire(worldIn, pos);
     }
@@ -368,7 +368,7 @@ public class BlockFire extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) && !this.canNeighborCatchFire(worldIn, pos))
         {
@@ -376,7 +376,7 @@ public class BlockFire extends Block
         }
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (worldIn.provider.getDimensionId() > 0 || !Blocks.portal.func_176548_d(worldIn, pos))
         {
@@ -391,7 +391,7 @@ public class BlockFire extends Block
         }
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (rand.nextInt(24) == 0)
         {

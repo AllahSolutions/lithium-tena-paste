@@ -11,7 +11,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -42,7 +42,7 @@ public class BlockDirt extends Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         if (state.getValue(VARIANT) == BlockDirt.DirtType.PODZOL)
         {
@@ -66,7 +66,7 @@ public class BlockDirt extends Block
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
+    public int getDamageValue(World worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock() != this ? 0 : ((BlockDirt.DirtType)iblockstate.getValue(VARIANT)).getMetadata();

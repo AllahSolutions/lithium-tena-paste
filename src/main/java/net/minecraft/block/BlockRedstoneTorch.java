@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
@@ -21,7 +21,7 @@ public class BlockRedstoneTorch extends BlockTorch
     private static Map<World, List<BlockRedstoneTorch.Toggle>> toggles = Maps.<World, List<BlockRedstoneTorch.Toggle>>newHashMap();
     private final boolean isOn;
 
-    private boolean isBurnedOut(World worldIn, BlockPos pos, boolean turnOff)
+    private boolean isBurnedOut(World worldIn, BlockPosition pos, boolean turnOff)
     {
         if (!toggles.containsKey(worldIn))
         {
@@ -70,7 +70,7 @@ public class BlockRedstoneTorch extends BlockTorch
         return 2;
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (this.isOn)
         {
@@ -81,7 +81,7 @@ public class BlockRedstoneTorch extends BlockTorch
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (this.isOn)
         {
@@ -92,12 +92,12 @@ public class BlockRedstoneTorch extends BlockTorch
         }
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return this.isOn && state.getValue(FACING) != side ? 15 : 0;
     }
 
-    private boolean shouldBeOff(World worldIn, BlockPos pos, IBlockState state)
+    private boolean shouldBeOff(World worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = ((EnumFacing)state.getValue(FACING)).getOpposite();
         return worldIn.isSidePowered(pos.offset(enumfacing), enumfacing);
@@ -106,11 +106,11 @@ public class BlockRedstoneTorch extends BlockTorch
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         boolean flag = this.shouldBeOff(worldIn, pos, state);
         List<BlockRedstoneTorch.Toggle> list = (List)toggles.get(worldIn);
@@ -151,7 +151,7 @@ public class BlockRedstoneTorch extends BlockTorch
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!this.onNeighborChangeInternal(worldIn, pos, state))
         {
@@ -162,7 +162,7 @@ public class BlockRedstoneTorch extends BlockTorch
         }
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return side == EnumFacing.DOWN ? this.getWeakPower(worldIn, pos, state, side) : 0;
     }
@@ -183,7 +183,7 @@ public class BlockRedstoneTorch extends BlockTorch
         return true;
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (this.isOn)
         {
@@ -205,7 +205,7 @@ public class BlockRedstoneTorch extends BlockTorch
         }
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Item.getItemFromBlock(Blocks.redstone_torch);
     }
@@ -217,10 +217,10 @@ public class BlockRedstoneTorch extends BlockTorch
 
     static class Toggle
     {
-        BlockPos pos;
+        BlockPosition pos;
         long time;
 
-        public Toggle(BlockPos pos, long time)
+        public Toggle(BlockPosition pos, long time)
         {
             this.pos = pos;
             this.time = time;

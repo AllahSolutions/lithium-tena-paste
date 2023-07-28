@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public abstract class BlockBasePressurePlate extends Block
         this.setTickRandomly(true);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.setBlockBoundsBasedOnState0(worldIn.getBlockState(pos));
     }
@@ -55,7 +55,7 @@ public abstract class BlockBasePressurePlate extends Block
         return 20;
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -73,7 +73,7 @@ public abstract class BlockBasePressurePlate extends Block
         return false;
     }
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    public boolean isPassable(IBlockAccess worldIn, BlockPosition pos)
     {
         return true;
     }
@@ -86,7 +86,7 @@ public abstract class BlockBasePressurePlate extends Block
         return true;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return this.canBePlacedOn(worldIn, pos.down());
     }
@@ -94,7 +94,7 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!this.canBePlacedOn(worldIn, pos.down()))
         {
@@ -103,7 +103,7 @@ public abstract class BlockBasePressurePlate extends Block
         }
     }
 
-    private boolean canBePlacedOn(World worldIn, BlockPos pos)
+    private boolean canBePlacedOn(World worldIn, BlockPosition pos)
     {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos) || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
     }
@@ -111,11 +111,11 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -131,7 +131,7 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {
@@ -147,7 +147,7 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Updates the pressure plate when stepped on
      */
-    protected void updateState(World worldIn, BlockPos pos, IBlockState state, int oldRedstoneStrength)
+    protected void updateState(World worldIn, BlockPosition pos, IBlockState state, int oldRedstoneStrength)
     {
         int i = this.computeRedstoneStrength(worldIn, pos);
         boolean flag = oldRedstoneStrength > 0;
@@ -179,13 +179,13 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Returns the cubic AABB inset by 1/8 on all sides
      */
-    protected AxisAlignedBB getSensitiveAABB(BlockPos pos)
+    protected AxisAlignedBB getSensitiveAABB(BlockPosition pos)
     {
         float f = 0.125F;
         return new AxisAlignedBB((double)((float)pos.getX() + 0.125F), (double)pos.getY(), (double)((float)pos.getZ() + 0.125F), (double)((float)(pos.getX() + 1) - 0.125F), (double)pos.getY() + 0.25D, (double)((float)(pos.getZ() + 1) - 0.125F));
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (this.getRedstoneStrength(state) > 0)
         {
@@ -198,18 +198,18 @@ public abstract class BlockBasePressurePlate extends Block
     /**
      * Notify block and block below of changes
      */
-    protected void updateNeighbors(World worldIn, BlockPos pos)
+    protected void updateNeighbors(World worldIn, BlockPosition pos)
     {
         worldIn.notifyNeighborsOfStateChange(pos, this);
         worldIn.notifyNeighborsOfStateChange(pos.down(), this);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return this.getRedstoneStrength(state);
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return side == EnumFacing.UP ? this.getRedstoneStrength(state) : 0;
     }
@@ -238,7 +238,7 @@ public abstract class BlockBasePressurePlate extends Block
         return 1;
     }
 
-    protected abstract int computeRedstoneStrength(World worldIn, BlockPos pos);
+    protected abstract int computeRedstoneStrength(World worldIn, BlockPosition pos);
 
     protected abstract int getRedstoneStrength(IBlockState state);
 

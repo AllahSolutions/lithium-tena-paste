@@ -72,7 +72,7 @@ public class BlockSkull extends BlockContainer
         return false;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         switch ((EnumFacing)worldIn.getBlockState(pos).getValue(FACING))
         {
@@ -98,7 +98,7 @@ public class BlockSkull extends BlockContainer
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
@@ -108,7 +108,7 @@ public class BlockSkull extends BlockContainer
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.valueOf(false));
     }
@@ -121,7 +121,7 @@ public class BlockSkull extends BlockContainer
         return new TileEntitySkull();
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Items.skull;
     }
@@ -129,7 +129,7 @@ public class BlockSkull extends BlockContainer
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
+    public int getDamageValue(World worldIn, BlockPosition pos)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntitySkull ? ((TileEntitySkull)tileentity).getSkullType() : super.getDamageValue(worldIn, pos);
@@ -138,11 +138,11 @@ public class BlockSkull extends BlockContainer
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+    public void onBlockHarvested(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer player)
     {
         if (player.capabilities.isCreativeMode)
         {
@@ -153,7 +153,7 @@ public class BlockSkull extends BlockContainer
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {
@@ -190,12 +190,12 @@ public class BlockSkull extends BlockContainer
         return Items.skull;
     }
 
-    public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack)
+    public boolean canDispenserPlace(World worldIn, BlockPosition pos, ItemStack stack)
     {
         return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote ? this.getWitherBasePattern().match(worldIn, pos) != null : false;
     }
 
-    public void checkWitherSpawn(World worldIn, BlockPos pos, TileEntitySkull te)
+    public void checkWitherSpawn(World worldIn, BlockPosition pos, TileEntitySkull te)
     {
         if (te.getSkullType() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL && !worldIn.isRemote)
         {
@@ -219,9 +219,9 @@ public class BlockSkull extends BlockContainer
                     }
                 }
 
-                BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
+                BlockPosition blockpos = blockpattern$patternhelper.translateOffset(1, 0, 0).getPos();
                 EntityWither entitywither = new EntityWither(worldIn);
-                BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
+                BlockPosition blockpos1 = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
                 entitywither.setLocationAndAngles((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.55D, (double)blockpos1.getZ() + 0.5D, blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F, 0.0F);
                 entitywither.renderYawOffset = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? 0.0F : 90.0F;
                 entitywither.func_82206_m();

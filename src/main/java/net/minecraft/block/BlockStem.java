@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -46,7 +46,7 @@ public class BlockStem extends BlockBush implements IGrowable
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         state = state.withProperty(FACING, EnumFacing.UP);
 
@@ -70,7 +70,7 @@ public class BlockStem extends BlockBush implements IGrowable
         return ground == Blocks.farmland;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -109,7 +109,7 @@ public class BlockStem extends BlockBush implements IGrowable
         }
     }
 
-    public void growStem(World worldIn, BlockPos pos, IBlockState state)
+    public void growStem(World worldIn, BlockPosition pos, IBlockState state)
     {
         int i = ((Integer)state.getValue(AGE)).intValue() + MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
         worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(Math.min(7, i))), 2);
@@ -131,7 +131,7 @@ public class BlockStem extends BlockBush implements IGrowable
         }
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         return this.getRenderColor(worldIn.getBlockState(pos));
     }
@@ -145,7 +145,7 @@ public class BlockStem extends BlockBush implements IGrowable
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.25F, 0.5F + f);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.maxY = (double)((float)(((Integer)worldIn.getBlockState(pos).getValue(AGE)).intValue() * 2 + 2) / 16.0F);
         float f = 0.125F;
@@ -155,7 +155,7 @@ public class BlockStem extends BlockBush implements IGrowable
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
@@ -191,7 +191,7 @@ public class BlockStem extends BlockBush implements IGrowable
         return null;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         Item item = this.getSeedItem();
         return item != null ? item : null;
@@ -200,17 +200,17 @@ public class BlockStem extends BlockBush implements IGrowable
     /**
      * Whether this IGrowable can grow
      */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+    public boolean canGrow(World worldIn, BlockPosition pos, IBlockState state, boolean isClient)
     {
         return ((Integer)state.getValue(AGE)).intValue() != 7;
     }
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         return true;
     }
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public void grow(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         this.growStem(worldIn, pos, state);
     }

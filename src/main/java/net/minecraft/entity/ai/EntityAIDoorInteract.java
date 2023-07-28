@@ -7,12 +7,12 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public abstract class EntityAIDoorInteract extends EntityAIBase
 {
     protected EntityLiving theEntity;
-    protected BlockPos doorPosition = BlockPos.ORIGIN;
+    protected BlockPosition doorPosition = BlockPosition.ORIGIN;
 
     /** The wooden door block */
     protected BlockDoor doorBlock;
@@ -53,7 +53,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase
                 for (int i = 0; i < Math.min(pathentity.getCurrentPathIndex() + 2, pathentity.getCurrentPathLength()); ++i)
                 {
                     PathPoint pathpoint = pathentity.getPathPointFromIndex(i);
-                    this.doorPosition = new BlockPos(pathpoint.xCoord, pathpoint.yCoord + 1, pathpoint.zCoord);
+                    this.doorPosition = new BlockPosition(pathpoint.xCoord, pathpoint.yCoord + 1, pathpoint.zCoord);
 
                     if (this.theEntity.getDistanceSq((double)this.doorPosition.getX(), this.theEntity.posY, (double)this.doorPosition.getZ()) <= 2.25D)
                     {
@@ -66,7 +66,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase
                     }
                 }
 
-                this.doorPosition = (new BlockPos(this.theEntity)).up();
+                this.doorPosition = (new BlockPosition(this.theEntity)).up();
                 this.doorBlock = this.getBlockDoor(this.doorPosition);
                 return this.doorBlock != null;
             }
@@ -110,7 +110,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase
         }
     }
 
-    private BlockDoor getBlockDoor(BlockPos pos)
+    private BlockDoor getBlockDoor(BlockPosition pos)
     {
         Block block = this.theEntity.worldObj.getBlockState(pos).getBlock();
         return block instanceof BlockDoor && block.getMaterial() == Material.wood ? (BlockDoor)block : null;

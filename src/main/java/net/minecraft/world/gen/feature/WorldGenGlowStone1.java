@@ -2,7 +2,7 @@ package net.minecraft.world.gen.feature;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class WorldGenGlowStone1 extends WorldGenerator
 {
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         if (!worldIn.isAirBlock(position))
         {
@@ -26,7 +26,7 @@ public class WorldGenGlowStone1 extends WorldGenerator
 
             for (int i = 0; i < 1500; ++i)
             {
-                BlockPos blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), -rand.nextInt(12), rand.nextInt(8) - rand.nextInt(8));
+                BlockPosition blockpos = position.add(rand.nextInt(8) - rand.nextInt(8), -rand.nextInt(12), rand.nextInt(8) - rand.nextInt(8));
 
                 if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air)
                 {

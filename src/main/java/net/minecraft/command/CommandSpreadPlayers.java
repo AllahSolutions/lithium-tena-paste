@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -56,7 +56,7 @@ public class CommandSpreadPlayers extends CommandBase
         else
         {
             int i = 0;
-            BlockPos blockpos = sender.getPosition();
+            BlockPosition blockpos = sender.getPosition();
             double d0 = parseDouble((double)blockpos.getX(), args[i++], true);
             double d1 = parseDouble((double)blockpos.getZ(), args[i++], true);
             double d2 = parseDouble(args[i++], 0.0D);
@@ -285,7 +285,7 @@ public class CommandSpreadPlayers extends CommandBase
         return acommandspreadplayers$position;
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length >= 1 && args.length <= 2 ? func_181043_b(args, 0, pos) : null;
     }
@@ -361,7 +361,7 @@ public class CommandSpreadPlayers extends CommandBase
 
         public int func_111092_a(World worldIn)
         {
-            BlockPos blockpos = new BlockPos(this.field_111101_a, 256.0D, this.field_111100_b);
+            BlockPosition blockpos = new BlockPosition(this.field_111101_a, 256.0D, this.field_111100_b);
 
             while (blockpos.getY() > 0)
             {
@@ -378,7 +378,7 @@ public class CommandSpreadPlayers extends CommandBase
 
         public boolean func_111098_b(World worldIn)
         {
-            BlockPos blockpos = new BlockPos(this.field_111101_a, 256.0D, this.field_111100_b);
+            BlockPosition blockpos = new BlockPosition(this.field_111101_a, 256.0D, this.field_111100_b);
 
             while (blockpos.getY() > 0)
             {

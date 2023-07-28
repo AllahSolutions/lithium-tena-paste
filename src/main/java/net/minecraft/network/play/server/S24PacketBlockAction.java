@@ -4,13 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S24PacketBlockAction implements Packet<INetHandlerPlayClient>
 {
-    private BlockPos blockPosition;
+    private BlockPosition blockPosition;
     private int instrument;
     private int pitch;
     private Block block;
@@ -19,7 +19,7 @@ public class S24PacketBlockAction implements Packet<INetHandlerPlayClient>
     {
     }
 
-    public S24PacketBlockAction(BlockPos blockPositionIn, Block blockIn, int instrumentIn, int pitchIn)
+    public S24PacketBlockAction(BlockPosition blockPositionIn, Block blockIn, int instrumentIn, int pitchIn)
     {
         this.blockPosition = blockPositionIn;
         this.instrument = instrumentIn;
@@ -57,7 +57,7 @@ public class S24PacketBlockAction implements Packet<INetHandlerPlayClient>
         handler.handleBlockAction(this);
     }
 
-    public BlockPos getBlockPosition()
+    public BlockPosition getBlockPosition()
     {
         return this.blockPosition;
     }

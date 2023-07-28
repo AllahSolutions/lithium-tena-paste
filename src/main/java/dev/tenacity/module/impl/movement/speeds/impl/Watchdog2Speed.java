@@ -1,19 +1,13 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
-import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
-import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.block.Block;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.potion.Potion;
 import net.minecraft.block.BlockAir;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.BlockPosition;
 
 public class Watchdog2Speed extends SpeedMode {
     private float angle;
@@ -33,7 +27,7 @@ public class Watchdog2Speed extends SpeedMode {
         super.onEnable();
     }
     public Block blockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {
-        return mc.theWorld.getBlockState(new BlockPos(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
+        return mc.theWorld.getBlockState(new BlockPosition(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
     }
 
 

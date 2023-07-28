@@ -13,7 +13,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.ColorizerFoliage;
@@ -247,7 +247,7 @@ public abstract class BiomeGenBase
         return new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
     }
 
-    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
+    public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPosition pos)
     {
         return rand.nextInt(3) > 0 ? BlockFlower.EnumFlowerType.DANDELION : BlockFlower.EnumFlowerType.POPPY;
     }
@@ -383,7 +383,7 @@ public abstract class BiomeGenBase
     /**
      * Gets a floating point representation of this biome's temperature
      */
-    public final float getFloatTemperature(BlockPos pos)
+    public final float getFloatTemperature(BlockPosition pos)
     {
         if (pos.getY() > 64)
         {
@@ -396,19 +396,19 @@ public abstract class BiomeGenBase
         }
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         this.theBiomeDecorator.decorate(worldIn, rand, this, pos);
     }
 
-    public int getGrassColorAtPos(BlockPos pos)
+    public int getGrassColorAtPos(BlockPosition pos)
     {
         double d0 = (double)MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
         double d1 = (double)MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
         return ColorizerGrass.getGrassColor(d0, d1);
     }
 
-    public int getFoliageColorAtPos(BlockPos pos)
+    public int getFoliageColorAtPos(BlockPosition pos)
     {
         double d0 = (double)MathHelper.clamp_float(this.getFloatTemperature(pos), 0.0F, 1.0F);
         double d1 = (double)MathHelper.clamp_float(this.getFloatRainfall(), 0.0F, 1.0F);
@@ -444,7 +444,7 @@ public abstract class BiomeGenBase
         int k = (int)(noiseVal / 3.0D + 3.0D + rand.nextDouble() * 0.25D);
         int l = x & 15;
         int i1 = z & 15;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int j1 = 255; j1 >= 0; --j1)
         {

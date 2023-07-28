@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
 
@@ -56,7 +56,7 @@ public class BiomeGenJungle extends BiomeGenBase
         return rand.nextInt(4) == 0 ? new WorldGenTallGrass(BlockTallGrass.EnumType.FERN) : new WorldGenTallGrass(BlockTallGrass.EnumType.GRASS);
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         super.decorate(worldIn, rand, pos);
         int i = rand.nextInt(16) + 8;

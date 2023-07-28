@@ -376,7 +376,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
     {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.posZ);
-        this.worldObj.getBiomeGenForCoords(new BlockPos(i, 0, j));
+        this.worldObj.getBiomeGenForCoords(new BlockPosition(i, 0, j));
         return true;
     }
 
@@ -417,7 +417,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                 this.riddenByEntity.attackEntityFrom(DamageSource.fall, (float)i);
             }
 
-            Block block = this.worldObj.getBlockState(new BlockPos(this.posX, this.posY - 0.2D - (double)this.prevRotationYaw, this.posZ)).getBlock();
+            Block block = this.worldObj.getBlockState(new BlockPosition(this.posX, this.posY - 0.2D - (double)this.prevRotationYaw, this.posZ)).getBlock();
 
             if (block.getMaterial() != Material.air && !this.isSilent())
             {
@@ -600,7 +600,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
         return i != 3 && i != 4 ? (i != 1 && i != 2 ? "mob.horse.angry" : "mob.horse.donkey.angry") : null;
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         Block.SoundType block$soundtype = blockIn.stepSound;
 
@@ -1070,7 +1070,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                 this.heal(1.0F);
             }
 
-            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) - 1, MathHelper.floor_double(this.posZ))).getBlock() == Blocks.grass)
+            if (!this.isEatingHaystack() && this.riddenByEntity == null && this.rand.nextInt(300) == 0 && this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY) - 1, MathHelper.floor_double(this.posZ))).getBlock() == Blocks.grass)
             {
                 this.setEatingHaystack(true);
             }

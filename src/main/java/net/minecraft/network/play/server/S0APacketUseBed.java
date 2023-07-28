@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.io.IOException;
@@ -14,13 +14,13 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient>
     private int playerID;
 
     /** Block location of the head part of the bed */
-    private BlockPos bedPos;
+    private BlockPosition bedPos;
 
     public S0APacketUseBed()
     {
     }
 
-    public S0APacketUseBed(EntityPlayer player, BlockPos bedPosIn)
+    public S0APacketUseBed(EntityPlayer player, BlockPosition bedPosIn)
     {
         this.playerID = player.getEntityId();
         this.bedPos = bedPosIn;
@@ -57,7 +57,7 @@ public class S0APacketUseBed implements Packet<INetHandlerPlayClient>
         return (EntityPlayer)worldIn.getEntityByID(this.playerID);
     }
 
-    public BlockPos getBedPosition()
+    public BlockPosition getBedPosition()
     {
         return this.bedPos;
     }

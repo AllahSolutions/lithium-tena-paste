@@ -273,7 +273,7 @@ public class EntityGuardian extends EntityMob
         return this.height * 0.5F;
     }
 
-    public float getBlockPathWeight(BlockPos pos)
+    public float getBlockPathWeight(BlockPosition pos)
     {
         return this.worldObj.getBlockState(pos).getBlock().getMaterial() == Material.water ? 10.0F + this.worldObj.getLightBrightness(pos) - 0.5F : super.getBlockPathWeight(pos);
     }
@@ -297,7 +297,7 @@ public class EntityGuardian extends EntityMob
                     this.worldObj.playSound(this.posX, this.posY, this.posZ, "mob.guardian.flop", 1.0F, 1.0F, false);
                 }
 
-                this.field_175480_bp = this.motionY < 0.0D && this.worldObj.isBlockNormalCube((new BlockPos(this)).down(), false);
+                this.field_175480_bp = this.motionY < 0.0D && this.worldObj.isBlockNormalCube((new BlockPosition(this)).down(), false);
             }
             else if (this.func_175472_n())
             {
@@ -443,7 +443,7 @@ public class EntityGuardian extends EntityMob
 
             if (!this.hasHome())
             {
-                this.setHomePosAndDistance(new BlockPos(this), 16);
+                this.setHomePosAndDistance(new BlockPosition(this), 16);
             }
         }
     }
@@ -509,7 +509,7 @@ public class EntityGuardian extends EntityMob
      */
     public boolean getCanSpawnHere()
     {
-        return (this.rand.nextInt(20) == 0 || !this.worldObj.canBlockSeeSky(new BlockPos(this))) && super.getCanSpawnHere();
+        return (this.rand.nextInt(20) == 0 || !this.worldObj.canBlockSeeSky(new BlockPosition(this))) && super.getCanSpawnHere();
     }
 
     /**

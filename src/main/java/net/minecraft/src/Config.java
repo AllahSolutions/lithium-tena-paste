@@ -1721,7 +1721,7 @@ public class Config
         return p_intHash_0_;
     }
 
-    public static int getRandom(BlockPos p_getRandom_0_, int p_getRandom_1_)
+    public static int getRandom(BlockPosition p_getRandom_0_, int p_getRandom_1_)
     {
         int i = intHash(p_getRandom_1_ + 37);
         i = intHash(i + p_getRandom_0_.getX());

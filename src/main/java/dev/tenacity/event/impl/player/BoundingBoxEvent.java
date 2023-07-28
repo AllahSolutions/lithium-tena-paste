@@ -3,16 +3,16 @@ package dev.tenacity.event.impl.player;
 import dev.tenacity.event.Event;
 import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class BoundingBoxEvent extends Event {
     private final Block block;
-    private final BlockPos blockPos;
+    private final BlockPosition blockPosition;
     private AxisAlignedBB boundingBox;
 
-    public BoundingBoxEvent(Block block, BlockPos pos, AxisAlignedBB boundingBox) {
+    public BoundingBoxEvent(Block block, BlockPosition pos, AxisAlignedBB boundingBox) {
         this.block = block;
-        this.blockPos = pos;
+        this.blockPosition = pos;
         this.boundingBox = boundingBox;
     }
 
@@ -20,8 +20,8 @@ public class BoundingBoxEvent extends Event {
         return this.block;
     }
 
-    public final BlockPos getBlockPos() {
-        return this.blockPos;
+    public final BlockPosition getBlockPos() {
+        return this.blockPosition;
     }
 
     public final AxisAlignedBB getBoundingBox() {

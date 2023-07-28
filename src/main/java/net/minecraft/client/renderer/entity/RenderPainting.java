@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -137,7 +137,7 @@ public class RenderPainting extends Render<EntityPainting>
             k = MathHelper.floor_double(painting.posZ + (double)(p_77008_2_ / 16.0F));
         }
 
-        int l = this.renderManager.worldObj.getCombinedLight(new BlockPos(i, j, k), 0);
+        int l = this.renderManager.worldObj.getCombinedLight(new BlockPosition(i, j, k), 0);
         int i1 = l % 65536;
         int j1 = l / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)i1, (float)j1);

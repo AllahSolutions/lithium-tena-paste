@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.ColorizerFoliage;
@@ -45,7 +45,7 @@ public class BlockVine extends Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         return state.withProperty(UP, Boolean.valueOf(worldIn.getBlockState(pos.up()).getBlock().isBlockNormalCube()));
     }
@@ -74,12 +74,12 @@ public class BlockVine extends Block
     /**
      * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
      */
-    public boolean isReplaceable(World worldIn, BlockPos pos)
+    public boolean isReplaceable(World worldIn, BlockPosition pos)
     {
         return true;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         float f = 0.0625F;
         float f1 = 1.0F;
@@ -147,7 +147,7 @@ public class BlockVine extends Block
         this.setBlockBounds(f1, f2, f3, f4, f5, f6);
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -155,7 +155,7 @@ public class BlockVine extends Block
     /**
      * Check whether this Block can be placed on the given side
      */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side)
     {
         switch (side)
         {
@@ -178,7 +178,7 @@ public class BlockVine extends Block
         return blockIn.isFullCube() && blockIn.blockMaterial.blocksMovement();
     }
 
-    private boolean recheckGrownSides(World worldIn, BlockPos pos, IBlockState state)
+    private boolean recheckGrownSides(World worldIn, BlockPosition pos, IBlockState state)
     {
         IBlockState iblockstate = state;
 
@@ -222,7 +222,7 @@ public class BlockVine extends Block
         return ColorizerFoliage.getFoliageColorBasic();
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         return worldIn.getBiomeGenForCoords(pos).getFoliageColorAtPos(pos);
     }
@@ -230,7 +230,7 @@ public class BlockVine extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!worldIn.isRemote && !this.recheckGrownSides(worldIn, pos, state))
         {
@@ -239,7 +239,7 @@ public class BlockVine extends Block
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -271,7 +271,7 @@ public class BlockVine extends Block
                 }
 
                 EnumFacing enumfacing1 = EnumFacing.random(rand);
-                BlockPos blockpos1 = pos.up();
+                BlockPosition blockpos1 = pos.up();
 
                 if (enumfacing1 == EnumFacing.UP && pos.getY() < 255 && worldIn.isAirBlock(blockpos1))
                 {
@@ -297,7 +297,7 @@ public class BlockVine extends Block
                 {
                     if (!flag)
                     {
-                        BlockPos blockpos3 = pos.offset(enumfacing1);
+                        BlockPosition blockpos3 = pos.offset(enumfacing1);
                         Block block1 = worldIn.getBlockState(blockpos3).getBlock();
 
                         if (block1.blockMaterial == Material.air)
@@ -306,8 +306,8 @@ public class BlockVine extends Block
                             EnumFacing enumfacing4 = enumfacing1.rotateYCCW();
                             boolean flag1 = ((Boolean)state.getValue(getPropertyFor(enumfacing2))).booleanValue();
                             boolean flag2 = ((Boolean)state.getValue(getPropertyFor(enumfacing4))).booleanValue();
-                            BlockPos blockpos4 = blockpos3.offset(enumfacing2);
-                            BlockPos blockpos = blockpos3.offset(enumfacing4);
+                            BlockPosition blockpos4 = blockpos3.offset(enumfacing2);
+                            BlockPosition blockpos = blockpos3.offset(enumfacing4);
 
                             if (flag1 && this.canPlaceOn(worldIn.getBlockState(blockpos4).getBlock()))
                             {
@@ -340,7 +340,7 @@ public class BlockVine extends Block
                 {
                     if (pos.getY() > 1)
                     {
-                        BlockPos blockpos2 = pos.down();
+                        BlockPosition blockpos2 = pos.down();
                         IBlockState iblockstate = worldIn.getBlockState(blockpos2);
                         Block block = iblockstate.getBlock();
 
@@ -390,7 +390,7 @@ public class BlockVine extends Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         IBlockState iblockstate = this.getDefaultState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false));
         return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), Boolean.valueOf(true)) : iblockstate;
@@ -412,7 +412,7 @@ public class BlockVine extends Block
         return 0;
     }
 
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPosition pos, IBlockState state, TileEntity te)
     {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears)
         {

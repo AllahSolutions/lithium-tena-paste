@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.chunk;
 
 import dev.tenacity.module.impl.render.XRay;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IntegerCache;
 
@@ -15,13 +15,13 @@ public class VisGraph {
     private static final int[] field_178613_e = new int[1352];
     private int field_178611_f = 4096;
 
-    public void func_178606_a(BlockPos pos) {
+    public void func_178606_a(BlockPosition pos) {
         if (XRay.enabled) return;
         this.field_178612_d.set(getIndex(pos), true);
         --this.field_178611_f;
     }
 
-    private static int getIndex(BlockPos pos) {
+    private static int getIndex(BlockPosition pos) {
         return getIndex(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15);
     }
 
@@ -51,7 +51,7 @@ public class VisGraph {
         return setvisibility;
     }
 
-    public Set<EnumFacing> func_178609_b(BlockPos pos) {
+    public Set<EnumFacing> func_178609_b(BlockPosition pos) {
         return this.func_178604_a(getIndex(pos));
     }
 

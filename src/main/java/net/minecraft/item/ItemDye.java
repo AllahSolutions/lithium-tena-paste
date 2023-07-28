@@ -10,7 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -41,7 +41,7 @@ public class ItemDye extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack))
         {
@@ -101,7 +101,7 @@ public class ItemDye extends Item
         }
     }
 
-    public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPos target)
+    public static boolean applyBonemeal(ItemStack stack, World worldIn, BlockPosition target)
     {
         IBlockState iblockstate = worldIn.getBlockState(target);
 
@@ -128,7 +128,7 @@ public class ItemDye extends Item
         return false;
     }
 
-    public static void spawnBonemealParticles(World worldIn, BlockPos pos, int amount)
+    public static void spawnBonemealParticles(World worldIn, BlockPosition pos, int amount)
     {
         if (amount == 0)
         {

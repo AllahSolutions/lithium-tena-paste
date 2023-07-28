@@ -11,7 +11,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
@@ -312,7 +312,7 @@ public class CustomGuiProperties
         Config.warn("[CustomGuis] " + str);
     }
 
-    private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesGeneral(CustomGuiProperties.EnumContainer ec, BlockPosition pos, IBlockAccess blockAccess)
     {
         if (this.container != ec)
         {
@@ -334,7 +334,7 @@ public class CustomGuiProperties
         }
     }
 
-    public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPos pos, IBlockAccess blockAccess, GuiScreen screen)
+    public boolean matchesPos(CustomGuiProperties.EnumContainer ec, BlockPosition pos, IBlockAccess blockAccess, GuiScreen screen)
     {
         if (!this.matchesGeneral(ec, pos, blockAccess))
         {
@@ -386,7 +386,7 @@ public class CustomGuiProperties
         return !(object instanceof IWorldNameable) ? null : (IWorldNameable)object;
     }
 
-    private boolean matchesBeacon(BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesBeacon(BlockPosition pos, IBlockAccess blockAccess)
     {
         TileEntity tileentity = blockAccess.getTileEntity(pos);
 
@@ -414,7 +414,7 @@ public class CustomGuiProperties
         }
     }
 
-    private boolean matchesChest(BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesChest(BlockPosition pos, IBlockAccess blockAccess)
     {
         TileEntity tileentity = blockAccess.getTileEntity(pos);
 
@@ -434,7 +434,7 @@ public class CustomGuiProperties
         }
     }
 
-    private boolean matchesChest(TileEntityChest tec, BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesChest(TileEntityChest tec, BlockPosition pos, IBlockAccess blockAccess)
     {
         boolean flag = tec.adjacentChestXNeg != null || tec.adjacentChestXPos != null || tec.adjacentChestZNeg != null || tec.adjacentChestZPos != null;
         boolean flag1 = tec.getChestType() == 1;
@@ -443,7 +443,7 @@ public class CustomGuiProperties
         return this.matchesChest(flag, flag1, flag2, flag3);
     }
 
-    private boolean matchesEnderChest(TileEntityEnderChest teec, BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesEnderChest(TileEntityEnderChest teec, BlockPosition pos, IBlockAccess blockAccess)
     {
         return this.matchesChest(false, false, false, true);
     }
@@ -453,7 +453,7 @@ public class CustomGuiProperties
         return this.large != null && this.large.booleanValue() != isLarge ? false : (this.trapped != null && this.trapped.booleanValue() != isTrapped ? false : (this.christmas != null && this.christmas.booleanValue() != isChristmas ? false : this.ender == null || this.ender.booleanValue() == isEnder));
     }
 
-    private boolean matchesDispenser(BlockPos pos, IBlockAccess blockAccess)
+    private boolean matchesDispenser(BlockPosition pos, IBlockAccess blockAccess)
     {
         TileEntity tileentity = blockAccess.getTileEntity(pos);
 

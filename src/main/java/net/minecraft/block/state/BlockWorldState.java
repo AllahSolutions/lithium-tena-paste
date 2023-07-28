@@ -2,19 +2,19 @@ package net.minecraft.block.state;
 
 import com.google.common.base.Predicate;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class BlockWorldState
 {
     private final World world;
-    private final BlockPos pos;
+    private final BlockPosition pos;
     private final boolean field_181628_c;
     private IBlockState state;
     private TileEntity tileEntity;
     private boolean tileEntityInitialized;
 
-    public BlockWorldState(World worldIn, BlockPos posIn, boolean p_i46451_3_)
+    public BlockWorldState(World worldIn, BlockPosition posIn, boolean p_i46451_3_)
     {
         this.world = worldIn;
         this.pos = posIn;
@@ -42,7 +42,7 @@ public class BlockWorldState
         return this.tileEntity;
     }
 
-    public BlockPos getPos()
+    public BlockPosition getPos()
     {
         return this.pos;
     }

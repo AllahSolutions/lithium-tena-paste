@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -57,7 +57,7 @@ public class EntityEnderEye extends Entity
         this.setPosition(x, y, z);
     }
 
-    public void moveTowards(BlockPos p_180465_1_)
+    public void moveTowards(BlockPosition p_180465_1_)
     {
         double d0 = (double)p_180465_1_.getX();
         int i = p_180465_1_.getY();
@@ -194,7 +194,7 @@ public class EntityEnderEye extends Entity
                 }
                 else
                 {
-                    this.worldObj.playAuxSFX(2003, new BlockPos(this), 0);
+                    this.worldObj.playAuxSFX(2003, new BlockPosition(this), 0);
                 }
             }
         }

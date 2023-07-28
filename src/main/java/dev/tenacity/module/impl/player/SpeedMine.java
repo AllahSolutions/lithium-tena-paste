@@ -9,14 +9,14 @@ import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 public class SpeedMine extends Module {
 
     private final NumberSetting speed = new NumberSetting("Speed", 1.4, 3, 1, 0.1);
     private EnumFacing facing;
-    private BlockPos pos;
+    private BlockPosition pos;
     private boolean boost;
     private float damage;
 

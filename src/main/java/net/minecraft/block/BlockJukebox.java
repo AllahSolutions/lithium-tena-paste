@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -29,7 +29,7 @@ public class BlockJukebox extends BlockContainer
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (((Boolean)state.getValue(HAS_RECORD)).booleanValue())
         {
@@ -44,7 +44,7 @@ public class BlockJukebox extends BlockContainer
         }
     }
 
-    public void insertRecord(World worldIn, BlockPos pos, IBlockState state, ItemStack recordStack)
+    public void insertRecord(World worldIn, BlockPosition pos, IBlockState state, ItemStack recordStack)
     {
         if (!worldIn.isRemote)
         {
@@ -58,7 +58,7 @@ public class BlockJukebox extends BlockContainer
         }
     }
 
-    private void dropRecord(World worldIn, BlockPos pos, IBlockState state)
+    private void dropRecord(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {
@@ -87,7 +87,7 @@ public class BlockJukebox extends BlockContainer
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.dropRecord(worldIn, pos, state);
         super.breakBlock(worldIn, pos, state);
@@ -96,7 +96,7 @@ public class BlockJukebox extends BlockContainer
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         if (!worldIn.isRemote)
         {
@@ -117,7 +117,7 @@ public class BlockJukebox extends BlockContainer
         return true;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
+    public int getComparatorInputOverride(World worldIn, BlockPosition pos)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 

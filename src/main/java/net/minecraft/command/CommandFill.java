@@ -9,7 +9,7 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -52,8 +52,8 @@ public class CommandFill extends CommandBase
         else
         {
             sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, 0);
-            BlockPos blockpos = parseBlockPos(sender, args, 0, false);
-            BlockPos blockpos1 = parseBlockPos(sender, args, 3, false);
+            BlockPosition blockpos = parseBlockPos(sender, args, 0, false);
+            BlockPosition blockpos1 = parseBlockPos(sender, args, 3, false);
             Block block = CommandBase.getBlockByText(sender, args[6]);
             int i = 0;
 
@@ -62,8 +62,8 @@ public class CommandFill extends CommandBase
                 i = parseInt(args[7], 0, 15);
             }
 
-            BlockPos blockpos2 = new BlockPos(Math.min(blockpos.getX(), blockpos1.getX()), Math.min(blockpos.getY(), blockpos1.getY()), Math.min(blockpos.getZ(), blockpos1.getZ()));
-            BlockPos blockpos3 = new BlockPos(Math.max(blockpos.getX(), blockpos1.getX()), Math.max(blockpos.getY(), blockpos1.getY()), Math.max(blockpos.getZ(), blockpos1.getZ()));
+            BlockPosition blockpos2 = new BlockPosition(Math.min(blockpos.getX(), blockpos1.getX()), Math.min(blockpos.getY(), blockpos1.getY()), Math.min(blockpos.getZ(), blockpos1.getZ()));
+            BlockPosition blockpos3 = new BlockPosition(Math.max(blockpos.getX(), blockpos1.getX()), Math.max(blockpos.getY(), blockpos1.getY()), Math.max(blockpos.getZ(), blockpos1.getZ()));
             int j = (blockpos3.getX() - blockpos2.getX() + 1) * (blockpos3.getY() - blockpos2.getY() + 1) * (blockpos3.getZ() - blockpos2.getZ() + 1);
 
             if (j > 32768)
@@ -78,7 +78,7 @@ public class CommandFill extends CommandBase
                 {
                     for (int l = blockpos2.getX(); l < blockpos3.getX() + 16; l += 16)
                     {
-                        if (!world.isBlockLoaded(new BlockPos(l, blockpos3.getY() - blockpos2.getY(), k)))
+                        if (!world.isBlockLoaded(new BlockPosition(l, blockpos3.getY() - blockpos2.getY(), k)))
                         {
                             throw new CommandException("commands.fill.outOfWorld", new Object[0]);
                         }
@@ -103,7 +103,7 @@ public class CommandFill extends CommandBase
                     }
                 }
 
-                List<BlockPos> list = Lists.<BlockPos>newArrayList();
+                List<BlockPosition> list = Lists.<BlockPosition>newArrayList();
                 j = 0;
 
                 for (int i1 = blockpos2.getZ(); i1 <= blockpos3.getZ(); ++i1)
@@ -112,7 +112,7 @@ public class CommandFill extends CommandBase
                     {
                         for (int k1 = blockpos2.getX(); k1 <= blockpos3.getX(); ++k1)
                         {
-                            BlockPos blockpos4 = new BlockPos(k1, j1, i1);
+                            BlockPosition blockpos4 = new BlockPosition(k1, j1, i1);
 
                             if (args.length >= 9)
                             {
@@ -201,7 +201,7 @@ public class CommandFill extends CommandBase
                     }
                 }
 
-                for (BlockPos blockpos5 : list)
+                for (BlockPosition blockpos5 : list)
                 {
                     Block block2 = world.getBlockState(blockpos5).getBlock();
                     world.notifyNeighborsRespectDebug(blockpos5, block2);
@@ -224,7 +224,7 @@ public class CommandFill extends CommandBase
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : (args.length > 3 && args.length <= 6 ? func_175771_a(args, 3, pos) : (args.length == 7 ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : (args.length == 9 ? getListOfStringsMatchingLastWord(args, new String[] {"replace", "destroy", "keep", "hollow", "outline"}): (args.length == 10 && "replace".equals(args[8]) ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : null))));
     }

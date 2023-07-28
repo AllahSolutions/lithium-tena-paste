@@ -2,7 +2,7 @@ package net.minecraft.world.gen.feature;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -19,7 +19,7 @@ public class WorldGenBlockBlob extends WorldGenerator
         this.field_150544_b = p_i45450_2_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         while (true)
         {
@@ -54,7 +54,7 @@ public class WorldGenBlockBlob extends WorldGenerator
                     int l = i1 + rand.nextInt(2);
                     float f = (float)(j + k + l) * 0.333F + 0.5F;
 
-                    for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l)))
+                    for (BlockPosition blockpos : BlockPosition.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l)))
                     {
                         if (blockpos.distanceSq(position) <= (double)(f * f))
                         {

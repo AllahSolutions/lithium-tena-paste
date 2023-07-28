@@ -7,7 +7,7 @@ import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
@@ -23,7 +23,7 @@ public class ItemEnderEye extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -59,7 +59,7 @@ public class ItemEnderEye extends Item
 
                 for (int k = -2; k <= 2; ++k)
                 {
-                    BlockPos blockpos1 = pos.offset(enumfacing1, k);
+                    BlockPosition blockpos1 = pos.offset(enumfacing1, k);
                     IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
 
                     if (iblockstate1.getBlock() == Blocks.end_portal_frame)
@@ -82,11 +82,11 @@ public class ItemEnderEye extends Item
 
                 if (flag && j == l + 2)
                 {
-                    BlockPos blockpos = pos.offset(enumfacing, 4);
+                    BlockPosition blockpos = pos.offset(enumfacing, 4);
 
                     for (int i1 = l; i1 <= j; ++i1)
                     {
-                        BlockPos blockpos2 = blockpos.offset(enumfacing1, i1);
+                        BlockPosition blockpos2 = blockpos.offset(enumfacing1, i1);
                         IBlockState iblockstate3 = worldIn.getBlockState(blockpos2);
 
                         if (iblockstate3.getBlock() != Blocks.end_portal_frame || !((Boolean)iblockstate3.getValue(BlockEndPortalFrame.EYE)).booleanValue())
@@ -102,7 +102,7 @@ public class ItemEnderEye extends Item
 
                         for (int l1 = 1; l1 <= 3; ++l1)
                         {
-                            BlockPos blockpos3 = blockpos.offset(enumfacing, l1);
+                            BlockPosition blockpos3 = blockpos.offset(enumfacing, l1);
                             IBlockState iblockstate2 = worldIn.getBlockState(blockpos3);
 
                             if (iblockstate2.getBlock() != Blocks.end_portal_frame || !((Boolean)iblockstate2.getValue(BlockEndPortalFrame.EYE)).booleanValue())
@@ -121,7 +121,7 @@ public class ItemEnderEye extends Item
 
                             for (int i2 = 1; i2 <= 3; ++i2)
                             {
-                                BlockPos blockpos4 = blockpos.offset(enumfacing, i2);
+                                BlockPosition blockpos4 = blockpos.offset(enumfacing, i2);
                                 worldIn.setBlockState(blockpos4, Blocks.end_portal.getDefaultState(), 2);
                             }
                         }
@@ -152,7 +152,7 @@ public class ItemEnderEye extends Item
         {
             if (!worldIn.isRemote)
             {
-                BlockPos blockpos = worldIn.getStrongholdPos("Stronghold", new BlockPos(playerIn));
+                BlockPosition blockpos = worldIn.getStrongholdPos("Stronghold", new BlockPosition(playerIn));
 
                 if (blockpos != null)
                 {
@@ -160,7 +160,7 @@ public class ItemEnderEye extends Item
                     entityendereye.moveTowards(blockpos);
                     worldIn.spawnEntityInWorld(entityendereye);
                     worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-                    worldIn.playAuxSFXAtEntity((EntityPlayer)null, 1002, new BlockPos(playerIn), 0);
+                    worldIn.playAuxSFXAtEntity((EntityPlayer)null, 1002, new BlockPosition(playerIn), 0);
 
                     if (!playerIn.capabilities.isCreativeMode)
                     {

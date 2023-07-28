@@ -10,7 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 
@@ -81,7 +81,7 @@ public class BlockStainedGlassPane extends BlockPane
         return new BlockState(this, new IProperty[] {NORTH, EAST, WEST, SOUTH, COLOR});
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {
@@ -89,7 +89,7 @@ public class BlockStainedGlassPane extends BlockPane
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {

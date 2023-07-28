@@ -9,7 +9,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +30,7 @@ public class ContainerRepair extends Container
      */
     private IInventory inputSlots;
     private World theWorld;
-    private BlockPos selfPosition;
+    private BlockPosition selfPosition;
 
     /** The maximum cost of repairing/renaming in the anvil. */
     public int maximumCost;
@@ -44,10 +44,10 @@ public class ContainerRepair extends Container
 
     public ContainerRepair(InventoryPlayer playerInventory, World worldIn, EntityPlayer player)
     {
-        this(playerInventory, worldIn, BlockPos.ORIGIN, player);
+        this(playerInventory, worldIn, BlockPosition.ORIGIN, player);
     }
 
-    public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player)
+    public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPosition blockPositionIn, EntityPlayer player)
     {
         this.outputSlot = new InventoryCraftResult();
         this.inputSlots = new InventoryBasic("Repair", true, 2)
@@ -58,7 +58,7 @@ public class ContainerRepair extends Container
                 ContainerRepair.this.onCraftMatrixChanged(this);
             }
         };
-        this.selfPosition = blockPosIn;
+        this.selfPosition = blockPositionIn;
         this.theWorld = worldIn;
         this.thePlayer = player;
         this.addSlotToContainer(new Slot(this.inputSlots, 0, 27, 47));
@@ -102,7 +102,7 @@ public class ContainerRepair extends Container
                 }
 
                 ContainerRepair.this.maximumCost = 0;
-                IBlockState iblockstate = worldIn.getBlockState(blockPosIn);
+                IBlockState iblockstate = worldIn.getBlockState(blockPositionIn);
 
                 if (!playerIn.capabilities.isCreativeMode && !worldIn.isRemote && iblockstate.getBlock() == Blocks.anvil && playerIn.getRNG().nextFloat() < 0.12F)
                 {
@@ -111,18 +111,18 @@ public class ContainerRepair extends Container
 
                     if (l > 2)
                     {
-                        worldIn.setBlockToAir(blockPosIn);
-                        worldIn.playAuxSFX(1020, blockPosIn, 0);
+                        worldIn.setBlockToAir(blockPositionIn);
+                        worldIn.playAuxSFX(1020, blockPositionIn, 0);
                     }
                     else
                     {
-                        worldIn.setBlockState(blockPosIn, iblockstate.withProperty(BlockAnvil.DAMAGE, Integer.valueOf(l)), 2);
-                        worldIn.playAuxSFX(1021, blockPosIn, 0);
+                        worldIn.setBlockState(blockPositionIn, iblockstate.withProperty(BlockAnvil.DAMAGE, Integer.valueOf(l)), 2);
+                        worldIn.playAuxSFX(1021, blockPositionIn, 0);
                     }
                 }
                 else if (!worldIn.isRemote)
                 {
-                    worldIn.playAuxSFX(1021, blockPosIn, 0);
+                    worldIn.playAuxSFX(1021, blockPositionIn, 0);
                 }
             }
         });

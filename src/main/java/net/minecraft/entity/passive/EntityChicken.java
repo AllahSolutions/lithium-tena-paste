@@ -10,7 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -115,7 +115,7 @@ public class EntityChicken extends EntityAnimal
         return "mob.chicken.hurt";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.chicken.step", 0.15F, 1.0F);
     }

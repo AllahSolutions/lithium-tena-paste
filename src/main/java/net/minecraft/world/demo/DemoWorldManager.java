@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.server.management.ItemInWorldManager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -85,7 +85,7 @@ public class DemoWorldManager extends ItemInWorldManager
      * If not creative, it calls sendBlockBreakProgress until the block is broken first. tryHarvestBlock can also be the
      * result of this call.
      */
-    public void onBlockClicked(BlockPos pos, EnumFacing side)
+    public void onBlockClicked(BlockPosition pos, EnumFacing side)
     {
         if (this.demoTimeExpired)
         {
@@ -97,7 +97,7 @@ public class DemoWorldManager extends ItemInWorldManager
         }
     }
 
-    public void blockRemoving(BlockPos pos)
+    public void blockRemoving(BlockPosition pos)
     {
         if (!this.demoTimeExpired)
         {
@@ -108,7 +108,7 @@ public class DemoWorldManager extends ItemInWorldManager
     /**
      * Attempts to harvest a block
      */
-    public boolean tryHarvestBlock(BlockPos pos)
+    public boolean tryHarvestBlock(BlockPosition pos)
     {
         return this.demoTimeExpired ? false : super.tryHarvestBlock(pos);
     }
@@ -132,7 +132,7 @@ public class DemoWorldManager extends ItemInWorldManager
     /**
      * Activate the clicked on block, otherwise use the held item.
      */
-    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPos pos, EnumFacing side, float offsetX, float offsetY, float offsetZ)
+    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPosition pos, EnumFacing side, float offsetX, float offsetY, float offsetZ)
     {
         if (this.demoTimeExpired)
         {

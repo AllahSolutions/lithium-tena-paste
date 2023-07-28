@@ -7,7 +7,7 @@ import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -18,7 +18,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
 {
     private Random rand;
     private World world;
-    private BlockPos basePos = BlockPos.ORIGIN;
+    private BlockPosition basePos = BlockPosition.ORIGIN;
     int heightLimit;
     int height;
     double heightAttenuation = 0.618D;
@@ -75,8 +75,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree
                     double d1 = (double)(this.rand.nextFloat() * 2.0F) * Math.PI;
                     double d2 = d0 * Math.sin(d1) + 0.5D;
                     double d3 = d0 * Math.cos(d1) + 0.5D;
-                    BlockPos blockpos = this.basePos.add(d2, (double)(k - 1), d3);
-                    BlockPos blockpos1 = blockpos.up(this.leafDistanceLimit);
+                    BlockPosition blockpos = this.basePos.add(d2, (double)(k - 1), d3);
+                    BlockPosition blockpos1 = blockpos.up(this.leafDistanceLimit);
 
                     if (this.checkBlockLine(blockpos, blockpos1) == -1)
                     {
@@ -84,7 +84,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
                         int j1 = this.basePos.getZ() - blockpos.getZ();
                         double d4 = (double)blockpos.getY() - Math.sqrt((double)(i1 * i1 + j1 * j1)) * this.branchSlope;
                         int k1 = d4 > (double)j ? j : (int)d4;
-                        BlockPos blockpos2 = new BlockPos(this.basePos.getX(), k1, this.basePos.getZ());
+                        BlockPosition blockpos2 = new BlockPosition(this.basePos.getX(), k1, this.basePos.getZ());
 
                         if (this.checkBlockLine(blockpos2, blockpos) == -1)
                         {
@@ -96,7 +96,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         }
     }
 
-    void func_181631_a(BlockPos p_181631_1_, float p_181631_2_, IBlockState p_181631_3_)
+    void func_181631_a(BlockPosition p_181631_1_, float p_181631_2_, IBlockState p_181631_3_)
     {
         int i = (int)((double)p_181631_2_ + 0.618D);
 
@@ -106,7 +106,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
             {
                 if (Math.pow((double)Math.abs(j) + 0.5D, 2.0D) + Math.pow((double)Math.abs(k) + 0.5D, 2.0D) <= (double)(p_181631_2_ * p_181631_2_))
                 {
-                    BlockPos blockpos = p_181631_1_.add(j, 0, k);
+                    BlockPosition blockpos = p_181631_1_.add(j, 0, k);
                     Material material = this.world.getBlockState(blockpos).getBlock().getMaterial();
 
                     if (material == Material.air || material == Material.leaves)
@@ -154,7 +154,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
     /**
      * Generates the leaves surrounding an individual entry in the leafNodes list.
      */
-    void generateLeafNode(BlockPos pos)
+    void generateLeafNode(BlockPosition pos)
     {
         for (int i = 0; i < this.leafDistanceLimit; ++i)
         {
@@ -162,9 +162,9 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         }
     }
 
-    void func_175937_a(BlockPos p_175937_1_, BlockPos p_175937_2_, Block p_175937_3_)
+    void func_175937_a(BlockPosition p_175937_1_, BlockPosition p_175937_2_, Block p_175937_3_)
     {
-        BlockPos blockpos = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
+        BlockPosition blockpos = p_175937_2_.add(-p_175937_1_.getX(), -p_175937_1_.getY(), -p_175937_1_.getZ());
         int i = this.getGreatestDistance(blockpos);
         float f = (float)blockpos.getX() / (float)i;
         float f1 = (float)blockpos.getY() / (float)i;
@@ -172,7 +172,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
 
         for (int j = 0; j <= i; ++j)
         {
-            BlockPos blockpos1 = p_175937_1_.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+            BlockPosition blockpos1 = p_175937_1_.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
             BlockLog.EnumAxis blocklog$enumaxis = this.func_175938_b(p_175937_1_, blockpos1);
             this.setBlockAndNotifyAdequately(this.world, blockpos1, p_175937_3_.getDefaultState().withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
         }
@@ -181,7 +181,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
     /**
      * Returns the absolute greatest distance in the BlockPos object.
      */
-    private int getGreatestDistance(BlockPos posIn)
+    private int getGreatestDistance(BlockPosition posIn)
     {
         int i = MathHelper.abs_int(posIn.getX());
         int j = MathHelper.abs_int(posIn.getY());
@@ -189,7 +189,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         return k > i && k > j ? k : (j > i ? j : i);
     }
 
-    private BlockLog.EnumAxis func_175938_b(BlockPos p_175938_1_, BlockPos p_175938_2_)
+    private BlockLog.EnumAxis func_175938_b(BlockPosition p_175938_1_, BlockPosition p_175938_2_)
     {
         BlockLog.EnumAxis blocklog$enumaxis = BlockLog.EnumAxis.Y;
         int i = Math.abs(p_175938_2_.getX() - p_175938_1_.getX());
@@ -236,8 +236,8 @@ public class WorldGenBigTree extends WorldGenAbstractTree
      */
     void generateTrunk()
     {
-        BlockPos blockpos = this.basePos;
-        BlockPos blockpos1 = this.basePos.up(this.height);
+        BlockPosition blockpos = this.basePos;
+        BlockPosition blockpos1 = this.basePos.up(this.height);
         Block block = Blocks.log;
         this.func_175937_a(blockpos, blockpos1, block);
 
@@ -257,7 +257,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         for (WorldGenBigTree.FoliageCoordinates worldgenbigtree$foliagecoordinates : this.field_175948_j)
         {
             int i = worldgenbigtree$foliagecoordinates.func_177999_q();
-            BlockPos blockpos = new BlockPos(this.basePos.getX(), i, this.basePos.getZ());
+            BlockPosition blockpos = new BlockPosition(this.basePos.getX(), i, this.basePos.getZ());
 
             if (!blockpos.equals(worldgenbigtree$foliagecoordinates) && this.leafNodeNeedsBase(i - this.basePos.getY()))
             {
@@ -270,9 +270,9 @@ public class WorldGenBigTree extends WorldGenAbstractTree
      * Checks a line of blocks in the world from the first coordinate to triplet to the second, returning the distance
      * (in blocks) before a non-air, non-leaf block is encountered and/or the end is encountered.
      */
-    int checkBlockLine(BlockPos posOne, BlockPos posTwo)
+    int checkBlockLine(BlockPosition posOne, BlockPosition posTwo)
     {
-        BlockPos blockpos = posTwo.add(-posOne.getX(), -posOne.getY(), -posOne.getZ());
+        BlockPosition blockpos = posTwo.add(-posOne.getX(), -posOne.getY(), -posOne.getZ());
         int i = this.getGreatestDistance(blockpos);
         float f = (float)blockpos.getX() / (float)i;
         float f1 = (float)blockpos.getY() / (float)i;
@@ -286,7 +286,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         {
             for (int j = 0; j <= i; ++j)
             {
-                BlockPos blockpos1 = posOne.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+                BlockPosition blockpos1 = posOne.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
 
                 if (!this.func_150523_a(this.world.getBlockState(blockpos1).getBlock()))
                 {
@@ -303,7 +303,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         this.leafDistanceLimit = 5;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         this.world = worldIn;
         this.basePos = position;
@@ -360,11 +360,11 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         }
     }
 
-    static class FoliageCoordinates extends BlockPos
+    static class FoliageCoordinates extends BlockPosition
     {
         private final int field_178000_b;
 
-        public FoliageCoordinates(BlockPos p_i45635_1_, int p_i45635_2_)
+        public FoliageCoordinates(BlockPosition p_i45635_1_, int p_i45635_2_)
         {
             super(p_i45635_1_.getX(), p_i45635_1_.getY(), p_i45635_1_.getZ());
             this.field_178000_b = p_i45635_2_;

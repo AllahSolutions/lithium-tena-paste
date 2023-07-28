@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -26,7 +26,7 @@ public class BlockLilyPad extends BlockBush
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+    public void addCollisionBoxesToList(World worldIn, BlockPosition pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
     {
         if (collidingEntity == null || !(collidingEntity instanceof EntityBoat))
         {
@@ -34,7 +34,7 @@ public class BlockLilyPad extends BlockBush
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return new AxisAlignedBB((double)pos.getX() + this.minX, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ, (double)pos.getX() + this.maxX, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ);
     }
@@ -49,7 +49,7 @@ public class BlockLilyPad extends BlockBush
         return 7455580;
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         return 2129968;
     }
@@ -62,7 +62,7 @@ public class BlockLilyPad extends BlockBush
         return ground == Blocks.water;
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
+    public boolean canBlockStay(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (pos.getY() >= 0 && pos.getY() < 256)
         {

@@ -338,7 +338,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         int j1 = 0;
         logger.info("Preparing start region for level " + j1);
         WorldServer worldserver = this.worldServers[j1];
-        BlockPos blockpos = worldserver.getSpawnPoint();
+        BlockPosition blockpos = worldserver.getSpawnPoint();
         long k1 = getCurrentTimeMillis();
 
         for (int l1 = -192; l1 <= 192 && this.isServerRunning(); l1 += 16)
@@ -895,7 +895,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return report;
     }
 
-    public List<String> getTabCompletions(ICommandSender sender, String input, BlockPos pos)
+    public List<String> getTabCompletions(ICommandSender sender, String input, BlockPosition pos)
     {
         List<String> list = Lists.<String>newArrayList();
 
@@ -1338,9 +1338,9 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
-        return BlockPos.ORIGIN;
+        return BlockPosition.ORIGIN;
     }
 
     /**
@@ -1377,7 +1377,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         return 16;
     }
 
-    public boolean isBlockProtected(World worldIn, BlockPos pos, EntityPlayer playerIn)
+    public boolean isBlockProtected(World worldIn, BlockPosition pos, EntityPlayer playerIn)
     {
         return false;
     }

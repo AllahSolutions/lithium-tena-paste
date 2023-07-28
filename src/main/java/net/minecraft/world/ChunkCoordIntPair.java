@@ -1,6 +1,6 @@
 package net.minecraft.world;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class ChunkCoordIntPair
 {
@@ -99,17 +99,17 @@ public class ChunkCoordIntPair
     /**
      * Get the World coordinates of the Block with the given Chunk coordinates relative to this chunk
      */
-    public BlockPos getBlock(int x, int y, int z)
+    public BlockPosition getBlock(int x, int y, int z)
     {
-        return new BlockPos((this.chunkXPos << 4) + x, y, (this.chunkZPos << 4) + z);
+        return new BlockPosition((this.chunkXPos << 4) + x, y, (this.chunkZPos << 4) + z);
     }
 
     /**
      * Get the coordinates of the Block in the center of this chunk with the given Y coordinate
      */
-    public BlockPos getCenterBlock(int y)
+    public BlockPosition getCenterBlock(int y)
     {
-        return new BlockPos(this.getCenterXPos(), y, this.getCenterZPosition());
+        return new BlockPosition(this.getCenterXPos(), y, this.getCenterZPosition());
     }
 
     public String toString()

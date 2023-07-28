@@ -12,14 +12,12 @@ import dev.tenacity.utils.Skid.BlockUtil;
 import dev.tenacity.utils.Skid.FuckingNIgger;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
-import dev.tenacity.utils.player.ScaffoldUtils;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
-import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -47,7 +45,7 @@ public class NewScaffold extends Module {
     private ItemStack block;
     private int lastSlotID;
     private EnumFacing enumFacing;
-    private BlockPos blockPos;
+    private BlockPosition blockPosition;
     private boolean start;
     private double[] xyz;
     private static float yaw, pitch;
@@ -105,12 +103,12 @@ public class NewScaffold extends Module {
         if (mc.thePlayer == null || mc.theWorld == null) {
             return;
         }
-        this.blockPos = this.getAimBlockPos();
+        this.blockPosition = this.getAimBlockPos();
         this.start = ((mc.thePlayer.motionX == 0.0 && mc.thePlayer.motionZ == 0.0 && mc.thePlayer.onGround) || !this.startTimeHelper.hasTimeElapsed(200L));
         if (this.start) {
             this.startTimeHelper2.reset();
         }
-        if (this.blockPos != null) {
+        if (this.blockPosition != null) {
             float[] floats = { 1.0f, 1.0f };
             final String selected = this.mode.getMode();
             switch (selected) {
@@ -146,18 +144,18 @@ public class NewScaffold extends Module {
         final double add1 = 1.05;
         final double add2 = 0.05;
         this.xyz = new double[] { mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ };
-        final double maX = this.blockPos.getX() + add1;
-        final double miX = this.blockPos.getX() - add2;
-        final double maZ = this.blockPos.getZ() + add1;
-        final double miZ = this.blockPos.getZ() - add2;
+        final double maX = this.blockPosition.getX() + add1;
+        final double miX = this.blockPosition.getX() - add2;
+        final double maZ = this.blockPosition.getZ() + add1;
+        final double miZ = this.blockPosition.getZ() - add2;
         if (x > maX || x < miX || z > maZ || z < miZ) {
-            final double[] ex = this.getAdvancedDiagonalExpandXZ(this.blockPos);
+            final double[] ex = this.getAdvancedDiagonalExpandXZ(this.blockPosition);
 
             // Rotation
             float[] f = this.rotationUtil.scaffoldRots(
-                    this.blockPos.getX() + ex[0],
-                    this.blockPos.getY() + 0.85,
-                    this.blockPos.getZ() + ex[1],
+                    this.blockPosition.getX() + ex[0],
+                    this.blockPosition.getY() + 0.85,
+                    this.blockPosition.getZ() + ex[1],
                     this.lastRots[0],
                     this.lastRots[1],
                     this.yawSpeed.getValue().floatValue(),
@@ -173,7 +171,7 @@ public class NewScaffold extends Module {
     private float[] getNearestRotation() {
         this.objectPosition = null;
         final float[] floats = this.rots;
-        final BlockPos b = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ);
+        final BlockPosition b = new BlockPosition(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ);
         this.hashMap.clear();
         if (this.start) {
 
@@ -200,17 +198,17 @@ public class NewScaffold extends Module {
                 z += mc.thePlayer.posZ - this.xyz[2];
             }
             this.xyz = new double[] { mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ };
-            final double maX = this.blockPos.getX() + add1;
-            final double miX = this.blockPos.getX() - add2;
-            final double maZ = this.blockPos.getZ() + add1;
-            final double miZ = this.blockPos.getZ() - add2;
+            final double maX = this.blockPosition.getX() + add1;
+            final double miX = this.blockPosition.getX() - add2;
+            final double maZ = this.blockPosition.getZ() + add1;
+            final double miZ = this.blockPosition.getZ() - add2;
             if (x > maX || x < miX || z > maZ || z < miZ) {
                 final ArrayList<MovingObjectPosition> movingObjectPositions = new ArrayList<MovingObjectPosition>();
                 final ArrayList<Float> pitchs = new ArrayList<Float>();
                 for (float i = Math.max(this.rots[1] - 20.0f, -90.0f); i < Math.min(this.rots[1] + 20.0f, 90.0f); i += 0.05f) {
                     final float[] f = FuckingNIgger.mouseSens(yaww, i, this.rots[0], this.rots[1]);
                     final MovingObjectPosition m2 = mc.thePlayer.customRayTrace(4.5, 1.0f, yaww, f[1]);
-                    if (m2.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.isOkBlock(m2.getBlockPos()) && !movingObjectPositions.contains(m2) && m2.getBlockPos().equalsBlockPos(this.blockPos) && m2.sideHit != EnumFacing.DOWN && m2.sideHit != EnumFacing.UP && m2.getBlockPos().getY() <= b.getY()) {
+                    if (m2.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.isOkBlock(m2.getBlockPos()) && !movingObjectPositions.contains(m2) && m2.getBlockPos().equalsBlockPos(this.blockPosition) && m2.sideHit != EnumFacing.DOWN && m2.sideHit != EnumFacing.UP && m2.getBlockPos().getY() <= b.getY()) {
                         movingObjectPositions.add(m2);
                         this.hashMap.put(f, m2);
                         pitchs.add(f[1]);
@@ -242,9 +240,9 @@ public class NewScaffold extends Module {
         return Math.abs(pitch - this.rots[1]);
     }
 
-    private double[] getAdvancedDiagonalExpandXZ(final BlockPos blockPos) {
+    private double[] getAdvancedDiagonalExpandXZ(final BlockPosition blockPosition) {
         final double[] xz = new double[2];
-        final Vec2d difference = new Vec2d(blockPos.getX() - mc.thePlayer.posX, blockPos.getZ() - mc.thePlayer.posZ);
+        final Vec2d difference = new Vec2d(blockPosition.getX() - mc.thePlayer.posX, blockPosition.getZ() - mc.thePlayer.posZ);
         if (difference.x > -1.0 && difference.x < 0.0 && difference.y < -1.0) {
             this.enumFacing = EnumFacing.SOUTH;
             xz[0] = difference.x * -1.0;
@@ -280,38 +278,38 @@ public class NewScaffold extends Module {
     }
 
     private EnumFacing getPlaceSide() {
-        final BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ);
-        if (playerPos.equalsBlockPos(this.blockPos)) {
+        final BlockPosition playerPos = new BlockPosition(mc.thePlayer.posX, mc.thePlayer.posY - 0.5, mc.thePlayer.posZ);
+        if (playerPos.equalsBlockPos(this.blockPosition)) {
             System.out.println("Error");
         }
-        if (playerPos.add(0, 1, 0).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(0, 1, 0).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.UP;
         }
-        if (playerPos.add(0, -1, 0).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(0, -1, 0).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.DOWN;
         }
-        if (playerPos.add(1, 0, 0).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(1, 0, 0).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.WEST;
         }
-        if (playerPos.add(-1, 0, 0).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(-1, 0, 0).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.EAST;
         }
-        if (playerPos.add(0, 0, 1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(0, 0, 1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.NORTH;
         }
-        if (playerPos.add(0, 0, -1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(0, 0, -1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.SOUTH;
         }
-        if (playerPos.add(1, 0, 1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(1, 0, 1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.WEST;
         }
-        if (playerPos.add(-1, 0, 1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(-1, 0, 1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.EAST;
         }
-        if (playerPos.add(-1, 0, 1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(-1, 0, 1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.NORTH;
         }
-        if (playerPos.add(-1, 0, -1).equalsBlockPos(this.blockPos)) {
+        if (playerPos.add(-1, 0, -1).equalsBlockPos(this.blockPosition)) {
             return EnumFacing.SOUTH;
         }
         return null;
@@ -322,7 +320,7 @@ public class NewScaffold extends Module {
         if (this.block == null) {
             this.block = mc.thePlayer.inventory.getCurrentItem();
         }
-        if (this.blockPos == null || mc.currentScreen != null) {
+        if (this.blockPosition == null || mc.currentScreen != null) {
             return;
         }
         final ItemStack lastItem = mc.thePlayer.inventory.getCurrentItem();
@@ -351,18 +349,18 @@ public class NewScaffold extends Module {
                 final double add1 = 1.05;
                 final double add2 = 0.05;
                 this.xyz = new double[] { mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ };
-                final double maX = this.blockPos.getX() + add1;
-                final double miX = this.blockPos.getX() - add2;
-                final double maZ = this.blockPos.getZ() + add1;
-                final double miZ = this.blockPos.getZ() - add2;
+                final double maX = this.blockPosition.getX() + add1;
+                final double miX = this.blockPosition.getX() - add2;
+                final double maZ = this.blockPosition.getZ() + add1;
+                final double miZ = this.blockPosition.getZ() - add2;
                 if (x > maX || x < miX || z > maZ || z < miZ) {
                     if (this.silentMode.is("Switch")) {
                         mc.thePlayer.inventory.setCurrentItem(this.block.getItem(), 0, false, false);
                     }
                     final EnumFacing e = this.getPlaceSide();
                     if (e != null) {
-                        final double[] ex = this.getAdvancedDiagonalExpandXZ(this.blockPos);
-                        if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, itemstack, this.blockPos, e, new Vec3(this.blockPos.getX() + ex[0], this.blockPos.getY() - 0.5234234, this.blockPos.getZ() + ex[1]))) {
+                        final double[] ex = this.getAdvancedDiagonalExpandXZ(this.blockPosition);
+                        if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, itemstack, this.blockPosition, e, new Vec3(this.blockPosition.getX() + ex[0], this.blockPosition.getY() - 0.5234234, this.blockPosition.getZ() + ex[1]))) {
                             mc.thePlayer.swingItem();
                         }
                     }
@@ -378,7 +376,7 @@ public class NewScaffold extends Module {
                 if (blockOver == null) {
                     break;
                 }
-                final BlockPos blockpos = blockOver.getBlockPos();
+                final BlockPosition blockpos = blockOver.getBlockPos();
                 if (blockOver.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK || mc.theWorld.getBlockState(blockpos).getBlock().getMaterial() == Material.air) {
                     break;
                 }
@@ -403,7 +401,7 @@ public class NewScaffold extends Module {
                     break;
                 }
                 else {
-                    if (blockOver.sideHit != EnumFacing.DOWN && blockOver.getBlockPos().equalsBlockPos(this.blockPos) && mc.gameSettings.keyBindJump.isKeyDown()) {
+                    if (blockOver.sideHit != EnumFacing.DOWN && blockOver.getBlockPos().equalsBlockPos(this.blockPosition) && mc.gameSettings.keyBindJump.isKeyDown()) {
                         if (this.silentMode.is("Switch")) {
                             mc.thePlayer.inventory.setCurrentItem(this.block.getItem(), 0, false, false);
                         }
@@ -477,34 +475,34 @@ public class NewScaffold extends Module {
         return (realYaw > 77.5 && realYaw < 102.5) || (realYaw > 167.5 || realYaw < -167.0f) || (realYaw < -77.5 && realYaw > -102.5) || (realYaw > -12.5 && realYaw < 12.5);
     }
 
-    private BlockPos getAimBlockPos() {
-        final BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1.0, mc.thePlayer.posZ);
+    private BlockPosition getAimBlockPos() {
+        final BlockPosition playerPos = new BlockPosition(mc.thePlayer.posX, mc.thePlayer.posY - 1.0, mc.thePlayer.posZ);
         if ((mc.gameSettings.keyBindJump.isKeyDown() || !mc.thePlayer.onGround) && mc.thePlayer.moveForward == 0.0f && mc.thePlayer.moveStrafing == 0.0f && this.isOkBlock(playerPos.add(0, -1, 0))) {
             return playerPos.add(0, -1, 0);
         }
-        BlockPos blockPos = null;
-        final ArrayList<BlockPos> bp = this.getBlockPos();
-        final ArrayList<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        BlockPosition blockPosition = null;
+        final ArrayList<BlockPosition> bp = this.getBlockPos();
+        final ArrayList<BlockPosition> blockPositions = new ArrayList<BlockPosition>();
         if (bp.size() > 0) {
             for (int i = 0; i < Math.min(bp.size(), 18); ++i) {
                 blockPositions.add(bp.get(i));
             }
-            blockPositions.sort(Comparator.comparingDouble((ToDoubleFunction<? super BlockPos>)this::getDistanceToBlockPos));
+            blockPositions.sort(Comparator.comparingDouble((ToDoubleFunction<? super BlockPosition>)this::getDistanceToBlockPos));
             if (blockPositions.size() > 0) {
-                blockPos = blockPositions.get(0);
+                blockPosition = blockPositions.get(0);
             }
         }
-        return blockPos;
+        return blockPosition;
     }
 
-    private ArrayList<BlockPos> getBlockPos() {
-        final BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1.0, mc.thePlayer.posZ);
-        final ArrayList<BlockPos> blockPoses = new ArrayList<BlockPos>();
+    private ArrayList<BlockPosition> getBlockPos() {
+        final BlockPosition playerPos = new BlockPosition(mc.thePlayer.posX, mc.thePlayer.posY - 1.0, mc.thePlayer.posZ);
+        final ArrayList<BlockPosition> blockPoses = new ArrayList<BlockPosition>();
         for (int x = playerPos.getX() - 2; x <= playerPos.getX() + 2; ++x) {
             for (int y = playerPos.getY() - 1; y <= playerPos.getY(); ++y) {
                 for (int z = playerPos.getZ() - 2; z <= playerPos.getZ() + 2; ++z) {
-                    if (this.isOkBlock(new BlockPos(x, y, z))) {
-                        blockPoses.add(new BlockPos(x, y, z));
+                    if (this.isOkBlock(new BlockPosition(x, y, z))) {
+                        blockPoses.add(new BlockPosition(x, y, z));
                     }
                 }
             }
@@ -515,11 +513,11 @@ public class NewScaffold extends Module {
         return blockPoses;
     }
 
-    private double getDistanceToBlockPos(final BlockPos blockPos) {
+    private double getDistanceToBlockPos(final BlockPosition blockPosition) {
         double distance = 1337.0;
-        for (float x = (float)blockPos.getX(); x <= blockPos.getX() + 1; x += (float)0.2) {
-            for (float y = (float)blockPos.getY(); y <= blockPos.getY() + 1; y += (float)0.2) {
-                for (float z = (float)blockPos.getZ(); z <= blockPos.getZ() + 1; z += (float)0.2) {
+        for (float x = (float) blockPosition.getX(); x <= blockPosition.getX() + 1; x += (float)0.2) {
+            for (float y = (float) blockPosition.getY(); y <= blockPosition.getY() + 1; y += (float)0.2) {
+                for (float z = (float) blockPosition.getZ(); z <= blockPosition.getZ() + 1; z += (float)0.2) {
                     final double d0 = mc.thePlayer.getDistance(x, y, z);
                     if (d0 < distance) {
                         distance = d0;
@@ -530,8 +528,8 @@ public class NewScaffold extends Module {
         return distance;
     }
 
-    private boolean isOkBlock(final BlockPos blockPos) {
-        final Block block = mc.theWorld.getBlockState(blockPos).getBlock();
+    private boolean isOkBlock(final BlockPosition blockPosition) {
+        final Block block = mc.theWorld.getBlockState(blockPosition).getBlock();
         return !(block instanceof BlockLiquid) && !(block instanceof BlockAir) && !(block instanceof BlockChest) && !(block instanceof BlockFurnace);
     }
 

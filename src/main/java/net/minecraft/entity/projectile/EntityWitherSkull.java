@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumDifficulty;
@@ -52,7 +52,7 @@ public class EntityWitherSkull extends EntityFireball
     /**
      * Explosion resistance of a block relative to this entity
      */
-    public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn)
+    public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPosition pos, IBlockState blockStateIn)
     {
         float f = super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn);
         Block block = blockStateIn.getBlock();

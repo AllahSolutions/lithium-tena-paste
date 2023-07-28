@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -77,7 +77,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals
         }
     }
 
-    public float getBlockPathWeight(BlockPos pos)
+    public float getBlockPathWeight(BlockPosition pos)
     {
         return this.worldObj.getBlockState(pos.down()).getBlock() == Blocks.grass ? 10.0F : this.worldObj.getLightBrightness(pos) - 0.5F;
     }
@@ -108,7 +108,7 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor_double(this.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
+        BlockPosition blockpos = new BlockPosition(i, j, k);
         return this.worldObj.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.worldObj.getLight(blockpos) > 8 && super.getCanSpawnHere();
     }
 

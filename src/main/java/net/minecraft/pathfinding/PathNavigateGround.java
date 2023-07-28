@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -50,13 +50,13 @@ public class PathNavigateGround extends PathNavigate
         if (this.theEntity.isInWater() && this.getCanSwim())
         {
             int i = (int)this.theEntity.getEntityBoundingBox().minY;
-            Block block = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.theEntity.posX), i, MathHelper.floor_double(this.theEntity.posZ))).getBlock();
+            Block block = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.theEntity.posX), i, MathHelper.floor_double(this.theEntity.posZ))).getBlock();
             int j = 0;
 
             while (block == Blocks.flowing_water || block == Blocks.water)
             {
                 ++i;
-                block = this.worldObj.getBlockState(new BlockPos(MathHelper.floor_double(this.theEntity.posX), i, MathHelper.floor_double(this.theEntity.posZ))).getBlock();
+                block = this.worldObj.getBlockState(new BlockPosition(MathHelper.floor_double(this.theEntity.posX), i, MathHelper.floor_double(this.theEntity.posZ))).getBlock();
                 ++j;
 
                 if (j > 16)
@@ -82,7 +82,7 @@ public class PathNavigateGround extends PathNavigate
 
         if (this.shouldAvoidSun)
         {
-            if (this.worldObj.canSeeSky(new BlockPos(MathHelper.floor_double(this.theEntity.posX), (int)(this.theEntity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor_double(this.theEntity.posZ))))
+            if (this.worldObj.canSeeSky(new BlockPosition(MathHelper.floor_double(this.theEntity.posX), (int)(this.theEntity.getEntityBoundingBox().minY + 0.5D), MathHelper.floor_double(this.theEntity.posZ))))
             {
                 return;
             }
@@ -91,7 +91,7 @@ public class PathNavigateGround extends PathNavigate
             {
                 PathPoint pathpoint = this.currentPath.getPathPointFromIndex(i);
 
-                if (this.worldObj.canSeeSky(new BlockPos(pathpoint.xCoord, pathpoint.yCoord, pathpoint.zCoord)))
+                if (this.worldObj.canSeeSky(new BlockPosition(pathpoint.xCoord, pathpoint.yCoord, pathpoint.zCoord)))
                 {
                     this.currentPath.setCurrentPathLength(i - 1);
                     return;
@@ -205,7 +205,7 @@ public class PathNavigateGround extends PathNavigate
 
                     if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0.0D)
                     {
-                        Block block = this.worldObj.getBlockState(new BlockPos(k, y - 1, l)).getBlock();
+                        Block block = this.worldObj.getBlockState(new BlockPosition(k, y - 1, l)).getBlock();
                         Material material = block.getMaterial();
 
                         if (material == Material.air)
@@ -235,7 +235,7 @@ public class PathNavigateGround extends PathNavigate
      */
     private boolean isPositionClear(int p_179692_1_, int p_179692_2_, int p_179692_3_, int p_179692_4_, int p_179692_5_, int p_179692_6_, Vec3 p_179692_7_, double p_179692_8_, double p_179692_10_)
     {
-        for (BlockPos blockpos : BlockPos.getAllInBox(new BlockPos(p_179692_1_, p_179692_2_, p_179692_3_), new BlockPos(p_179692_1_ + p_179692_4_ - 1, p_179692_2_ + p_179692_5_ - 1, p_179692_3_ + p_179692_6_ - 1)))
+        for (BlockPosition blockpos : BlockPosition.getAllInBox(new BlockPosition(p_179692_1_, p_179692_2_, p_179692_3_), new BlockPosition(p_179692_1_ + p_179692_4_ - 1, p_179692_2_ + p_179692_5_ - 1, p_179692_3_ + p_179692_6_ - 1)))
         {
             double d0 = (double)blockpos.getX() + 0.5D - p_179692_7_.xCoord;
             double d1 = (double)blockpos.getZ() + 0.5D - p_179692_7_.zCoord;

@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -25,7 +25,7 @@ public class BlockFalling extends Block
         super(materialIn);
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
@@ -33,12 +33,12 @@ public class BlockFalling extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -46,7 +46,7 @@ public class BlockFalling extends Block
         }
     }
 
-    private void checkFallable(World worldIn, BlockPos pos)
+    private void checkFallable(World worldIn, BlockPosition pos)
     {
         if (canFallInto(worldIn, pos.down()) && pos.getY() >= 0)
         {
@@ -64,7 +64,7 @@ public class BlockFalling extends Block
             else
             {
                 worldIn.setBlockToAir(pos);
-                BlockPos blockpos;
+                BlockPosition blockpos;
 
                 for (blockpos = pos.down(); canFallInto(worldIn, blockpos) && blockpos.getY() > 0; blockpos = blockpos.down())
                 {
@@ -91,14 +91,14 @@ public class BlockFalling extends Block
         return 2;
     }
 
-    public static boolean canFallInto(World worldIn, BlockPos pos)
+    public static boolean canFallInto(World worldIn, BlockPosition pos)
     {
         Block block = worldIn.getBlockState(pos).getBlock();
         Material material = block.blockMaterial;
         return block == Blocks.fire || material == Material.air || material == Material.water || material == Material.lava;
     }
 
-    public void onEndFalling(World worldIn, BlockPos pos)
+    public void onEndFalling(World worldIn, BlockPosition pos)
     {
     }
 }

@@ -33,15 +33,15 @@ public class Explosion
     private final double explosionZ;
     private final Entity exploder;
     private final float explosionSize;
-    private final List<BlockPos> affectedBlockPositions;
+    private final List<BlockPosition> affectedBlockPositions;
     private final Map<EntityPlayer, Vec3> playerKnockbackMap;
 
-    public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions)
+    public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPosition> affectedPositions)
     {
         this(worldIn, entityIn, x, y, z, size, false, true, affectedPositions);
     }
 
-    public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking, List<BlockPos> affectedPositions)
+    public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking, List<BlockPosition> affectedPositions)
     {
         this(worldIn, entityIn, x, y, z, size, flaming, smoking);
         this.affectedBlockPositions.addAll(affectedPositions);
@@ -50,7 +50,7 @@ public class Explosion
     public Explosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean flaming, boolean smoking)
     {
         this.explosionRNG = new Random();
-        this.affectedBlockPositions = Lists.<BlockPos>newArrayList();
+        this.affectedBlockPositions = Lists.<BlockPosition>newArrayList();
         this.playerKnockbackMap = Maps.<EntityPlayer, Vec3>newHashMap();
         this.worldObj = worldIn;
         this.exploder = entityIn;
@@ -67,7 +67,7 @@ public class Explosion
      */
     public void doExplosionA()
     {
-        Set<BlockPos> set = Sets.<BlockPos>newHashSet();
+        Set<BlockPosition> set = Sets.<BlockPosition>newHashSet();
         int i = 16;
 
         for (int j = 0; j < 16; ++j)
@@ -92,7 +92,7 @@ public class Explosion
 
                         for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F)
                         {
-                            BlockPos blockpos = new BlockPos(d4, d6, d8);
+                            BlockPosition blockpos = new BlockPosition(d4, d6, d8);
                             IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
 
                             if (iblockstate.getBlock().getMaterial() != Material.air)
@@ -182,7 +182,7 @@ public class Explosion
 
         if (this.isSmoking)
         {
-            for (BlockPos blockpos : this.affectedBlockPositions)
+            for (BlockPosition blockpos : this.affectedBlockPositions)
             {
                 Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
@@ -222,7 +222,7 @@ public class Explosion
 
         if (this.isFlaming)
         {
-            for (BlockPos blockpos1 : this.affectedBlockPositions)
+            for (BlockPosition blockpos1 : this.affectedBlockPositions)
             {
                 if (this.worldObj.getBlockState(blockpos1).getBlock().getMaterial() == Material.air && this.worldObj.getBlockState(blockpos1.down()).getBlock().isFullBlock() && this.explosionRNG.nextInt(3) == 0)
                 {
@@ -250,7 +250,7 @@ public class Explosion
         this.affectedBlockPositions.clear();
     }
 
-    public List<BlockPos> getAffectedBlockPositions()
+    public List<BlockPosition> getAffectedBlockPositions()
     {
         return this.affectedBlockPositions;
     }

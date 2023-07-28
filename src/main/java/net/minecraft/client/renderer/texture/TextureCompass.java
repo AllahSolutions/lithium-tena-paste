@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -45,7 +45,7 @@ public class TextureCompass extends TextureAtlasSprite
 
             if (worldIn != null && !p_94241_8_)
             {
-                BlockPos blockpos = worldIn.getSpawnPoint();
+                BlockPosition blockpos = worldIn.getSpawnPoint();
                 double d1 = (double)blockpos.getX() - p_94241_2_;
                 double d2 = (double)blockpos.getZ() - p_94241_4_;
                 p_94241_6_ = p_94241_6_ % 360.0D;

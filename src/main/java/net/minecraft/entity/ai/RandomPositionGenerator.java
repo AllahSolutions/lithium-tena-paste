@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
@@ -76,7 +76,7 @@ public class RandomPositionGenerator
             {
                 if (entitycreatureIn.hasHome() && xz > 1)
                 {
-                    BlockPos blockpos = entitycreatureIn.getHomePosition();
+                    BlockPosition blockpos = entitycreatureIn.getHomePosition();
 
                     if (entitycreatureIn.posX > (double)blockpos.getX())
                     {
@@ -100,7 +100,7 @@ public class RandomPositionGenerator
                 l = l + MathHelper.floor_double(entitycreatureIn.posX);
                 k1 = k1 + MathHelper.floor_double(entitycreatureIn.posY);
                 i1 = i1 + MathHelper.floor_double(entitycreatureIn.posZ);
-                BlockPos blockpos1 = new BlockPos(l, k1, i1);
+                BlockPosition blockpos1 = new BlockPosition(l, k1, i1);
 
                 if (!flag1 || entitycreatureIn.isWithinHomeDistanceFromPosition(blockpos1))
                 {

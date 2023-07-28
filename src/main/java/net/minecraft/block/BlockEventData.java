@@ -1,17 +1,17 @@
 package net.minecraft.block;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class BlockEventData
 {
-    private BlockPos position;
+    private BlockPosition position;
     private Block blockType;
 
     /** Different for each blockID */
     private int eventID;
     private int eventParameter;
 
-    public BlockEventData(BlockPos pos, Block blockType, int eventId, int p_i45756_4_)
+    public BlockEventData(BlockPosition pos, Block blockType, int eventId, int p_i45756_4_)
     {
         this.position = pos;
         this.eventID = eventId;
@@ -19,7 +19,7 @@ public class BlockEventData
         this.blockType = blockType;
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.position;
     }

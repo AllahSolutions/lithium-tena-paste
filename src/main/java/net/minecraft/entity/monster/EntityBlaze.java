@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -278,7 +278,7 @@ public class EntityBlaze extends EntityMob
                     if (this.field_179467_b > 1)
                     {
                         float f = MathHelper.sqrt_float(MathHelper.sqrt_double(d0)) * 0.5F;
-                        this.blaze.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, new BlockPos((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
+                        this.blaze.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1009, new BlockPosition((int)this.blaze.posX, (int)this.blaze.posY, (int)this.blaze.posZ), 0);
 
                         for (int i = 0; i < 1; ++i)
                         {

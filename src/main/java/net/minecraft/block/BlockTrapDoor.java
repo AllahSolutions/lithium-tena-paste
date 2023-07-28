@@ -44,24 +44,24 @@ public class BlockTrapDoor extends Block
         return false;
     }
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    public boolean isPassable(IBlockAccess worldIn, BlockPosition pos)
     {
         return !worldIn.getBlockState(pos).getValue(OPEN);
     }
 
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPosition pos)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.setBounds(worldIn.getBlockState(pos));
     }
@@ -118,7 +118,7 @@ public class BlockTrapDoor extends Block
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (this.blockMaterial == Material.iron)
         {
@@ -136,11 +136,11 @@ public class BlockTrapDoor extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!worldIn.isRemote)
         {
-            BlockPos blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+            BlockPosition blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
 
             if (!isValidSupportBlock(worldIn.getBlockState(blockpos).getBlock()))
             {
@@ -168,7 +168,7 @@ public class BlockTrapDoor extends Block
     /**
      * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
      */
-    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end)
+    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPosition pos, Vec3 start, Vec3 end)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.collisionRayTrace(worldIn, pos, start, end);
@@ -178,7 +178,7 @@ public class BlockTrapDoor extends Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         IBlockState iblockstate = this.getDefaultState();
 
@@ -194,7 +194,7 @@ public class BlockTrapDoor extends Block
     /**
      * Check whether this Block can be placed on the given side
      */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side)
     {
         return !side.getAxis().isVertical() && isValidSupportBlock(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
     }

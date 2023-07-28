@@ -1,7 +1,7 @@
 package net.optifine.util;
 
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.reflect.Reflector;
@@ -23,7 +23,7 @@ public class ChunkUtils
         return Reflector.getFieldValueBoolean(chunk, fieldHasEntities, true);
     }
 
-    public static int getPrecipitationHeight(Chunk chunk, BlockPos pos)
+    public static int getPrecipitationHeight(Chunk chunk, BlockPosition pos)
     {
         int[] aint = (int[])((int[])Reflector.getFieldValue(chunk, fieldPrecipitationHeightMap));
 
@@ -40,7 +40,7 @@ public class ChunkUtils
             }
             else
             {
-                BlockPos blockpos = chunk.getPrecipitationHeight(pos);
+                BlockPosition blockpos = chunk.getPrecipitationHeight(pos);
                 return blockpos.getY();
             }
         }

@@ -19,7 +19,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -120,7 +120,7 @@ public class EntityWolf extends EntityTameable
         this.dataWatcher.addObject(20, new Byte((byte)EnumDyeColor.RED.getMetadata()));
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.wolf.step", 0.15F, 1.0F);
     }

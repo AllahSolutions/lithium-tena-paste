@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -150,13 +150,13 @@ public class ChunkProviderDebug implements IChunkProvider
         return "DebugLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         BiomeGenBase biomegenbase = this.world.getBiomeGenForCoords(pos);
         return biomegenbase.getSpawnableList(creatureType);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         return null;
     }
@@ -170,9 +170,9 @@ public class ChunkProviderDebug implements IChunkProvider
     {
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 
     static

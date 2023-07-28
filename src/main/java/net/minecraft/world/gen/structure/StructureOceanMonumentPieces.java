@@ -8,7 +8,7 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -1649,13 +1649,13 @@ public class StructureOceanMonumentPieces
             int j = this.getYWithOffset(p_175817_4_);
             int k = this.getZWithOffset(p_175817_3_, p_175817_5_);
 
-            if (p_175817_2_.isVecInside(new BlockPos(i, j, k)))
+            if (p_175817_2_.isVecInside(new BlockPosition(i, j, k)))
             {
                 EntityGuardian entityguardian = new EntityGuardian(worldIn);
                 entityguardian.setElder(true);
                 entityguardian.heal(entityguardian.getMaxHealth());
                 entityguardian.setLocationAndAngles((double)i + 0.5D, (double)j, (double)k + 0.5D, 0.0F, 0.0F);
-                entityguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityguardian)), (IEntityLivingData)null);
+                entityguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPosition(entityguardian)), (IEntityLivingData)null);
                 worldIn.spawnEntityInWorld(entityguardian);
                 return true;
             }

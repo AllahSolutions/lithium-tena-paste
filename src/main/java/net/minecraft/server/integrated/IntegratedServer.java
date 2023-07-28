@@ -14,7 +14,7 @@ import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.profiler.PlayerUsageSnooper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.CryptManager;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.Util;
@@ -44,7 +44,7 @@ public class IntegratedServer extends MinecraftServer
     private ThreadLanServerPing lanServerPing;
     private long ticksSaveLast = 0L;
     public World difficultyUpdateWorld = null;
-    public BlockPos difficultyUpdatePos = null;
+    public BlockPosition difficultyUpdatePos = null;
     public DifficultyInstance difficultyLast = null;
 
     public IntegratedServer(Minecraft mcIn)
@@ -497,7 +497,7 @@ public class IntegratedServer extends MinecraftServer
         }
     }
 
-    public DifficultyInstance getDifficultyAsync(World p_getDifficultyAsync_1_, BlockPos p_getDifficultyAsync_2_)
+    public DifficultyInstance getDifficultyAsync(World p_getDifficultyAsync_1_, BlockPosition p_getDifficultyAsync_2_)
     {
         this.difficultyUpdateWorld = p_getDifficultyAsync_1_;
         this.difficultyUpdatePos = p_getDifficultyAsync_2_;

@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
@@ -24,7 +24,7 @@ public class BlockWorkbench extends Block
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -41,9 +41,9 @@ public class BlockWorkbench extends Block
     public static class InterfaceCraftingTable implements IInteractionObject
     {
         private final World world;
-        private final BlockPos position;
+        private final BlockPosition position;
 
-        public InterfaceCraftingTable(World worldIn, BlockPos pos)
+        public InterfaceCraftingTable(World worldIn, BlockPosition pos)
         {
             this.world = worldIn;
             this.position = pos;

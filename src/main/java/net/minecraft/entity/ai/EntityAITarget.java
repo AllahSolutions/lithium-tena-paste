@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.StringUtils;
 
@@ -193,7 +193,7 @@ public abstract class EntityAITarget extends EntityAIBase
         {
             return false;
         }
-        else if (!this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPos(target)))
+        else if (!this.taskOwner.isWithinHomeDistanceFromPosition(new BlockPosition(target)))
         {
             return false;
         }

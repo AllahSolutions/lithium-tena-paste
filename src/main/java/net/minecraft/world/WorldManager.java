@@ -7,7 +7,7 @@ import net.minecraft.network.play.server.S25PacketBlockBreakAnim;
 import net.minecraft.network.play.server.S28PacketEffect;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class WorldManager implements IWorldAccess
 {
@@ -70,30 +70,30 @@ public class WorldManager implements IWorldAccess
     {
     }
 
-    public void markBlockForUpdate(BlockPos pos)
+    public void markBlockForUpdate(BlockPosition pos)
     {
         this.theWorldServer.getPlayerManager().markBlockForUpdate(pos);
     }
 
-    public void notifyLightSet(BlockPos pos)
+    public void notifyLightSet(BlockPosition pos)
     {
     }
 
-    public void playRecord(String recordName, BlockPos blockPosIn)
+    public void playRecord(String recordName, BlockPosition blockPositionIn)
     {
     }
 
-    public void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int data)
+    public void playAuxSFX(EntityPlayer player, int sfxType, BlockPosition blockPositionIn, int data)
     {
-        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, (double)blockPosIn.getX(), (double)blockPosIn.getY(), (double)blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPosIn, data, false));
+        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, (double) blockPositionIn.getX(), (double) blockPositionIn.getY(), (double) blockPositionIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPositionIn, data, false));
     }
 
-    public void broadcastSound(int soundID, BlockPos pos, int data)
+    public void broadcastSound(int soundID, BlockPosition pos, int data)
     {
         this.mcServer.getConfigurationManager().sendPacketToAllPlayers(new S28PacketEffect(soundID, pos, data, true));
     }
 
-    public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress)
+    public void sendBlockBreakProgress(int breakerId, BlockPosition pos, int progress)
     {
         for (EntityPlayerMP entityplayermp : this.mcServer.getConfigurationManager().getPlayerList())
         {

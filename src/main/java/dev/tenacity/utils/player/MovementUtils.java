@@ -3,11 +3,10 @@ package dev.tenacity.utils.player;
 import dev.tenacity.event.impl.player.MoveEvent;
 import dev.tenacity.event.impl.player.MoveInputEvent;
 import dev.tenacity.utils.Utils;
-import dev.tenacity.utils.skidded.MoveUtils;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -73,7 +72,7 @@ public class MovementUtils implements Utils {
         mc.thePlayer.motionZ += MathHelper.cos((float) yaw) * increase;
     }
     public static Block blockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {
-        return mc.theWorld.getBlockState(new BlockPos(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
+        return mc.theWorld.getBlockState(new BlockPosition(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
     }
 
     public static void strafe(final double speed, float yaw) {

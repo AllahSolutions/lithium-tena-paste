@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.village.Village;
@@ -49,7 +49,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
         }
         else
         {
-            Village village = this.theEntity.worldObj.getVillageCollection().getNearestVillage(new BlockPos(this.theEntity), 0);
+            Village village = this.theEntity.worldObj.getVillageCollection().getNearestVillage(new BlockPosition(this.theEntity), 0);
 
             if (village == null)
             {

@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -383,7 +383,7 @@ public class ChunkProviderHell implements IChunkProvider
     public void populate(IChunkProvider chunkProvider, int x, int z)
     {
         BlockFalling.fallInstantly = true;
-        BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
+        BlockPosition blockpos = new BlockPosition(x * 16, 0, z * 16);
         ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
         this.genNetherBridge.generateStructure(this.worldObj, this.hellRNG, chunkcoordintpair);
 
@@ -476,7 +476,7 @@ public class ChunkProviderHell implements IChunkProvider
         return "HellRandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         if (creatureType == EnumCreatureType.MONSTER)
         {
@@ -495,7 +495,7 @@ public class ChunkProviderHell implements IChunkProvider
         return biomegenbase.getSpawnableList(creatureType);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         return null;
     }
@@ -510,8 +510,8 @@ public class ChunkProviderHell implements IChunkProvider
         this.genNetherBridge.generate(this, this.worldObj, x, z, (ChunkPrimer)null);
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 }

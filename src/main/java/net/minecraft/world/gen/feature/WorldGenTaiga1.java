@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -19,7 +19,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree
         super(false);
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         int i = rand.nextInt(5) + 7;
         int j = i - rand.nextInt(2) - 3;
@@ -42,7 +42,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree
                     j1 = l;
                 }
 
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                 for (int k1 = position.getX() - j1; k1 <= position.getX() + j1 && flag; ++k1)
                 {
@@ -88,7 +88,7 @@ public class WorldGenTaiga1 extends WorldGenAbstractTree
 
                                 if (Math.abs(k3) != k2 || Math.abs(j2) != k2 || k2 <= 0)
                                 {
-                                    BlockPos blockpos = new BlockPos(j3, l2, i2);
+                                    BlockPosition blockpos = new BlockPosition(j3, l2, i2);
 
                                     if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock())
                                     {

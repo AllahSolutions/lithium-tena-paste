@@ -21,7 +21,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.src.Config;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -379,7 +379,7 @@ public abstract class EntityLiving extends EntityLivingBase
             }
             else if (this.leashedToEntity instanceof EntityHanging)
             {
-                BlockPos blockpos = ((EntityHanging)this.leashedToEntity).getHangingPosition();
+                BlockPosition blockpos = ((EntityHanging)this.leashedToEntity).getHangingPosition();
                 nbttagcompound1.setInteger("X", blockpos.getX());
                 nbttagcompound1.setInteger("Y", blockpos.getY());
                 nbttagcompound1.setInteger("Z", blockpos.getZ());
@@ -1235,7 +1235,7 @@ public abstract class EntityLiving extends EntityLivingBase
             }
             else if (this.leashNBTTag.hasKey("X", 99) && this.leashNBTTag.hasKey("Y", 99) && this.leashNBTTag.hasKey("Z", 99))
             {
-                BlockPos blockpos = new BlockPos(this.leashNBTTag.getInteger("X"), this.leashNBTTag.getInteger("Y"), this.leashNBTTag.getInteger("Z"));
+                BlockPosition blockpos = new BlockPosition(this.leashNBTTag.getInteger("X"), this.leashNBTTag.getInteger("Y"), this.leashNBTTag.getInteger("Z"));
                 EntityLeashKnot entityleashknot = EntityLeashKnot.getKnotForPosition(this.worldObj, blockpos);
 
                 if (entityleashknot == null)

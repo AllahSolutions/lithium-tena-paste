@@ -11,8 +11,7 @@ import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 public class NoSlow extends Module {
@@ -91,7 +90,7 @@ public class NoSlow extends Module {
 
                 if (MovementUtils.isMoving() && mc.thePlayer.isUsingItem()) {
                     if (e.isPre()) {
-                        PacketUtils.sendPacket(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+                        PacketUtils.sendPacket(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPosition.ORIGIN, EnumFacing.DOWN));
                     } else {
                         PacketUtils.sendPacket(new C08PacketPlayerBlockPlacement(mc.thePlayer.getCurrentEquippedItem()));
                     }

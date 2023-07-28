@@ -9,7 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class ContainerEnchantment extends Container
 
     /** current world (for bookshelf counting) */
     private World worldPointer;
-    private BlockPos position;
+    private BlockPosition position;
     private Random rand;
     public int xpSeed;
 
@@ -32,10 +32,10 @@ public class ContainerEnchantment extends Container
 
     public ContainerEnchantment(InventoryPlayer playerInv, World worldIn)
     {
-        this(playerInv, worldIn, BlockPos.ORIGIN);
+        this(playerInv, worldIn, BlockPosition.ORIGIN);
     }
 
-    public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPos pos)
+    public ContainerEnchantment(InventoryPlayer playerInv, World worldIn, BlockPosition pos)
     {
         this.tableInventory = new InventoryBasic("Enchant", true, 2)
         {

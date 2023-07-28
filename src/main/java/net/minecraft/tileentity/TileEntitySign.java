@@ -61,7 +61,7 @@ public class TileEntitySign extends TileEntity
             {
                 return true;
             }
-            public BlockPos getPosition()
+            public BlockPosition getPosition()
             {
                 return TileEntitySign.this.pos;
             }
@@ -175,7 +175,7 @@ public class TileEntitySign extends TileEntity
             {
                 return permLevel <= 2;
             }
-            public BlockPos getPosition()
+            public BlockPosition getPosition()
             {
                 return TileEntitySign.this.pos;
             }

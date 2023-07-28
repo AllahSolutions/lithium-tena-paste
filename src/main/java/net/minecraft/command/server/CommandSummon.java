@@ -12,7 +12,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -57,7 +57,7 @@ public class CommandSummon extends CommandBase
         else
         {
             String s = args[0];
-            BlockPos blockpos = sender.getPosition();
+            BlockPosition blockpos = sender.getPosition();
             Vec3 vec3 = sender.getPositionVector();
             double d0 = vec3.xCoord;
             double d1 = vec3.yCoord;
@@ -68,7 +68,7 @@ public class CommandSummon extends CommandBase
                 d0 = parseDouble(d0, args[1], true);
                 d1 = parseDouble(d1, args[2], false);
                 d2 = parseDouble(d2, args[3], true);
-                blockpos = new BlockPos(d0, d1, d2);
+                blockpos = new BlockPosition(d0, d1, d2);
             }
 
             World world = sender.getEntityWorld();
@@ -124,7 +124,7 @@ public class CommandSummon extends CommandBase
 
                     if (!flag && entity2 instanceof EntityLiving)
                     {
-                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), (IEntityLivingData)null);
+                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPosition(entity2)), (IEntityLivingData)null);
                     }
 
                     world.spawnEntityInWorld(entity2);
@@ -150,7 +150,7 @@ public class CommandSummon extends CommandBase
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, EntityList.getEntityNameList()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : null);
     }

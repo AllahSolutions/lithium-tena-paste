@@ -3,7 +3,7 @@ package net.minecraft.world.gen.feature;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class WorldGenVines extends WorldGenerator
 {
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         for (; position.getY() < 128; position = position.up())
         {

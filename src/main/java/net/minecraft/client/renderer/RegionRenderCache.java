@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3i;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
@@ -17,14 +17,14 @@ import java.util.Arrays;
 public class RegionRenderCache extends ChunkCache
 {
     private static final IBlockState DEFAULT_STATE = Blocks.air.getDefaultState();
-    private final BlockPos position;
+    private final BlockPosition position;
     private int[] combinedLights;
     private IBlockState[] blockStates;
     private static ArrayDeque<int[]> cacheLights = new ArrayDeque();
     private static ArrayDeque<IBlockState[]> cacheStates = new ArrayDeque();
     private static int maxCacheSize = Config.limit(Runtime.getRuntime().availableProcessors(), 1, 32);
 
-    public RegionRenderCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn)
+    public RegionRenderCache(World worldIn, BlockPosition posFromIn, BlockPosition posToIn, int subIn)
     {
         super(worldIn, posFromIn, posToIn, subIn);
         this.position = posFromIn.subtract(new Vec3i(subIn, subIn, subIn));
@@ -34,14 +34,14 @@ public class RegionRenderCache extends ChunkCache
         this.blockStates = allocateStates(8000);
     }
 
-    public TileEntity getTileEntity(BlockPos pos)
+    public TileEntity getTileEntity(BlockPosition pos)
     {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
         return this.chunkArray[i][j].getTileEntity(pos, Chunk.EnumCreateEntityType.QUEUED);
     }
 
-    public int getCombinedLight(BlockPos pos, int lightValue)
+    public int getCombinedLight(BlockPosition pos, int lightValue)
     {
         int i = this.getPositionIndex(pos);
         int j = this.combinedLights[i];
@@ -61,7 +61,7 @@ public class RegionRenderCache extends ChunkCache
         return j;
     }
 
-    public IBlockState getBlockState(BlockPos pos)
+    public IBlockState getBlockState(BlockPosition pos)
     {
         int i = this.getPositionIndex(pos);
         IBlockState iblockstate = this.blockStates[i];
@@ -75,12 +75,12 @@ public class RegionRenderCache extends ChunkCache
         return iblockstate;
     }
 
-    private IBlockState getBlockStateRaw(BlockPos pos)
+    private IBlockState getBlockStateRaw(BlockPosition pos)
     {
         return super.getBlockState(pos);
     }
 
-    private int getPositionIndex(BlockPos p_175630_1_)
+    private int getPositionIndex(BlockPosition p_175630_1_)
     {
         int i = p_175630_1_.getX() - this.position.getX();
         int j = p_175630_1_.getY() - this.position.getY();

@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -20,7 +20,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
         super(p_i45461_1_);
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         int i = rand.nextInt(3) + rand.nextInt(2) + 6;
         int j = position.getX();
@@ -29,7 +29,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
         if (k >= 1 && k + i + 1 < 256)
         {
-            BlockPos blockpos = position.down();
+            BlockPosition blockpos = position.down();
             Block block = worldIn.getBlockState(blockpos).getBlock();
 
             if (block != Blocks.grass && block != Blocks.dirt)
@@ -63,7 +63,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
                     }
 
                     int k2 = k + j2;
-                    BlockPos blockpos1 = new BlockPos(k1, k2, l1);
+                    BlockPosition blockpos1 = new BlockPosition(k1, k2, l1);
                     Material material = worldIn.getBlockState(blockpos1).getBlock().getMaterial();
 
                     if (material == Material.air || material == Material.leaves)
@@ -125,7 +125,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
                             for (int i5 = 0; i5 < l4; ++i5)
                             {
-                                this.func_181639_b(worldIn, new BlockPos(j + k3, i2 - i5 - 1, l + j4));
+                                this.func_181639_b(worldIn, new BlockPosition(j + k3, i2 - i5 - 1, l + j4));
                             }
 
                             for (int j5 = -1; j5 <= 1; ++j5)
@@ -159,12 +159,12 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
         }
     }
 
-    private boolean func_181638_a(World p_181638_1_, BlockPos p_181638_2_, int p_181638_3_)
+    private boolean func_181638_a(World p_181638_1_, BlockPosition p_181638_2_, int p_181638_3_)
     {
         int i = p_181638_2_.getX();
         int j = p_181638_2_.getY();
         int k = p_181638_2_.getZ();
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int l = 0; l <= p_181638_3_ + 1; ++l)
         {
@@ -195,7 +195,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
         return true;
     }
 
-    private void func_181639_b(World p_181639_1_, BlockPos p_181639_2_)
+    private void func_181639_b(World p_181639_1_, BlockPosition p_181639_2_)
     {
         if (this.func_150523_a(p_181639_1_.getBlockState(p_181639_2_).getBlock()))
         {
@@ -205,7 +205,7 @@ public class WorldGenCanopyTree extends WorldGenAbstractTree
 
     private void func_150526_a(World worldIn, int p_150526_2_, int p_150526_3_, int p_150526_4_)
     {
-        BlockPos blockpos = new BlockPos(p_150526_2_, p_150526_3_, p_150526_4_);
+        BlockPosition blockpos = new BlockPosition(p_150526_2_, p_150526_3_, p_150526_4_);
         Block block = worldIn.getBlockState(blockpos).getBlock();
 
         if (block.getMaterial() == Material.air)

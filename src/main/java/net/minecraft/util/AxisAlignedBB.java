@@ -19,7 +19,7 @@ public class AxisAlignedBB
         this.maxZ = Math.max(z1, z2);
     }
 
-    public AxisAlignedBB(BlockPos pos1, BlockPos pos2)
+    public AxisAlignedBB(BlockPosition pos1, BlockPosition pos2)
     {
         this.minX = (double)pos1.getX();
         this.minY = (double)pos1.getY();

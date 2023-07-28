@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.ReportedException;
@@ -353,12 +353,12 @@ public class ChunkProviderServer implements IChunkProvider
         return "ServerChunkCache: " + this.id2ChunkMap.getNumHashElements() + " Drop: " + this.droppedChunksSet.size();
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         return this.serverChunkGenerator.getPossibleCreatures(creatureType, pos);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         return this.serverChunkGenerator.getStrongholdGen(worldIn, structureName, position);
     }
@@ -372,8 +372,8 @@ public class ChunkProviderServer implements IChunkProvider
     {
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 }

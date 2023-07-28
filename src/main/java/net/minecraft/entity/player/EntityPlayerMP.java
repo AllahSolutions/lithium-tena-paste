@@ -130,7 +130,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         super(worldIn, profile);
         interactionManager.thisPlayerMP = this;
         this.theItemInWorldManager = interactionManager;
-        BlockPos blockpos = worldIn.getSpawnPoint();
+        BlockPosition blockpos = worldIn.getSpawnPoint();
 
         if (!worldIn.provider.getHasNoSky() && worldIn.getWorldInfo().getGameType() != WorldSettings.GameType.ADVENTURE)
         {
@@ -277,7 +277,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
 
                 if (chunkcoordintpair != null)
                 {
-                    if (this.worldObj.isBlockLoaded(new BlockPos(chunkcoordintpair.chunkXPos << 4, 0, chunkcoordintpair.chunkZPos << 4)))
+                    if (this.worldObj.isBlockLoaded(new BlockPosition(chunkcoordintpair.chunkXPos << 4, 0, chunkcoordintpair.chunkZPos << 4)))
                     {
                         Chunk chunk = this.worldObj.getChunkFromChunkCoords(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos);
 
@@ -403,7 +403,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
      */
     protected void updateBiomesExplored()
     {
-        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ)));
+        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPosition(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ)));
         String s = biomegenbase.biomeName;
         JsonSerializableSet jsonserializableset = (JsonSerializableSet)this.getStatFile().func_150870_b(AchievementList.exploreAllBiomes);
 
@@ -577,7 +577,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
             if (this.dimension == 0 && dimensionId == 1)
             {
                 this.triggerAchievement(AchievementList.theEnd);
-                BlockPos blockpos = this.mcServer.worldServerForDimension(dimensionId).getSpawnCoordinate();
+                BlockPosition blockpos = this.mcServer.worldServerForDimension(dimensionId).getSpawnCoordinate();
 
                 if (blockpos != null)
                 {
@@ -625,7 +625,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         this.openContainer.detectAndSendChanges();
     }
 
-    public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation)
+    public EntityPlayer.EnumStatus trySleep(BlockPosition bedLocation)
     {
         EntityPlayer.EnumStatus entityplayer$enumstatus = super.trySleep(bedLocation);
 
@@ -673,7 +673,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         }
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos)
     {
     }
 
@@ -685,7 +685,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
         int k = MathHelper.floor_double(this.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
+        BlockPosition blockpos = new BlockPosition(i, j, k);
         Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
         if (block.getMaterial() == Material.air)
@@ -1160,9 +1160,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
-        return new BlockPos(this.posX, this.posY + 0.5D, this.posZ);
+        return new BlockPosition(this.posX, this.posY + 0.5D, this.posZ);
     }
 
     public void markPlayerActive()

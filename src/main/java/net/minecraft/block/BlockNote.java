@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityNote;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -28,7 +28,7 @@ public class BlockNote extends BlockContainer
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         boolean flag = worldIn.isBlockPowered(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -49,7 +49,7 @@ public class BlockNote extends BlockContainer
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -71,7 +71,7 @@ public class BlockNote extends BlockContainer
         }
     }
 
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+    public void onBlockClicked(World worldIn, BlockPosition pos, EntityPlayer playerIn)
     {
         if (!worldIn.isRemote)
         {
@@ -106,7 +106,7 @@ public class BlockNote extends BlockContainer
     /**
      * Called on both Client and Server when World#addBlockEvent is called
      */
-    public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam)
+    public boolean onBlockEventReceived(World worldIn, BlockPosition pos, IBlockState state, int eventID, int eventParam)
     {
         float f = (float)Math.pow(2.0D, (double)(eventParam - 12) / 12.0D);
         worldIn.playSoundEffect((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, "note." + this.getInstrument(eventID), 3.0F, f);

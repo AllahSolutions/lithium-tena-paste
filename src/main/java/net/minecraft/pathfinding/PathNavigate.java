@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkCache;
@@ -73,13 +73,13 @@ public abstract class PathNavigate
      */
     public final PathEntity getPathToXYZ(double x, double y, double z)
     {
-        return this.getPathToPos(new BlockPos(MathHelper.floor_double(x), (int)y, MathHelper.floor_double(z)));
+        return this.getPathToPos(new BlockPosition(MathHelper.floor_double(x), (int)y, MathHelper.floor_double(z)));
     }
 
     /**
      * Returns path to given BlockPos
      */
-    public PathEntity getPathToPos(BlockPos pos)
+    public PathEntity getPathToPos(BlockPosition pos)
     {
         if (!this.canNavigate())
         {
@@ -89,7 +89,7 @@ public abstract class PathNavigate
         {
             float f = this.getPathSearchRange();
             this.worldObj.theProfiler.startSection("pathfind");
-            BlockPos blockpos = new BlockPos(this.theEntity);
+            BlockPosition blockpos = new BlockPosition(this.theEntity);
             int i = (int)(f + 8.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
             PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, pos, f);
@@ -128,7 +128,7 @@ public abstract class PathNavigate
         {
             float f = this.getPathSearchRange();
             this.worldObj.theProfiler.startSection("pathfind");
-            BlockPos blockpos = (new BlockPos(this.theEntity)).up();
+            BlockPosition blockpos = (new BlockPosition(this.theEntity)).up();
             int i = (int)(f + 16.0F);
             ChunkCache chunkcache = new ChunkCache(this.worldObj, blockpos.add(-i, -i, -i), blockpos.add(i, i, i), 0);
             PathEntity pathentity = this.pathFinder.createEntityPathTo(chunkcache, this.theEntity, entityIn, f);

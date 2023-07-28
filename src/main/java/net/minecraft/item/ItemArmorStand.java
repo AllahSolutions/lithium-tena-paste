@@ -21,7 +21,7 @@ public class ItemArmorStand extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (side == EnumFacing.DOWN)
         {
@@ -30,7 +30,7 @@ public class ItemArmorStand extends Item
         else
         {
             boolean flag = worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos);
-            BlockPos blockpos = flag ? pos : pos.offset(side);
+            BlockPosition blockpos = flag ? pos : pos.offset(side);
 
             if (!playerIn.canPlayerEdit(blockpos, side, stack))
             {
@@ -38,7 +38,7 @@ public class ItemArmorStand extends Item
             }
             else
             {
-                BlockPos blockpos1 = blockpos.up();
+                BlockPosition blockpos1 = blockpos.up();
                 boolean flag1 = !worldIn.isAirBlock(blockpos) && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos);
                 flag1 = flag1 | (!worldIn.isAirBlock(blockpos1) && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1));
 

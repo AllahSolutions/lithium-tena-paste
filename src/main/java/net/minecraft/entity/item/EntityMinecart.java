@@ -330,12 +330,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
             int l = MathHelper.floor_double(this.posY);
             int i1 = MathHelper.floor_double(this.posZ);
 
-            if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(k, l - 1, i1)))
+            if (BlockRailBase.isRailBlock(this.worldObj, new BlockPosition(k, l - 1, i1)))
             {
                 --l;
             }
 
-            BlockPos blockpos = new BlockPos(k, l, i1);
+            BlockPosition blockpos = new BlockPosition(k, l, i1);
             IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
 
             if (BlockRailBase.isRailBlock(iblockstate))
@@ -441,7 +441,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
     }
 
     @SuppressWarnings("incomplete-switch")
-    protected void func_180460_a(BlockPos p_180460_1_, IBlockState p_180460_2_)
+    protected void func_180460_a(BlockPosition p_180460_1_, IBlockState p_180460_2_)
     {
         this.fallDistance = 0.0F;
         Vec3 vec3 = this.func_70489_a(this.posX, this.posY, this.posZ);
@@ -688,12 +688,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         int j = MathHelper.floor_double(p_70495_3_);
         int k = MathHelper.floor_double(p_70495_5_);
 
-        if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(i, j - 1, k)))
+        if (BlockRailBase.isRailBlock(this.worldObj, new BlockPosition(i, j - 1, k)))
         {
             --j;
         }
 
-        IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
+        IBlockState iblockstate = this.worldObj.getBlockState(new BlockPosition(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate))
         {
@@ -737,12 +737,12 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         int j = MathHelper.floor_double(p_70489_3_);
         int k = MathHelper.floor_double(p_70489_5_);
 
-        if (BlockRailBase.isRailBlock(this.worldObj, new BlockPos(i, j - 1, k)))
+        if (BlockRailBase.isRailBlock(this.worldObj, new BlockPosition(i, j - 1, k)))
         {
             --j;
         }
 
-        IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
+        IBlockState iblockstate = this.worldObj.getBlockState(new BlockPosition(i, j, k));
 
         if (BlockRailBase.isRailBlock(iblockstate))
         {

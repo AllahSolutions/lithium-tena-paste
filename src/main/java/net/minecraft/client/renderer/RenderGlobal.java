@@ -116,7 +116,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
      */
     private int cloudTickCounter;
     public final Map<Integer, DestroyBlockProgress> damagedBlocks = Maps.<Integer, DestroyBlockProgress>newHashMap();
-    private final Map<BlockPos, ISound> mapSoundPositions = Maps.<BlockPos, ISound>newHashMap();
+    private final Map<BlockPosition, ISound> mapSoundPositions = Maps.<BlockPosition, ISound>newHashMap();
     private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
     private Framebuffer entityOutlineFramebuffer;
 
@@ -178,7 +178,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private IChunkProvider worldChunkProvider = null;
     private LongHashMap worldChunkProviderMap = null;
     private int countLoadedChunksPrev = 0;
-    private RenderEnv renderEnv = new RenderEnv(Blocks.air.getDefaultState(), new BlockPos(0, 0, 0));
+    private RenderEnv renderEnv = new RenderEnv(Blocks.air.getDefaultState(), new BlockPosition(0, 0, 0));
     public boolean renderOverlayDamaged = false;
     public boolean renderOverlayEyes = false;
     private boolean firstWorldLoad = false;
@@ -495,7 +495,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         ChunkVisibility.reset();
         this.worldChunkProvider = null;
         this.worldChunkProviderMap = null;
-        this.renderEnv.reset((IBlockState)null, (BlockPos)null);
+        this.renderEnv.reset((IBlockState)null, (BlockPosition)null);
         Shaders.checkWorldChanged(this.theWorld);
 
         if (worldClientIn != null)
@@ -752,7 +752,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                             boolean flag5 = this.mc.getRenderViewEntity() instanceof EntityLivingBase ? ((EntityLivingBase)this.mc.getRenderViewEntity()).isPlayerSleeping() : false;
 
-                            if ((entity2 != this.mc.getRenderViewEntity() || flag8 || this.mc.gameSettings.thirdPersonView != 0 || flag5) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPos(entity2))))
+                            if ((entity2 != this.mc.getRenderViewEntity() || flag8 || this.mc.gameSettings.thirdPersonView != 0 || flag5) && (entity2.posY < 0.0D || entity2.posY >= 256.0D || this.theWorld.isBlockLoaded(new BlockPosition(entity2))))
                             {
                                 ++this.countEntitiesRendered;
                                 this.renderedEntity = entity2;
@@ -852,7 +852,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             for (DestroyBlockProgress destroyblockprogress : this.damagedBlocks.values())
             {
-                BlockPos blockpos = destroyblockprogress.getPosition();
+                BlockPosition blockpos = destroyblockprogress.getPosition();
                 TileEntity tileentity2 = this.theWorld.getTileEntity(blockpos);
 
                 if (tileentity2 instanceof TileEntityChest)
@@ -973,9 +973,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         this.mc.mcProfiler.endStartSection("culling");
-        BlockPos blockpos = new BlockPos(d3, d4 + (double)viewEntity.getEyeHeight(), d5);
+        BlockPosition blockpos = new BlockPosition(d3, d4 + (double)viewEntity.getEyeHeight(), d5);
         RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos);
-        new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
+        new BlockPosition(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
         this.displayListEntitiesDirty = this.displayListEntitiesDirty || !this.chunksToUpdate.isEmpty() || viewEntity.posX != this.lastViewEntityX || viewEntity.posY != this.lastViewEntityY || viewEntity.posZ != this.lastViewEntityZ || (double)viewEntity.rotationPitch != this.lastViewEntityPitch || (double)viewEntity.rotationYaw != this.lastViewEntityYaw;
         this.lastViewEntityX = viewEntity.posX;
         this.lastViewEntityY = viewEntity.posY;
@@ -1005,7 +1005,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             j = ChunkVisibility.getMaxChunkY(this.theWorld, viewEntity, this.renderDistanceChunks);
         }
 
-        RenderChunk renderchunk1 = this.viewFrustum.getRenderChunk(new BlockPos(viewEntity.posX, viewEntity.posY, viewEntity.posZ));
+        RenderChunk renderchunk1 = this.viewFrustum.getRenderChunk(new BlockPosition(viewEntity.posX, viewEntity.posY, viewEntity.posZ));
 
         if (Shaders.isShadowPass)
         {
@@ -1111,7 +1111,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 {
                     for (int l = -this.renderDistanceChunks; l <= this.renderDistanceChunks; ++l)
                     {
-                        RenderChunk renderchunk3 = this.viewFrustum.getRenderChunk(new BlockPos((k << 4) + 8, j1, (l << 4) + 8));
+                        RenderChunk renderchunk3 = this.viewFrustum.getRenderChunk(new BlockPosition((k << 4) + 8, j1, (l << 4) + 8));
 
                         if (renderchunk3 != null && renderchunk3.isBoundingBoxInFrustum((ICamera)camera, frameCount))
                         {
@@ -1198,7 +1198,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 if (renderchunk5.isNeedsUpdate() || set.contains(renderchunk5))
                 {
                     this.displayListEntitiesDirty = true;
-                    BlockPos blockpos1 = renderchunk5.getPosition();
+                    BlockPosition blockpos1 = renderchunk5.getPosition();
                     boolean flag4 = blockpos.distanceSq((double)(blockpos1.getX() + 8), (double)(blockpos1.getY() + 8), (double)(blockpos1.getZ() + 8)) < 768.0D;
 
                     if (!flag4)
@@ -1225,19 +1225,19 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
-    private boolean isPositionInRenderChunk(BlockPos pos, RenderChunk renderChunkIn)
+    private boolean isPositionInRenderChunk(BlockPosition pos, RenderChunk renderChunkIn)
     {
-        BlockPos blockpos = renderChunkIn.getPosition();
+        BlockPosition blockpos = renderChunkIn.getPosition();
         return MathHelper.abs_int(pos.getX() - blockpos.getX()) > 16 ? false : (MathHelper.abs_int(pos.getY() - blockpos.getY()) > 16 ? false : MathHelper.abs_int(pos.getZ() - blockpos.getZ()) <= 16);
     }
 
-    private Set<EnumFacing> getVisibleFacings(BlockPos pos)
+    private Set<EnumFacing> getVisibleFacings(BlockPosition pos)
     {
         VisGraph visgraph = new VisGraph();
-        BlockPos blockpos = new BlockPos(pos.getX() >> 4 << 4, pos.getY() >> 4 << 4, pos.getZ() >> 4 << 4);
+        BlockPosition blockpos = new BlockPosition(pos.getX() >> 4 << 4, pos.getY() >> 4 << 4, pos.getZ() >> 4 << 4);
         Chunk chunk = this.theWorld.getChunkFromBlockCoords(blockpos);
 
-        for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(blockpos, blockpos.add(15, 15, 15)))
+        for (BlockPosition.MutableBlockPosition blockpos$mutableblockpos : BlockPosition.getAllInBoxMutable(blockpos, blockpos.add(15, 15, 15)))
         {
             if (chunk.getBlock(blockpos$mutableblockpos).isOpaqueCube())
             {
@@ -1247,7 +1247,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return visgraph.func_178609_b(pos);
     }
 
-    private RenderChunk getRenderChunkOffset(BlockPos p_getRenderChunkOffset_1_, RenderChunk p_getRenderChunkOffset_2_, EnumFacing p_getRenderChunkOffset_3_, boolean p_getRenderChunkOffset_4_, int p_getRenderChunkOffset_5_)
+    private RenderChunk getRenderChunkOffset(BlockPosition p_getRenderChunkOffset_1_, RenderChunk p_getRenderChunkOffset_2_, EnumFacing p_getRenderChunkOffset_3_, boolean p_getRenderChunkOffset_4_, int p_getRenderChunkOffset_5_)
     {
         RenderChunk renderchunk = p_getRenderChunkOffset_2_.getRenderChunkNeighbour(p_getRenderChunkOffset_3_);
 
@@ -1263,7 +1263,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         {
             if (p_getRenderChunkOffset_4_)
             {
-                BlockPos blockpos = renderchunk.getPosition();
+                BlockPosition blockpos = renderchunk.getPosition();
                 int i = p_getRenderChunkOffset_1_.getX() - blockpos.getX();
                 int j = p_getRenderChunkOffset_1_.getZ() - blockpos.getZ();
                 int k = i * i + j * j;
@@ -2427,7 +2427,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             while (iterator.hasNext())
             {
                 DestroyBlockProgress destroyblockprogress = (DestroyBlockProgress)iterator.next();
-                BlockPos blockpos = destroyblockprogress.getPosition();
+                BlockPosition blockpos = destroyblockprogress.getPosition();
                 double d3 = (double)blockpos.getX() - d0;
                 double d4 = (double)blockpos.getY() - d1;
                 double d5 = (double)blockpos.getZ() - d2;
@@ -2485,7 +2485,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             GlStateManager.depthMask(false);
             float f = 0.002F;
-            BlockPos blockpos = movingObjectPositionIn.getBlockPos();
+            BlockPosition blockpos = movingObjectPositionIn.getBlockPos();
 
 
             if(!Flight.hiddenBlocks.contains(blockpos)) {
@@ -2679,7 +2679,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.viewFrustum.markBlocksForUpdate(x1, y1, z1, x2, y2, z2);
     }
 
-    public void markBlockForUpdate(BlockPos pos)
+    public void markBlockForUpdate(BlockPosition pos)
     {
         int i = pos.getX();
         int j = pos.getY();
@@ -2687,7 +2687,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.markBlocksForUpdate(i - 1, j - 1, k - 1, i + 1, j + 1, k + 1);
     }
 
-    public void notifyLightSet(BlockPos pos)
+    public void notifyLightSet(BlockPosition pos)
     {
         int i = pos.getX();
         int j = pos.getY();
@@ -2704,14 +2704,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.markBlocksForUpdate(x1 - 1, y1 - 1, z1 - 1, x2 + 1, y2 + 1, z2 + 1);
     }
 
-    public void playRecord(String recordName, BlockPos blockPosIn)
+    public void playRecord(String recordName, BlockPosition blockPositionIn)
     {
-        ISound isound = (ISound)this.mapSoundPositions.get(blockPosIn);
+        ISound isound = (ISound)this.mapSoundPositions.get(blockPositionIn);
 
         if (isound != null)
         {
             this.mc.getSoundHandler().stopSound(isound);
-            this.mapSoundPositions.remove(blockPosIn);
+            this.mapSoundPositions.remove(blockPositionIn);
         }
 
         if (recordName != null)
@@ -2723,8 +2723,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 this.mc.ingameGUI.setRecordPlayingMessage(itemrecord.getRecordNameLocal());
             }
 
-            PositionedSoundRecord positionedsoundrecord = PositionedSoundRecord.create(new ResourceLocation(recordName), (float)blockPosIn.getX(), (float)blockPosIn.getY(), (float)blockPosIn.getZ());
-            this.mapSoundPositions.put(blockPosIn, positionedsoundrecord);
+            PositionedSoundRecord positionedsoundrecord = PositionedSoundRecord.create(new ResourceLocation(recordName), (float) blockPositionIn.getX(), (float) blockPositionIn.getY(), (float) blockPositionIn.getZ());
+            this.mapSoundPositions.put(blockPositionIn, positionedsoundrecord);
             this.mc.getSoundHandler().playSound(positionedsoundrecord);
         }
     }
@@ -2961,7 +2961,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     {
     }
 
-    public void broadcastSound(int soundID, BlockPos pos, int data)
+    public void broadcastSound(int soundID, BlockPosition pos, int data)
     {
         switch (soundID)
         {
@@ -2998,105 +2998,105 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
     }
 
-    public void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int data) {
+    public void playAuxSFX(EntityPlayer player, int sfxType, BlockPosition blockPositionIn, int data) {
         Random random = this.theWorld.rand;
 
         switch (sfxType)
         {
             case 1000:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.click", 1.0F, 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.click", 1.0F, 1.0F, false);
                 break;
 
             case 1001:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.click", 1.0F, 1.2F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.click", 1.0F, 1.2F, false);
                 break;
 
             case 1002:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.bow", 1.0F, 1.2F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.bow", 1.0F, 1.2F, false);
                 break;
 
             case 1003:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.door_open", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.door_open", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 1004:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.fizz", 0.5F, 2.6F + (random.nextFloat() - random.nextFloat()) * 0.8F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.fizz", 0.5F, 2.6F + (random.nextFloat() - random.nextFloat()) * 0.8F, false);
                 break;
 
             case 1005:
                 if (Item.getItemById(data) instanceof ItemRecord)
                 {
-                    this.theWorld.playRecord(blockPosIn, "records." + ((ItemRecord)Item.getItemById(data)).recordName);
+                    this.theWorld.playRecord(blockPositionIn, "records." + ((ItemRecord)Item.getItemById(data)).recordName);
                 }
                 else
                 {
-                    this.theWorld.playRecord(blockPosIn, (String)null);
+                    this.theWorld.playRecord(blockPositionIn, (String)null);
                 }
 
                 break;
 
             case 1006:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.door_close", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.door_close", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 1007:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.ghast.charge", 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.ghast.charge", 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1008:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.ghast.fireball", 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.ghast.fireball", 10.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1009:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.ghast.fireball", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.ghast.fireball", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1010:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.zombie.wood", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.zombie.wood", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1011:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.zombie.metal", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.zombie.metal", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1012:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.zombie.woodbreak", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.zombie.woodbreak", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1014:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.wither.shoot", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.wither.shoot", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1015:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.bat.takeoff", 0.05F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.bat.takeoff", 0.05F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1016:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.zombie.infect", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.zombie.infect", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1017:
-                this.theWorld.playSoundAtPos(blockPosIn, "mob.zombie.unfect", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "mob.zombie.unfect", 2.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F, false);
                 break;
 
             case 1020:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.anvil_break", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.anvil_break", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 1021:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.anvil_use", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.anvil_use", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 1022:
-                this.theWorld.playSoundAtPos(blockPosIn, "random.anvil_land", 0.3F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "random.anvil_land", 0.3F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 2000:
                 int i = data % 3 - 1;
                 int j = data / 3 % 3 - 1;
-                double d0 = (double)blockPosIn.getX() + (double)i * 0.6D + 0.5D;
-                double d1 = (double)blockPosIn.getY() + 0.5D;
-                double d2 = (double)blockPosIn.getZ() + (double)j * 0.6D + 0.5D;
+                double d0 = (double) blockPositionIn.getX() + (double)i * 0.6D + 0.5D;
+                double d1 = (double) blockPositionIn.getY() + 0.5D;
+                double d2 = (double) blockPositionIn.getZ() + (double)j * 0.6D + 0.5D;
 
                 for (int i1 = 0; i1 < 10; ++i1)
                 {
@@ -3116,16 +3116,16 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 Block block = Block.getBlockById(data & 4095);
 
                     if (block.getMaterial() != Material.air) {
-                        this.mc.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getBreakSound()), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F, (float)blockPosIn.getX() + 0.5F, (float)blockPosIn.getY() + 0.5F, (float)blockPosIn.getZ() + 0.5F));
+                        this.mc.getSoundHandler().playSound(new PositionedSoundRecord(new ResourceLocation(block.stepSound.getBreakSound()), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getFrequency() * 0.8F, (float) blockPositionIn.getX() + 0.5F, (float) blockPositionIn.getY() + 0.5F, (float) blockPositionIn.getZ() + 0.5F));
                     }
 
-                    this.mc.effectRenderer.addBlockDestroyEffects(blockPosIn, block.getStateFromMeta(data >> 12 & 255));
+                    this.mc.effectRenderer.addBlockDestroyEffects(blockPositionIn, block.getStateFromMeta(data >> 12 & 255));
                 break;
 
             case 2002:
-                double d3 = (double)blockPosIn.getX();
-                double d4 = (double)blockPosIn.getY();
-                double d5 = (double)blockPosIn.getZ();
+                double d3 = (double) blockPositionIn.getX();
+                double d4 = (double) blockPositionIn.getY();
+                double d5 = (double) blockPositionIn.getZ();
 
                 for (int k = 0; k < 8; ++k)
                 {
@@ -3160,13 +3160,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     }
                 }
 
-                this.theWorld.playSoundAtPos(blockPosIn, "game.potion.smash", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
+                this.theWorld.playSoundAtPos(blockPositionIn, "game.potion.smash", 1.0F, this.theWorld.rand.nextFloat() * 0.1F + 0.9F, false);
                 break;
 
             case 2003:
-                double d6 = (double)blockPosIn.getX() + 0.5D;
-                double d8 = (double)blockPosIn.getY();
-                double d10 = (double)blockPosIn.getZ() + 0.5D;
+                double d6 = (double) blockPositionIn.getX() + 0.5D;
+                double d8 = (double) blockPositionIn.getY();
+                double d10 = (double) blockPositionIn.getZ() + 0.5D;
 
                 for (int l1 = 0; l1 < 8; ++l1)
                 {
@@ -3184,9 +3184,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             case 2004:
                 for (int l = 0; l < 20; ++l)
                 {
-                    double d12 = (double)blockPosIn.getX() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                    double d13 = (double)blockPosIn.getY() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
-                    double d14 = (double)blockPosIn.getZ() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+                    double d12 = (double) blockPositionIn.getX() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+                    double d13 = (double) blockPositionIn.getY() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
+                    double d14 = (double) blockPositionIn.getZ() + 0.5D + ((double)this.theWorld.rand.nextFloat() - 0.5D) * 2.0D;
                     this.theWorld.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d12, d13, d14, 0.0D, 0.0D, 0.0D, new int[0]);
                     this.theWorld.spawnParticle(EnumParticleTypes.FLAME, d12, d13, d14, 0.0D, 0.0D, 0.0D, new int[0]);
                 }
@@ -3194,11 +3194,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 return;
 
             case 2005:
-                ItemDye.spawnBonemealParticles(this.theWorld, blockPosIn, data);
+                ItemDye.spawnBonemealParticles(this.theWorld, blockPositionIn, data);
         }
     }
 
-    public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress)
+    public void sendBlockBreakProgress(int breakerId, BlockPosition pos, int progress)
     {
         if (progress >= 0 && progress < 10)
         {
@@ -3286,7 +3286,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return this.chunksToUpdate.size();
     }
 
-    public RenderChunk getRenderChunk(BlockPos p_getRenderChunk_1_)
+    public RenderChunk getRenderChunk(BlockPosition p_getRenderChunk_1_)
     {
         return this.viewFrustum.getRenderChunk(p_getRenderChunk_1_);
     }

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -52,7 +52,7 @@ public class CommandExecuteAt extends CommandBase
             final double d0 = parseDouble(entity.posX, args[1], false);
             final double d1 = parseDouble(entity.posY, args[2], false);
             final double d2 = parseDouble(entity.posZ, args[3], false);
-            final BlockPos blockpos = new BlockPos(d0, d1, d2);
+            final BlockPosition blockpos = new BlockPosition(d0, d1, d2);
             int i = 4;
 
             if ("detect".equals(args[4]) && args.length > 10)
@@ -63,7 +63,7 @@ public class CommandExecuteAt extends CommandBase
                 double d5 = parseDouble(d2, args[7], false);
                 Block block = getBlockByText(sender, args[8]);
                 int k = parseInt(args[9], -1, 15);
-                BlockPos blockpos1 = new BlockPos(d3, d4, d5);
+                BlockPosition blockpos1 = new BlockPosition(d3, d4, d5);
                 IBlockState iblockstate = world.getBlockState(blockpos1);
 
                 if (iblockstate.getBlock() != block || k >= 0 && iblockstate.getBlock().getMetaFromState(iblockstate) != k)
@@ -93,7 +93,7 @@ public class CommandExecuteAt extends CommandBase
                 {
                     return sender.canCommandSenderUseCommand(permLevel, commandName);
                 }
-                public BlockPos getPosition()
+                public BlockPosition getPosition()
                 {
                     return blockpos;
                 }
@@ -137,7 +137,7 @@ public class CommandExecuteAt extends CommandBase
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : (args.length > 5 && args.length <= 8 && "detect".equals(args[4]) ? func_175771_a(args, 5, pos) : (args.length == 9 && "detect".equals(args[4]) ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : null)));
     }

@@ -2,7 +2,7 @@ package net.minecraft.world.gen.feature;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -17,7 +17,7 @@ public class WorldGenIcePath extends WorldGenerator
         this.basePathWidth = p_i45454_1_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         while (worldIn.isAirBlock(position) && position.getY() > 2)
         {
@@ -44,7 +44,7 @@ public class WorldGenIcePath extends WorldGenerator
                     {
                         for (int k1 = position.getY() - j; k1 <= position.getY() + j; ++k1)
                         {
-                            BlockPos blockpos = new BlockPos(k, k1, l);
+                            BlockPosition blockpos = new BlockPosition(k, k1, l);
                             Block block = worldIn.getBlockState(blockpos).getBlock();
 
                             if (block == Blocks.dirt || block == Blocks.snow || block == Blocks.ice)

@@ -5,7 +5,7 @@ import net.minecraft.block.BlockSnow;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -21,7 +21,7 @@ public class ItemSnow extends ItemBlock
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (stack.stackSize == 0)
         {
@@ -35,7 +35,7 @@ public class ItemSnow extends ItemBlock
         {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             Block block = iblockstate.getBlock();
-            BlockPos blockpos = pos;
+            BlockPosition blockpos = pos;
 
             if ((side != EnumFacing.UP || block != this.block) && !block.isReplaceable(worldIn, pos))
             {

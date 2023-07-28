@@ -46,7 +46,7 @@ public class BlockSponge extends Block
         return ((Boolean)state.getValue(WET)).booleanValue() ? 1 : 0;
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.tryAbsorb(worldIn, pos, state);
     }
@@ -54,13 +54,13 @@ public class BlockSponge extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         this.tryAbsorb(worldIn, pos, state);
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
-    protected void tryAbsorb(World worldIn, BlockPos pos, IBlockState state)
+    protected void tryAbsorb(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!((Boolean)state.getValue(WET)).booleanValue() && this.absorb(worldIn, pos))
         {
@@ -69,22 +69,22 @@ public class BlockSponge extends Block
         }
     }
 
-    private boolean absorb(World worldIn, BlockPos pos)
+    private boolean absorb(World worldIn, BlockPosition pos)
     {
-        Queue<Tuple<BlockPos, Integer>> queue = Lists.<Tuple<BlockPos, Integer>>newLinkedList();
-        ArrayList<BlockPos> arraylist = Lists.<BlockPos>newArrayList();
+        Queue<Tuple<BlockPosition, Integer>> queue = Lists.<Tuple<BlockPosition, Integer>>newLinkedList();
+        ArrayList<BlockPosition> arraylist = Lists.<BlockPosition>newArrayList();
         queue.add(new Tuple(pos, Integer.valueOf(0)));
         int i = 0;
 
         while (!((Queue)queue).isEmpty())
         {
-            Tuple<BlockPos, Integer> tuple = (Tuple)queue.poll();
-            BlockPos blockpos = (BlockPos)tuple.getFirst();
+            Tuple<BlockPosition, Integer> tuple = (Tuple)queue.poll();
+            BlockPosition blockpos = (BlockPosition)tuple.getFirst();
             int j = ((Integer)tuple.getSecond()).intValue();
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                BlockPos blockpos1 = blockpos.offset(enumfacing);
+                BlockPosition blockpos1 = blockpos.offset(enumfacing);
 
                 if (worldIn.getBlockState(blockpos1).getBlock().getMaterial() == Material.water)
                 {
@@ -105,7 +105,7 @@ public class BlockSponge extends Block
             }
         }
 
-        for (BlockPos blockpos2 : arraylist)
+        for (BlockPosition blockpos2 : arraylist)
         {
             worldIn.notifyNeighborsOfStateChange(blockpos2, Blocks.air);
         }
@@ -143,7 +143,7 @@ public class BlockSponge extends Block
         return new BlockState(this, new IProperty[] {WET});
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (((Boolean)state.getValue(WET)).booleanValue())
         {

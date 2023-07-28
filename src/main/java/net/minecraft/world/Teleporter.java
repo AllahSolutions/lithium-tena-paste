@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.util.MathHelper;
@@ -58,7 +58,7 @@ public class Teleporter
                         int j2 = j + l1;
                         int k2 = k + k1 * i1 - j1 * l;
                         boolean flag = l1 < 0;
-                        this.worldServerInstance.setBlockState(new BlockPos(i2, j2, k2), flag ? Blocks.obsidian.getDefaultState() : Blocks.air.getDefaultState());
+                        this.worldServerInstance.setBlockState(new BlockPosition(i2, j2, k2), flag ? Blocks.obsidian.getDefaultState() : Blocks.air.getDefaultState());
                     }
                 }
             }
@@ -75,7 +75,7 @@ public class Teleporter
         int j = MathHelper.floor_double(entityIn.posX);
         int k = MathHelper.floor_double(entityIn.posZ);
         boolean flag = true;
-        BlockPos blockpos = BlockPos.ORIGIN;
+        BlockPosition blockpos = BlockPosition.ORIGIN;
         long l = ChunkCoordIntPair.chunkXZ2Int(j, k);
 
         if (this.destinationCoordinateCache.containsItem(l))
@@ -88,15 +88,15 @@ public class Teleporter
         }
         else
         {
-            BlockPos blockpos3 = new BlockPos(entityIn);
+            BlockPosition blockpos3 = new BlockPosition(entityIn);
 
             for (int i1 = -128; i1 <= 128; ++i1)
             {
-                BlockPos blockpos2;
+                BlockPosition blockpos2;
 
                 for (int j1 = -128; j1 <= 128; ++j1)
                 {
-                    for (BlockPos blockpos1 = blockpos3.add(i1, this.worldServerInstance.getActualHeight() - 1 - blockpos3.getY(), j1); blockpos1.getY() >= 0; blockpos1 = blockpos2)
+                    for (BlockPosition blockpos1 = blockpos3.add(i1, this.worldServerInstance.getActualHeight() - 1 - blockpos3.getY(), j1); blockpos1.getY() >= 0; blockpos1 = blockpos2)
                     {
                         blockpos2 = blockpos1.down();
 
@@ -202,7 +202,7 @@ public class Teleporter
         int k1 = l;
         int l1 = 0;
         int i2 = this.random.nextInt(4);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int j2 = j - i; j2 <= j + i; ++j2)
         {
@@ -355,7 +355,7 @@ public class Teleporter
                         int k10 = k2 + k8;
                         int k11 = k6 + (l7 - 1) * i3 - j7 * l6;
                         boolean flag = k8 < 0;
-                        this.worldServerInstance.setBlockState(new BlockPos(k9, k10, k11), flag ? Blocks.obsidian.getDefaultState() : Blocks.air.getDefaultState());
+                        this.worldServerInstance.setBlockState(new BlockPosition(k9, k10, k11), flag ? Blocks.obsidian.getDefaultState() : Blocks.air.getDefaultState());
                     }
                 }
             }
@@ -373,7 +373,7 @@ public class Teleporter
                     int l11 = k2 + l9;
                     int k12 = k6 + (l8 - 1) * i3;
                     boolean flag1 = l8 == 0 || l8 == 3 || l9 == -1 || l9 == 3;
-                    this.worldServerInstance.setBlockState(new BlockPos(l10, l11, k12), flag1 ? Blocks.obsidian.getDefaultState() : iblockstate, 2);
+                    this.worldServerInstance.setBlockState(new BlockPosition(l10, l11, k12), flag1 ? Blocks.obsidian.getDefaultState() : iblockstate, 2);
                 }
             }
 
@@ -384,7 +384,7 @@ public class Teleporter
                     int i11 = i6 + (i9 - 1) * l6;
                     int i12 = k2 + i10;
                     int l12 = k6 + (i9 - 1) * i3;
-                    BlockPos blockpos = new BlockPos(i11, i12, l12);
+                    BlockPosition blockpos = new BlockPosition(i11, i12, l12);
                     this.worldServerInstance.notifyNeighborsOfStateChange(blockpos, this.worldServerInstance.getBlockState(blockpos).getBlock());
                 }
             }
@@ -418,11 +418,11 @@ public class Teleporter
         }
     }
 
-    public class PortalPosition extends BlockPos
+    public class PortalPosition extends BlockPosition
     {
         public long lastUpdateTime;
 
-        public PortalPosition(BlockPos pos, long lastUpdate)
+        public PortalPosition(BlockPosition pos, long lastUpdate)
         {
             super(pos.getX(), pos.getY(), pos.getZ());
             this.lastUpdateTime = lastUpdate;

@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
@@ -136,7 +136,7 @@ public abstract class EntityMob extends EntityCreature implements IMob
         return flag;
     }
 
-    public float getBlockPathWeight(BlockPos pos)
+    public float getBlockPathWeight(BlockPosition pos)
     {
         return 0.5F - this.worldObj.getLightBrightness(pos);
     }
@@ -146,7 +146,7 @@ public abstract class EntityMob extends EntityCreature implements IMob
      */
     protected boolean isValidLightLevel()
     {
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
         if (this.worldObj.getLightFor(EnumSkyBlock.SKY, blockpos) > this.rand.nextInt(32))
         {

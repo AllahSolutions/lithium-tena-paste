@@ -1,7 +1,7 @@
 package net.minecraft.world.storage;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldSettings;
@@ -187,7 +187,7 @@ public class DerivedWorldInfo extends WorldInfo
     {
     }
 
-    public void setSpawn(BlockPos spawnPoint)
+    public void setSpawn(BlockPosition spawnPoint)
     {
     }
 

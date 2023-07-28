@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class EntityBat extends EntityAmbientCreature
 {
     /** Coordinates of where the bat spawned. */
-    private BlockPos spawnPosition;
+    private BlockPosition spawnPosition;
 
     public EntityBat(World worldIn)
     {
@@ -132,8 +132,8 @@ public class EntityBat extends EntityAmbientCreature
     protected void updateAITasks()
     {
         super.updateAITasks();
-        BlockPos blockpos = new BlockPos(this);
-        BlockPos blockpos1 = blockpos.up();
+        BlockPosition blockpos = new BlockPosition(this);
+        BlockPosition blockpos1 = blockpos.up();
 
         if (this.getIsBatHanging())
         {
@@ -165,7 +165,7 @@ public class EntityBat extends EntityAmbientCreature
 
             if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceSq((double)((int)this.posX), (double)((int)this.posY), (double)((int)this.posZ)) < 4.0D)
             {
-                this.spawnPosition = new BlockPos((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
+                this.spawnPosition = new BlockPosition((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
             }
 
             double d0 = (double)this.spawnPosition.getX() + 0.5D - this.posX;
@@ -199,7 +199,7 @@ public class EntityBat extends EntityAmbientCreature
     {
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos)
     {
     }
 
@@ -254,7 +254,7 @@ public class EntityBat extends EntityAmbientCreature
      */
     public boolean getCanSpawnHere()
     {
-        BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
         if (blockpos.getY() >= this.worldObj.getSeaLevel())
         {

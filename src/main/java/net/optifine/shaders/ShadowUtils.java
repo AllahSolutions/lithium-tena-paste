@@ -4,7 +4,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.ViewFrustum;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 
 import java.util.Arrays;
@@ -26,9 +26,9 @@ public class ShadowUtils
             float f3 = -MathHelper.sin(f2);
             float f4 = MathHelper.cos(f2) * MathHelper.cos(f1);
             float f5 = -MathHelper.cos(f2) * MathHelper.sin(f1);
-            BlockPos blockpos = new BlockPos(MathHelper.floor_double(viewEntity.posX) >> 4, MathHelper.floor_double(viewEntity.posY) >> 4, MathHelper.floor_double(viewEntity.posZ) >> 4);
-            BlockPos blockpos1 = blockpos.add((double)(-f3 * (float)i), (double)(-f4 * (float)i), (double)(-f5 * (float)i));
-            BlockPos blockpos2 = blockpos.add((double)(f3 * (float)renderDistanceChunks), (double)(f4 * (float)renderDistanceChunks), (double)(f5 * (float)renderDistanceChunks));
+            BlockPosition blockpos = new BlockPosition(MathHelper.floor_double(viewEntity.posX) >> 4, MathHelper.floor_double(viewEntity.posY) >> 4, MathHelper.floor_double(viewEntity.posZ) >> 4);
+            BlockPosition blockpos1 = blockpos.add((double)(-f3 * (float)i), (double)(-f4 * (float)i), (double)(-f5 * (float)i));
+            BlockPosition blockpos2 = blockpos.add((double)(f3 * (float)renderDistanceChunks), (double)(f4 * (float)renderDistanceChunks), (double)(f5 * (float)renderDistanceChunks));
             IteratorRenderChunks iteratorrenderchunks = new IteratorRenderChunks(viewFrustum, blockpos1, blockpos2, i, i);
             return iteratorrenderchunks;
         }

@@ -5,7 +5,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -78,13 +78,13 @@ public abstract class MapGenStructure extends MapGenBase
         return flag;
     }
 
-    public boolean func_175795_b(BlockPos pos)
+    public boolean func_175795_b(BlockPosition pos)
     {
         this.initializeStructureData(this.worldObj);
         return this.func_175797_c(pos) != null;
     }
 
-    protected StructureStart func_175797_c(BlockPos pos)
+    protected StructureStart func_175797_c(BlockPosition pos)
     {
         label24:
 
@@ -116,7 +116,7 @@ public abstract class MapGenStructure extends MapGenBase
         return null;
     }
 
-    public boolean isPositionInStructure(World worldIn, BlockPos pos)
+    public boolean isPositionInStructure(World worldIn, BlockPosition pos)
     {
         this.initializeStructureData(worldIn);
 
@@ -131,7 +131,7 @@ public abstract class MapGenStructure extends MapGenBase
         return false;
     }
 
-    public BlockPos getClosestStrongholdPos(World worldIn, BlockPos pos)
+    public BlockPosition getClosestStrongholdPos(World worldIn, BlockPosition pos)
     {
         this.worldObj = worldIn;
         this.initializeStructureData(worldIn);
@@ -143,14 +143,14 @@ public abstract class MapGenStructure extends MapGenBase
         this.rand.setSeed(k ^ l ^ worldIn.getSeed());
         this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, null);
         double d0 = Double.MAX_VALUE;
-        BlockPos blockpos = null;
+        BlockPosition blockpos = null;
 
         for (StructureStart structurestart : this.structureMap.values())
         {
             if (structurestart.isSizeableStructure())
             {
                 StructureComponent structurecomponent = structurestart.getComponents().get(0);
-                BlockPos blockpos1 = structurecomponent.getBoundingBoxCenter();
+                BlockPosition blockpos1 = structurecomponent.getBoundingBoxCenter();
                 double d1 = blockpos1.distanceSq(pos);
 
                 if (d1 < d0)
@@ -167,13 +167,13 @@ public abstract class MapGenStructure extends MapGenBase
         }
         else
         {
-            List<BlockPos> list = this.getCoordList();
+            List<BlockPosition> list = this.getCoordList();
 
             if (list != null)
             {
-                BlockPos blockpos2 = null;
+                BlockPosition blockpos2 = null;
 
-                for (BlockPos blockpos3 : list)
+                for (BlockPosition blockpos3 : list)
                 {
                     double d2 = blockpos3.distanceSq(pos);
 
@@ -193,7 +193,7 @@ public abstract class MapGenStructure extends MapGenBase
         }
     }
 
-    protected List<BlockPos> getCoordList()
+    protected List<BlockPosition> getCoordList()
     {
         return null;
     }

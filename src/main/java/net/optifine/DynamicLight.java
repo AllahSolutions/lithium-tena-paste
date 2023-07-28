@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -26,8 +26,8 @@ public class DynamicLight
     private int lastLightLevel = 0;
     private boolean underwater = false;
     private long timeCheckMs = 0L;
-    private Set<BlockPos> setLitChunkPos = new HashSet();
-    private BlockPos.MutableBlockPos blockPosMutable = new BlockPos.MutableBlockPos();
+    private Set<BlockPosition> setLitChunkPos = new HashSet();
+    private BlockPosition.MutableBlockPosition blockPosMutable = new BlockPosition.MutableBlockPosition();
 
     public DynamicLight(Entity entity)
     {
@@ -75,28 +75,28 @@ public class DynamicLight
                 this.underwater = block == Blocks.water;
             }
 
-            Set<BlockPos> set = new HashSet();
+            Set<BlockPosition> set = new HashSet();
 
             if (j > 0)
             {
                 EnumFacing enumfacing2 = (MathHelper.floor_double(d6) & 15) >= 8 ? EnumFacing.EAST : EnumFacing.WEST;
                 EnumFacing enumfacing = (MathHelper.floor_double(d0) & 15) >= 8 ? EnumFacing.UP : EnumFacing.DOWN;
                 EnumFacing enumfacing1 = (MathHelper.floor_double(d1) & 15) >= 8 ? EnumFacing.SOUTH : EnumFacing.NORTH;
-                BlockPos blockpos = new BlockPos(d6, d0, d1);
+                BlockPosition blockpos = new BlockPosition(d6, d0, d1);
                 RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
-                BlockPos blockpos1 = this.getChunkPos(renderchunk, blockpos, enumfacing2);
+                BlockPosition blockpos1 = this.getChunkPos(renderchunk, blockpos, enumfacing2);
                 RenderChunk renderchunk1 = renderGlobal.getRenderChunk(blockpos1);
-                BlockPos blockpos2 = this.getChunkPos(renderchunk, blockpos, enumfacing1);
+                BlockPosition blockpos2 = this.getChunkPos(renderchunk, blockpos, enumfacing1);
                 RenderChunk renderchunk2 = renderGlobal.getRenderChunk(blockpos2);
-                BlockPos blockpos3 = this.getChunkPos(renderchunk1, blockpos1, enumfacing1);
+                BlockPosition blockpos3 = this.getChunkPos(renderchunk1, blockpos1, enumfacing1);
                 RenderChunk renderchunk3 = renderGlobal.getRenderChunk(blockpos3);
-                BlockPos blockpos4 = this.getChunkPos(renderchunk, blockpos, enumfacing);
+                BlockPosition blockpos4 = this.getChunkPos(renderchunk, blockpos, enumfacing);
                 RenderChunk renderchunk4 = renderGlobal.getRenderChunk(blockpos4);
-                BlockPos blockpos5 = this.getChunkPos(renderchunk4, blockpos4, enumfacing2);
+                BlockPosition blockpos5 = this.getChunkPos(renderchunk4, blockpos4, enumfacing2);
                 RenderChunk renderchunk5 = renderGlobal.getRenderChunk(blockpos5);
-                BlockPos blockpos6 = this.getChunkPos(renderchunk4, blockpos4, enumfacing1);
+                BlockPosition blockpos6 = this.getChunkPos(renderchunk4, blockpos4, enumfacing1);
                 RenderChunk renderchunk6 = renderGlobal.getRenderChunk(blockpos6);
-                BlockPos blockpos7 = this.getChunkPos(renderchunk5, blockpos5, enumfacing1);
+                BlockPosition blockpos7 = this.getChunkPos(renderchunk5, blockpos5, enumfacing1);
                 RenderChunk renderchunk7 = renderGlobal.getRenderChunk(blockpos7);
                 this.updateChunkLight(renderchunk, this.setLitChunkPos, set);
                 this.updateChunkLight(renderchunk1, this.setLitChunkPos, set);
@@ -113,12 +113,12 @@ public class DynamicLight
         }
     }
 
-    private BlockPos getChunkPos(RenderChunk renderChunk, BlockPos pos, EnumFacing facing)
+    private BlockPosition getChunkPos(RenderChunk renderChunk, BlockPosition pos, EnumFacing facing)
     {
         return renderChunk != null ? renderChunk.getBlockPosOffset16(facing) : pos.offset(facing, 16);
     }
 
-    private void updateChunkLight(RenderChunk renderChunk, Set<BlockPos> setPrevPos, Set<BlockPos> setNewPos)
+    private void updateChunkLight(RenderChunk renderChunk, Set<BlockPosition> setPrevPos, Set<BlockPosition> setNewPos)
     {
         if (renderChunk != null)
         {
@@ -129,7 +129,7 @@ public class DynamicLight
                 renderChunk.setNeedsUpdate(true);
             }
 
-            BlockPos blockpos = renderChunk.getPosition();
+            BlockPosition blockpos = renderChunk.getPosition();
 
             if (setPrevPos != null)
             {
@@ -145,10 +145,10 @@ public class DynamicLight
 
     public void updateLitChunks(RenderGlobal renderGlobal)
     {
-        for (BlockPos blockpos : this.setLitChunkPos)
+        for (BlockPosition blockpos : this.setLitChunkPos)
         {
             RenderChunk renderchunk = renderGlobal.getRenderChunk(blockpos);
-            this.updateChunkLight(renderchunk, (Set<BlockPos>)null, (Set<BlockPos>)null);
+            this.updateChunkLight(renderchunk, (Set<BlockPosition>)null, (Set<BlockPosition>)null);
         }
     }
 

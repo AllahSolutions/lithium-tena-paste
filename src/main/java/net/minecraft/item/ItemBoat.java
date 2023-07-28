@@ -76,7 +76,7 @@ public class ItemBoat extends Item
             {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
                 {
-                    BlockPos blockpos = movingobjectposition.getBlockPos();
+                    BlockPosition blockpos = movingobjectposition.getBlockPos();
 
                     if (worldIn.getBlockState(blockpos).getBlock() == Blocks.snow_layer)
                     {

@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class ContainerWorkbench extends Container
@@ -16,9 +16,9 @@ public class ContainerWorkbench extends Container
     private World worldObj;
 
     /** Position of the workbench */
-    private BlockPos pos;
+    private BlockPosition pos;
 
-    public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPos posIn)
+    public ContainerWorkbench(InventoryPlayer playerInventory, World worldIn, BlockPosition posIn)
     {
         this.worldObj = worldIn;
         this.pos = posIn;

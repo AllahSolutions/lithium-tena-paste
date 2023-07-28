@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class BlockNewLeaf extends BlockLeaves
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
     }
 
-    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance)
+    protected void dropApple(World worldIn, BlockPosition pos, IBlockState state, int chance)
     {
         if (state.getValue(VARIANT) == BlockPlanks.EnumType.DARK_OAK && worldIn.rand.nextInt(chance) == 0)
         {
@@ -52,7 +52,7 @@ public class BlockNewLeaf extends BlockLeaves
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
+    public int getDamageValue(World worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock().getMetaFromState(iblockstate) & 3;
@@ -111,7 +111,7 @@ public class BlockNewLeaf extends BlockLeaves
         return new BlockState(this, new IProperty[] {VARIANT, CHECK_DECAY, DECAYABLE});
     }
 
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPosition pos, IBlockState state, TileEntity te)
     {
         if (!worldIn.isRemote && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() == Items.shears)
         {

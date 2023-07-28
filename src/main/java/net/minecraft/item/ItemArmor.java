@@ -12,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
 
@@ -27,7 +27,7 @@ public class ItemArmor extends Item
     {
         protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
         {
-            BlockPos blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
+            BlockPosition blockpos = source.getBlockPos().offset(BlockDispenser.getFacing(source.getBlockMetadata()));
             int i = blockpos.getX();
             int j = blockpos.getY();
             int k = blockpos.getZ();

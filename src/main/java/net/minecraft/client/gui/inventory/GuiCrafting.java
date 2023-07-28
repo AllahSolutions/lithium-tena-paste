@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerWorkbench;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -14,10 +14,10 @@ public class GuiCrafting extends GuiContainer
 
     public GuiCrafting(InventoryPlayer playerInv, World worldIn)
     {
-        this(playerInv, worldIn, BlockPos.ORIGIN);
+        this(playerInv, worldIn, BlockPosition.ORIGIN);
     }
 
-    public GuiCrafting(InventoryPlayer playerInv, World worldIn, BlockPos blockPosition)
+    public GuiCrafting(InventoryPlayer playerInv, World worldIn, BlockPosition blockPosition)
     {
         super(new ContainerWorkbench(playerInv, worldIn, blockPosition));
     }

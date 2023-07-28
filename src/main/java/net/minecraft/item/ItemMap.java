@@ -14,7 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.network.Packet;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -100,7 +100,7 @@ public class ItemMap extends ItemMapBase
                             int k2 = (j / i + k1 - 64) * i;
                             int l2 = (k / i + l1 - 64) * i;
                             Multiset<MapColor> multiset = HashMultiset.<MapColor>create();
-                            Chunk chunk = worldIn.getChunkFromBlockCoords(new BlockPos(k2, 0, l2));
+                            Chunk chunk = worldIn.getChunkFromBlockCoords(new BlockPosition(k2, 0, l2));
 
                             if (!chunk.isEmpty())
                             {
@@ -127,7 +127,7 @@ public class ItemMap extends ItemMapBase
                                 }
                                 else
                                 {
-                                    BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                                    BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                                     for (int i4 = 0; i4 < i; ++i4)
                                     {

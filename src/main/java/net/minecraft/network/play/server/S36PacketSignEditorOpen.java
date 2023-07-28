@@ -3,19 +3,19 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S36PacketSignEditorOpen implements Packet<INetHandlerPlayClient>
 {
-    private BlockPos signPosition;
+    private BlockPosition signPosition;
 
     public S36PacketSignEditorOpen()
     {
     }
 
-    public S36PacketSignEditorOpen(BlockPos signPositionIn)
+    public S36PacketSignEditorOpen(BlockPosition signPositionIn)
     {
         this.signPosition = signPositionIn;
     }
@@ -44,7 +44,7 @@ public class S36PacketSignEditorOpen implements Packet<INetHandlerPlayClient>
         buf.writeBlockPos(this.signPosition);
     }
 
-    public BlockPos getSignPosition()
+    public BlockPosition getSignPosition()
     {
         return this.signPosition;
     }

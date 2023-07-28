@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -36,11 +36,11 @@ public class ItemBlock extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         return FixedSoundEngine.onItemUse(this, stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
     }
 
-    public static boolean setTileEntityNBT(World worldIn, EntityPlayer pos, BlockPos stack, ItemStack p_179224_3_)
+    public static boolean setTileEntityNBT(World worldIn, EntityPlayer pos, BlockPosition stack, ItemStack p_179224_3_)
     {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
 
@@ -74,7 +74,7 @@ public class ItemBlock extends Item
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side, EntityPlayer player, ItemStack stack)
     {
         Block block = worldIn.getBlockState(pos).getBlock();
 

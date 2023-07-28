@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
@@ -37,7 +37,7 @@ public class EntityAIFleeSun extends EntityAIBase
         {
             return false;
         }
-        else if (!this.theWorld.canSeeSky(new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ)))
+        else if (!this.theWorld.canSeeSky(new BlockPosition(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ)))
         {
             return false;
         }
@@ -78,11 +78,11 @@ public class EntityAIFleeSun extends EntityAIBase
     private Vec3 findPossibleShelter()
     {
         Random random = this.theCreature.getRNG();
-        BlockPos blockpos = new BlockPos(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ);
+        BlockPosition blockpos = new BlockPosition(this.theCreature.posX, this.theCreature.getEntityBoundingBox().minY, this.theCreature.posZ);
 
         for (int i = 0; i < 10; ++i)
         {
-            BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+            BlockPosition blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
 
             if (!this.theWorld.canSeeSky(blockpos1) && this.theCreature.getBlockPathWeight(blockpos1) < 0.0F)
             {

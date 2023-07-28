@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -21,7 +21,7 @@ public class WorldGenShrub extends WorldGenTrees
         this.leavesMetadata = p_i46450_2_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         Block block;
 
@@ -52,7 +52,7 @@ public class WorldGenShrub extends WorldGenTrees
 
                         if (Math.abs(i1) != k || Math.abs(k1) != k || rand.nextInt(2) != 0)
                         {
-                            BlockPos blockpos = new BlockPos(l, i, j1);
+                            BlockPosition blockpos = new BlockPosition(l, i, j1);
 
                             if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock())
                             {

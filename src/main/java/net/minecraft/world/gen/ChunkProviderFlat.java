@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -175,8 +175,8 @@ public class ChunkProviderFlat implements IChunkProvider
     {
         int i = x * 16;
         int j = z * 16;
-        BlockPos blockpos = new BlockPos(i, 0, j);
-        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPos(i + 16, 0, j + 16));
+        BlockPosition blockpos = new BlockPosition(i, 0, j);
+        BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(new BlockPosition(i + 16, 0, j + 16));
         boolean flag = false;
         this.random.setSeed(this.worldObj.getSeed());
         long k = this.random.nextLong() / 2L * 2L + 1L;
@@ -201,7 +201,7 @@ public class ChunkProviderFlat implements IChunkProvider
 
         if (this.lavaLakeGenerator != null && !flag && this.random.nextInt(8) == 0)
         {
-            BlockPos blockpos1 = blockpos.add(this.random.nextInt(16) + 8, this.random.nextInt(this.random.nextInt(248) + 8), this.random.nextInt(16) + 8);
+            BlockPosition blockpos1 = blockpos.add(this.random.nextInt(16) + 8, this.random.nextInt(this.random.nextInt(248) + 8), this.random.nextInt(16) + 8);
 
             if (blockpos1.getY() < this.worldObj.getSeaLevel() || this.random.nextInt(10) == 0)
             {
@@ -269,13 +269,13 @@ public class ChunkProviderFlat implements IChunkProvider
         return "FlatLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
         return biomegenbase.getSpawnableList(creatureType);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         if ("Stronghold".equals(structureName))
         {
@@ -304,8 +304,8 @@ public class ChunkProviderFlat implements IChunkProvider
         }
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 }

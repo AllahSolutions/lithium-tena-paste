@@ -1,7 +1,7 @@
 package net.optifine.shaders.uniform;
 
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.shaders.Shaders;
 
@@ -133,17 +133,17 @@ public enum ShaderParameterFloat
                 switch (this)
                 {
                     case BIOME:
-                        BlockPos blockpos2 = Shaders.getCameraPosition();
+                        BlockPosition blockpos2 = Shaders.getCameraPosition();
                         BiomeGenBase biomegenbase2 = Shaders.getCurrentWorld().getBiomeGenForCoords(blockpos2);
                         return (float)biomegenbase2.biomeID;
 
                     case TEMPERATURE:
-                        BlockPos blockpos1 = Shaders.getCameraPosition();
+                        BlockPosition blockpos1 = Shaders.getCameraPosition();
                         BiomeGenBase biomegenbase1 = Shaders.getCurrentWorld().getBiomeGenForCoords(blockpos1);
                         return biomegenbase1 != null ? biomegenbase1.getFloatTemperature(blockpos1) : 0.0F;
 
                     case RAINFALL:
-                        BlockPos pos = Shaders.getCameraPosition();
+                        BlockPosition pos = Shaders.getCameraPosition();
                         BiomeGenBase biome = Shaders.getCurrentWorld().getBiomeGenForCoords(pos);
                         return biome != null ? biome.getFloatRainfall() : 0.0F;
 

@@ -13,7 +13,7 @@ import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.network.play.server.S38PacketPlayerListItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.ILockableContainer;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public class ItemInWorldManager
     /** True if the player is destroying a block */
     private boolean isDestroyingBlock;
     private int initialDamage;
-    private BlockPos field_180240_f = BlockPos.ORIGIN;
+    private BlockPosition field_180240_f = BlockPosition.ORIGIN;
     private int curblockDamage;
 
     /**
@@ -40,7 +40,7 @@ public class ItemInWorldManager
      * block will not be destroyed while this is false.
      */
     private boolean receivedFinishDiggingPacket;
-    private BlockPos field_180241_i = BlockPos.ORIGIN;
+    private BlockPosition field_180241_i = BlockPosition.ORIGIN;
     private int initialBlockDamage;
     private int durabilityRemainingOnBlock = -1;
 
@@ -148,7 +148,7 @@ public class ItemInWorldManager
      * If not creative, it calls sendBlockBreakProgress until the block is broken first. tryHarvestBlock can also be the
      * result of this call.
      */
-    public void onBlockClicked(BlockPos pos, EnumFacing side)
+    public void onBlockClicked(BlockPosition pos, EnumFacing side)
     {
         if (this.isCreative())
         {
@@ -209,7 +209,7 @@ public class ItemInWorldManager
         }
     }
 
-    public void blockRemoving(BlockPos pos)
+    public void blockRemoving(BlockPosition pos)
     {
         if (pos.equals(this.field_180240_f))
         {
@@ -249,7 +249,7 @@ public class ItemInWorldManager
     /**
      * Removes a block and triggers the appropriate events
      */
-    private boolean removeBlock(BlockPos pos)
+    private boolean removeBlock(BlockPosition pos)
     {
         IBlockState iblockstate = this.theWorld.getBlockState(pos);
         iblockstate.getBlock().onBlockHarvested(this.theWorld, pos, iblockstate, this.thisPlayerMP);
@@ -266,7 +266,7 @@ public class ItemInWorldManager
     /**
      * Attempts to harvest a block
      */
-    public boolean tryHarvestBlock(BlockPos pos)
+    public boolean tryHarvestBlock(BlockPosition pos)
     {
         if (this.gameType.isCreative() && this.thisPlayerMP.getHeldItem() != null && this.thisPlayerMP.getHeldItem().getItem() instanceof ItemSword)
         {
@@ -383,7 +383,7 @@ public class ItemInWorldManager
     /**
      * Activate the clicked on block, otherwise use the held item.
      */
-    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPos pos, EnumFacing side, float offsetX, float offsetY, float offsetZ)
+    public boolean activateBlockOrUseItem(EntityPlayer player, World worldIn, ItemStack stack, BlockPosition pos, EnumFacing side, float offsetX, float offsetY, float offsetZ)
     {
         if (this.gameType == WorldSettings.GameType.SPECTATOR)
         {

@@ -18,7 +18,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -44,7 +44,7 @@ public class AutoPotion extends Module {
         int prevSlot = mc.thePlayer.inventory.currentItem;
         if (e.isPre()) {
             if (mc.thePlayer.onGround
-                    && !(mc.theWorld.getBlockState(new BlockPos(e.getX(), e.getY() - 1, e.getZ())).getBlock() instanceof BlockGlass)
+                    && !(mc.theWorld.getBlockState(new BlockPosition(e.getX(), e.getY() - 1, e.getZ())).getBlock() instanceof BlockGlass)
                     && (!mc.thePlayer.isPotionActive(Potion.moveSpeed)
                     || mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getDuration() < 30)
                     && timerUtil.hasTimeElapsed(delay.getValue().longValue()) && !mc.thePlayer.isUsingItem()) {
@@ -113,7 +113,7 @@ public class AutoPotion extends Module {
                 x, y, z, yaw, 88.8F + ThreadLocalRandom.current().nextFloat(), mc.thePlayer.onGround));
         PacketUtils.sendPacketNoEvent(new C09PacketHeldItemChange(index - 36));
         PacketUtils.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(
-                BlockPos.NEGATIVE, 255, mc.thePlayer.getHeldItem(), 0, 0, 0));
+                BlockPosition.NEGATIVE, 255, mc.thePlayer.getHeldItem(), 0, 0, 0));
         PacketUtils.sendPacket(new C09PacketHeldItemChange(prevSlot));
         PacketUtils.sendPacketNoEvent(new C03PacketPlayer.C06PacketPlayerPosLook(
                 x, y, z, yaw, prevPitch, mc.thePlayer.onGround));

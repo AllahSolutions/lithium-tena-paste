@@ -578,7 +578,7 @@ public class EntityRabbit extends EntityAnimal
             if (this.getIsAboveDestination())
             {
                 World world = this.rabbit.worldObj;
-                BlockPos blockpos = this.destinationBlock.up();
+                BlockPosition blockpos = this.destinationBlock.up();
                 IBlockState iblockstate = world.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
 
@@ -594,7 +594,7 @@ public class EntityRabbit extends EntityAnimal
             }
         }
 
-        protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+        protected boolean shouldMoveTo(World worldIn, BlockPosition pos)
         {
             Block block = worldIn.getBlockState(pos).getBlock();
 

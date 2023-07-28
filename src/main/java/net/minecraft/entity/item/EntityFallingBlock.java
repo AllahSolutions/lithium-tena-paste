@@ -90,7 +90,7 @@ public class EntityFallingBlock extends Entity
 
             if (this.fallTime++ == 0)
             {
-                BlockPos blockpos = new BlockPos(this);
+                BlockPosition blockpos = new BlockPosition(this);
 
                 if (this.worldObj.getBlockState(blockpos).getBlock() == block)
                 {
@@ -111,7 +111,7 @@ public class EntityFallingBlock extends Entity
 
             if (!this.worldObj.isRemote)
             {
-                BlockPos blockpos1 = new BlockPos(this);
+                BlockPosition blockpos1 = new BlockPosition(this);
 
                 if (this.onGround)
                 {

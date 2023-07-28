@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 
@@ -291,7 +291,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
 
     protected TileEntityChest getAdjacentChest(EnumFacing side)
     {
-        BlockPos blockpos = this.pos.offset(side);
+        BlockPosition blockpos = this.pos.offset(side);
 
         if (this.isChestAt(blockpos))
         {
@@ -308,7 +308,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         return null;
     }
 
-    private boolean isChestAt(BlockPos posIn)
+    private boolean isChestAt(BlockPosition posIn)
     {
         if (this.worldObj == null)
         {

@@ -4,7 +4,6 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.impl.movement.Speed;
 import dev.tenacity.utils.Utils;
-import dev.tenacity.utils.player.rotations.RaycastUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
@@ -13,7 +12,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 
 public class ScaffoldUtils implements Utils {
@@ -117,63 +115,20 @@ public class ScaffoldUtils implements Utils {
 
         double x = (double) pos.getX() + 0.5, y = (double) pos.getY() + 0.5, z = (double) pos.getZ() + 0.5;
 
-        if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
-            y += 0.5;
-        } else {
-            x += 0.3;
-            z += 0.3;
-        }
-        if (face == EnumFacing.WEST || face == EnumFacing.EAST) {
-            z += 0.15;
-        }
-        if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
-            x += 0.15;
-        }
+//        if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
+//            y += 0.5;
+//        } else {
+//            x += 0.3;
+//            z += 0.3;
+//        }
+//        if (face == EnumFacing.WEST || face == EnumFacing.EAST) {
+//            z += 0.15;
+//        }
+//        if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
+//            x += 0.15;
+//        }
 
         return new Vec3(x, y, z);
-    }
-
-    public static Vec3 getHitVec(float[] rotation, BlockCache data) {
-
-        BlockPosition blockFace = data.getPosition();
-        EnumFacing enumFacing = data.getFacing();
-
-        /* Correct HitVec */
-        Vec3 hitVec = new Vec3(blockFace.getX() + Math.random(), blockFace.getY() + Math.random(), blockFace.getZ() + Math.random());
-
-        final MovingObjectPosition movingObjectPosition = RaycastUtil.rayCast(rotation, mc.playerController.getBlockReachDistance(), 0);
-
-        switch (enumFacing) {
-            case DOWN:
-                hitVec.yCoord = blockFace.getY() + 0;
-                break;
-
-            case UP:
-                hitVec.yCoord = blockFace.getY() + 1;
-                break;
-
-            case NORTH:
-                hitVec.zCoord = blockFace.getZ() + 0;
-                break;
-
-            case EAST:
-                hitVec.xCoord = blockFace.getX() + 1;
-                break;
-
-            case SOUTH:
-                hitVec.zCoord = blockFace.getZ() + 1;
-                break;
-
-            case WEST:
-                hitVec.xCoord = blockFace.getX() + 0;
-                break;
-        }
-
-        if (movingObjectPosition != null && movingObjectPosition.getBlockPos().equals(blockFace) && movingObjectPosition.sideHit == enumFacing) {
-            hitVec = movingObjectPosition.hitVec;
-        }
-
-        return hitVec;
     }
 
 }

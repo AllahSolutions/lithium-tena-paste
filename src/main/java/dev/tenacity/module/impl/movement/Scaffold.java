@@ -48,8 +48,6 @@ public class Scaffold extends Module {
     public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Intave","Watchdog", "BlocksMC");
     public static ModeSetting swingMode = new ModeSetting("Swing Mode", "Client", "Client", "Silent");
     public static NumberSetting delay = new NumberSetting("Delay", 0, 2, 0, 0.05);
-    private final ModeSetting timerMode = new ModeSetting("Timer Mode", "Normal", "Normal", "Dynamic");
-    private final NumberSetting timer = new NumberSetting("Timer", 1, 5, 0.1, 0.1);
     public static final BooleanSetting auto3rdPerson = new BooleanSetting("Auto 3rd Person", false);
     public static final BooleanSetting movementCorrection = new BooleanSetting("Movement Correction", true);
     public static final BooleanSetting speedSlowdown = new BooleanSetting("Speed Slowdown", true);
@@ -58,12 +56,9 @@ public class Scaffold extends Module {
     public static final BooleanSetting downwards = new BooleanSetting("Downwards", false);
     public static final BooleanSetting safewalk = new BooleanSetting("Safewalk", false);
     public static final BooleanSetting sprint = new BooleanSetting("Sprint", false);
-    public static final BooleanSetting intave = new BooleanSetting("funny", false);
     private final BooleanSetting sneak = new BooleanSetting("Sneak", false);
     public static final BooleanSetting tower = new BooleanSetting("Tower", false);
-    private final NumberSetting towerTimer = new NumberSetting("Tower Timer Boost", 1.2, 5, 0.1, 0.1);
     private final BooleanSetting swing = new BooleanSetting("Swing", true);
-    private final BooleanSetting LowMotion = new BooleanSetting("LowMotion", false);
     private final BooleanSetting autoJump = new BooleanSetting("Auto Jump", false);
     private final BooleanSetting hideJump = new BooleanSetting("Hide Jump", false);
     private final BooleanSetting baseSpeed = new BooleanSetting("Base Speed", false);
@@ -72,7 +67,6 @@ public class Scaffold extends Module {
     private float y;
     private final TimerUtil delayTimer = new TimerUtil();
     private final TimerUtil timerUtil = new TimerUtil();
-    private final TimerUtil dynamicTimerUtil = new TimerUtil();
     public static double keepYCoord;
     private boolean pre;
     private int slot;
@@ -88,14 +82,13 @@ public class Scaffold extends Module {
 
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
-        this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay, timerMode, timer,
-                auto3rdPerson, movementCorrection, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower, towerTimer,
-                swing, autoJump, hideJump, baseSpeed, keepY,LowMotion,intave);
+        this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay,
+                auto3rdPerson, movementCorrection, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower,
+                swing, autoJump, hideJump, baseSpeed, keepY);
         rotationMode.addParent(rotations, ParentAttribute.BOOLEAN_CONDITION);
         sprintMode.addParent(sprint, ParentAttribute.BOOLEAN_CONDITION);
         towerMode.addParent(tower, ParentAttribute.BOOLEAN_CONDITION);
         swingMode.addParent(swing, ParentAttribute.BOOLEAN_CONDITION);
-        towerTimer.addParent(tower, ParentAttribute.BOOLEAN_CONDITION);
         keepYMode.addParent(keepY, ParentAttribute.BOOLEAN_CONDITION);
         hideJump.addParent(autoJump, ParentAttribute.BOOLEAN_CONDITION);
         speedSlowdownAmount.addParent(speedSlowdown, ParentAttribute.BOOLEAN_CONDITION);
@@ -113,67 +106,6 @@ public class Scaffold extends Module {
 
     @Override
     public void onMotionEvent(MotionEvent event) {
-        if(LowMotion.isEnabled() && mc.thePlayer.onGround && MovementUtils.isMoving()) {
-            MovementUtils.strafe(0.10f);
-        }
-        if(intave.isEnabled()&& mc.thePlayer.onGround && MovementUtils.isMoving()) {
-
-            MovementUtils.strafe(MathHelper.randomFloatClamp(new Random(),0.20f,0.25f));
-        }
-
-
-        // Timer Stuff
-        if (!mc.gameSettings.keyBindJump.isKeyDown()) {
-            switch (timerMode.getMode()) {
-                case "Normal":
-                    mc.timer.timerSpeed = timer.getValue().floatValue();
-                    break;
-
-                case "Dynamic":
-                    if (dynamicTimerUtil.hasTimeElapsed(Math.random() * 15)) {
-                        if (mc.thePlayer.ticksExisted % 6 == 0) {
-                            if (mc.thePlayer.ticksExisted % 40 == 0) {
-                                ChatUtil.print("Randomized");
-                            }
-                            mc.timer.timerSpeed = timer.getValue().floatValue() * 1.2F;
-                        } else if (mc.thePlayer.ticksExisted % 3 == 0) {
-                            mc.timer.timerSpeed = timer.getValue().floatValue();
-                        } else {
-                            if (mc.thePlayer.ticksExisted % 50 == 0) {
-                                ChatUtil.print("Reset");
-                            }
-                            mc.timer.timerSpeed = 1.0F;
-                        }
-                        dynamicTimerUtil.reset();
-                    }
-                default:
-                    break;
-            }
-        } else {
-            switch (timerMode.getMode()) {
-                case "Normal":
-                    mc.timer.timerSpeed = tower.isEnabled() ? towerTimer.getValue().floatValue() : 1;
-                    break;
-                case "Dynamic":
-                    if (mc.thePlayer.ticksExisted % 6 == 0) {
-                        if (mc.thePlayer.ticksExisted % 40 == 0) {
-                            ChatUtil.print("Randomized");
-                        }
-                        mc.timer.timerSpeed = timer.getValue().floatValue() * 1.2F;
-                    } else if (mc.thePlayer.ticksExisted % 3 == 0) {
-
-                        mc.timer.timerSpeed = timer.getValue().floatValue();
-                    } else {
-                        if (mc.thePlayer.ticksExisted % 50 == 0) {
-                            ChatUtil.print("Reset");
-                        }
-                        mc.timer.timerSpeed = 1.0F;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
 
         if (!event.isPost()) {
 
@@ -364,7 +296,7 @@ public class Scaffold extends Module {
     }
 
     @Override
-    public void onBlockPlaceable(BlockPlaceableEvent event) {
+    public void onLegitClick(LegitClick event) {
         if (placeType.is("Legit")) {
             place();
         }

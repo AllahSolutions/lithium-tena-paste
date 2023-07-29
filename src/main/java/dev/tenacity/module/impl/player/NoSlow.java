@@ -17,7 +17,7 @@ import net.minecraft.util.EnumFacing;
 
 public class NoSlow extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla","Exploit","MMC", "NCP","Switch", "Watchdog");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Vanilla","Dev","Exploit","MMC", "NCP","Switch", "Watchdog");
     private boolean synced;
 
     public NoSlow() {
@@ -48,6 +48,18 @@ public class NoSlow extends Module {
 
 
                 break;
+
+            case"Dev":
+               // if(mc.thePlayer.isUsingItem()) {
+                //    if (event.getPacket() instanceof C0BPacketEntityAction) {
+              //          final C0BPacketEntityAction packetEntityAction = (C0BPacketEntityAction) event.getPacket();
+              //          if (packetEntityAction.getAction().equals(C0BPacketEntityAction.Action.START_SNEAKING)) {
+             //               event.cancel();
+             //           }
+            //        }
+            //    }
+
+                break;
         }
 
     }
@@ -70,6 +82,18 @@ public class NoSlow extends Module {
                     mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
                     synced = true;
                 }
+                break;
+
+
+            case"Dev":
+                if(mc.thePlayer.isUsingItem()) {
+                  // mc.gameSettings.keyBindSneak.pressed = true;
+                    mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SNEAKING));
+                } else{
+                    //mc.gameSettings.keyBindSneak.pressed = false;
+                    mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
+                }
+
                 break;
 
 

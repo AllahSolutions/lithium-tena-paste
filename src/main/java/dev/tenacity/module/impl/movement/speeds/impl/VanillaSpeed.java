@@ -13,7 +13,7 @@ public class VanillaSpeed extends SpeedMode {
 
     @Override
     public void onMoveEvent(MoveEvent event) {
-        MovementUtils.strafe(1.0F);
+        MovementUtils.setSpeed(event,1);
     }
 
     @Override

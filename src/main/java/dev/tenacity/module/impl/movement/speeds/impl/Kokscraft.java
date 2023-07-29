@@ -30,17 +30,23 @@ public class Kokscraft extends SpeedMode {
         } else {
             offGroundTicks++;
         }
+       if(!mc.thePlayer.onGround) {
+           if (mc.thePlayer.hurtTime == 0) MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.3f);
+
+        //   mc.thePlayer.motionY = 0.1f;
+       }
+        mc.gameSettings.keyBindSneak.pressed = true;
         if (mc.thePlayer.onGround) {
-            if (mc.thePlayer.hurtTime == 0) MovementUtils.strafe((float)MovementUtils.getAllowedHorizontalDistance() * 0.99f);
 
+
+         //   mc.thePlayer.motionY=0.01f;
             mc.thePlayer.jump();
-
             jumps++;
         }
 
-        if (offGroundTicks == 1 && mc.thePlayer.hurtTime == 0) {
-            mc.thePlayer.motionY = MovementUtils.predictedMotion(mc.thePlayer.motionY, jumps % 2 == 0 ? 2 : 4);
-        }
+       if ( mc.thePlayer.hurtTime == 0) {
+           mc.thePlayer.motionY = MovementUtils.predictedMotion(mc.thePlayer.motionY, jumps % 2 == 0 ? 2 : 4);
+       }
 
 
         super.onMotionEvent(event);

@@ -197,6 +197,11 @@ public class Scaffold extends Module {
                 final double[] offset = MathUtils.yawPos(mc.thePlayer.getDirection(), MovementUtils.getSpeed() / 2);
                 mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX - offset[0], mc.thePlayer.posY, mc.thePlayer.posZ - offset[1], true));
             }
+            if (sprint.isEnabled() && sprintMode.is("Hypixel") && mc.thePlayer.onGround) {
+                mc.gameSettings.keyBindSneak.pressed = true;
+               // MovementUtils.strafe(0.27f);
+                MovementUtils.strafe(MovementUtils.getBaseMoveSpeed());
+            }
 
             if (rotations.isEnabled()) {
                 lastRotations = cachedRotations;
@@ -417,6 +422,9 @@ public class Scaffold extends Module {
             }
             if (mc.thePlayer.isSneaking() && sneak.isEnabled())
                 KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), GameSettings.isKeyDown(mc.gameSettings.keyBindSneak));
+        }
+        if(sprint.isEnabled() && sprintMode.is("Hypixel")) {
+            mc.gameSettings.keyBindSneak.pressed = false;
         }
         mc.timer.timerSpeed = 1;
         super.onDisable();

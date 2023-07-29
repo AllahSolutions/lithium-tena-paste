@@ -19,6 +19,7 @@ import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.misc.Random;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
@@ -401,11 +402,11 @@ public final class KillAura extends Module {
                     break;
                 }
                 case "Watchdog": {
-                    if (mc.thePlayer.hurtTime >= 2) {
-                        block(true);
-                    } else {
-                        unblock();
-                    }
+                //    if (mc.thePlayer.hurtTime >= 2) {
+                  //      block(true);
+                 //   } else {
+                 //       unblock();
+                //    }
                     break;
                 }
                 case "BlocksMC": {
@@ -478,6 +479,14 @@ public final class KillAura extends Module {
         if (chance <= blockChance.getValue()) {
             if (blockMode.getMode().equals("PostAttack")) {
                 block(shouldInteract);
+            }
+            if (blockMode.getMode().equals("Watchdog")) {
+                if (mc.thePlayer.hurtTime >= 2) {
+                   // ChatUtil.print("Gay");
+                    block(true);
+                } else {
+                    unblock();
+                }
             }
         }
     }

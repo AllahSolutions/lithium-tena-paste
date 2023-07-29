@@ -105,6 +105,7 @@ public class Timer
             this.elapsedTicks = 10;
         }
 
+
         this.renderPartialTicks = this.elapsedPartialTicks;
     }
 }

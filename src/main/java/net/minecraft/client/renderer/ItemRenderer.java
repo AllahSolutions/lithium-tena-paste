@@ -351,7 +351,9 @@ public class ItemRenderer {
         if (!Config.isShaders() || !Shaders.isSkipRenderHand()) {
             float f = 1.0F - (this.prevEquippedProgress + (this.equippedProgress - this.prevEquippedProgress) * partialTicks);
             EntityPlayerSP player = this.mc.thePlayer;
+
             float swingProgress = player.getSwingProgress(partialTicks);
+            final float convertedProgress = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
             float f2 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
             float f3 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * partialTicks;
             this.rotateArroundXAndY(f2, f3);
@@ -434,6 +436,22 @@ public class ItemRenderer {
                                         GlStateManager.translate(0, 0.07F, 0);
                                         this.doBlockTransformations();
                                         GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0.0F, 0.1F);
+                                        break;
+
+                                    case"Exhibition":
+                                        this.transformFirstPersonItem(f / 2, 0);
+                                        GlStateManager.translate(0.0F, 0.3F, -0.0F);
+                                        GlStateManager.rotate(-convertedProgress * 31.0F, 1.0F, 0.0F, 2.0F);
+                                        GlStateManager.rotate(-convertedProgress * 33.0F, 1.5F, (convertedProgress / 1.1F), 0.0F);
+                                        doBlockTransformations();
+
+                                        break;
+
+                                    case"None":
+                                        this.transformFirstPersonItem(f / 2, 0);
+                                        GL11.glTranslated(0,0.2,0);
+                                        this.doBlockTransformations();
+
                                         break;
                                     case "Exhi 2":
                                         this.transformFirstPersonItem(f / 2, swingProgress);

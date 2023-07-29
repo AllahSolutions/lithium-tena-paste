@@ -313,7 +313,7 @@ public abstract class Entity implements ICommandSender {
     /**
      * The position of the last portal the entity was in
      */
-    protected BlockPos lastPortalPos;
+    protected BlockPosition lastPortalPos;
 
     /**
      * A horizontal vector related to the position of the last portal the entity was in
@@ -823,7 +823,7 @@ public abstract class Entity implements ICommandSender {
             int i = MathHelper.floor_double(this.posX);
             int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
             int k = MathHelper.floor_double(this.posZ);
-            BlockPos blockpos = new BlockPos(i, j, k);
+            BlockPosition blockpos = new BlockPosition(i, j, k);
             Block block1 = this.worldObj.getBlockState(blockpos).getBlock();
 
             if (block1.getMaterial() == Material.air) {
@@ -930,14 +930,14 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected void doBlockCollisions() {
-        BlockPos blockpos = new BlockPos(this.getEntityBoundingBox().minX + 0.001D, this.getEntityBoundingBox().minY + 0.001D, this.getEntityBoundingBox().minZ + 0.001D);
-        BlockPos blockpos1 = new BlockPos(this.getEntityBoundingBox().maxX - 0.001D, this.getEntityBoundingBox().maxY - 0.001D, this.getEntityBoundingBox().maxZ - 0.001D);
+        BlockPosition blockpos = new BlockPosition(this.getEntityBoundingBox().minX + 0.001D, this.getEntityBoundingBox().minY + 0.001D, this.getEntityBoundingBox().minZ + 0.001D);
+        BlockPosition blockpos1 = new BlockPosition(this.getEntityBoundingBox().maxX - 0.001D, this.getEntityBoundingBox().maxY - 0.001D, this.getEntityBoundingBox().maxZ - 0.001D);
 
         if (this.worldObj.isAreaLoaded(blockpos, blockpos1)) {
             for (int i = blockpos.getX(); i <= blockpos1.getX(); ++i) {
                 for (int j = blockpos.getY(); j <= blockpos1.getY(); ++j) {
                     for (int k = blockpos.getZ(); k <= blockpos1.getZ(); ++k) {
-                        BlockPos blockpos2 = new BlockPos(i, j, k);
+                        BlockPosition blockpos2 = new BlockPosition(i, j, k);
                         IBlockState iblockstate = this.worldObj.getBlockState(blockpos2);
 
                         try {
@@ -954,7 +954,7 @@ public abstract class Entity implements ICommandSender {
         }
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn) {
+    protected void playStepSound(BlockPosition pos, Block blockIn) {
         if(Flight.hiddenBlocks.contains(pos)){
             return;
         }
@@ -996,7 +996,7 @@ public abstract class Entity implements ICommandSender {
         return true;
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPos pos) {
+    protected void updateFallState(double y, boolean onGroundIn, Block blockIn, BlockPosition pos) {
         if (onGroundIn) {
             if (this.fallDistance > 0.0F) {
                 if (blockIn != null) {
@@ -1048,7 +1048,7 @@ public abstract class Entity implements ICommandSender {
      * Checks if this entity is either in water or on an open air block in rain (used in wolves).
      */
     public boolean isWet() {
-        return this.inWater || this.worldObj.isRainingAt(new BlockPos(this.posX, this.posY, this.posZ)) || this.worldObj.isRainingAt(new BlockPos(this.posX, this.posY + (double) this.height, this.posZ));
+        return this.inWater || this.worldObj.isRainingAt(new BlockPosition(this.posX, this.posY, this.posZ)) || this.worldObj.isRainingAt(new BlockPosition(this.posX, this.posY + (double) this.height, this.posZ));
     }
 
     /**
@@ -1117,7 +1117,7 @@ public abstract class Entity implements ICommandSender {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
         int k = MathHelper.floor_double(this.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
+        BlockPosition blockpos = new BlockPosition(i, j, k);
         IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 
@@ -1135,7 +1135,7 @@ public abstract class Entity implements ICommandSender {
      */
     public boolean isInsideOfMaterial(Material materialIn) {
         double d0 = this.posY + (double) this.getEyeHeight();
-        BlockPos blockpos = new BlockPos(this.posX, d0, this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, d0, this.posZ);
         IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 
@@ -1191,7 +1191,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     public int getBrightnessForRender(float partialTicks) {
-        BlockPos blockpos = new BlockPos(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
         return this.worldObj.isBlockLoaded(blockpos) ? this.worldObj.getCombinedLight(blockpos, 0) : 0;
     }
 
@@ -1199,7 +1199,7 @@ public abstract class Entity implements ICommandSender {
      * Gets how bright this entity is.
      */
     public float getBrightness(float partialTicks) {
-        BlockPos blockpos = new BlockPos(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
+        BlockPosition blockpos = new BlockPosition(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ);
         return this.worldObj.isBlockLoaded(blockpos) ? this.worldObj.getLightBrightness(blockpos) : 0.0F;
     }
 
@@ -1233,7 +1233,7 @@ public abstract class Entity implements ICommandSender {
         this.setRotation(yaw, pitch);
     }
 
-    public void moveToBlockPosAndAngles(BlockPos pos, float rotationYawIn, float rotationPitchIn) {
+    public void moveToBlockPosAndAngles(BlockPosition pos, float rotationYawIn, float rotationPitchIn) {
         this.setLocationAndAngles((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, rotationYawIn, rotationPitchIn);
     }
 
@@ -1269,11 +1269,11 @@ public abstract class Entity implements ICommandSender {
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public double getDistanceSq(BlockPos pos) {
+    public double getDistanceSq(BlockPosition pos) {
         return pos.distanceSq(this.posX, this.posY, this.posZ);
     }
 
-    public double getDistanceSqToCenter(BlockPos pos) {
+    public double getDistanceSqToCenter(BlockPosition pos) {
         return pos.distanceSqToCenter(this.posX, this.posY, this.posZ);
     }
 
@@ -1697,7 +1697,7 @@ public abstract class Entity implements ICommandSender {
         if (this.noClip) {
             return false;
         } else {
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
                 int j = MathHelper.floor_double(this.posY + (double) (((float) ((i >> 0) % 2) - 0.5F) * 0.1F) + (double) this.getEyeHeight());
@@ -1882,7 +1882,7 @@ public abstract class Entity implements ICommandSender {
      *
      * @param pos The postion of the portal that the entity is in
      */
-    public void setPortal(BlockPos pos) {
+    public void setPortal(BlockPosition pos) {
         if (this.timeUntilPortal > 0) {
             this.timeUntilPortal = this.getPortalCooldown();
         } else {
@@ -2056,7 +2056,7 @@ public abstract class Entity implements ICommandSender {
     }
 
     protected boolean pushOutOfBlocks(double x, double y, double z) {
-        BlockPos blockpos = new BlockPos(x, y, z);
+        BlockPosition blockpos = new BlockPosition(x, y, z);
         double d0 = x - (double) blockpos.getX();
         double d1 = y - (double) blockpos.getY();
         double d2 = z - (double) blockpos.getZ();
@@ -2247,7 +2247,7 @@ public abstract class Entity implements ICommandSender {
                 entity.copyDataFromOld(this);
 
                 if (i == 1 && dimensionId == 1) {
-                    BlockPos blockpos = this.worldObj.getTopSolidOrLiquidBlock(worldserver1.getSpawnPoint());
+                    BlockPosition blockpos = this.worldObj.getTopSolidOrLiquidBlock(worldserver1.getSpawnPoint());
                     entity.moveToBlockPosAndAngles(blockpos, entity.rotationYaw, entity.rotationPitch);
                 }
 
@@ -2265,11 +2265,11 @@ public abstract class Entity implements ICommandSender {
     /**
      * Explosion resistance of a block relative to this entity
      */
-    public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn) {
+    public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPosition pos, IBlockState blockStateIn) {
         return blockStateIn.getBlock().getExplosionResistance(this);
     }
 
-    public boolean verifyExplosion(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn, float p_174816_5_) {
+    public boolean verifyExplosion(Explosion explosionIn, World worldIn, BlockPosition pos, IBlockState blockStateIn, float p_174816_5_) {
         return true;
     }
 
@@ -2437,8 +2437,8 @@ public abstract class Entity implements ICommandSender {
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition() {
-        return new BlockPos(this.posX, this.posY + 0.5D, this.posZ);
+    public BlockPosition getPosition() {
+        return new BlockPosition(this.posX, this.posY + 0.5D, this.posZ);
     }
 
     /**

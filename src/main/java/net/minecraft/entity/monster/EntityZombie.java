@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.MathHelper;
@@ -201,7 +201,7 @@ public class EntityZombie extends EntityMob
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote && !this.isChild())
         {
             float f = this.getBrightness(1.0F);
-            BlockPos blockpos = new BlockPos(this.posX, (double)Math.round(this.posY), this.posZ);
+            BlockPosition blockpos = new BlockPosition(this.posX, (double)Math.round(this.posY), this.posZ);
 
             if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(blockpos))
             {
@@ -266,7 +266,7 @@ public class EntityZombie extends EntityMob
                     int j1 = j + MathHelper.getRandomIntegerInRange(this.rand, 7, 40) * MathHelper.getRandomIntegerInRange(this.rand, -1, 1);
                     int k1 = k + MathHelper.getRandomIntegerInRange(this.rand, 7, 40) * MathHelper.getRandomIntegerInRange(this.rand, -1, 1);
 
-                    if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPos(i1, j1 - 1, k1)) && this.worldObj.getLightFromNeighbors(new BlockPos(i1, j1, k1)) < 10)
+                    if (World.doesBlockHaveSolidTopSurface(this.worldObj, new BlockPosition(i1, j1 - 1, k1)) && this.worldObj.getLightFromNeighbors(new BlockPosition(i1, j1, k1)) < 10)
                     {
                         entityzombie.setPosition((double)i1, (double)j1, (double)k1);
 
@@ -274,7 +274,7 @@ public class EntityZombie extends EntityMob
                         {
                             this.worldObj.spawnEntityInWorld(entityzombie);
                             entityzombie.setAttackTarget(entitylivingbase);
-                            entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
+                            entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPosition(entityzombie)), (IEntityLivingData)null);
                             this.getEntityAttribute(reinforcementChance).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
                             entityzombie.getEntityAttribute(reinforcementChance).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
                             break;
@@ -351,7 +351,7 @@ public class EntityZombie extends EntityMob
         return "mob.zombie.death";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.zombie.step", 0.15F, 1.0F);
     }
@@ -475,7 +475,7 @@ public class EntityZombie extends EntityMob
             EntityZombie entityzombie = new EntityZombie(this.worldObj);
             entityzombie.copyLocationAndAnglesFrom(entityLivingIn);
             this.worldObj.removeEntity(entityLivingIn);
-            entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
+            entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPosition(entityzombie)), (IEntityLivingData)null);
             entityzombie.setVillager(true);
 
             if (entityLivingIn.isChild())
@@ -492,7 +492,7 @@ public class EntityZombie extends EntityMob
             }
 
             this.worldObj.spawnEntityInWorld(entityzombie);
-            this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1016, new BlockPos((int)this.posX, (int)this.posY, (int)this.posZ), 0);
+            this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1016, new BlockPosition((int)this.posX, (int)this.posY, (int)this.posZ), 0);
         }
     }
 
@@ -680,7 +680,7 @@ public class EntityZombie extends EntityMob
     {
         EntityVillager entityvillager = new EntityVillager(this.worldObj);
         entityvillager.copyLocationAndAnglesFrom(this);
-        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null);
+        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPosition(entityvillager)), (IEntityLivingData)null);
         entityvillager.setLookingForHome();
 
         if (this.isChild())
@@ -699,7 +699,7 @@ public class EntityZombie extends EntityMob
 
         this.worldObj.spawnEntityInWorld(entityvillager);
         entityvillager.addPotionEffect(new PotionEffect(Potion.confusion.id, 200, 0));
-        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1017, new BlockPos((int)this.posX, (int)this.posY, (int)this.posZ), 0);
+        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1017, new BlockPosition((int)this.posX, (int)this.posY, (int)this.posZ), 0);
     }
 
     /**
@@ -712,7 +712,7 @@ public class EntityZombie extends EntityMob
         if (this.rand.nextFloat() < 0.01F)
         {
             int j = 0;
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
             for (int k = (int)this.posX - 4; k < (int)this.posX + 4 && j < 14; ++k)
             {

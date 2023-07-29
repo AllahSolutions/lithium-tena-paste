@@ -2,7 +2,7 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.village.Village;
 import net.minecraft.world.World;
 
@@ -36,7 +36,7 @@ public class EntityAIVillagerMate extends EntityAIBase
         }
         else
         {
-            this.villageObj = this.worldObj.getVillageCollection().getNearestVillage(new BlockPos(this.villagerObj), 0);
+            this.villageObj = this.worldObj.getVillageCollection().getNearestVillage(new BlockPosition(this.villagerObj), 0);
 
             if (this.villageObj == null)
             {

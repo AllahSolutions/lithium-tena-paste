@@ -223,7 +223,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
             if (j1 <= 0)
             {
                 this.worldObj.newExplosion(this, this.posX, this.posY + (double)this.getEyeHeight(), this.posZ, 7.0F, false, this.worldObj.getGameRules().getBoolean("mobGriefing"));
-                this.worldObj.playBroadcastSound(1013, new BlockPos(this), 0);
+                this.worldObj.playBroadcastSound(1013, new BlockPosition(this), 0);
             }
 
             this.setInvulTime(j1);
@@ -345,7 +345,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
                                 int i3 = l1 + k2;
                                 int k = i1 + j;
                                 int l = i2 + l2;
-                                BlockPos blockpos = new BlockPos(i3, k, l);
+                                BlockPosition blockpos = new BlockPosition(i3, k, l);
                                 Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
                                 if (block.getMaterial() != Material.air && canDestroyBlock(block))
@@ -358,7 +358,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
 
                     if (flag)
                     {
-                        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1012, new BlockPos(this), 0);
+                        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1012, new BlockPosition(this), 0);
                     }
                 }
             }
@@ -456,7 +456,7 @@ public class EntityWither extends EntityMob implements IBossDisplayData, IRanged
      */
     private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable)
     {
-        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1014, new BlockPos(this), 0);
+        this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1014, new BlockPosition(this), 0);
         double d0 = this.func_82214_u(p_82209_1_);
         double d1 = this.func_82208_v(p_82209_1_);
         double d2 = this.func_82213_w(p_82209_1_);

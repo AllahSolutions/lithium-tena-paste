@@ -149,7 +149,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile
 
         if (this.inGround)
         {
-            if (this.worldObj.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
+            if (this.worldObj.getBlockState(new BlockPosition(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
             {
                 ++this.ticksInGround;
 

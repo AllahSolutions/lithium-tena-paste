@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -75,7 +75,7 @@ public class StructureOceanMonument extends MapGenStructure
 
         if (i == k && j == l)
         {
-            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase)null) != BiomeGenBase.deepOcean)
+            if (this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPosition(i * 16 + 8, 64, j * 16 + 8), (BiomeGenBase)null) != BiomeGenBase.deepOcean)
             {
                 return false;
             }

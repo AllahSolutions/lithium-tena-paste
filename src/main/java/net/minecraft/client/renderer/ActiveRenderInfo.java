@@ -5,7 +5,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -85,7 +85,7 @@ public class ActiveRenderInfo
     public static Block getBlockAtEntityViewpoint(World worldIn, Entity p_180786_1_, float p_180786_2_)
     {
         Vec3 vec3 = projectViewFromEntity(p_180786_1_, (double)p_180786_2_);
-        BlockPos blockpos = new BlockPos(vec3);
+        BlockPosition blockpos = new BlockPosition(vec3);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 

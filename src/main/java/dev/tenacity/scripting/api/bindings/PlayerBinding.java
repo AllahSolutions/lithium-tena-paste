@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import store.intent.intentguard.annotation.Exclude;
 import store.intent.intentguard.annotation.Strategy;
@@ -321,13 +321,13 @@ public class PlayerBinding implements Utils {
                 EnumFacing facing = Arrays.stream(EnumFacing.values())
                         .filter(facing1 -> facing1.getIndex() == (int) args[4]).findFirst().orElse(null);
 
-                packet = new C07PacketPlayerDigging(c07Action, new BlockPos((double) args[1], (double) args[2], (double) args[3]), facing);
+                packet = new C07PacketPlayerDigging(c07Action, new BlockPosition((double) args[1], (double) args[2], (double) args[3]), facing);
                 break;
             case 14:
                 Double arg5 = (Double) args[5];
                 Double arg6 = (Double) args[6];
                 Double arg7 = (Double) args[7];
-                packet = new C08PacketPlayerBlockPlacement(new BlockPos((double) args[0], (double) args[1], (double) args[2]), (int) args[3],
+                packet = new C08PacketPlayerBlockPlacement(new BlockPosition((double) args[0], (double) args[1], (double) args[2]), (int) args[3],
                         (ItemStack) args[4], arg5.floatValue(), arg6.floatValue(), arg7.floatValue());
                 break;
             case 15:

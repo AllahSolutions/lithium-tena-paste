@@ -1,14 +1,14 @@
 package net.minecraft.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class NextTickListEntry implements Comparable<NextTickListEntry>
 {
     /** The id number for the next tick entry */
     private static long nextTickEntryID;
     private final Block block;
-    public final BlockPos position;
+    public final BlockPosition position;
 
     /** Time this tick is scheduled to occur at */
     public long scheduledTime;
@@ -17,7 +17,7 @@ public class NextTickListEntry implements Comparable<NextTickListEntry>
     /** The id of the tick entry */
     private long tickEntryID;
 
-    public NextTickListEntry(BlockPos positionIn, Block blockIn)
+    public NextTickListEntry(BlockPosition positionIn, Block blockIn)
     {
         this.tickEntryID = (long)(nextTickEntryID++);
         this.position = positionIn;

@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -98,7 +98,7 @@ public class EntityAIFollowOwner extends EntityAIBase
         ((PathNavigateGround)this.thePet.getNavigator()).setAvoidsWater(true);
     }
 
-    private boolean func_181065_a(BlockPos p_181065_1_)
+    private boolean func_181065_a(BlockPosition p_181065_1_)
     {
         IBlockState iblockstate = this.theWorld.getBlockState(p_181065_1_);
         Block block = iblockstate.getBlock();
@@ -132,7 +132,7 @@ public class EntityAIFollowOwner extends EntityAIBase
                             {
                                 for (int i1 = 0; i1 <= 4; ++i1)
                                 {
-                                    if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && World.doesBlockHaveSolidTopSurface(this.theWorld, new BlockPos(i + l, k - 1, j + i1)) && this.func_181065_a(new BlockPos(i + l, k, j + i1)) && this.func_181065_a(new BlockPos(i + l, k + 1, j + i1)))
+                                    if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && World.doesBlockHaveSolidTopSurface(this.theWorld, new BlockPosition(i + l, k - 1, j + i1)) && this.func_181065_a(new BlockPosition(i + l, k, j + i1)) && this.func_181065_a(new BlockPosition(i + l, k + 1, j + i1)))
                                     {
                                         this.thePet.setLocationAndAngles((double)((float)(i + l) + 0.5F), (double)k, (double)((float)(j + i1) + 0.5F), this.thePet.rotationYaw, this.thePet.rotationPitch);
                                         this.petPathfinder.clearPathEntity();

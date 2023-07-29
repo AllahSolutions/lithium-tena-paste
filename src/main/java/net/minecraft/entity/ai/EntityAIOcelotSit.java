@@ -7,7 +7,7 @@ import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityAIOcelotSit extends EntityAIMoveToBlock
@@ -75,7 +75,7 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock
     /**
      * Return true to set given position as destination
      */
-    protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+    protected boolean shouldMoveTo(World worldIn, BlockPosition pos)
     {
         if (!worldIn.isAirBlock(pos.up()))
         {

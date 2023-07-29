@@ -85,14 +85,14 @@ public abstract class EntityFireball extends Entity
      */
     public void onUpdate()
     {
-        if (this.worldObj.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead) && this.worldObj.isBlockLoaded(new BlockPos(this)))
+        if (this.worldObj.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead) && this.worldObj.isBlockLoaded(new BlockPosition(this)))
         {
             super.onUpdate();
             this.setFire(1);
 
             if (this.inGround)
             {
-                if (this.worldObj.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
+                if (this.worldObj.getBlockState(new BlockPosition(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
                 {
                     ++this.ticksAlive;
 

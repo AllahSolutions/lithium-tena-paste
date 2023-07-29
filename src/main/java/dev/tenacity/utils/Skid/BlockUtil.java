@@ -1,14 +1,12 @@
 package dev.tenacity.utils.Skid;
 
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.INetHandler;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.item.ItemBanner;
 import net.minecraft.item.ItemSnow;
@@ -16,6 +14,7 @@ import net.minecraft.item.ItemLeaves;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+
 import java.util.ArrayList;
 
 public class BlockUtil
@@ -63,13 +62,13 @@ public class BlockUtil
         return true;
     }
     
-    public static boolean isValidBock(final BlockPos blockPos) {
-        final Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
+    public static boolean isValidBock(final BlockPosition blockPosition) {
+        final Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPosition).getBlock();
         return !(block instanceof BlockLiquid) && !(block instanceof BlockAir) && !(block instanceof BlockChest) && !(block instanceof BlockFurnace);
     }
     
-    public static boolean isAirBlock(final BlockPos blockPos) {
-        final Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
+    public static boolean isAirBlock(final BlockPosition blockPosition) {
+        final Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPosition).getBlock();
         return block instanceof BlockAir;
     }
 

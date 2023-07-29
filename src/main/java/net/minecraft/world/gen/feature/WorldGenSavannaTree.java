@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -20,7 +20,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
         super(p_i45463_1_);
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         int i = rand.nextInt(3) + rand.nextInt(3) + 5;
         boolean flag = true;
@@ -41,7 +41,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
                     k = 2;
                 }
 
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                 for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l)
                 {
@@ -91,7 +91,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
                             --l2;
                         }
 
-                        BlockPos blockpos = new BlockPos(i3, i2, j1);
+                        BlockPosition blockpos = new BlockPosition(i3, i2, j1);
                         Material material = worldIn.getBlockState(blockpos).getBlock().getMaterial();
 
                         if (material == Material.air || material == Material.leaves)
@@ -101,7 +101,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
                         }
                     }
 
-                    BlockPos blockpos2 = new BlockPos(i3, k1, j1);
+                    BlockPosition blockpos2 = new BlockPosition(i3, k1, j1);
 
                     for (int j3 = -3; j3 <= 3; ++j3)
                     {
@@ -145,7 +145,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
                                 int j2 = position.getY() + l4;
                                 i3 += enumfacing1.getFrontOffsetX();
                                 j1 += enumfacing1.getFrontOffsetZ();
-                                BlockPos blockpos1 = new BlockPos(i3, j2, j1);
+                                BlockPosition blockpos1 = new BlockPosition(i3, j2, j1);
                                 Material material1 = worldIn.getBlockState(blockpos1).getBlock().getMaterial();
 
                                 if (material1 == Material.air || material1 == Material.leaves)
@@ -160,7 +160,7 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
 
                         if (k1 > 0)
                         {
-                            BlockPos blockpos3 = new BlockPos(i3, k1, j1);
+                            BlockPosition blockpos3 = new BlockPosition(i3, k1, j1);
 
                             for (int i5 = -2; i5 <= 2; ++i5)
                             {
@@ -199,12 +199,12 @@ public class WorldGenSavannaTree extends WorldGenAbstractTree
         }
     }
 
-    private void func_181642_b(World p_181642_1_, BlockPos p_181642_2_)
+    private void func_181642_b(World p_181642_1_, BlockPosition p_181642_2_)
     {
         this.setBlockAndNotifyAdequately(p_181642_1_, p_181642_2_, field_181643_a);
     }
 
-    private void func_175924_b(World worldIn, BlockPos p_175924_2_)
+    private void func_175924_b(World worldIn, BlockPosition p_175924_2_)
     {
         Material material = worldIn.getBlockState(p_175924_2_).getBlock().getMaterial();
 

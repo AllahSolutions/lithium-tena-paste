@@ -80,7 +80,7 @@ public class EntityMinecartFurnace extends EntityMinecart
         }
     }
 
-    protected void func_180460_a(BlockPos p_180460_1_, IBlockState p_180460_2_)
+    protected void func_180460_a(BlockPosition p_180460_1_, IBlockState p_180460_2_)
     {
         super.func_180460_a(p_180460_1_, p_180460_2_);
         double d0 = this.pushX * this.pushX + this.pushZ * this.pushZ;

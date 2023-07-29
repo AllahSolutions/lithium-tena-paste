@@ -3,7 +3,7 @@ package net.minecraft.world.gen.feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -21,11 +21,11 @@ public abstract class WorldGenAbstractTree extends WorldGenerator
         return material == Material.air || material == Material.leaves || p_150523_1_ == Blocks.grass || p_150523_1_ == Blocks.dirt || p_150523_1_ == Blocks.log || p_150523_1_ == Blocks.log2 || p_150523_1_ == Blocks.sapling || p_150523_1_ == Blocks.vine;
     }
 
-    public void func_180711_a(World worldIn, Random p_180711_2_, BlockPos p_180711_3_)
+    public void func_180711_a(World worldIn, Random p_180711_2_, BlockPosition p_180711_3_)
     {
     }
 
-    protected void func_175921_a(World worldIn, BlockPos pos)
+    protected void func_175921_a(World worldIn, BlockPosition pos)
     {
         if (worldIn.getBlockState(pos).getBlock() != Blocks.dirt)
         {

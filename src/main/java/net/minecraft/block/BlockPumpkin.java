@@ -15,7 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -42,18 +42,18 @@ public class BlockPumpkin extends BlockDirectional
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.onBlockAdded(worldIn, pos, state);
         this.trySpawnGolem(worldIn, pos);
     }
 
-    public boolean canDispenserPlace(World worldIn, BlockPos pos)
+    public boolean canDispenserPlace(World worldIn, BlockPosition pos)
     {
         return this.getSnowmanBasePattern().match(worldIn, pos) != null || this.getGolemBasePattern().match(worldIn, pos) != null;
     }
 
-    private void trySpawnGolem(World worldIn, BlockPos pos)
+    private void trySpawnGolem(World worldIn, BlockPosition pos)
     {
         BlockPattern.PatternHelper blockpattern$patternhelper;
 
@@ -66,7 +66,7 @@ public class BlockPumpkin extends BlockDirectional
             }
 
             EntitySnowman entitysnowman = new EntitySnowman(worldIn);
-            BlockPos blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
+            BlockPosition blockpos1 = blockpattern$patternhelper.translateOffset(0, 2, 0).getPos();
             entitysnowman.setLocationAndAngles((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.05D, (double)blockpos1.getZ() + 0.5D, 0.0F, 0.0F);
             worldIn.spawnEntityInWorld(entitysnowman);
 
@@ -91,7 +91,7 @@ public class BlockPumpkin extends BlockDirectional
                 }
             }
 
-            BlockPos blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
+            BlockPosition blockpos = blockpattern$patternhelper.translateOffset(1, 2, 0).getPos();
             EntityIronGolem entityirongolem = new EntityIronGolem(worldIn);
             entityirongolem.setPlayerCreated(true);
             entityirongolem.setLocationAndAngles((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.05D, (double)blockpos.getZ() + 0.5D, 0.0F, 0.0F);
@@ -113,7 +113,7 @@ public class BlockPumpkin extends BlockDirectional
         }
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable() && World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
@@ -122,7 +122,7 @@ public class BlockPumpkin extends BlockDirectional
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }

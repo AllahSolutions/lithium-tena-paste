@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
@@ -27,7 +27,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator
         this.itemsToGenerateInBonusChest = p_i45634_2_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         Block block;
 
@@ -46,7 +46,7 @@ public class WorldGeneratorBonusChest extends WorldGenerator
 
             for (int i = 0; i < 4; ++i)
             {
-                BlockPos blockpos = position.add(rand.nextInt(4) - rand.nextInt(4), rand.nextInt(3) - rand.nextInt(3), rand.nextInt(4) - rand.nextInt(4));
+                BlockPosition blockpos = position.add(rand.nextInt(4) - rand.nextInt(4), rand.nextInt(3) - rand.nextInt(3), rand.nextInt(4) - rand.nextInt(4));
 
                 if (worldIn.isAirBlock(blockpos) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos.down()))
                 {
@@ -58,10 +58,10 @@ public class WorldGeneratorBonusChest extends WorldGenerator
                         WeightedRandomChestContent.generateChestContents(rand, this.chestItems, (TileEntityChest)tileentity, this.itemsToGenerateInBonusChest);
                     }
 
-                    BlockPos blockpos1 = blockpos.east();
-                    BlockPos blockpos2 = blockpos.west();
-                    BlockPos blockpos3 = blockpos.north();
-                    BlockPos blockpos4 = blockpos.south();
+                    BlockPosition blockpos1 = blockpos.east();
+                    BlockPosition blockpos2 = blockpos.west();
+                    BlockPosition blockpos3 = blockpos.north();
+                    BlockPosition blockpos4 = blockpos.south();
 
                     if (worldIn.isAirBlock(blockpos2) && World.doesBlockHaveSolidTopSurface(worldIn, blockpos2.down()))
                     {

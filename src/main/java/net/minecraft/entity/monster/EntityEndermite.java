@@ -7,7 +7,7 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
@@ -76,7 +76,7 @@ public class EntityEndermite extends EntityMob
         return "mob.silverfish.kill";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.silverfish.step", 0.15F, 1.0F);
     }

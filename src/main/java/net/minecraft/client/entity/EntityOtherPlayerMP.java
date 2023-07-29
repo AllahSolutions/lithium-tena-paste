@@ -171,8 +171,8 @@ public class EntityOtherPlayerMP extends AbstractClientPlayer
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
-        return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
+        return new BlockPosition(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
     }
 }

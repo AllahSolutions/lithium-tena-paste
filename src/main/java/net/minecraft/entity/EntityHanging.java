@@ -5,7 +5,7 @@ import net.minecraft.block.BlockRedstoneDiode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -14,7 +14,7 @@ import org.apache.commons.lang3.Validate;
 public abstract class EntityHanging extends Entity
 {
     private int tickCounter1;
-    protected BlockPos hangingPosition;
+    protected BlockPosition hangingPosition;
 
     /** The direction the entity is facing */
     public EnumFacing facingDirection;
@@ -25,7 +25,7 @@ public abstract class EntityHanging extends Entity
         this.setSize(0.5F, 0.5F);
     }
 
-    public EntityHanging(World worldIn, BlockPos hangingPositionIn)
+    public EntityHanging(World worldIn, BlockPosition hangingPositionIn)
     {
         this(worldIn);
         this.hangingPosition = hangingPositionIn;
@@ -128,14 +128,14 @@ public abstract class EntityHanging extends Entity
         {
             int i = Math.max(1, this.getWidthPixels() / 16);
             int j = Math.max(1, this.getHeightPixels() / 16);
-            BlockPos blockpos = this.hangingPosition.offset(this.facingDirection.getOpposite());
+            BlockPosition blockpos = this.hangingPosition.offset(this.facingDirection.getOpposite());
             EnumFacing enumfacing = this.facingDirection.rotateYCCW();
 
             for (int k = 0; k < i; ++k)
             {
                 for (int l = 0; l < j; ++l)
                 {
-                    BlockPos blockpos1 = blockpos.offset(enumfacing, k).up(l);
+                    BlockPosition blockpos1 = blockpos.offset(enumfacing, k).up(l);
                     Block block = this.worldObj.getBlockState(blockpos1).getBlock();
 
                     if (!block.getMaterial().isSolid() && !BlockRedstoneDiode.isRedstoneRepeaterBlockID(block))
@@ -240,7 +240,7 @@ public abstract class EntityHanging extends Entity
      */
     public void readEntityFromNBT(NBTTagCompound tagCompund)
     {
-        this.hangingPosition = new BlockPos(tagCompund.getInteger("TileX"), tagCompund.getInteger("TileY"), tagCompund.getInteger("TileZ"));
+        this.hangingPosition = new BlockPosition(tagCompund.getInteger("TileX"), tagCompund.getInteger("TileY"), tagCompund.getInteger("TileZ"));
         EnumFacing enumfacing;
 
         if (tagCompund.hasKey("Direction", 99))
@@ -282,8 +282,8 @@ public abstract class EntityHanging extends Entity
         this.posX = x;
         this.posY = y;
         this.posZ = z;
-        BlockPos blockpos = this.hangingPosition;
-        this.hangingPosition = new BlockPos(x, y, z);
+        BlockPosition blockpos = this.hangingPosition;
+        this.hangingPosition = new BlockPosition(x, y, z);
 
         if (!this.hangingPosition.equals(blockpos))
         {
@@ -292,7 +292,7 @@ public abstract class EntityHanging extends Entity
         }
     }
 
-    public BlockPos getHangingPosition()
+    public BlockPosition getHangingPosition()
     {
         return this.hangingPosition;
     }

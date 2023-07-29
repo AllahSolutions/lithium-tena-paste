@@ -5,7 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;
@@ -77,7 +77,7 @@ public class IntegratedServerUtils
         }
     }
 
-    public static TileEntity getTileEntity(BlockPos pos)
+    public static TileEntity getTileEntity(BlockPosition pos)
     {
         WorldServer worldserver = getWorldServer();
 

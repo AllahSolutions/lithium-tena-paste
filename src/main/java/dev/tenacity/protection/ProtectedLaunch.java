@@ -101,6 +101,7 @@ public class ProtectedLaunch {
         modules.put(Scaffold.class, new Scaffold());
 
         // Player
+        modules.put(CustomScaffold.class, new CustomScaffold());
         modules.put(ChestStealer.class, new ChestStealer());
         modules.put(InvManager.class, new InvManager());
         modules.put(AutoArmor.class, new AutoArmor());

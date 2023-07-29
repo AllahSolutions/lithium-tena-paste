@@ -2,15 +2,12 @@ package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
 import dev.tenacity.utils.tuples.Pair;
-import dev.tenacity.utils.tuples.mutable.MutablePair;
 import dev.tenacity.Tenacity;
 import dev.tenacity.config.DragManager;
 import dev.tenacity.module.impl.render.ArrayListMod;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.impl.render.SpotifyMod;
-import dev.tenacity.ui.Screen;
 import dev.tenacity.utils.misc.HoveringUtil;
-import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.misc.Multithreading;
 import dev.tenacity.utils.objects.Dragging;
 import dev.tenacity.utils.render.ColorUtil;
@@ -21,8 +18,6 @@ import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.font.AbstractFontRenderer;
 import dev.tenacity.utils.font.CustomFont;
 import dev.tenacity.utils.font.FontUtil;
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -396,7 +391,7 @@ public class GuiChat extends GuiScreen {
 
     private void sendAutocompleteRequest(String p_146405_1_, String p_146405_2_) {
         if (p_146405_1_.length() >= 1) {
-            BlockPos blockpos = null;
+            BlockPosition blockpos = null;
 
             if (this.mc2.objectMouseOver != null && this.mc2.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 blockpos = this.mc2.objectMouseOver.getBlockPos();

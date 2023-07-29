@@ -203,7 +203,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
 
-            for (BlockPos blockpos : BlockPos.getAllInBoxMutable(new BlockPos(i, k, i1), new BlockPos(j, l, j1))) {
+            for (BlockPosition blockpos : BlockPosition.getAllInBoxMutable(new BlockPosition(i, k, i1), new BlockPosition(j, l, j1))) {
                 Block block = world.getBlockState(blockpos.down()).getBlock();
 
                 if (block.getRenderType() != -1 && world.getLightFromNeighbors(blockpos) > 3) {
@@ -225,7 +225,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
         return this.renderManager.worldObj;
     }
 
-    private void renderShadowBlock(Block blockIn, double p_180549_2_, double p_180549_4_, double p_180549_6_, BlockPos pos, float p_180549_9_, float p_180549_10_, double p_180549_11_, double p_180549_13_, double p_180549_15_) {
+    private void renderShadowBlock(Block blockIn, double p_180549_2_, double p_180549_4_, double p_180549_6_, BlockPosition pos, float p_180549_9_, float p_180549_10_, double p_180549_11_, double p_180549_13_, double p_180549_15_) {
         if (blockIn.isFullCube()) {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();

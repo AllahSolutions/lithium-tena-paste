@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -20,7 +20,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
         super(false);
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         int i;
 
@@ -47,7 +47,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
                     k = 3;
                 }
 
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                 for (int l = position.getX() - k; l <= position.getX() + k && flag; ++l)
                 {
@@ -104,7 +104,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                                 if (Math.abs(l3) != i3 || Math.abs(k1) != i3 || rand.nextInt(2) != 0 && k2 != 0)
                                 {
-                                    BlockPos blockpos = new BlockPos(k3, l1, j1);
+                                    BlockPosition blockpos = new BlockPosition(k3, l1, j1);
 
                                     if (!worldIn.getBlockState(blockpos).getBlock().isFullBlock())
                                     {
@@ -129,7 +129,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
                     {
                         int l2 = j2 - (position.getY() + i);
                         int j3 = 2 - l2 / 2;
-                        BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
+                        BlockPosition.MutableBlockPosition blockpos$mutableblockpos1 = new BlockPosition.MutableBlockPosition();
 
                         for (int i4 = position.getX() - j3; i4 <= position.getX() + j3; ++i4)
                         {
@@ -139,10 +139,10 @@ public class WorldGenSwamp extends WorldGenAbstractTree
 
                                 if (worldIn.getBlockState(blockpos$mutableblockpos1).getBlock().getMaterial() == Material.leaves)
                                 {
-                                    BlockPos blockpos3 = blockpos$mutableblockpos1.west();
-                                    BlockPos blockpos4 = blockpos$mutableblockpos1.east();
-                                    BlockPos blockpos1 = blockpos$mutableblockpos1.north();
-                                    BlockPos blockpos2 = blockpos$mutableblockpos1.south();
+                                    BlockPosition blockpos3 = blockpos$mutableblockpos1.west();
+                                    BlockPosition blockpos4 = blockpos$mutableblockpos1.east();
+                                    BlockPosition blockpos1 = blockpos$mutableblockpos1.north();
+                                    BlockPosition blockpos2 = blockpos$mutableblockpos1.south();
 
                                     if (rand.nextInt(4) == 0 && worldIn.getBlockState(blockpos3).getBlock().getMaterial() == Material.air)
                                     {
@@ -182,7 +182,7 @@ public class WorldGenSwamp extends WorldGenAbstractTree
         }
     }
 
-    private void func_181647_a(World p_181647_1_, BlockPos p_181647_2_, PropertyBool p_181647_3_)
+    private void func_181647_a(World p_181647_1_, BlockPosition p_181647_2_, PropertyBool p_181647_3_)
     {
         IBlockState iblockstate = Blocks.vine.getDefaultState().withProperty(p_181647_3_, Boolean.valueOf(true));
         this.setBlockAndNotifyAdequately(p_181647_1_, p_181647_2_, iblockstate);

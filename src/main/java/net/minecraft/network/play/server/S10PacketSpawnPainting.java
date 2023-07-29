@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient>
 {
     private int entityID;
-    private BlockPos position;
+    private BlockPosition position;
     private EnumFacing facing;
     private String title;
 
@@ -63,7 +63,7 @@ public class S10PacketSpawnPainting implements Packet<INetHandlerPlayClient>
         return this.entityID;
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.position;
     }

@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -14,13 +14,13 @@ import java.util.List;
 public class BlockPistonStructureHelper
 {
     private final World world;
-    private final BlockPos pistonPos;
-    private final BlockPos blockToMove;
+    private final BlockPosition pistonPos;
+    private final BlockPosition blockToMove;
     private final EnumFacing moveDirection;
-    private final List<BlockPos> toMove = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> toDestroy = Lists.<BlockPos>newArrayList();
+    private final List<BlockPosition> toMove = Lists.<BlockPosition>newArrayList();
+    private final List<BlockPosition> toDestroy = Lists.<BlockPosition>newArrayList();
 
-    public BlockPistonStructureHelper(World worldIn, BlockPos posIn, EnumFacing pistonFacing, boolean extending)
+    public BlockPistonStructureHelper(World worldIn, BlockPosition posIn, EnumFacing pistonFacing, boolean extending)
     {
         this.world = worldIn;
         this.pistonPos = posIn;
@@ -63,7 +63,7 @@ public class BlockPistonStructureHelper
         {
             for (int i = 0; i < this.toMove.size(); ++i)
             {
-                BlockPos blockpos = (BlockPos)this.toMove.get(i);
+                BlockPosition blockpos = (BlockPosition)this.toMove.get(i);
 
                 if (this.world.getBlockState(blockpos).getBlock() == Blocks.slime_block && !this.func_177250_b(blockpos))
                 {
@@ -75,7 +75,7 @@ public class BlockPistonStructureHelper
         }
     }
 
-    private boolean func_177251_a(BlockPos origin)
+    private boolean func_177251_a(BlockPosition origin)
     {
         Block block = this.world.getBlockState(origin).getBlock();
 
@@ -107,7 +107,7 @@ public class BlockPistonStructureHelper
             {
                 while (block == Blocks.slime_block)
                 {
-                    BlockPos blockpos = origin.offset(this.moveDirection.getOpposite(), i);
+                    BlockPosition blockpos = origin.offset(this.moveDirection.getOpposite(), i);
                     block = this.world.getBlockState(blockpos).getBlock();
 
                     if (block.getMaterial() == Material.air || !BlockPistonBase.canPush(block, this.world, blockpos, this.moveDirection, false) || blockpos.equals(this.pistonPos))
@@ -135,7 +135,7 @@ public class BlockPistonStructureHelper
 
                 while (true)
                 {
-                    BlockPos blockpos1 = origin.offset(this.moveDirection, j1);
+                    BlockPosition blockpos1 = origin.offset(this.moveDirection, j1);
                     int k = this.toMove.indexOf(blockpos1);
 
                     if (k > -1)
@@ -144,7 +144,7 @@ public class BlockPistonStructureHelper
 
                         for (int l = 0; l <= k + i1; ++l)
                         {
-                            BlockPos blockpos2 = (BlockPos)this.toMove.get(l);
+                            BlockPosition blockpos2 = (BlockPosition)this.toMove.get(l);
 
                             if (this.world.getBlockState(blockpos2).getBlock() == Blocks.slime_block && !this.func_177250_b(blockpos2))
                             {
@@ -188,9 +188,9 @@ public class BlockPistonStructureHelper
 
     private void func_177255_a(int p_177255_1_, int p_177255_2_)
     {
-        List<BlockPos> list = Lists.<BlockPos>newArrayList();
-        List<BlockPos> list1 = Lists.<BlockPos>newArrayList();
-        List<BlockPos> list2 = Lists.<BlockPos>newArrayList();
+        List<BlockPosition> list = Lists.<BlockPosition>newArrayList();
+        List<BlockPosition> list1 = Lists.<BlockPosition>newArrayList();
+        List<BlockPosition> list2 = Lists.<BlockPosition>newArrayList();
         list.addAll(this.toMove.subList(0, p_177255_2_));
         list1.addAll(this.toMove.subList(this.toMove.size() - p_177255_1_, this.toMove.size()));
         list2.addAll(this.toMove.subList(p_177255_2_, this.toMove.size() - p_177255_1_));
@@ -200,7 +200,7 @@ public class BlockPistonStructureHelper
         this.toMove.addAll(list2);
     }
 
-    private boolean func_177250_b(BlockPos p_177250_1_)
+    private boolean func_177250_b(BlockPosition p_177250_1_)
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
@@ -213,12 +213,12 @@ public class BlockPistonStructureHelper
         return true;
     }
 
-    public List<BlockPos> getBlocksToMove()
+    public List<BlockPosition> getBlocksToMove()
     {
         return this.toMove;
     }
 
-    public List<BlockPos> getBlocksToDestroy()
+    public List<BlockPosition> getBlocksToDestroy()
     {
         return this.toDestroy;
     }

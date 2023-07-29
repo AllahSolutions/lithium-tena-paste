@@ -24,7 +24,7 @@ import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.MapData;
@@ -54,7 +54,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
         if(EntityCulling.renderItem(entity)) return;
 
         GlStateManager.pushMatrix();
-        BlockPos blockpos = entity.getHangingPosition();
+        BlockPosition blockpos = entity.getHangingPosition();
         double d0 = (double)blockpos.getX() - entity.posX + x;
         double d1 = (double)blockpos.getY() - entity.posY + y;
         double d2 = (double)blockpos.getZ() - entity.posZ + z;

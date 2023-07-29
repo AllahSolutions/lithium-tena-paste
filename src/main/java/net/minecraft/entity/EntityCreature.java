@@ -5,7 +5,7 @@ import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -14,7 +14,7 @@ public abstract class EntityCreature extends EntityLiving
 {
     public static final UUID FLEEING_SPEED_MODIFIER_UUID = UUID.fromString("E199AD21-BA8A-4C53-8D13-6182D5C69D3A");
     public static final AttributeModifier FLEEING_SPEED_MODIFIER = (new AttributeModifier(FLEEING_SPEED_MODIFIER_UUID, "Fleeing speed bonus", 2.0D, 2)).setSaved(false);
-    private BlockPos homePosition = BlockPos.ORIGIN;
+    private BlockPosition homePosition = BlockPosition.ORIGIN;
 
     /** If -1 there is no maximum distance */
     private float maximumHomeDistance = -1.0F;
@@ -26,7 +26,7 @@ public abstract class EntityCreature extends EntityLiving
         super(worldIn);
     }
 
-    public float getBlockPathWeight(BlockPos pos)
+    public float getBlockPathWeight(BlockPosition pos)
     {
         return 0.0F;
     }
@@ -36,7 +36,7 @@ public abstract class EntityCreature extends EntityLiving
      */
     public boolean getCanSpawnHere()
     {
-        return super.getCanSpawnHere() && this.getBlockPathWeight(new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
+        return super.getCanSpawnHere() && this.getBlockPathWeight(new BlockPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ)) >= 0.0F;
     }
 
     /**
@@ -49,10 +49,10 @@ public abstract class EntityCreature extends EntityLiving
 
     public boolean isWithinHomeDistanceCurrentPosition()
     {
-        return this.isWithinHomeDistanceFromPosition(new BlockPos(this));
+        return this.isWithinHomeDistanceFromPosition(new BlockPosition(this));
     }
 
-    public boolean isWithinHomeDistanceFromPosition(BlockPos pos)
+    public boolean isWithinHomeDistanceFromPosition(BlockPosition pos)
     {
         return this.maximumHomeDistance == -1.0F ? true : this.homePosition.distanceSq(pos) < (double)(this.maximumHomeDistance * this.maximumHomeDistance);
     }
@@ -60,13 +60,13 @@ public abstract class EntityCreature extends EntityLiving
     /**
      * Sets home position and max distance for it
      */
-    public void setHomePosAndDistance(BlockPos pos, int distance)
+    public void setHomePosAndDistance(BlockPosition pos, int distance)
     {
         this.homePosition = pos;
         this.maximumHomeDistance = (float)distance;
     }
 
-    public BlockPos getHomePosition()
+    public BlockPosition getHomePosition()
     {
         return this.homePosition;
     }
@@ -99,7 +99,7 @@ public abstract class EntityCreature extends EntityLiving
         if (this.getLeashed() && this.getLeashedToEntity() != null && this.getLeashedToEntity().worldObj == this.worldObj)
         {
             Entity entity = this.getLeashedToEntity();
-            this.setHomePosAndDistance(new BlockPos((int)entity.posX, (int)entity.posY, (int)entity.posZ), 5);
+            this.setHomePosAndDistance(new BlockPosition((int)entity.posX, (int)entity.posY, (int)entity.posZ), 5);
             float f = this.getDistanceToEntity(entity);
 
             if (this instanceof EntityTameable && ((EntityTameable)this).isSitting())

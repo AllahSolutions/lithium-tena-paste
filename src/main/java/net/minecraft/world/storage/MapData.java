@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S34PacketMaps;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec4b;
 import net.minecraft.world.World;
@@ -141,7 +141,7 @@ public class MapData extends WorldSavedData
         if (mapStack.isOnItemFrame())
         {
             EntityItemFrame entityitemframe = mapStack.getItemFrame();
-            BlockPos blockpos = entityitemframe.getHangingPosition();
+            BlockPosition blockpos = entityitemframe.getHangingPosition();
             this.updateDecorations(1, player.worldObj, "frame-" + entityitemframe.getEntityId(), (double)blockpos.getX(), (double)blockpos.getZ(), (double)(entityitemframe.facingDirection.getHorizontalIndex() * 90));
         }
 

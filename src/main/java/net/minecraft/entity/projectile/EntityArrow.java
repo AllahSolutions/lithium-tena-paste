@@ -180,7 +180,7 @@ public class EntityArrow extends Entity implements IProjectile
             this.prevRotationPitch = this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * 180.0D / Math.PI);
         }
 
-        BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
+        BlockPosition blockpos = new BlockPosition(this.xTile, this.yTile, this.zTile);
         IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 
@@ -359,7 +359,7 @@ public class EntityArrow extends Entity implements IProjectile
                 }
                 else
                 {
-                    BlockPos blockpos1 = movingobjectposition.getBlockPos();
+                    BlockPosition blockpos1 = movingobjectposition.getBlockPos();
                     this.xTile = blockpos1.getX();
                     this.yTile = blockpos1.getY();
                     this.zTile = blockpos1.getZ();

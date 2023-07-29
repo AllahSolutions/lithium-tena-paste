@@ -131,7 +131,7 @@ public final class ItemStack {
      * Called when the player uses this ItemStack on a Block (right-click). Places blocks, etc. (Legacy name:
      * tryPlaceItemIntoWorld)
      */
-    public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onItemUse(EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ) {
         boolean flag = this.getItem().onItemUse(this, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
 
         if (flag) {
@@ -332,7 +332,7 @@ public final class ItemStack {
     /**
      * Called when a Block is destroyed using this ItemStack
      */
-    public void onBlockDestroyed(World worldIn, Block blockIn, BlockPos pos, EntityPlayer playerIn) {
+    public void onBlockDestroyed(World worldIn, Block blockIn, BlockPosition pos, EntityPlayer playerIn) {
         boolean flag = this.item.onBlockDestroyed(this, worldIn, blockIn, pos, playerIn);
 
         if (flag) {

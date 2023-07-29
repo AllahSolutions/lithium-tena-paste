@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.StatCollector;
@@ -41,12 +41,12 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         return state.withProperty(LOCKED, Boolean.valueOf(this.isLocked(worldIn, pos, state)));
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (!playerIn.capabilities.allowEdit)
         {
@@ -88,12 +88,12 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
         return Items.repeater;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Items.repeater;
     }
 
-    public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state)
+    public boolean isLocked(IBlockAccess worldIn, BlockPosition pos, IBlockState state)
     {
         return this.getPowerOnSides(worldIn, pos, state) > 0;
     }
@@ -103,7 +103,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
         return isRedstoneRepeaterBlockID(blockIn);
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (this.isRepeaterPowered)
         {
@@ -125,7 +125,7 @@ public class BlockRedstoneRepeater extends BlockRedstoneDiode
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.breakBlock(worldIn, pos, state);
         this.notifyNeighbors(worldIn, pos, state);

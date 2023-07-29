@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -317,7 +317,7 @@ public class ComponentScatteredFeaturePieces
             {
                 int i = 0;
                 int j = 0;
-                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                 for (int k = this.boundingBox.minZ; k <= this.boundingBox.maxZ; ++k)
                 {
@@ -677,12 +677,12 @@ public class ComponentScatteredFeaturePieces
                     int i2 = this.getYWithOffset(2);
                     int k1 = this.getZWithOffset(2, 5);
 
-                    if (structureBoundingBoxIn.isVecInside(new BlockPos(l1, i2, k1)))
+                    if (structureBoundingBoxIn.isVecInside(new BlockPosition(l1, i2, k1)))
                     {
                         this.hasWitch = true;
                         EntityWitch entitywitch = new EntityWitch(worldIn);
                         entitywitch.setLocationAndAngles((double)l1 + 0.5D, (double)i2, (double)k1 + 0.5D, 0.0F, 0.0F);
-                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), (IEntityLivingData)null);
+                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPosition(l1, i2, k1)), (IEntityLivingData)null);
                         worldIn.spawnEntityInWorld(entitywitch);
                     }
                 }

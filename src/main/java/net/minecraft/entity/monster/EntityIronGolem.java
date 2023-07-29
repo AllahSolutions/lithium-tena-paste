@@ -13,7 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -57,7 +57,7 @@ public class EntityIronGolem extends EntityGolem
         if (--this.homeCheckTimer <= 0)
         {
             this.homeCheckTimer = 70 + this.rand.nextInt(50);
-            this.villageObj = this.worldObj.getVillageCollection().getNearestVillage(new BlockPos(this), 32);
+            this.villageObj = this.worldObj.getVillageCollection().getNearestVillage(new BlockPosition(this), 32);
 
             if (this.villageObj == null)
             {
@@ -65,7 +65,7 @@ public class EntityIronGolem extends EntityGolem
             }
             else
             {
-                BlockPos blockpos = this.villageObj.getCenter();
+                BlockPosition blockpos = this.villageObj.getCenter();
                 this.setHomePosAndDistance(blockpos, (int)((float)this.villageObj.getVillageRadius() * 0.6F));
             }
         }
@@ -121,7 +121,7 @@ public class EntityIronGolem extends EntityGolem
             int i = MathHelper.floor_double(this.posX);
             int j = MathHelper.floor_double(this.posY - 0.20000000298023224D);
             int k = MathHelper.floor_double(this.posZ);
-            IBlockState iblockstate = this.worldObj.getBlockState(new BlockPos(i, j, k));
+            IBlockState iblockstate = this.worldObj.getBlockState(new BlockPosition(i, j, k));
             Block block = iblockstate.getBlock();
 
             if (block.getMaterial() != Material.air)
@@ -222,7 +222,7 @@ public class EntityIronGolem extends EntityGolem
         return "mob.irongolem.death";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.irongolem.walk", 1.0F, 1.0F);
     }

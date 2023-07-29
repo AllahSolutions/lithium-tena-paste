@@ -9,12 +9,12 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.optifine.BlockPosM;
+import net.optifine.BlockPositionM;
 
 import java.util.*;
 
@@ -96,9 +96,9 @@ public final class SpawnerAnimals
             }
 
             int j4 = 0;
-            BlockPos blockpos2 = worldServerIn.getSpawnPoint();
-            BlockPosM blockposm = new BlockPosM(0, 0, 0);
-            new BlockPos.MutableBlockPos();
+            BlockPosition blockpos2 = worldServerIn.getSpawnPoint();
+            BlockPositionM blockposm = new BlockPositionM(0, 0, 0);
+            new BlockPosition.MutableBlockPosition();
 
             for (EnumCreatureType enumcreaturetype : EnumCreatureType.values())
             {
@@ -115,7 +115,7 @@ public final class SpawnerAnimals
 
                         for (ChunkCoordIntPair chunkcoordintpair1 : collection)
                         {
-                            BlockPos blockpos = getRandomChunkPosition(worldServerIn, chunkcoordintpair1.chunkXPos, chunkcoordintpair1.chunkZPos, blockposm);
+                            BlockPosition blockpos = getRandomChunkPosition(worldServerIn, chunkcoordintpair1.chunkXPos, chunkcoordintpair1.chunkZPos, blockposm);
                             int k1 = blockpos.getX();
                             int l1 = blockpos.getY();
                             int i2 = blockpos.getZ();
@@ -139,7 +139,7 @@ public final class SpawnerAnimals
                                         l2 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
                                         i3 += worldServerIn.rand.nextInt(1) - worldServerIn.rand.nextInt(1);
                                         j3 += worldServerIn.rand.nextInt(k3) - worldServerIn.rand.nextInt(k3);
-                                        BlockPos blockpos1 = new BlockPos(l2, i3, j3);
+                                        BlockPosition blockpos1 = new BlockPosition(l2, i3, j3);
                                         float f = (float)l2 + 0.5F;
                                         float f1 = (float)j3 + 0.5F;
 
@@ -182,7 +182,7 @@ public final class SpawnerAnimals
                                                 {
                                                     this.mapSampleEntitiesByClass.remove(biomegenbase$spawnlistentry.entityClass);
 
-                                                    ientitylivingdata = entityliving.onInitialSpawn(worldServerIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
+                                                    ientitylivingdata = entityliving.onInitialSpawn(worldServerIn.getDifficultyForLocation(new BlockPosition(entityliving)), ientitylivingdata);
 
                                                     if (entityliving.isNotColliding())
                                                     {
@@ -213,17 +213,17 @@ public final class SpawnerAnimals
         }
     }
 
-    protected static BlockPos getRandomChunkPosition(World worldIn, int x, int z)
+    protected static BlockPosition getRandomChunkPosition(World worldIn, int x, int z)
     {
         Chunk chunk = worldIn.getChunkFromChunkCoords(x, z);
         int i = x * 16 + worldIn.rand.nextInt(16);
         int j = z * 16 + worldIn.rand.nextInt(16);
-        int k = MathHelper.roundUp(chunk.getHeight(new BlockPos(i, 0, j)) + 1, 16);
+        int k = MathHelper.roundUp(chunk.getHeight(new BlockPosition(i, 0, j)) + 1, 16);
         int l = worldIn.rand.nextInt(k > 0 ? k : chunk.getTopFilledSegment() + 16 - 1);
-        return new BlockPos(i, l, j);
+        return new BlockPosition(i, l, j);
     }
 
-    private static BlockPosM getRandomChunkPosition(World p_getRandomChunkPosition_0_, int p_getRandomChunkPosition_1_, int p_getRandomChunkPosition_2_, BlockPosM p_getRandomChunkPosition_3_)
+    private static BlockPositionM getRandomChunkPosition(World p_getRandomChunkPosition_0_, int p_getRandomChunkPosition_1_, int p_getRandomChunkPosition_2_, BlockPositionM p_getRandomChunkPosition_3_)
     {
         Chunk chunk = p_getRandomChunkPosition_0_.getChunkFromChunkCoords(p_getRandomChunkPosition_1_, p_getRandomChunkPosition_2_);
         int i = p_getRandomChunkPosition_1_ * 16 + p_getRandomChunkPosition_0_.rand.nextInt(16);
@@ -234,7 +234,7 @@ public final class SpawnerAnimals
         return p_getRandomChunkPosition_3_;
     }
 
-    public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn, World worldIn, BlockPos pos)
+    public static boolean canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType spawnPlacementTypeIn, World worldIn, BlockPosition pos)
     {
         if (!worldIn.getWorldBorder().contains(pos))
         {
@@ -254,7 +254,7 @@ public final class SpawnerAnimals
             }
             else
             {
-                BlockPos blockpos = pos.down();
+                BlockPosition blockpos = pos.down();
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
                 boolean flag = World.doesBlockHaveSolidTopSurface(worldIn, blockpos);
 
@@ -297,7 +297,7 @@ public final class SpawnerAnimals
 
                     for (int k1 = 0; !flag && k1 < 4; ++k1)
                     {
-                        BlockPos blockpos = worldIn.getTopSolidOrLiquidBlock(new BlockPos(j, 0, k));
+                        BlockPosition blockpos = worldIn.getTopSolidOrLiquidBlock(new BlockPosition(j, 0, k));
 
                         if (canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, worldIn, blockpos))
                         {
@@ -315,7 +315,7 @@ public final class SpawnerAnimals
 
                             entityliving.setLocationAndAngles((double)((float)j + 0.5F), (double)blockpos.getY(), (double)((float)k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
                             worldIn.spawnEntityInWorld(entityliving);
-                            ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
+                            ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPosition(entityliving)), ientitylivingdata);
                             flag = true;
                         }
 

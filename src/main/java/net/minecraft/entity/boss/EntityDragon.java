@@ -520,7 +520,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
             {
                 for (int i2 = k; i2 <= j1; ++i2)
                 {
-                    BlockPos blockpos = new BlockPos(k1, l1, i2);
+                    BlockPosition blockpos = new BlockPosition(k1, l1, i2);
                     Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
                     if (block.getMaterial() != Material.air)
@@ -634,7 +634,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
             if (this.deathTicks == 1)
             {
-                this.worldObj.playBroadcastSound(1018, new BlockPos(this), 0);
+                this.worldObj.playBroadcastSound(1018, new BlockPosition(this), 0);
             }
         }
 
@@ -655,7 +655,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 }
             }
 
-            this.generatePortal(new BlockPos(this.posX, 64.0D, this.posZ));
+            this.generatePortal(new BlockPosition(this.posX, 64.0D, this.posZ));
             this.setDead();
         }
     }
@@ -663,7 +663,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
     /**
      * Generate the portal when the dragon dies
      */
-    private void generatePortal(BlockPos pos)
+    private void generatePortal(BlockPosition pos)
     {
         int i = 4;
         double d0 = 12.25D;
@@ -679,7 +679,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
                     if (d2 <= 12.25D)
                     {
-                        BlockPos blockpos = pos.add(k, j, l);
+                        BlockPosition blockpos = pos.add(k, j, l);
 
                         if (j < 0)
                         {
@@ -707,7 +707,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
 
         this.worldObj.setBlockState(pos, Blocks.bedrock.getDefaultState());
         this.worldObj.setBlockState(pos.up(), Blocks.bedrock.getDefaultState());
-        BlockPos blockpos1 = pos.up(2);
+        BlockPosition blockpos1 = pos.up(2);
         this.worldObj.setBlockState(blockpos1, Blocks.bedrock.getDefaultState());
         this.worldObj.setBlockState(blockpos1.west(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.EAST));
         this.worldObj.setBlockState(blockpos1.east(), Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, EnumFacing.WEST));

@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -289,7 +289,7 @@ public class StructureMineshaftPieces
 
         protected boolean generateChestContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, List<WeightedRandomChestContent> listIn, int max)
         {
-            BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+            BlockPosition blockpos = new BlockPosition(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
 
             if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.air)
             {
@@ -370,7 +370,7 @@ public class StructureMineshaftPieces
                         int i2 = k1 - 1 + randomIn.nextInt(3);
                         int j2 = this.getXWithOffset(1, i2);
                         i2 = this.getZWithOffset(1, i2);
-                        BlockPos blockpos = new BlockPos(j2, l1, i2);
+                        BlockPosition blockpos = new BlockPosition(j2, l1, i2);
 
                         if (structureBoundingBoxIn.isVecInside(blockpos))
                         {

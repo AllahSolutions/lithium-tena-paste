@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -13,7 +13,7 @@ public class InventoryHelper
 {
     private static final Random RANDOM = new Random();
 
-    public static void dropInventoryItems(World worldIn, BlockPos pos, IInventory inventory)
+    public static void dropInventoryItems(World worldIn, BlockPosition pos, IInventory inventory)
     {
         dropInventoryItems(worldIn, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), inventory);
     }

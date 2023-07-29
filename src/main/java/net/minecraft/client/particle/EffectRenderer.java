@@ -396,7 +396,7 @@ public class EffectRenderer
         this.particleEmitters.clear();
     }
 
-    public void addBlockDestroyEffects(BlockPos pos, IBlockState state)
+    public void addBlockDestroyEffects(BlockPosition pos, IBlockState state)
     {
         boolean flag;
 
@@ -426,7 +426,7 @@ public class EffectRenderer
     /**
      * Adds block hit particles for the specified block
      */
-    public void addBlockHitEffects(BlockPos pos, EnumFacing side)
+    public void addBlockHitEffects(BlockPosition pos, EnumFacing side)
     {
         IBlockState iblockstate = this.worldObj.getBlockState(pos);
         Block block = iblockstate.getBlock();
@@ -512,7 +512,7 @@ public class EffectRenderer
         return "" + i;
     }
 
-    public void addBlockHitEffects(BlockPos p_addBlockHitEffects_1_, MovingObjectPosition p_addBlockHitEffects_2_)
+    public void addBlockHitEffects(BlockPosition p_addBlockHitEffects_1_, MovingObjectPosition p_addBlockHitEffects_2_)
     {
         IBlockState iblockstate = this.worldObj.getBlockState(p_addBlockHitEffects_1_);
 

@@ -159,7 +159,7 @@ public abstract class World implements IBlockAccess {
         return this;
     }
 
-    public BiomeGenBase getBiomeGenForCoords(final BlockPos pos) {
+    public BiomeGenBase getBiomeGenForCoords(final BlockPosition pos) {
         if (this.isBlockLoaded(pos)) {
             Chunk chunk = this.getChunkFromBlockCoords(pos);
 
@@ -193,13 +193,13 @@ public abstract class World implements IBlockAccess {
      * Sets a new spawn location by finding an uncovered block at a random (x,z) location in the chunk.
      */
     public void setInitialSpawnLocation() {
-        this.setSpawnPoint(new BlockPos(8, 64, 8));
+        this.setSpawnPoint(new BlockPosition(8, 64, 8));
     }
 
-    public Block getGroundAboveSeaLevel(BlockPos pos) {
-        BlockPos blockpos;
+    public Block getGroundAboveSeaLevel(BlockPosition pos) {
+        BlockPosition blockpos;
 
-        for (blockpos = new BlockPos(pos.getX(), this.getSeaLevel(), pos.getZ()); !this.isAirBlock(blockpos.up()); blockpos = blockpos.up()) {
+        for (blockpos = new BlockPosition(pos.getX(), this.getSeaLevel(), pos.getZ()); !this.isAirBlock(blockpos.up()); blockpos = blockpos.up()) {
         }
 
         return this.getBlockState(blockpos).getBlock();
@@ -208,7 +208,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Check if the given BlockPos has valid coordinates
      */
-    private boolean isValid(BlockPos pos) {
+    private boolean isValid(BlockPosition pos) {
         return pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000 && pos.getY() >= 0 && pos.getY() < 256;
     }
 
@@ -216,31 +216,31 @@ public abstract class World implements IBlockAccess {
      * Checks to see if an air block exists at the provided location. Note that this only checks to see if the blocks
      * material is set to air, meaning it is possible for non-vanilla blocks to still pass this check.
      */
-    public boolean isAirBlock(BlockPos pos) {
+    public boolean isAirBlock(BlockPosition pos) {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.air;
     }
 
-    public boolean isBlockLoaded(BlockPos pos) {
+    public boolean isBlockLoaded(BlockPosition pos) {
         return this.isBlockLoaded(pos, true);
     }
 
-    public boolean isBlockLoaded(BlockPos pos, boolean allowEmpty) {
+    public boolean isBlockLoaded(BlockPosition pos, boolean allowEmpty) {
         return this.isValid(pos) && this.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4, allowEmpty);
     }
 
-    public boolean isAreaLoaded(BlockPos center, int radius) {
+    public boolean isAreaLoaded(BlockPosition center, int radius) {
         return this.isAreaLoaded(center, radius, true);
     }
 
-    public boolean isAreaLoaded(BlockPos center, int radius, boolean allowEmpty) {
+    public boolean isAreaLoaded(BlockPosition center, int radius, boolean allowEmpty) {
         return this.isAreaLoaded(center.getX() - radius, center.getY() - radius, center.getZ() - radius, center.getX() + radius, center.getY() + radius, center.getZ() + radius, allowEmpty);
     }
 
-    public boolean isAreaLoaded(BlockPos from, BlockPos to) {
+    public boolean isAreaLoaded(BlockPosition from, BlockPosition to) {
         return this.isAreaLoaded(from, to, true);
     }
 
-    public boolean isAreaLoaded(BlockPos from, BlockPos to, boolean allowEmpty) {
+    public boolean isAreaLoaded(BlockPosition from, BlockPosition to, boolean allowEmpty) {
         return this.isAreaLoaded(from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ(), allowEmpty);
     }
 
@@ -277,7 +277,7 @@ public abstract class World implements IBlockAccess {
         return this.chunkProvider.chunkExists(x, z) && (allowEmpty || !this.chunkProvider.provideChunk(x, z).isEmpty());
     }
 
-    public Chunk getChunkFromBlockCoords(BlockPos pos) {
+    public Chunk getChunkFromBlockCoords(BlockPosition pos) {
         return this.getChunkFromChunkCoords(pos.getX() >> 4, pos.getZ() >> 4);
     }
 
@@ -293,7 +293,7 @@ public abstract class World implements IBlockAccess {
      * clients (you almost always want this). Flag 4 prevents the block from being re-rendered, if this is a client
      * world. Flags can be added together.
      */
-    public boolean setBlockState(BlockPos pos, IBlockState newState, int flags) {
+    public boolean setBlockState(BlockPosition pos, IBlockState newState, int flags) {
         if (!this.isValid(pos)) {
             return false;
         } else if (!this.isRemote && this.worldInfo.getTerrainType() == WorldType.DEBUG_WORLD) {
@@ -331,31 +331,31 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean setBlockToAir(BlockPos pos) {
+    public boolean setBlockToAir(BlockPosition pos) {
         return this.setBlockState(pos, Blocks.air.getDefaultState(), 3);
     }
 
     /**
      * Sets a block to air, but also plays the sound and particles and can spawn drops
      */
-    public boolean destroyBlock(BlockPos pos, boolean dropBlock) {
+    public boolean destroyBlock(BlockPosition pos, boolean dropBlock) {
         return FixedSoundEngine.destroyBlock(this, pos, dropBlock);
     }
 
     /**
      * Convenience method to update the block on both the client and server
      */
-    public boolean setBlockState(BlockPos pos, IBlockState state) {
+    public boolean setBlockState(BlockPosition pos, IBlockState state) {
         return this.setBlockState(pos, state, 3);
     }
 
-    public void markBlockForUpdate(BlockPos pos) {
+    public void markBlockForUpdate(BlockPosition pos) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.markBlockForUpdate(pos);
         }
     }
 
-    public void notifyNeighborsRespectDebug(BlockPos pos, Block blockType) {
+    public void notifyNeighborsRespectDebug(BlockPosition pos, Block blockType) {
         if (this.worldInfo.getTerrainType() != WorldType.DEBUG_WORLD) {
             this.notifyNeighborsOfStateChange(pos, blockType);
         }
@@ -373,14 +373,14 @@ public abstract class World implements IBlockAccess {
 
         if (!this.provider.getHasNoSky()) {
             for (int j = x2; j <= z2; ++j) {
-                this.checkLightFor(EnumSkyBlock.SKY, new BlockPos(x1, j, z1));
+                this.checkLightFor(EnumSkyBlock.SKY, new BlockPosition(x1, j, z1));
             }
         }
 
         this.markBlockRangeForRenderUpdate(x1, x2, z1, x1, z2, z1);
     }
 
-    public void markBlockRangeForRenderUpdate(BlockPos rangeMin, BlockPos rangeMax) {
+    public void markBlockRangeForRenderUpdate(BlockPosition rangeMin, BlockPosition rangeMax) {
         this.markBlockRangeForRenderUpdate(rangeMin.getX(), rangeMin.getY(), rangeMin.getZ(), rangeMax.getX(), rangeMax.getY(), rangeMax.getZ());
     }
 
@@ -390,7 +390,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void notifyNeighborsOfStateChange(BlockPos pos, Block blockType) {
+    public void notifyNeighborsOfStateChange(BlockPosition pos, Block blockType) {
         this.notifyBlockOfStateChange(pos.west(), blockType);
         this.notifyBlockOfStateChange(pos.east(), blockType);
         this.notifyBlockOfStateChange(pos.down(), blockType);
@@ -399,7 +399,7 @@ public abstract class World implements IBlockAccess {
         this.notifyBlockOfStateChange(pos.south(), blockType);
     }
 
-    public void notifyNeighborsOfStateExcept(BlockPos pos, Block blockType, EnumFacing skipSide) {
+    public void notifyNeighborsOfStateExcept(BlockPosition pos, Block blockType, EnumFacing skipSide) {
         if (skipSide != EnumFacing.WEST) {
             this.notifyBlockOfStateChange(pos.west(), blockType);
         }
@@ -425,7 +425,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void notifyBlockOfStateChange(BlockPos pos, final Block blockIn) {
+    public void notifyBlockOfStateChange(BlockPosition pos, final Block blockIn) {
         if (!this.isRemote) {
             IBlockState iblockstate = this.getBlockState(pos);
 
@@ -447,19 +447,19 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean isBlockTickPending(BlockPos pos, Block blockType) {
+    public boolean isBlockTickPending(BlockPosition pos, Block blockType) {
         return false;
     }
 
-    public boolean canSeeSky(BlockPos pos) {
+    public boolean canSeeSky(BlockPosition pos) {
         return this.getChunkFromBlockCoords(pos).canSeeSky(pos);
     }
 
-    public boolean canBlockSeeSky(BlockPos pos) {
+    public boolean canBlockSeeSky(BlockPosition pos) {
         if (pos.getY() >= this.getSeaLevel()) {
             return this.canSeeSky(pos);
         } else {
-            BlockPos blockpos = new BlockPos(pos.getX(), this.getSeaLevel(), pos.getZ());
+            BlockPosition blockpos = new BlockPosition(pos.getX(), this.getSeaLevel(), pos.getZ());
 
             if (!this.canSeeSky(blockpos)) {
                 return false;
@@ -477,23 +477,23 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public int getLight(BlockPos pos) {
+    public int getLight(BlockPosition pos) {
         if (pos.getY() < 0) {
             return 0;
         } else {
             if (pos.getY() >= 256) {
-                pos = new BlockPos(pos.getX(), 255, pos.getZ());
+                pos = new BlockPosition(pos.getX(), 255, pos.getZ());
             }
 
             return this.getChunkFromBlockCoords(pos).getLightSubtracted(pos, 0);
         }
     }
 
-    public int getLightFromNeighbors(BlockPos pos) {
+    public int getLightFromNeighbors(BlockPosition pos) {
         return this.getLight(pos, true);
     }
 
-    public int getLight(BlockPos pos, boolean checkNeighbors) {
+    public int getLight(BlockPosition pos, boolean checkNeighbors) {
         if (pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000) {
             if (checkNeighbors && this.getBlockState(pos).getBlock().getUseNeighborBrightness()) {
                 int i1 = this.getLight(pos.up(), false);
@@ -523,7 +523,7 @@ public abstract class World implements IBlockAccess {
                 return 0;
             } else {
                 if (pos.getY() >= 256) {
-                    pos = new BlockPos(pos.getX(), 255, pos.getZ());
+                    pos = new BlockPosition(pos.getX(), 255, pos.getZ());
                 }
 
                 Chunk chunk = this.getChunkFromBlockCoords(pos);
@@ -537,7 +537,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Returns the position at this x, z coordinate in the chunk with y set to the value from the height map.
      */
-    public BlockPos getHeight(BlockPos pos) {
+    public BlockPosition getHeight(BlockPosition pos) {
         int i;
 
         if (pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000) {
@@ -550,7 +550,7 @@ public abstract class World implements IBlockAccess {
             i = this.getSeaLevel() + 1;
         }
 
-        return new BlockPos(pos.getX(), i, pos.getZ());
+        return new BlockPosition(pos.getX(), i, pos.getZ());
     }
 
     /**
@@ -569,12 +569,12 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public int getLightFromNeighborsFor(EnumSkyBlock type, BlockPos pos) {
+    public int getLightFromNeighborsFor(EnumSkyBlock type, BlockPosition pos) {
         if (this.provider.getHasNoSky() && type == EnumSkyBlock.SKY) {
             return 0;
         } else {
             if (pos.getY() < 0) {
-                pos = new BlockPos(pos.getX(), 0, pos.getZ());
+                pos = new BlockPosition(pos.getX(), 0, pos.getZ());
             }
 
             if (!this.isValid(pos)) {
@@ -612,9 +612,9 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public int getLightFor(EnumSkyBlock type, BlockPos pos) {
+    public int getLightFor(EnumSkyBlock type, BlockPosition pos) {
         if (pos.getY() < 0) {
-            pos = new BlockPos(pos.getX(), 0, pos.getZ());
+            pos = new BlockPosition(pos.getX(), 0, pos.getZ());
         }
 
         if (!this.isValid(pos)) {
@@ -627,7 +627,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void setLightFor(EnumSkyBlock type, BlockPos pos, int lightValue) {
+    public void setLightFor(EnumSkyBlock type, BlockPosition pos, int lightValue) {
         if (this.isValid(pos)) {
             if (this.isBlockLoaded(pos)) {
                 Chunk chunk = this.getChunkFromBlockCoords(pos);
@@ -637,13 +637,13 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void notifyLightSet(BlockPos pos) {
+    public void notifyLightSet(BlockPosition pos) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.notifyLightSet(pos);
         }
     }
 
-    public int getCombinedLight(BlockPos pos, int lightValue) {
+    public int getCombinedLight(BlockPosition pos, int lightValue) {
         int i = this.getLightFromNeighborsFor(EnumSkyBlock.SKY, pos);
         int j = this.getLightFromNeighborsFor(EnumSkyBlock.BLOCK, pos);
 
@@ -654,11 +654,11 @@ public abstract class World implements IBlockAccess {
         return i << 20 | j << 4;
     }
 
-    public float getLightBrightness(BlockPos pos) {
+    public float getLightBrightness(BlockPosition pos) {
         return this.provider.getLightBrightnessTable()[this.getLightFromNeighbors(pos)];
     }
 
-    public IBlockState getBlockState(BlockPos pos) {
+    public IBlockState getBlockState(BlockPosition pos) {
         if (!this.isValid(pos)) {
             return Blocks.air.getDefaultState();
         } else {
@@ -698,7 +698,7 @@ public abstract class World implements IBlockAccess {
                 int l = MathHelper.floor_double(vec31.xCoord);
                 int i1 = MathHelper.floor_double(vec31.yCoord);
                 int j1 = MathHelper.floor_double(vec31.zCoord);
-                BlockPos blockpos = new BlockPos(l, i1, j1);
+                BlockPosition blockpos = new BlockPosition(l, i1, j1);
                 IBlockState iblockstate = this.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
 
@@ -800,7 +800,7 @@ public abstract class World implements IBlockAccess {
                     l = MathHelper.floor_double(vec31.xCoord) - (enumfacing == EnumFacing.EAST ? 1 : 0);
                     i1 = MathHelper.floor_double(vec31.yCoord) - (enumfacing == EnumFacing.UP ? 1 : 0);
                     j1 = MathHelper.floor_double(vec31.zCoord) - (enumfacing == EnumFacing.SOUTH ? 1 : 0);
-                    blockpos = new BlockPos(l, i1, j1);
+                    blockpos = new BlockPosition(l, i1, j1);
                     IBlockState iblockstate1 = this.getBlockState(blockpos);
                     Block block1 = iblockstate1.getBlock();
 
@@ -862,7 +862,7 @@ public abstract class World implements IBlockAccess {
     public void playSound(double x, double y, double z, String soundName, float volume, float pitch, boolean distanceDelay) {
     }
 
-    public void playRecord(BlockPos pos, String name) {
+    public void playRecord(BlockPosition pos, String name) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.playRecord(name, pos);
         }
@@ -999,7 +999,7 @@ public abstract class World implements IBlockAccess {
         boolean flag = entityIn.isOutsideBorder();
         boolean flag1 = this.isInsideBorder(worldborder, entityIn);
         IBlockState iblockstate = Blocks.stone.getDefaultState();
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = i1; l1 < j1; ++l1) {
@@ -1081,7 +1081,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY + 1.0D);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ + 1.0D);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = i1; l1 < j1; ++l1) {
@@ -1142,7 +1142,7 @@ public abstract class World implements IBlockAccess {
         int i = MathHelper.floor_double(entityIn.posX);
         int j = MathHelper.floor_double(entityIn.posY);
         int k = MathHelper.floor_double(entityIn.posZ);
-        BlockPos blockpos = new BlockPos(i, j, k);
+        BlockPosition blockpos = new BlockPosition(i, j, k);
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(blockpos);
         float f2 = biomegenbase.getFloatTemperature(blockpos);
         int l = biomegenbase.getSkyColorByTemp(f2);
@@ -1256,19 +1256,19 @@ public abstract class World implements IBlockAccess {
         return this.provider.getFogColor(f, partialTicks);
     }
 
-    public BlockPos getPrecipitationHeight(BlockPos pos) {
+    public BlockPosition getPrecipitationHeight(BlockPosition pos) {
         return this.getChunkFromBlockCoords(pos).getPrecipitationHeight(pos);
     }
 
     /**
      * Finds the highest block on the x and z coordinate that is solid or liquid, and returns its y coord.
      */
-    public BlockPos getTopSolidOrLiquidBlock(BlockPos pos) {
+    public BlockPosition getTopSolidOrLiquidBlock(BlockPosition pos) {
         Chunk chunk = this.getChunkFromBlockCoords(pos);
-        BlockPos blockpos;
-        BlockPos blockpos1;
+        BlockPosition blockpos;
+        BlockPosition blockpos1;
 
-        for (blockpos = new BlockPos(pos.getX(), chunk.getTopFilledSegment() + 16, pos.getZ()); blockpos.getY() >= 0; blockpos = blockpos1) {
+        for (blockpos = new BlockPosition(pos.getX(), chunk.getTopFilledSegment() + 16, pos.getZ()); blockpos.getY() >= 0; blockpos = blockpos1) {
             blockpos1 = blockpos.down();
             Material material = chunk.getBlock(blockpos1).getMaterial();
 
@@ -1290,13 +1290,13 @@ public abstract class World implements IBlockAccess {
         return f1 * f1 * 0.5F;
     }
 
-    public void scheduleUpdate(BlockPos pos, Block blockIn, int delay) {
+    public void scheduleUpdate(BlockPosition pos, Block blockIn, int delay) {
     }
 
-    public void updateBlockTick(BlockPos pos, Block blockIn, int delay, int priority) {
+    public void updateBlockTick(BlockPosition pos, Block blockIn, int delay, int priority) {
     }
 
-    public void scheduleBlockUpdate(BlockPos pos, Block blockIn, int delay, int priority) {
+    public void scheduleBlockUpdate(BlockPosition pos, Block blockIn, int delay, int priority) {
     }
 
     /**
@@ -1400,7 +1400,7 @@ public abstract class World implements IBlockAccess {
             TileEntity tileentity = iterator.next();
 
             if (!tileentity.isInvalid() && tileentity.hasWorldObj()) {
-                BlockPos blockpos = tileentity.getPos();
+                BlockPosition blockpos = tileentity.getPos();
 
                 if (this.isBlockLoaded(blockpos) && this.worldBorder.contains(blockpos)) {
                     try {
@@ -1595,7 +1595,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 <= j; ++k1) {
             for (int l1 = k; l1 <= l; ++l1) {
@@ -1622,7 +1622,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 <= j; ++k1) {
             for (int l1 = k; l1 <= l; ++l1) {
@@ -1648,7 +1648,7 @@ public abstract class World implements IBlockAccess {
         int j1 = MathHelper.floor_double(bb.maxZ + 1.0D);
 
         if (this.isAreaLoaded(i, k, i1, j, l, j1, true)) {
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
             for (int k1 = i; k1 < j; ++k1) {
                 for (int l1 = k; l1 < l; ++l1) {
@@ -1682,7 +1682,7 @@ public abstract class World implements IBlockAccess {
         } else {
             boolean flag = false;
             Vec3 vec3 = new Vec3(0.0D, 0.0D, 0.0D);
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
             for (int k1 = i; k1 < j; ++k1) {
                 for (int l1 = k; l1 < l; ++l1) {
@@ -1725,7 +1725,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY + 1.0D);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ + 1.0D);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = k; l1 < l; ++l1) {
@@ -1750,7 +1750,7 @@ public abstract class World implements IBlockAccess {
         int l = MathHelper.floor_double(bb.maxY + 1.0D);
         int i1 = MathHelper.floor_double(bb.minZ);
         int j1 = MathHelper.floor_double(bb.maxZ + 1.0D);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int k1 = i; k1 < j; ++k1) {
             for (int l1 = k; l1 < l; ++l1) {
@@ -1833,7 +1833,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Attempts to extinguish a fire
      */
-    public boolean extinguishFire(EntityPlayer player, BlockPos pos, EnumFacing side) {
+    public boolean extinguishFire(EntityPlayer player, BlockPosition pos, EnumFacing side) {
         pos = pos.offset(side);
 
         if (this.getBlockState(pos).getBlock() == Blocks.fire) {
@@ -1859,7 +1859,7 @@ public abstract class World implements IBlockAccess {
         return this.chunkProvider.makeString();
     }
 
-    public TileEntity getTileEntity(BlockPos pos) {
+    public TileEntity getTileEntity(BlockPosition pos) {
         if (!this.isValid(pos)) {
             return null;
         } else {
@@ -1891,7 +1891,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void setTileEntity(BlockPos pos, TileEntity tileEntityIn) {
+    public void setTileEntity(BlockPosition pos, TileEntity tileEntityIn) {
         if (tileEntityIn != null && !tileEntityIn.isInvalid()) {
             if (this.processingLoadedTiles) {
                 tileEntityIn.setPos(pos);
@@ -1914,7 +1914,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void removeTileEntity(BlockPos pos) {
+    public void removeTileEntity(BlockPosition pos) {
         TileEntity tileentity = this.getTileEntity(pos);
 
         if (tileentity != null && this.processingLoadedTiles) {
@@ -1938,13 +1938,13 @@ public abstract class World implements IBlockAccess {
         this.tileEntitiesToBeRemoved.add(tileEntityIn);
     }
 
-    public boolean isBlockFullCube(BlockPos pos) {
+    public boolean isBlockFullCube(BlockPosition pos) {
         IBlockState iblockstate = this.getBlockState(pos);
         AxisAlignedBB axisalignedbb = iblockstate.getBlock().getCollisionBoundingBox(this, pos, iblockstate);
         return axisalignedbb != null && axisalignedbb.getAverageEdgeLength() >= 1.0D;
     }
 
-    public static boolean doesBlockHaveSolidTopSurface(IBlockAccess blockAccess, BlockPos pos) {
+    public static boolean doesBlockHaveSolidTopSurface(IBlockAccess blockAccess, BlockPosition pos) {
         IBlockState iblockstate = blockAccess.getBlockState(pos);
         Block block = iblockstate.getBlock();
         return block.getMaterial().isOpaque() && block.isFullCube() || (block instanceof BlockStairs ? iblockstate.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP : (block instanceof BlockSlab ? iblockstate.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP : (block instanceof BlockHopper || (block instanceof BlockSnow && iblockstate.getValue(BlockSnow.LAYERS) == 7))));
@@ -1953,7 +1953,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Checks if a block's material is opaque, and that it takes up a full cube
      */
-    public boolean isBlockNormalCube(BlockPos pos, boolean _default) {
+    public boolean isBlockNormalCube(BlockPosition pos, boolean _default) {
         if (!this.isValid(pos)) {
             return _default;
         } else {
@@ -2108,7 +2108,7 @@ public abstract class World implements IBlockAccess {
             int l1 = MathHelper.floor_double(entityplayer1.posX) + this.rand.nextInt(11) - 5;
             int i2 = MathHelper.floor_double(entityplayer1.posY) + this.rand.nextInt(11) - 5;
             int j2 = MathHelper.floor_double(entityplayer1.posZ) + this.rand.nextInt(11) - 5;
-            this.checkLight(new BlockPos(l1, i2, j2));
+            this.checkLight(new BlockPosition(l1, i2, j2));
         }
 
         this.theProfiler.endSection();
@@ -2125,7 +2125,7 @@ public abstract class World implements IBlockAccess {
             int j = i & 15;
             int k = i >> 8 & 15;
             int l = i >> 16 & 255;
-            BlockPos blockpos = new BlockPos(j, l, k);
+            BlockPosition blockpos = new BlockPosition(j, l, k);
             Block block = chunkIn.getBlock(blockpos);
             j = j + p_147467_1_;
             k = k + p_147467_2_;
@@ -2148,24 +2148,24 @@ public abstract class World implements IBlockAccess {
         this.setActivePlayerChunksAndCheckLight();
     }
 
-    public void forceBlockUpdateTick(Block blockType, BlockPos pos, Random random) {
+    public void forceBlockUpdateTick(Block blockType, BlockPosition pos, Random random) {
         this.scheduledUpdatesAreImmediate = true;
         blockType.updateTick(this, pos, this.getBlockState(pos), random);
         this.scheduledUpdatesAreImmediate = false;
     }
 
-    public boolean canBlockFreezeWater(BlockPos pos) {
+    public boolean canBlockFreezeWater(BlockPosition pos) {
         return this.canBlockFreeze(pos, false);
     }
 
-    public boolean canBlockFreezeNoWater(BlockPos pos) {
+    public boolean canBlockFreezeNoWater(BlockPosition pos) {
         return this.canBlockFreeze(pos, true);
     }
 
     /**
      * Checks to see if a given block is both water and cold enough to freeze.
      */
-    public boolean canBlockFreeze(BlockPos pos, boolean noWaterAdj) {
+    public boolean canBlockFreeze(BlockPosition pos, boolean noWaterAdj) {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(pos);
         float f = biomegenbase.getFloatTemperature(pos);
 
@@ -2189,14 +2189,14 @@ public abstract class World implements IBlockAccess {
         return false;
     }
 
-    private boolean isWater(BlockPos pos) {
+    private boolean isWater(BlockPosition pos) {
         return this.getBlockState(pos).getBlock().getMaterial() == Material.water;
     }
 
     /**
      * Checks to see if a given block can accumulate snow from it snowing
      */
-    public boolean canSnowAt(BlockPos pos, boolean checkLight) {
+    public boolean canSnowAt(BlockPosition pos, boolean checkLight) {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(pos);
         float f = biomegenbase.getFloatTemperature(pos);
 
@@ -2215,7 +2215,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean checkLight(BlockPos pos) {
+    public boolean checkLight(BlockPosition pos) {
         boolean flag = false;
 
         if (!this.provider.getHasNoSky()) {
@@ -2229,7 +2229,7 @@ public abstract class World implements IBlockAccess {
     /**
      * gets the light level at the supplied position
      */
-    private int getRawLight(BlockPos pos, EnumSkyBlock lightType) {
+    private int getRawLight(BlockPosition pos, EnumSkyBlock lightType) {
         if (lightType == EnumSkyBlock.SKY && this.canSeeSky(pos)) {
             return 15;
         } else {
@@ -2251,7 +2251,7 @@ public abstract class World implements IBlockAccess {
                 return i;
             } else {
                 for (EnumFacing enumfacing : EnumFacing.values()) {
-                    BlockPos blockpos = pos.offset(enumfacing);
+                    BlockPosition blockpos = pos.offset(enumfacing);
                     int k = this.getLightFor(lightType, blockpos) - j;
 
                     if (k > i) {
@@ -2268,7 +2268,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos) {
+    public boolean checkLightFor(EnumSkyBlock lightType, BlockPosition pos) {
         if (!this.isAreaLoaded(pos, 17, false)) {
             return false;
         } else {
@@ -2292,7 +2292,7 @@ public abstract class World implements IBlockAccess {
                     int j2 = (l1 >> 6 & 63) - 32 + j1;
                     int k2 = (l1 >> 12 & 63) - 32 + k1;
                     int l2 = l1 >> 18 & 15;
-                    BlockPos blockpos = new BlockPos(i2, j2, k2);
+                    BlockPosition blockpos = new BlockPosition(i2, j2, k2);
                     int i3 = this.getLightFor(lightType, blockpos);
 
                     if (i3 == l2) {
@@ -2304,7 +2304,7 @@ public abstract class World implements IBlockAccess {
                             int l3 = MathHelper.abs_int(k2 - k1);
 
                             if (j3 + k3 + l3 < 17) {
-                                BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+                                BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
                                 for (EnumFacing enumfacing : EnumFacing.values()) {
                                     int i4 = i2 + enumfacing.getFrontOffsetX();
@@ -2334,7 +2334,7 @@ public abstract class World implements IBlockAccess {
                 int j5 = (i5 & 63) - 32 + i1;
                 int k5 = (i5 >> 6 & 63) - 32 + j1;
                 int l5 = (i5 >> 12 & 63) - 32 + k1;
-                BlockPos blockpos1 = new BlockPos(j5, k5, l5);
+                BlockPosition blockpos1 = new BlockPosition(j5, k5, l5);
                 int i6 = this.getLightFor(lightType, blockpos1);
                 int j6 = this.getRawLight(blockpos1, lightType);
 
@@ -2493,7 +2493,7 @@ public abstract class World implements IBlockAccess {
         return this.loadedEntityList;
     }
 
-    public void markChunkDirty(BlockPos pos, TileEntity unusedTileEntity) {
+    public void markChunkDirty(BlockPosition pos, TileEntity unusedTileEntity) {
         if (this.isBlockLoaded(pos)) {
             this.getChunkFromBlockCoords(pos).setChunkModified();
         }
@@ -2526,7 +2526,7 @@ public abstract class World implements IBlockAccess {
         this.unloadedEntityList.addAll(entityCollection);
     }
 
-    public boolean canBlockBePlaced(Block blockIn, BlockPos pos, boolean p_175716_3_, EnumFacing side, Entity entityIn, ItemStack itemStackIn) {
+    public boolean canBlockBePlaced(Block blockIn, BlockPosition pos, boolean p_175716_3_, EnumFacing side, Entity entityIn, ItemStack itemStackIn) {
         Block block = this.getBlockState(pos).getBlock();
         AxisAlignedBB axisalignedbb = p_175716_3_ ? null : blockIn.getCollisionBoundingBox(this, pos, blockIn.getDefaultState());
         return (axisalignedbb == null || this.checkNoEntityCollision(axisalignedbb, entityIn)) && (block.getMaterial() == Material.circuits && blockIn == Blocks.anvil || block.getMaterial().isReplaceable() && blockIn.canReplace(this, pos, side, itemStackIn));
@@ -2543,7 +2543,7 @@ public abstract class World implements IBlockAccess {
         this.seaLevel = p_181544_1_;
     }
 
-    public int getStrongPower(BlockPos pos, EnumFacing direction) {
+    public int getStrongPower(BlockPosition pos, EnumFacing direction) {
         IBlockState iblockstate = this.getBlockState(pos);
         return iblockstate.getBlock().getStrongPower(this, pos, iblockstate, direction);
     }
@@ -2555,7 +2555,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Returns the single highest strong power out of all directions using getStrongPower(BlockPos, EnumFacing)
      */
-    public int getStrongPower(BlockPos pos) {
+    public int getStrongPower(BlockPosition pos) {
         int i = 0;
         i = Math.max(i, this.getStrongPower(pos.down(), EnumFacing.DOWN));
 
@@ -2581,17 +2581,17 @@ public abstract class World implements IBlockAccess {
         return i;
     }
 
-    public boolean isSidePowered(BlockPos pos, EnumFacing side) {
+    public boolean isSidePowered(BlockPosition pos, EnumFacing side) {
         return this.getRedstonePower(pos, side) > 0;
     }
 
-    public int getRedstonePower(BlockPos pos, EnumFacing facing) {
+    public int getRedstonePower(BlockPosition pos, EnumFacing facing) {
         IBlockState iblockstate = this.getBlockState(pos);
         Block block = iblockstate.getBlock();
         return block.isNormalCube() ? this.getStrongPower(pos) : block.getWeakPower(this, pos, iblockstate, facing);
     }
 
-    public boolean isBlockPowered(BlockPos pos) {
+    public boolean isBlockPowered(BlockPosition pos) {
         return this.getRedstonePower(pos.down(), EnumFacing.DOWN) > 0 || (this.getRedstonePower(pos.up(), EnumFacing.UP) > 0 || (this.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0 || (this.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0 || (this.getRedstonePower(pos.west(), EnumFacing.WEST) > 0 || this.getRedstonePower(pos.east(), EnumFacing.EAST) > 0))));
     }
 
@@ -2599,7 +2599,7 @@ public abstract class World implements IBlockAccess {
      * Checks if the specified block or its neighbors are powered by a neighboring block. Used by blocks like TNT and
      * Doors.
      */
-    public int isBlockIndirectlyGettingPowered(BlockPos pos) {
+    public int isBlockIndirectlyGettingPowered(BlockPosition pos) {
         int i = 0;
 
         for (EnumFacing enumfacing : EnumFacing.values()) {
@@ -2726,17 +2726,17 @@ public abstract class World implements IBlockAccess {
     /**
      * Gets the spawn point in the world
      */
-    public BlockPos getSpawnPoint() {
-        BlockPos blockpos = new BlockPos(this.worldInfo.getSpawnX(), this.worldInfo.getSpawnY(), this.worldInfo.getSpawnZ());
+    public BlockPosition getSpawnPoint() {
+        BlockPosition blockpos = new BlockPosition(this.worldInfo.getSpawnX(), this.worldInfo.getSpawnY(), this.worldInfo.getSpawnZ());
 
         if (!this.getWorldBorder().contains(blockpos)) {
-            blockpos = this.getHeight(new BlockPos(this.getWorldBorder().getCenterX(), 0.0D, this.getWorldBorder().getCenterZ()));
+            blockpos = this.getHeight(new BlockPosition(this.getWorldBorder().getCenterX(), 0.0D, this.getWorldBorder().getCenterZ()));
         }
 
         return blockpos;
     }
 
-    public void setSpawnPoint(BlockPos pos) {
+    public void setSpawnPoint(BlockPosition pos) {
         this.worldInfo.setSpawn(pos);
     }
 
@@ -2759,7 +2759,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
+    public boolean isBlockModifiable(EntityPlayer player, BlockPosition pos) {
         return true;
     }
 
@@ -2776,7 +2776,7 @@ public abstract class World implements IBlockAccess {
         return this.chunkProvider;
     }
 
-    public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam) {
+    public void addBlockEvent(BlockPosition pos, Block blockIn, int eventID, int eventParam) {
         blockIn.onBlockEventReceived(this, pos, this.getBlockState(pos), eventID, eventParam);
     }
 
@@ -2851,7 +2851,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Check if precipitation is currently happening at a position
      */
-    public boolean isRainingAt(BlockPos strikePosition) {
+    public boolean isRainingAt(BlockPosition strikePosition) {
         if (!this.isRaining()) {
             return false;
         } else if (!this.canSeeSky(strikePosition)) {
@@ -2864,7 +2864,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean isBlockinHighHumidity(BlockPos pos) {
+    public boolean isBlockinHighHumidity(BlockPosition pos) {
         BiomeGenBase biomegenbase = this.getBiomeGenForCoords(pos);
         return biomegenbase.isHighHumidity();
     }
@@ -2897,17 +2897,17 @@ public abstract class World implements IBlockAccess {
         return this.mapStorage.getUniqueDataId(key);
     }
 
-    public void playBroadcastSound(int p_175669_1_, BlockPos pos, int p_175669_3_) {
+    public void playBroadcastSound(int p_175669_1_, BlockPosition pos, int p_175669_3_) {
         for (IWorldAccess worldAccess : this.worldAccesses) {
             worldAccess.broadcastSound(p_175669_1_, pos, p_175669_3_);
         }
     }
 
-    public void playAuxSFX(int p_175718_1_, BlockPos pos, int p_175718_3_) {
+    public void playAuxSFX(int p_175718_1_, BlockPosition pos, int p_175718_3_) {
         this.playAuxSFXAtEntity(null, p_175718_1_, pos, p_175718_3_);
     }
 
-    public void playAuxSFXAtEntity(EntityPlayer player, int sfxType, BlockPos pos, int p_180498_4_) {
+    public void playAuxSFXAtEntity(EntityPlayer player, int sfxType, BlockPosition pos, int p_180498_4_) {
         try {
             for (IWorldAccess worldAccess : this.worldAccesses) {
                 worldAccess.playAuxSFX(player, sfxType, pos, p_180498_4_);
@@ -2946,7 +2946,7 @@ public abstract class World implements IBlockAccess {
         return this.rand;
     }
 
-    public BlockPos getStrongholdPos(String name, BlockPos pos) {
+    public BlockPosition getStrongholdPos(String name, BlockPosition pos) {
         return this.getChunkProvider().getStrongholdGen(this, name, pos);
     }
 
@@ -2982,7 +2982,7 @@ public abstract class World implements IBlockAccess {
         return crashreportcategory;
     }
 
-    public void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress) {
+    public void sendBlockBreakProgress(int breakerId, BlockPosition pos, int progress) {
         for (IWorldAccess iworldaccess : this.worldAccesses) {
             iworldaccess.sendBlockBreakProgress(breakerId, pos, progress);
         }
@@ -3006,9 +3006,9 @@ public abstract class World implements IBlockAccess {
         return this.worldScoreboard;
     }
 
-    public void updateComparatorOutputLevel(BlockPos pos, Block blockIn) {
+    public void updateComparatorOutputLevel(BlockPosition pos, Block blockIn) {
         for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-            BlockPos blockpos = pos.offset(enumfacing);
+            BlockPosition blockpos = pos.offset(enumfacing);
 
             if (this.isBlockLoaded(blockpos)) {
                 IBlockState iblockstate = this.getBlockState(blockpos);
@@ -3027,7 +3027,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public DifficultyInstance getDifficultyForLocation(BlockPos pos) {
+    public DifficultyInstance getDifficultyForLocation(BlockPosition pos) {
         long i = 0L;
         float f = 0.0F;
 
@@ -3075,7 +3075,7 @@ public abstract class World implements IBlockAccess {
      * Returns true if the chunk is located near the spawn point
      */
     public boolean isSpawnChunk(int x, int z) {
-        BlockPos blockpos = this.getSpawnPoint();
+        BlockPosition blockpos = this.getSpawnPoint();
         int i = x * 16 + 8 - blockpos.getX();
         int j = z * 16 + 8 - blockpos.getZ();
         int k = 128;

@@ -4,7 +4,7 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
@@ -54,9 +54,9 @@ public class RConConsoleSource implements ICommandSender
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
-        return new BlockPos(0, 0, 0);
+        return new BlockPosition(0, 0, 0);
     }
 
     /**

@@ -3,21 +3,21 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient>
 {
-    private BlockPos spawnBlockPos;
+    private BlockPosition spawnBlockPosition;
 
     public S05PacketSpawnPosition()
     {
     }
 
-    public S05PacketSpawnPosition(BlockPos spawnBlockPosIn)
+    public S05PacketSpawnPosition(BlockPosition spawnBlockPositionIn)
     {
-        this.spawnBlockPos = spawnBlockPosIn;
+        this.spawnBlockPosition = spawnBlockPositionIn;
     }
 
     /**
@@ -25,7 +25,7 @@ public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.spawnBlockPos = buf.readBlockPos();
+        this.spawnBlockPosition = buf.readBlockPos();
     }
 
     /**
@@ -33,7 +33,7 @@ public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.spawnBlockPos);
+        buf.writeBlockPos(this.spawnBlockPosition);
     }
 
     /**
@@ -44,8 +44,8 @@ public class S05PacketSpawnPosition implements Packet<INetHandlerPlayClient>
         handler.handleSpawnPosition(this);
     }
 
-    public BlockPos getSpawnPos()
+    public BlockPosition getSpawnPos()
     {
-        return this.spawnBlockPos;
+        return this.spawnBlockPosition;
     }
 }

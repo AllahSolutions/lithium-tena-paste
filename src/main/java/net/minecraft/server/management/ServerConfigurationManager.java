@@ -120,7 +120,7 @@ public abstract class ServerConfigurationManager
         logger.info(playerIn.getName() + "[" + s1 + "] logged in with entity id " + playerIn.getEntityId() + " at (" + playerIn.posX + ", " + playerIn.posY + ", " + playerIn.posZ + ")");
         WorldServer worldserver = this.mcServer.worldServerForDimension(playerIn.dimension);
         WorldInfo worldinfo = worldserver.getWorldInfo();
-        BlockPos blockpos = worldserver.getSpawnPoint();
+        BlockPosition blockpos = worldserver.getSpawnPoint();
         this.setPlayerGameTypeBasedOnOther(playerIn, (EntityPlayerMP)null, worldserver);
         NetHandlerPlayServer nethandlerplayserver = new NetHandlerPlayServer(this.mcServer, netManager, playerIn);
         nethandlerplayserver.sendPacket(new S01PacketJoinGame(playerIn.getEntityId(), playerIn.theItemInWorldManager.getGameType(), worldinfo.isHardcoreModeEnabled(), worldserver.provider.getDimensionId(), worldserver.getDifficulty(), this.getMaxPlayers(), worldinfo.getTerrainType(), worldserver.getGameRules().getBoolean("reducedDebugInfo")));
@@ -442,7 +442,7 @@ public abstract class ServerConfigurationManager
         playerIn.getServerForPlayer().getPlayerManager().removePlayer(playerIn);
         this.playerEntityList.remove(playerIn);
         this.mcServer.worldServerForDimension(playerIn.dimension).removePlayerEntityDangerously(playerIn);
-        BlockPos blockpos = playerIn.getBedLocation();
+        BlockPosition blockpos = playerIn.getBedLocation();
         boolean flag = playerIn.isSpawnForced();
         playerIn.dimension = dimension;
         ItemInWorldManager iteminworldmanager;
@@ -466,7 +466,7 @@ public abstract class ServerConfigurationManager
 
         if (blockpos != null)
         {
-            BlockPos blockpos1 = EntityPlayer.getBedSpawnLocation(this.mcServer.worldServerForDimension(playerIn.dimension), blockpos, flag);
+            BlockPosition blockpos1 = EntityPlayer.getBedSpawnLocation(this.mcServer.worldServerForDimension(playerIn.dimension), blockpos, flag);
 
             if (blockpos1 != null)
             {
@@ -487,7 +487,7 @@ public abstract class ServerConfigurationManager
         }
 
         entityplayermp.playerNetServerHandler.sendPacket(new S07PacketRespawn(entityplayermp.dimension, entityplayermp.worldObj.getDifficulty(), entityplayermp.worldObj.getWorldInfo().getTerrainType(), entityplayermp.theItemInWorldManager.getGameType()));
-        BlockPos blockpos2 = worldserver.getSpawnPoint();
+        BlockPosition blockpos2 = worldserver.getSpawnPoint();
         entityplayermp.playerNetServerHandler.setPlayerLocation(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
         entityplayermp.playerNetServerHandler.sendPacket(new S05PacketSpawnPosition(blockpos2));
         entityplayermp.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(entityplayermp.experience, entityplayermp.experienceTotal, entityplayermp.experienceLevel));
@@ -564,7 +564,7 @@ public abstract class ServerConfigurationManager
         }
         else
         {
-            BlockPos blockpos;
+            BlockPosition blockpos;
 
             if (p_82448_2_ == 1)
             {

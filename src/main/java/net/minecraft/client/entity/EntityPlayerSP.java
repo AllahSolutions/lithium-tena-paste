@@ -148,7 +148,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Called to update the entity's position/logic.
      */
     public void onUpdate() {
-        if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
+        if (this.worldObj.isBlockLoaded(new BlockPosition(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
 
             if (this.isRiding()) {
@@ -247,7 +247,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      */
     public EntityItem dropOneItem(boolean dropAll) {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
-        this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
+        this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPosition.ORIGIN, EnumFacing.DOWN));
         return null;
     }
 
@@ -405,7 +405,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         PushOutOfBlockEvent pushOutOfBlockEvent = new PushOutOfBlockEvent();
         Tenacity.INSTANCE.getEventProtocol().handleEvent(pushOutOfBlockEvent);
         if (!this.noClip || !pushOutOfBlockEvent.isCancelled()) {
-            BlockPos blockpos = new BlockPos(x, y, z);
+            BlockPosition blockpos = new BlockPosition(x, y, z);
             double d0 = x - (double) blockpos.getX();
             double d1 = z - (double) blockpos.getZ();
 
@@ -458,7 +458,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     /**
      * Returns true if the block at the given BlockPos and the block above it are NOT full cubes.
      */
-    private boolean isOpenBlockSpace(BlockPos pos) {
+    private boolean isOpenBlockSpace(BlockPosition pos) {
         return !this.worldObj.getBlockState(pos).getBlock().isNormalCube() && !this.worldObj.getBlockState(pos.up()).getBlock().isNormalCube();
     }
 
@@ -497,8 +497,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    public BlockPos getPosition() {
-        return new BlockPos(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
+    public BlockPosition getPosition() {
+        return new BlockPosition(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D);
     }
 
     public void playSound(String name, float volume, float pitch) {

@@ -7,7 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.NextTickListEntry;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
@@ -53,9 +53,9 @@ public class CommandClone extends CommandBase
         else
         {
             sender.setCommandStat(CommandResultStats.Type.AFFECTED_BLOCKS, 0);
-            BlockPos blockpos = parseBlockPos(sender, args, 0, false);
-            BlockPos blockpos1 = parseBlockPos(sender, args, 3, false);
-            BlockPos blockpos2 = parseBlockPos(sender, args, 6, false);
+            BlockPosition blockpos = parseBlockPos(sender, args, 0, false);
+            BlockPosition blockpos1 = parseBlockPos(sender, args, 3, false);
+            BlockPosition blockpos2 = parseBlockPos(sender, args, 6, false);
             StructureBoundingBox structureboundingbox = new StructureBoundingBox(blockpos, blockpos1);
             StructureBoundingBox structureboundingbox1 = new StructureBoundingBox(blockpos2, blockpos2.add(structureboundingbox.func_175896_b()));
             int i = structureboundingbox.getXSize() * structureboundingbox.getYSize() * structureboundingbox.getZSize();
@@ -114,8 +114,8 @@ public class CommandClone extends CommandBase
                             List<CommandClone.StaticCloneData> list = Lists.<CommandClone.StaticCloneData>newArrayList();
                             List<CommandClone.StaticCloneData> list1 = Lists.<CommandClone.StaticCloneData>newArrayList();
                             List<CommandClone.StaticCloneData> list2 = Lists.<CommandClone.StaticCloneData>newArrayList();
-                            LinkedList<BlockPos> linkedlist = Lists.<BlockPos>newLinkedList();
-                            BlockPos blockpos3 = new BlockPos(structureboundingbox1.minX - structureboundingbox.minX, structureboundingbox1.minY - structureboundingbox.minY, structureboundingbox1.minZ - structureboundingbox.minZ);
+                            LinkedList<BlockPosition> linkedlist = Lists.<BlockPosition>newLinkedList();
+                            BlockPosition blockpos3 = new BlockPosition(structureboundingbox1.minX - structureboundingbox.minX, structureboundingbox1.minY - structureboundingbox.minY, structureboundingbox1.minZ - structureboundingbox.minZ);
 
                             for (int k = structureboundingbox.minZ; k <= structureboundingbox.maxZ; ++k)
                             {
@@ -123,8 +123,8 @@ public class CommandClone extends CommandBase
                                 {
                                     for (int i1 = structureboundingbox.minX; i1 <= structureboundingbox.maxX; ++i1)
                                     {
-                                        BlockPos blockpos4 = new BlockPos(i1, l, k);
-                                        BlockPos blockpos5 = blockpos4.add(blockpos3);
+                                        BlockPosition blockpos4 = new BlockPosition(i1, l, k);
+                                        BlockPosition blockpos5 = blockpos4.add(blockpos3);
                                         IBlockState iblockstate = world.getBlockState(blockpos4);
 
                                         if ((!flag1 || iblockstate.getBlock() != Blocks.air) && (block == null || iblockstate.getBlock() == block && (j < 0 || iblockstate.getBlock().getMetaFromState(iblockstate) == j)))
@@ -155,7 +155,7 @@ public class CommandClone extends CommandBase
 
                             if (flag)
                             {
-                                for (BlockPos blockpos6 : linkedlist)
+                                for (BlockPosition blockpos6 : linkedlist)
                                 {
                                     TileEntity tileentity1 = world.getTileEntity(blockpos6);
 
@@ -167,7 +167,7 @@ public class CommandClone extends CommandBase
                                     world.setBlockState(blockpos6, Blocks.barrier.getDefaultState(), 2);
                                 }
 
-                                for (BlockPos blockpos7 : linkedlist)
+                                for (BlockPosition blockpos7 : linkedlist)
                                 {
                                     world.setBlockState(blockpos7, Blocks.air.getDefaultState(), 3);
                                 }
@@ -230,7 +230,7 @@ public class CommandClone extends CommandBase
                                 {
                                     if (structureboundingbox.isVecInside(nextticklistentry.position))
                                     {
-                                        BlockPos blockpos8 = nextticklistentry.position.add(blockpos3);
+                                        BlockPosition blockpos8 = nextticklistentry.position.add(blockpos3);
                                         world.scheduleBlockUpdate(blockpos8, nextticklistentry.getBlock(), (int)(nextticklistentry.scheduledTime - world.getWorldInfo().getWorldTotalTime()), nextticklistentry.priority);
                                     }
                                 }
@@ -260,18 +260,18 @@ public class CommandClone extends CommandBase
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : (args.length > 3 && args.length <= 6 ? func_175771_a(args, 3, pos) : (args.length > 6 && args.length <= 9 ? func_175771_a(args, 6, pos) : (args.length == 10 ? getListOfStringsMatchingLastWord(args, new String[] {"replace", "masked", "filtered"}): (args.length == 11 ? getListOfStringsMatchingLastWord(args, new String[] {"normal", "force", "move"}): (args.length == 12 && "filtered".equals(args[9]) ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : null)))));
     }
 
     static class StaticCloneData
     {
-        public final BlockPos pos;
+        public final BlockPosition pos;
         public final IBlockState blockState;
         public final NBTTagCompound compound;
 
-        public StaticCloneData(BlockPos posIn, IBlockState stateIn, NBTTagCompound compoundIn)
+        public StaticCloneData(BlockPosition posIn, IBlockState stateIn, NBTTagCompound compoundIn)
         {
             this.pos = posIn;
             this.blockState = stateIn;

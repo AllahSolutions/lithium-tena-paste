@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
@@ -30,12 +30,12 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         return false;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down()) ? super.canPlaceBlockAt(worldIn, pos) : false;
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos)
+    public boolean canBlockStay(World worldIn, BlockPosition pos)
     {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
@@ -43,11 +43,11 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!this.isLocked(worldIn, pos, state))
         {
@@ -69,7 +69,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return side.getAxis() != EnumFacing.Axis.Y;
     }
@@ -79,12 +79,12 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         return this.isRepeaterPowered;
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return this.getWeakPower(worldIn, pos, state, side);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return !this.isPowered(state) ? 0 : (state.getValue(FACING) == side ? this.getActiveSignal(worldIn, pos, state) : 0);
     }
@@ -92,7 +92,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (this.canBlockStay(worldIn, pos))
         {
@@ -110,7 +110,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         }
     }
 
-    protected void updateState(World worldIn, BlockPos pos, IBlockState state)
+    protected void updateState(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!this.isLocked(worldIn, pos, state))
         {
@@ -134,20 +134,20 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         }
     }
 
-    public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state)
+    public boolean isLocked(IBlockAccess worldIn, BlockPosition pos, IBlockState state)
     {
         return false;
     }
 
-    protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state)
+    protected boolean shouldBePowered(World worldIn, BlockPosition pos, IBlockState state)
     {
         return this.calculateInputStrength(worldIn, pos, state) > 0;
     }
 
-    protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state)
+    protected int calculateInputStrength(World worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-        BlockPos blockpos = pos.offset(enumfacing);
+        BlockPosition blockpos = pos.offset(enumfacing);
         int i = worldIn.getRedstonePower(blockpos, enumfacing);
 
         if (i >= 15)
@@ -161,7 +161,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         }
     }
 
-    protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state)
+    protected int getPowerOnSides(IBlockAccess worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
         EnumFacing enumfacing1 = enumfacing.rotateY();
@@ -169,7 +169,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         return Math.max(this.getPowerOnSide(worldIn, pos.offset(enumfacing1), enumfacing1), this.getPowerOnSide(worldIn, pos.offset(enumfacing2), enumfacing2));
     }
 
-    protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    protected int getPowerOnSide(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         Block block = iblockstate.getBlock();
@@ -188,7 +188,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
@@ -196,7 +196,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         if (this.shouldBePowered(worldIn, pos, state))
         {
@@ -204,15 +204,15 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         }
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.notifyNeighbors(worldIn, pos, state);
     }
 
-    protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state)
+    protected void notifyNeighbors(World worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-        BlockPos blockpos = pos.offset(enumfacing.getOpposite());
+        BlockPosition blockpos = pos.offset(enumfacing.getOpposite());
         worldIn.notifyBlockOfStateChange(blockpos, this);
         worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
     }
@@ -220,7 +220,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
     /**
      * Called when a player destroys this Block
      */
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (this.isRepeaterPowered)
         {
@@ -246,7 +246,7 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         return blockIn.canProvidePower();
     }
 
-    protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state)
+    protected int getActiveSignal(IBlockAccess worldIn, BlockPosition pos, IBlockState state)
     {
         return 15;
     }
@@ -261,10 +261,10 @@ public abstract class BlockRedstoneDiode extends BlockDirectional
         return other == this.getPoweredState(this.getDefaultState()).getBlock() || other == this.getUnpoweredState(this.getDefaultState()).getBlock();
     }
 
-    public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state)
+    public boolean isFacingTowardsRepeater(World worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = ((EnumFacing)state.getValue(FACING)).getOpposite();
-        BlockPos blockpos = pos.offset(enumfacing);
+        BlockPosition blockpos = pos.offset(enumfacing);
         return isRedstoneRepeaterBlockID(worldIn.getBlockState(blockpos).getBlock()) ? worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing : false;
     }
 

@@ -1,7 +1,7 @@
 package net.optifine;
 
 import com.google.common.collect.Iterators;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.NextTickListEntry;
@@ -111,7 +111,7 @@ public class NextTickHashSet extends TreeSet
         }
         else
         {
-            BlockPos blockpos = entry.position;
+            BlockPosition blockpos = entry.position;
             int i = blockpos.getX() >> 4;
             int j = blockpos.getZ() >> 4;
             return this.getSubSet(i, j, autoCreate);

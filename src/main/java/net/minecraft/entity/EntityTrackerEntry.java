@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.*;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.storage.MapData;
 import org.apache.logging.log4j.LogManager;
@@ -405,7 +405,7 @@ public class EntityTrackerEntry
 
                         if (entityplayer.isPlayerSleeping())
                         {
-                            playerMP.playerNetServerHandler.sendPacket(new S0APacketUseBed(entityplayer, new BlockPos(this.trackedEntity)));
+                            playerMP.playerNetServerHandler.sendPacket(new S0APacketUseBed(entityplayer, new BlockPosition(this.trackedEntity)));
                         }
                     }
 
@@ -572,7 +572,7 @@ public class EntityTrackerEntry
         {
             EntityItemFrame entityitemframe = (EntityItemFrame)this.trackedEntity;
             S0EPacketSpawnObject s0epacketspawnobject1 = new S0EPacketSpawnObject(this.trackedEntity, 71, entityitemframe.facingDirection.getHorizontalIndex());
-            BlockPos blockpos1 = entityitemframe.getHangingPosition();
+            BlockPosition blockpos1 = entityitemframe.getHangingPosition();
             s0epacketspawnobject1.setX(MathHelper.floor_float((float)(blockpos1.getX() * 32)));
             s0epacketspawnobject1.setY(MathHelper.floor_float((float)(blockpos1.getY() * 32)));
             s0epacketspawnobject1.setZ(MathHelper.floor_float((float)(blockpos1.getZ() * 32)));
@@ -582,7 +582,7 @@ public class EntityTrackerEntry
         {
             EntityLeashKnot entityleashknot = (EntityLeashKnot)this.trackedEntity;
             S0EPacketSpawnObject s0epacketspawnobject = new S0EPacketSpawnObject(this.trackedEntity, 77);
-            BlockPos blockpos = entityleashknot.getHangingPosition();
+            BlockPosition blockpos = entityleashknot.getHangingPosition();
             s0epacketspawnobject.setX(MathHelper.floor_float((float)(blockpos.getX() * 32)));
             s0epacketspawnobject.setY(MathHelper.floor_float((float)(blockpos.getY() * 32)));
             s0epacketspawnobject.setZ(MathHelper.floor_float((float)(blockpos.getZ() * 32)));

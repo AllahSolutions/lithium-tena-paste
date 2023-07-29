@@ -32,7 +32,7 @@ public class PlayerControllerMP {
     @Setter
     private Minecraft mc;
     private final NetHandlerPlayClient netClientHandler;
-    private BlockPos currentBlock = new BlockPos(-1, -1, -1);
+    private BlockPosition currentBlock = new BlockPosition(-1, -1, -1);
 
     /**
      * The Item currently being used to destroy a block
@@ -74,7 +74,7 @@ public class PlayerControllerMP {
         this.netClientHandler = netHandler;
     }
 
-    public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPos pos, EnumFacing facing) {
+    public static void clickBlockCreative(Minecraft mcIn, PlayerControllerMP playerController, BlockPosition pos, EnumFacing facing) {
         if (!mcIn.theWorld.extinguishFire(mcIn.thePlayer, pos, facing)) {
             playerController.onPlayerDestroyBlock(pos, facing);
         }
@@ -120,7 +120,7 @@ public class PlayerControllerMP {
     /**
      * Called when a player completes the destruction of a block
      */
-    public boolean onPlayerDestroyBlock(BlockPos pos, EnumFacing side) {
+    public boolean onPlayerDestroyBlock(BlockPosition pos, EnumFacing side) {
         if (this.currentGameType.isAdventure()) {
             if (this.currentGameType == WorldSettings.GameType.SPECTATOR) {
                 return false;
@@ -157,7 +157,7 @@ public class PlayerControllerMP {
                     block1.onBlockDestroyedByPlayer(world, pos, iblockstate);
                 }
 
-                this.currentBlock = new BlockPos(this.currentBlock.getX(), -1, this.currentBlock.getZ());
+                this.currentBlock = new BlockPosition(this.currentBlock.getX(), -1, this.currentBlock.getZ());
 
                 if (!this.currentGameType.isCreative()) {
                     ItemStack itemstack1 = this.mc.thePlayer.getCurrentEquippedItem();
@@ -179,7 +179,7 @@ public class PlayerControllerMP {
     /**
      * Called when the player is hitting a block with an item.
      */
-    public boolean clickBlock(BlockPos loc, EnumFacing face) {
+    public boolean clickBlock(BlockPosition loc, EnumFacing face) {
         if (this.currentGameType.isAdventure()) {
             if (this.currentGameType == WorldSettings.GameType.SPECTATOR) {
                 return false;
@@ -247,7 +247,7 @@ public class PlayerControllerMP {
         }
     }
 
-    public boolean onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing) {
+    public boolean onPlayerDamageBlock(BlockPosition posBlock, EnumFacing directionFacing) {
         this.syncCurrentPlayItem();
 
         if (this.blockHitDelay > 0) {
@@ -309,7 +309,7 @@ public class PlayerControllerMP {
         }
     }
 
-    private boolean isHittingPosition(BlockPos pos) {
+    private boolean isHittingPosition(BlockPosition pos) {
         ItemStack itemstack = this.mc.thePlayer.getHeldItem();
         boolean flag = this.currentItemHittingBlock == null && itemstack == null;
 
@@ -332,7 +332,7 @@ public class PlayerControllerMP {
         }
     }
 
-    public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, EnumFacing side, Vec3 hitVec) {
+    public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPosition hitPos, EnumFacing side, Vec3 hitVec) {
         this.syncCurrentPlayItem();
         float f = (float) (hitVec.xCoord - (double) hitPos.getX());
         float f1 = (float) (hitVec.yCoord - (double) hitPos.getY());
@@ -498,7 +498,7 @@ public class PlayerControllerMP {
             }
         }
         this.syncCurrentPlayItem();
-        this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+        this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPosition.ORIGIN, EnumFacing.DOWN));
         playerIn.stopUsingItem();
     }
 

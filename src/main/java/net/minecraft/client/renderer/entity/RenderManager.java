@@ -33,7 +33,7 @@ import net.minecraft.entity.projectile.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -189,7 +189,7 @@ public class RenderManager {
         this.textRenderer = textRendererIn;
 
         if (livingPlayerIn instanceof EntityLivingBase && ((EntityLivingBase) livingPlayerIn).isPlayerSleeping()) {
-            IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
+            IBlockState iblockstate = worldIn.getBlockState(new BlockPosition(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
             if (block == Blocks.bed) {

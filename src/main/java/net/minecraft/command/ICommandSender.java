@@ -1,7 +1,7 @@
 package net.minecraft.command;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ public interface ICommandSender
      * Get the position in the world. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return
      * the coordinates 0, 0, 0
      */
-    BlockPos getPosition();
+    BlockPosition getPosition();
 
     /**
      * Get the position vector. <b>{@code null} is not allowed!</b> If you are not an entity in the world, return 0.0D,

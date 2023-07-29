@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
@@ -80,7 +80,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
         if (this.getIsAboveDestination())
         {
             World world = this.theVillager.worldObj;
-            BlockPos blockpos = this.destinationBlock.up();
+            BlockPosition blockpos = this.destinationBlock.up();
             IBlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
@@ -138,7 +138,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
     /**
      * Return true to set given position as destination
      */
-    protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+    protected boolean shouldMoveTo(World worldIn, BlockPosition pos)
     {
         Block block = worldIn.getBlockState(pos).getBlock();
 

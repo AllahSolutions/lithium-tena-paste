@@ -3,7 +3,7 @@ package net.minecraft.world.border;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.ChunkCoordIntPair;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class WorldBorder
         this.warningDistance = 5;
     }
 
-    public boolean contains(BlockPos pos)
+    public boolean contains(BlockPosition pos)
     {
         return (double)(pos.getX() + 1) > this.minX() && (double)pos.getX() < this.maxX() && (double)(pos.getZ() + 1) > this.minZ() && (double)pos.getZ() < this.maxZ();
     }

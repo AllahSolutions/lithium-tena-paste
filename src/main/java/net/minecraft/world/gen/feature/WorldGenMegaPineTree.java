@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -23,7 +23,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees
         this.useBaseHeight = p_i45457_2_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         int i = this.func_150533_a(rand);
 
@@ -82,12 +82,12 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees
         {
             int l = p_150541_4_ - k;
             int i1 = p_150541_5_ + MathHelper.floor_float((float)l / (float)i * 3.5F);
-            this.func_175925_a(worldIn, new BlockPos(p_150541_2_, k, p_150541_3_), i1 + (l > 0 && i1 == j && (k & 1) == 0 ? 1 : 0));
+            this.func_175925_a(worldIn, new BlockPosition(p_150541_2_, k, p_150541_3_), i1 + (l > 0 && i1 == j && (k & 1) == 0 ? 1 : 0));
             j = i1;
         }
     }
 
-    public void func_180711_a(World worldIn, Random p_180711_2_, BlockPos p_180711_3_)
+    public void func_180711_a(World worldIn, Random p_180711_2_, BlockPosition p_180711_3_)
     {
         this.func_175933_b(worldIn, p_180711_3_.west().north());
         this.func_175933_b(worldIn, p_180711_3_.east(2).north());
@@ -107,7 +107,7 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees
         }
     }
 
-    private void func_175933_b(World worldIn, BlockPos p_175933_2_)
+    private void func_175933_b(World worldIn, BlockPosition p_175933_2_)
     {
         for (int i = -2; i <= 2; ++i)
         {
@@ -121,11 +121,11 @@ public class WorldGenMegaPineTree extends WorldGenHugeTrees
         }
     }
 
-    private void func_175934_c(World worldIn, BlockPos p_175934_2_)
+    private void func_175934_c(World worldIn, BlockPosition p_175934_2_)
     {
         for (int i = 2; i >= -3; --i)
         {
-            BlockPos blockpos = p_175934_2_.up(i);
+            BlockPosition blockpos = p_175934_2_.up(i);
             Block block = worldIn.getBlockState(blockpos).getBlock();
 
             if (block == Blocks.grass || block == Blocks.dirt)

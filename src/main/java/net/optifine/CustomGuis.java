@@ -6,7 +6,7 @@ import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.optifine.override.PlayerControllerOF;
@@ -62,7 +62,7 @@ public class CustomGuis
                     }
                     else
                     {
-                        BlockPos blockpos = playerControllerOF.getLastClickBlockPos();
+                        BlockPosition blockpos = playerControllerOF.getLastClickBlockPos();
 
                         if (blockpos != null)
                         {
@@ -138,7 +138,7 @@ public class CustomGuis
         }
     }
 
-    private static ResourceLocation getTexturePos(CustomGuiProperties.EnumContainer container, BlockPos pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen)
+    private static ResourceLocation getTexturePos(CustomGuiProperties.EnumContainer container, BlockPosition pos, IBlockAccess blockAccess, ResourceLocation loc, GuiScreen screen)
     {
         CustomGuiProperties[] acustomguiproperties = guiProperties[container.ordinal()];
 

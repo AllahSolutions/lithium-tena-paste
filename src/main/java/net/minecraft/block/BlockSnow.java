@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
@@ -36,12 +36,12 @@ public class BlockSnow extends Block
         this.setBlockBoundsForItemRender();
     }
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    public boolean isPassable(IBlockAccess worldIn, BlockPosition pos)
     {
         return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() < 5;
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         int i = ((Integer)state.getValue(LAYERS)).intValue() - 1;
         float f = 0.125F;
@@ -69,7 +69,7 @@ public class BlockSnow extends Block
         this.getBoundsForLayers(0);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         this.getBoundsForLayers(((Integer)iblockstate.getValue(LAYERS)).intValue());
@@ -80,7 +80,7 @@ public class BlockSnow extends Block
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, (float)p_150154_1_ / 8.0F, 1.0F);
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos.down());
         Block block = iblockstate.getBlock();
@@ -90,12 +90,12 @@ public class BlockSnow extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         this.checkAndDropBlock(worldIn, pos, state);
     }
 
-    private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state)
+    private boolean checkAndDropBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!this.canPlaceBlockAt(worldIn, pos))
         {
@@ -109,7 +109,7 @@ public class BlockSnow extends Block
         }
     }
 
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPosition pos, IBlockState state, TileEntity te)
     {
         spawnAsEntity(worldIn, pos, new ItemStack(Items.snowball, ((Integer)state.getValue(LAYERS)).intValue() + 1, 0));
         worldIn.setBlockToAir(pos);
@@ -132,7 +132,7 @@ public class BlockSnow extends Block
         return 0;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (worldIn.getLightFor(EnumSkyBlock.BLOCK, pos) > 11)
         {
@@ -141,7 +141,7 @@ public class BlockSnow extends Block
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return side == EnumFacing.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
     }
@@ -157,7 +157,7 @@ public class BlockSnow extends Block
     /**
      * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
      */
-    public boolean isReplaceable(World worldIn, BlockPos pos)
+    public boolean isReplaceable(World worldIn, BlockPosition pos)
     {
         return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() == 1;
     }

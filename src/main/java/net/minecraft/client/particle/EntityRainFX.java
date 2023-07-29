@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -55,7 +55,7 @@ public class EntityRainFX extends EntityFX
             this.motionZ *= 0.699999988079071D;
         }
 
-        BlockPos blockpos = new BlockPos(this);
+        BlockPosition blockpos = new BlockPosition(this);
         IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
         block.setBlockBoundsBasedOnState(this.worldObj, blockpos);

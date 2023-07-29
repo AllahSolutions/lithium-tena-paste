@@ -16,13 +16,13 @@ import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.src.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.optifine.BlockPosM;
+import net.optifine.BlockPositionM;
 import net.optifine.CustomBlockLayers;
 import net.optifine.override.ChunkCacheOF;
 import net.optifine.reflect.ReflectorForge;
@@ -42,7 +42,7 @@ public class RenderChunk
     private final World world;
     private final RenderGlobal renderGlobal;
     public static int renderChunksUpdated;
-    private BlockPos position;
+    private BlockPosition position;
     public CompiledChunk compiledChunk = CompiledChunk.DUMMY;
     private final ReentrantLock lockCompileTask = new ReentrantLock();
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
@@ -54,8 +54,8 @@ public class RenderChunk
     public AxisAlignedBB boundingBox;
     private int frameIndex = -1;
     private boolean needsUpdate = true;
-    private EnumMap<EnumFacing, BlockPos> mapEnumFacing = null;
-    private BlockPos[] positionOffsets16 = new BlockPos[EnumFacing.VALUES.length];
+    private EnumMap<EnumFacing, BlockPosition> mapEnumFacing = null;
+    private BlockPosition[] positionOffsets16 = new BlockPosition[EnumFacing.VALUES.length];
     public static final EnumWorldBlockLayer[] ENUM_WORLD_BLOCK_LAYERS = EnumWorldBlockLayer.values();
     private final EnumWorldBlockLayer[] blockLayersSingle = new EnumWorldBlockLayer[1];
     private final boolean isMipmaps = Config.isMipmaps();
@@ -71,15 +71,15 @@ public class RenderChunk
     private RenderGlobal.ContainerLocalRenderInformation renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this, (EnumFacing)null, 0);
     public AabbFrame boundingBoxParent;
 
-    public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPos blockPosIn, int indexIn)
+    public RenderChunk(World worldIn, RenderGlobal renderGlobalIn, BlockPosition blockPositionIn, int indexIn)
     {
         this.world = worldIn;
         this.renderGlobal = renderGlobalIn;
         this.index = indexIn;
 
-        if (!blockPosIn.equals(this.getPosition()))
+        if (!blockPositionIn.equals(this.getPosition()))
         {
-            this.setPosition(blockPosIn);
+            this.setPosition(blockPositionIn);
         }
 
         if (OpenGlHelper.useVbo())
@@ -109,7 +109,7 @@ public class RenderChunk
         return this.vertexBuffers[layer];
     }
 
-    public void setPosition(BlockPos pos)
+    public void setPosition(BlockPosition pos)
     {
         this.stopCompileTask();
         this.position = pos;
@@ -158,8 +158,8 @@ public class RenderChunk
     {
         CompiledChunk compiledchunk = new CompiledChunk();
         int i = 1;
-        BlockPos blockpos = new BlockPos(this.position);
-        BlockPos blockpos1 = blockpos.add(15, 15, 15);
+        BlockPosition blockpos = new BlockPosition(this.position);
+        BlockPosition blockpos1 = blockpos.add(15, 15, 15);
         generator.getLock().lock();
 
         try
@@ -187,9 +187,9 @@ public class RenderChunk
             boolean[] aboolean = new boolean[ENUM_WORLD_BLOCK_LAYERS.length];
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 
-            for (Object blockposm0 : BlockPosM.getAllInBoxMutable(blockpos, blockpos1))
+            for (Object blockposm0 : BlockPositionM.getAllInBoxMutable(blockpos, blockpos1))
             {
-                BlockPosM blockposm = (BlockPosM) blockposm0;
+                BlockPositionM blockposm = (BlockPositionM) blockposm0;
                 IBlockState iblockstate = chunkcacheof.getBlockState(blockposm);
                 Block block = iblockstate.getBlock();
 
@@ -200,7 +200,7 @@ public class RenderChunk
 
                 if (ReflectorForge.blockHasTileEntity(iblockstate))
                 {
-                    TileEntity tileentity = chunkcacheof.getTileEntity(new BlockPos(blockposm));
+                    TileEntity tileentity = chunkcacheof.getTileEntity(new BlockPosition(blockposm));
                     TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.<TileEntity>getSpecialRenderer(tileentity);
 
                     if (tileentity != null && tileentityspecialrenderer != null)
@@ -374,7 +374,7 @@ public class RenderChunk
         return chunkcompiletaskgenerator1;
     }
 
-    private void preRenderBlocks(WorldRenderer worldRendererIn, BlockPos pos)
+    private void preRenderBlocks(WorldRenderer worldRendererIn, BlockPosition pos)
     {
         worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
 
@@ -460,7 +460,7 @@ public class RenderChunk
         }
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.position;
     }
@@ -487,15 +487,15 @@ public class RenderChunk
         return this.needsUpdate;
     }
 
-    public BlockPos getBlockPosOffset16(EnumFacing p_181701_1_)
+    public BlockPosition getBlockPosOffset16(EnumFacing p_181701_1_)
     {
         return this.getPositionOffset16(p_181701_1_);
     }
 
-    public BlockPos getPositionOffset16(EnumFacing p_getPositionOffset16_1_)
+    public BlockPosition getPositionOffset16(EnumFacing p_getPositionOffset16_1_)
     {
         int i = p_getPositionOffset16_1_.getIndex();
-        BlockPos blockpos = this.positionOffsets16[i];
+        BlockPosition blockpos = this.positionOffsets16[i];
 
         if (blockpos == null)
         {
@@ -524,7 +524,7 @@ public class RenderChunk
         return this.playerUpdate;
     }
 
-    protected RegionRenderCache createRegionRenderCache(World p_createRegionRenderCache_1_, BlockPos p_createRegionRenderCache_2_, BlockPos p_createRegionRenderCache_3_, int p_createRegionRenderCache_4_)
+    protected RegionRenderCache createRegionRenderCache(World p_createRegionRenderCache_1_, BlockPosition p_createRegionRenderCache_2_, BlockPosition p_createRegionRenderCache_3_, int p_createRegionRenderCache_4_)
     {
         return new RegionRenderCache(p_createRegionRenderCache_1_, p_createRegionRenderCache_2_, p_createRegionRenderCache_3_, p_createRegionRenderCache_4_);
     }
@@ -594,10 +594,10 @@ public class RenderChunk
         }
     }
 
-    private ChunkCacheOF makeChunkCacheOF(BlockPos p_makeChunkCacheOF_1_)
+    private ChunkCacheOF makeChunkCacheOF(BlockPosition p_makeChunkCacheOF_1_)
     {
-        BlockPos blockpos = p_makeChunkCacheOF_1_.add(-1, -1, -1);
-        BlockPos blockpos1 = p_makeChunkCacheOF_1_.add(16, 16, 16);
+        BlockPosition blockpos = p_makeChunkCacheOF_1_.add(-1, -1, -1);
+        BlockPosition blockpos1 = p_makeChunkCacheOF_1_.add(16, 16, 16);
         ChunkCache chunkcache = this.createRegionRenderCache(this.world, blockpos, blockpos1, 1);
         ChunkCacheOF chunkcacheof = new ChunkCacheOF(chunkcache, blockpos, blockpos1, 1);
         return chunkcacheof;
@@ -610,7 +610,7 @@ public class RenderChunk
             for (int i = 0; i < EnumFacing.VALUES.length; ++i)
             {
                 EnumFacing enumfacing = EnumFacing.VALUES[i];
-                BlockPos blockpos = this.getBlockPosOffset16(enumfacing);
+                BlockPosition blockpos = this.getBlockPosOffset16(enumfacing);
                 this.renderChunksOfset16[i] = p_getRenderChunkOffset16_1_.getRenderChunk(blockpos);
             }
 
@@ -625,7 +625,7 @@ public class RenderChunk
         return this.getChunk(this.position);
     }
 
-    private Chunk getChunk(BlockPos p_getChunk_1_)
+    private Chunk getChunk(BlockPosition p_getChunk_1_)
     {
         Chunk chunk = this.chunk;
 
@@ -646,7 +646,7 @@ public class RenderChunk
         return this.isChunkRegionEmpty(this.position);
     }
 
-    private boolean isChunkRegionEmpty(BlockPos p_isChunkRegionEmpty_1_)
+    private boolean isChunkRegionEmpty(BlockPosition p_isChunkRegionEmpty_1_)
     {
         int i = p_isChunkRegionEmpty_1_.getY();
         int j = i + 15;
@@ -698,7 +698,7 @@ public class RenderChunk
     {
         if (this.boundingBoxParent == null)
         {
-            BlockPos blockpos = this.getPosition();
+            BlockPosition blockpos = this.getPosition();
             int i = blockpos.getX();
             int j = blockpos.getY();
             int k = blockpos.getZ();
@@ -709,7 +709,7 @@ public class RenderChunk
 
             if (i1 != i || j1 != j || k1 != k)
             {
-                AabbFrame aabbframe = this.renderGlobal.getRenderChunk(new BlockPos(i1, j1, k1)).getBoundingBoxParent();
+                AabbFrame aabbframe = this.renderGlobal.getRenderChunk(new BlockPosition(i1, j1, k1)).getBoundingBoxParent();
 
                 if (aabbframe != null && aabbframe.minX == (double)i1 && aabbframe.minY == (double)j1 && aabbframe.minZ == (double)k1)
                 {

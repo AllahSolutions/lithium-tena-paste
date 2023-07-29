@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.AchievementList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -85,7 +85,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob
         return "mob.skeleton.death";
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    protected void playStepSound(BlockPosition pos, Block blockIn)
     {
         this.playSound("mob.skeleton.step", 0.15F, 1.0F);
     }
@@ -124,7 +124,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob
         if (this.worldObj.isDaytime() && !this.worldObj.isRemote)
         {
             float f = this.getBrightness(1.0F);
-            BlockPos blockpos = new BlockPos(this.posX, (double)Math.round(this.posY), this.posZ);
+            BlockPosition blockpos = new BlockPosition(this.posX, (double)Math.round(this.posY), this.posZ);
 
             if (f > 0.5F && this.rand.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && this.worldObj.canSeeSky(blockpos))
             {

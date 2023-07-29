@@ -22,7 +22,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 
@@ -42,7 +42,7 @@ public class ChestStealer extends Module {
     public static final BooleanSetting silent = new BooleanSetting("Silent", false);
     private final BooleanSetting smart = new BooleanSetting("Smart", false);
 
-    private final List<BlockPos> openedChests = new ArrayList<>();
+    private final List<BlockPosition> openedChests = new ArrayList<>();
     private final List<Item> items = new ArrayList<>();
     private final TimerUtil timer = new TimerUtil();
     public static boolean stealing;
@@ -66,7 +66,7 @@ public class ChestStealer extends Module {
                 for (int x = -radius; x < radius; x++) {
                     for (int y = -radius; y < radius; y++) {
                         for (int z = -radius; z < radius; z++) {
-                            final BlockPos pos = new BlockPos(mc.thePlayer.posX + x, mc.thePlayer.posY + y, mc.thePlayer.posZ + z);
+                            final BlockPosition pos = new BlockPosition(mc.thePlayer.posX + x, mc.thePlayer.posY + y, mc.thePlayer.posZ + z);
                             if (pos.getBlock() == Blocks.chest && !openedChests.contains(pos)) {
                                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem(), pos, EnumFacing.UP, new Vec3(pos))) {
                                     mc.thePlayer.swingItem();

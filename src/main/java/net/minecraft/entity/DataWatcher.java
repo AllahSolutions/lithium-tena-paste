@@ -6,7 +6,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Rotations;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -31,7 +31,7 @@ public class DataWatcher
     private boolean objectChanged;
     private ReadWriteLock lock = new ReentrantReadWriteLock();
     public BiomeGenBase spawnBiome = BiomeGenBase.plains;
-    public BlockPos spawnPosition = BlockPos.ORIGIN;
+    public BlockPosition spawnPosition = BlockPosition.ORIGIN;
 
     public DataWatcher(Entity owner)
     {
@@ -290,7 +290,7 @@ public class DataWatcher
                 break;
 
             case 6:
-                BlockPos blockpos = (BlockPos)object.getObject();
+                BlockPosition blockpos = (BlockPosition)object.getObject();
                 buffer.writeInt(blockpos.getX());
                 buffer.writeInt(blockpos.getY());
                 buffer.writeInt(blockpos.getZ());
@@ -349,7 +349,7 @@ public class DataWatcher
                     int l = buffer.readInt();
                     int i1 = buffer.readInt();
                     int j1 = buffer.readInt();
-                    datawatcher$watchableobject = new DataWatcher.WatchableObject(j, k, new BlockPos(l, i1, j1));
+                    datawatcher$watchableobject = new DataWatcher.WatchableObject(j, k, new BlockPosition(l, i1, j1));
                     break;
 
                 case 7:
@@ -402,7 +402,7 @@ public class DataWatcher
         dataTypes.put(Float.class, Integer.valueOf(3));
         dataTypes.put(String.class, Integer.valueOf(4));
         dataTypes.put(ItemStack.class, Integer.valueOf(5));
-        dataTypes.put(BlockPos.class, Integer.valueOf(6));
+        dataTypes.put(BlockPosition.class, Integer.valueOf(6));
         dataTypes.put(Rotations.class, Integer.valueOf(7));
     }
 

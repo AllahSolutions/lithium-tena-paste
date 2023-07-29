@@ -8,7 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -39,7 +39,7 @@ public class BlockRedstoneOre extends Block
         return 30;
     }
 
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+    public void onBlockClicked(World worldIn, BlockPosition pos, EntityPlayer playerIn)
     {
         this.activate(worldIn, pos);
         super.onBlockClicked(worldIn, pos, playerIn);
@@ -48,19 +48,19 @@ public class BlockRedstoneOre extends Block
     /**
      * Triggered whenever an entity collides with this block (enters into the block)
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, Entity entityIn)
     {
         this.activate(worldIn, pos);
         super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         this.activate(worldIn, pos);
         return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
     }
 
-    private void activate(World worldIn, BlockPos pos)
+    private void activate(World worldIn, BlockPosition pos)
     {
         this.spawnParticles(worldIn, pos);
 
@@ -70,7 +70,7 @@ public class BlockRedstoneOre extends Block
         }
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (this == Blocks.lit_redstone_ore)
         {
@@ -105,7 +105,7 @@ public class BlockRedstoneOre extends Block
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, fortune);
 
@@ -116,7 +116,7 @@ public class BlockRedstoneOre extends Block
         }
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (this.isOn)
         {
@@ -124,7 +124,7 @@ public class BlockRedstoneOre extends Block
         }
     }
 
-    private void spawnParticles(World worldIn, BlockPos pos)
+    private void spawnParticles(World worldIn, BlockPosition pos)
     {
         Random random = worldIn.rand;
         double d0 = 0.0625D;

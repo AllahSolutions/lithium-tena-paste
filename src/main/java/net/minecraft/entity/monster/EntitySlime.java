@@ -10,7 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -306,7 +306,7 @@ public class EntitySlime extends EntityLiving implements IMob
      */
     public boolean getCanSpawnHere()
     {
-        BlockPos blockpos = new BlockPos(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ));
+        BlockPosition blockpos = new BlockPosition(MathHelper.floor_double(this.posX), 0, MathHelper.floor_double(this.posZ));
         Chunk chunk = this.worldObj.getChunkFromBlockCoords(blockpos);
 
         if (this.worldObj.getWorldInfo().getTerrainType() == WorldType.FLAT && this.rand.nextInt(4) != 1)
@@ -319,7 +319,7 @@ public class EntitySlime extends EntityLiving implements IMob
             {
                 BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(blockpos);
 
-                if (biomegenbase == BiomeGenBase.swampland && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.worldObj.getCurrentMoonPhaseFactor() && this.worldObj.getLightFromNeighbors(new BlockPos(this)) <= this.rand.nextInt(8))
+                if (biomegenbase == BiomeGenBase.swampland && this.posY > 50.0D && this.posY < 70.0D && this.rand.nextFloat() < 0.5F && this.rand.nextFloat() < this.worldObj.getCurrentMoonPhaseFactor() && this.worldObj.getLightFromNeighbors(new BlockPosition(this)) <= this.rand.nextInt(8))
                 {
                     return super.getCanSpawnHere();
                 }

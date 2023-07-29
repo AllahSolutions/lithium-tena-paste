@@ -3,10 +3,6 @@ package dev.tenacity.module.impl.movement.speeds.impl;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
-import dev.tenacity.utils.time.TimerUtil;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 
 public class Kokscraft extends SpeedMode {
     int jumps;

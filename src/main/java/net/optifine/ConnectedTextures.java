@@ -11,7 +11,7 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
@@ -66,7 +66,7 @@ public class ConnectedTextures
     private static final BlockDir[] EDGES_X_POS_EAST_X_AXIS = new BlockDir[] {BlockDir.UP_SOUTH, BlockDir.UP_NORTH, BlockDir.DOWN_SOUTH, BlockDir.DOWN_NORTH};
     public static final TextureAtlasSprite SPRITE_DEFAULT = new TextureAtlasSprite("<default>");
 
-    public static BakedQuad[] getConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, BakedQuad quad, RenderEnv renderEnv)
+    public static BakedQuad[] getConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, BakedQuad quad, RenderEnv renderEnv)
     {
         TextureAtlasSprite textureatlassprite = quad.getSprite();
 
@@ -78,7 +78,7 @@ public class ConnectedTextures
         {
             Block block = blockState.getBlock();
 
-            if (skipConnectedTexture(blockAccess, blockState, blockPos, quad, renderEnv))
+            if (skipConnectedTexture(blockAccess, blockState, blockPosition, quad, renderEnv))
             {
                 quad = getQuad(emptySprite, quad);
                 return renderEnv.getArrayQuadsCtm(quad);
@@ -86,13 +86,13 @@ public class ConnectedTextures
             else
             {
                 EnumFacing enumfacing = quad.getFace();
-                BakedQuad[] abakedquad = getConnectedTextureMultiPass(blockAccess, blockState, blockPos, enumfacing, quad, renderEnv);
+                BakedQuad[] abakedquad = getConnectedTextureMultiPass(blockAccess, blockState, blockPosition, enumfacing, quad, renderEnv);
                 return abakedquad;
             }
         }
     }
 
-    private static boolean skipConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, BakedQuad quad, RenderEnv renderEnv)
+    private static boolean skipConnectedTexture(IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, BakedQuad quad, RenderEnv renderEnv)
     {
         Block block = blockState.getBlock();
 
@@ -102,7 +102,7 @@ public class ConnectedTextures
 
             if (textureatlassprite.getIconName().startsWith("minecraft:blocks/glass_pane_top"))
             {
-                IBlockState iblockstate1 = blockAccess.getBlockState(blockPos.offset(quad.getFace()));
+                IBlockState iblockstate1 = blockAccess.getBlockState(blockPosition.offset(quad.getFace()));
                 return iblockstate1 == blockState;
             }
         }
@@ -121,7 +121,7 @@ public class ConnectedTextures
                 return false;
             }
 
-            BlockPos blockpos = blockPos.offset(quad.getFace());
+            BlockPosition blockpos = blockPosition.offset(quad.getFace());
             IBlockState iblockstate = blockAccess.getBlockState(blockpos);
 
             if (iblockstate.getBlock() != block)
@@ -303,9 +303,9 @@ public class ConnectedTextures
         data[j + 4 + 1] = Float.floatToRawIntBits(spriteTo.getInterpolatedV(d1));
     }
 
-    private static BakedQuad[] getConnectedTextureMultiPass(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing side, BakedQuad quad, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTextureMultiPass(IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, EnumFacing side, BakedQuad quad, RenderEnv renderEnv)
     {
-        BakedQuad[] abakedquad = getConnectedTextureSingle(blockAccess, blockState, blockPos, side, quad, true, 0, renderEnv);
+        BakedQuad[] abakedquad = getConnectedTextureSingle(blockAccess, blockState, blockPosition, side, quad, true, 0, renderEnv);
 
         if (!multipass)
         {
@@ -326,7 +326,7 @@ public class ConnectedTextures
 
                 for (int j = 0; j < 3; ++j)
                 {
-                    BakedQuad[] abakedquad1 = getConnectedTextureSingle(blockAccess, blockState, blockPos, side, bakedquad1, false, j + 1, renderEnv);
+                    BakedQuad[] abakedquad1 = getConnectedTextureSingle(blockAccess, blockState, blockPosition, side, bakedquad1, false, j + 1, renderEnv);
 
                     if (abakedquad1.length != 1 || abakedquad1[0] == bakedquad1)
                     {
@@ -348,7 +348,7 @@ public class ConnectedTextures
         }
     }
 
-    public static BakedQuad[] getConnectedTextureSingle(IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv)
+    public static BakedQuad[] getConnectedTextureSingle(IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, EnumFacing facing, BakedQuad quad, boolean checkBlocks, int pass, RenderEnv renderEnv)
     {
         Block block = blockState.getBlock();
 
@@ -379,7 +379,7 @@ public class ConnectedTextures
 
                             if (connectedproperties != null && connectedproperties.matchesBlockId(blockstatebase.getBlockId()))
                             {
-                                BakedQuad[] abakedquad = getConnectedTexture(connectedproperties, blockAccess, blockstatebase, blockPos, j, quad, pass, renderEnv);
+                                BakedQuad[] abakedquad = getConnectedTexture(connectedproperties, blockAccess, blockstatebase, blockPosition, j, quad, pass, renderEnv);
 
                                 if (abakedquad != null)
                                 {
@@ -409,7 +409,7 @@ public class ConnectedTextures
 
                             if (connectedproperties1 != null && connectedproperties1.matchesIcon(textureatlassprite))
                             {
-                                BakedQuad[] abakedquad1 = getConnectedTexture(connectedproperties1, blockAccess, blockstatebase, blockPos, i1, quad, pass, renderEnv);
+                                BakedQuad[] abakedquad1 = getConnectedTexture(connectedproperties1, blockAccess, blockstatebase, blockPosition, i1, quad, pass, renderEnv);
 
                                 if (abakedquad1 != null)
                                 {
@@ -486,7 +486,7 @@ public class ConnectedTextures
         }
     }
 
-    private static BakedQuad[] getConnectedTexture(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, int pass, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTexture(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPosition blockPosition, int side, BakedQuad quad, int pass, RenderEnv renderEnv)
     {
         int i = 0;
         int j = blockState.getMetadata();
@@ -534,7 +534,7 @@ public class ConnectedTextures
                 }
             }
 
-            int i1 = blockPos.getY();
+            int i1 = blockPosition.getY();
 
             if (cp.heights != null && !cp.heights.isInRange(i1))
             {
@@ -544,7 +544,7 @@ public class ConnectedTextures
             {
                 if (cp.biomes != null)
                 {
-                    BiomeGenBase biomegenbase = blockAccess.getBiomeGenForCoords(blockPos);
+                    BiomeGenBase biomegenbase = blockAccess.getBiomeGenForCoords(blockPosition);
 
                     if (!cp.matchesBiome(biomegenbase))
                     {
@@ -554,7 +554,7 @@ public class ConnectedTextures
 
                 if (cp.nbtName != null)
                 {
-                    String s = TileEntityUtils.getTileEntityName(blockAccess, blockPos);
+                    String s = TileEntityUtils.getTileEntityName(blockAccess, blockPosition);
 
                     if (!cp.nbtName.matchesValue(s))
                     {
@@ -567,55 +567,55 @@ public class ConnectedTextures
                 switch (cp.method)
                 {
                     case 1:
-                        return getQuads(getConnectedTextureCtm(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j, renderEnv), quad, renderEnv);
+                        return getQuads(getConnectedTextureCtm(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j, renderEnv), quad, renderEnv);
 
                     case 2:
-                        return getQuads(getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                        return getQuads(getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j), quad, renderEnv);
 
                     case 3:
-                        return getQuads(getConnectedTextureTop(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                        return getQuads(getConnectedTextureTop(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j), quad, renderEnv);
 
                     case 4:
-                        return getQuads(getConnectedTextureRandom(cp, blockAccess, blockState, blockPos, side), quad, renderEnv);
+                        return getQuads(getConnectedTextureRandom(cp, blockAccess, blockState, blockPosition, side), quad, renderEnv);
 
                     case 5:
-                        return getQuads(getConnectedTextureRepeat(cp, blockPos, side), quad, renderEnv);
+                        return getQuads(getConnectedTextureRepeat(cp, blockPosition, side), quad, renderEnv);
 
                     case 6:
-                        return getQuads(getConnectedTextureVertical(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                        return getQuads(getConnectedTextureVertical(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j), quad, renderEnv);
 
                     case 7:
                         return getQuads(getConnectedTextureFixed(cp), quad, renderEnv);
 
                     case 8:
-                        return getQuads(getConnectedTextureHorizontalVertical(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                        return getQuads(getConnectedTextureHorizontalVertical(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j), quad, renderEnv);
 
                     case 9:
-                        return getQuads(getConnectedTextureVerticalHorizontal(cp, blockAccess, blockState, blockPos, i, side, textureatlassprite, j), quad, renderEnv);
+                        return getQuads(getConnectedTextureVerticalHorizontal(cp, blockAccess, blockState, blockPosition, i, side, textureatlassprite, j), quad, renderEnv);
 
                     case 10:
                         if (pass == 0)
                         {
-                            return getConnectedTextureCtmCompact(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                            return getConnectedTextureCtmCompact(cp, blockAccess, blockState, blockPosition, i, side, quad, j, renderEnv);
                         }
 
                     default:
                         return null;
 
                     case 11:
-                        return getConnectedTextureOverlay(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                        return getConnectedTextureOverlay(cp, blockAccess, blockState, blockPosition, i, side, quad, j, renderEnv);
 
                     case 12:
                         return getConnectedTextureOverlayFixed(cp, quad, renderEnv);
 
                     case 13:
-                        return getConnectedTextureOverlayRandom(cp, blockAccess, blockState, blockPos, side, quad, renderEnv);
+                        return getConnectedTextureOverlayRandom(cp, blockAccess, blockState, blockPosition, side, quad, renderEnv);
 
                     case 14:
-                        return getConnectedTextureOverlayRepeat(cp, blockPos, side, quad, renderEnv);
+                        return getConnectedTextureOverlayRepeat(cp, blockPosition, side, quad, renderEnv);
 
                     case 15:
-                        return getConnectedTextureOverlayCtm(cp, blockAccess, blockState, blockPos, i, side, quad, j, renderEnv);
+                        return getConnectedTextureOverlayCtm(cp, blockAccess, blockState, blockPosition, i, side, quad, j, renderEnv);
                 }
             }
         }
@@ -705,7 +705,7 @@ public class ConnectedTextures
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureRandom(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPos blockPos, int side)
+    private static TextureAtlasSprite getConnectedTextureRandom(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPosition blockPosition, int side)
     {
         if (cp.tileIcons.length == 1)
         {
@@ -717,11 +717,11 @@ public class ConnectedTextures
 
             if (cp.linked)
             {
-                BlockPos blockpos = blockPos.down();
+                BlockPosition blockpos = blockPosition.down();
 
                 for (IBlockState iblockstate = blockAccess.getBlockState(blockpos); iblockstate.getBlock() == blockState.getBlock(); iblockstate = blockAccess.getBlockState(blockpos))
                 {
-                    blockPos = blockpos;
+                    blockPosition = blockpos;
                     blockpos = blockpos.down();
 
                     if (blockpos.getY() < 0)
@@ -731,7 +731,7 @@ public class ConnectedTextures
                 }
             }
 
-            int l = Config.getRandom(blockPos, i) & Integer.MAX_VALUE;
+            int l = Config.getRandom(blockPosition, i) & Integer.MAX_VALUE;
 
             for (int i1 = 0; i1 < cp.randomLoops; ++i1)
             {
@@ -768,7 +768,7 @@ public class ConnectedTextures
         return cp.tileIcons[0];
     }
 
-    private static TextureAtlasSprite getConnectedTextureRepeat(ConnectedProperties cp, BlockPos blockPos, int side)
+    private static TextureAtlasSprite getConnectedTextureRepeat(ConnectedProperties cp, BlockPosition blockPosition, int side)
     {
         if (cp.tileIcons.length == 1)
         {
@@ -776,9 +776,9 @@ public class ConnectedTextures
         }
         else
         {
-            int i = blockPos.getX();
-            int j = blockPos.getY();
-            int k = blockPos.getZ();
+            int i = blockPosition.getX();
+            int j = blockPosition.getY();
+            int k = blockPosition.getZ();
             int l = 0;
             int i1 = 0;
 
@@ -832,20 +832,20 @@ public class ConnectedTextures
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureCtm(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata, RenderEnv renderEnv)
+    private static TextureAtlasSprite getConnectedTextureCtm(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata, RenderEnv renderEnv)
     {
-        int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata, renderEnv);
+        int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPosition, vertAxis, side, icon, metadata, renderEnv);
         return cp.tileIcons[i];
     }
 
-    private static synchronized BakedQuad[] getConnectedTextureCtmCompact(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
+    private static synchronized BakedQuad[] getConnectedTextureCtmCompact(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
     {
         TextureAtlasSprite textureatlassprite = quad.getSprite();
-        int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPos, vertAxis, side, textureatlassprite, metadata, renderEnv);
+        int i = getConnectedTextureCtmIndex(cp, blockAccess, blockState, blockPosition, vertAxis, side, textureatlassprite, metadata, renderEnv);
         return ConnectedTexturesCompact.getConnectedTextureCtmCompact(i, cp, side, quad, renderEnv);
     }
 
-    private static BakedQuad[] getConnectedTextureOverlay(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTextureOverlay(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
     {
         if (!quad.isFullQuad())
         {
@@ -859,7 +859,7 @@ public class ConnectedTextures
 
             for (int i = 0; i < 4; ++i)
             {
-                aboolean[i] = isNeighbourOverlay(cp, blockAccess, blockState, ablockdir[i].offset(blockPos), side, textureatlassprite, metadata);
+                aboolean[i] = isNeighbourOverlay(cp, blockAccess, blockState, ablockdir[i].offset(blockPosition), side, textureatlassprite, metadata);
             }
 
             ListQuadsOverlay listquadsoverlay = renderEnv.getListQuadsOverlay(cp.layer);
@@ -902,7 +902,7 @@ public class ConnectedTextures
 
                     for (int j = 0; j < 4; ++j)
                     {
-                        aboolean1[j] = isNeighbourOverlay(cp, blockAccess, blockState, ablockdir1[j].offset(blockPos), side, textureatlassprite, metadata);
+                        aboolean1[j] = isNeighbourOverlay(cp, blockAccess, blockState, ablockdir1[j].offset(blockPosition), side, textureatlassprite, metadata);
                     }
 
                     if (aboolean[1] && aboolean[2])
@@ -961,7 +961,7 @@ public class ConnectedTextures
 
                     for (int k = 0; k < 4; ++k)
                     {
-                        aboolean2[k] = isNeighbourMatching(cp, blockAccess, blockState, ablockdir[k].offset(blockPos), side, textureatlassprite, metadata);
+                        aboolean2[k] = isNeighbourMatching(cp, blockAccess, blockState, ablockdir[k].offset(blockPosition), side, textureatlassprite, metadata);
                     }
 
                     if (aboolean[0])
@@ -1057,7 +1057,7 @@ public class ConnectedTextures
         }
     }
 
-    private static BakedQuad[] getConnectedTextureOverlayRandom(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPos blockPos, int side, BakedQuad quad, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTextureOverlayRandom(ConnectedProperties cp, IBlockAccess blockAccess, BlockStateBase blockState, BlockPosition blockPosition, int side, BakedQuad quad, RenderEnv renderEnv)
     {
         if (!quad.isFullQuad())
         {
@@ -1070,7 +1070,7 @@ public class ConnectedTextures
 
             try
             {
-                TextureAtlasSprite textureatlassprite = getConnectedTextureRandom(cp, blockAccess, blockState, blockPos, side);
+                TextureAtlasSprite textureatlassprite = getConnectedTextureRandom(cp, blockAccess, blockState, blockPosition, side);
 
                 if (textureatlassprite != null)
                 {
@@ -1091,7 +1091,7 @@ public class ConnectedTextures
         }
     }
 
-    private static BakedQuad[] getConnectedTextureOverlayRepeat(ConnectedProperties cp, BlockPos blockPos, int side, BakedQuad quad, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTextureOverlayRepeat(ConnectedProperties cp, BlockPosition blockPosition, int side, BakedQuad quad, RenderEnv renderEnv)
     {
         if (!quad.isFullQuad())
         {
@@ -1104,7 +1104,7 @@ public class ConnectedTextures
 
             try
             {
-                TextureAtlasSprite textureatlassprite = getConnectedTextureRepeat(cp, blockPos, side);
+                TextureAtlasSprite textureatlassprite = getConnectedTextureRepeat(cp, blockPosition, side);
 
                 if (textureatlassprite != null)
                 {
@@ -1125,7 +1125,7 @@ public class ConnectedTextures
         }
     }
 
-    private static BakedQuad[] getConnectedTextureOverlayCtm(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
+    private static BakedQuad[] getConnectedTextureOverlayCtm(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, BakedQuad quad, int metadata, RenderEnv renderEnv)
     {
         if (!quad.isFullQuad())
         {
@@ -1138,7 +1138,7 @@ public class ConnectedTextures
 
             try
             {
-                TextureAtlasSprite textureatlassprite = getConnectedTextureCtm(cp, blockAccess, blockState, blockPos, vertAxis, side, quad.getSprite(), metadata, renderEnv);
+                TextureAtlasSprite textureatlassprite = getConnectedTextureCtm(cp, blockAccess, blockState, blockPosition, vertAxis, side, quad.getSprite(), metadata, renderEnv);
 
                 if (textureatlassprite != null)
                 {
@@ -1238,21 +1238,21 @@ public class ConnectedTextures
         return spriteQuadCompactMaps;
     }
 
-    private static int getConnectedTextureCtmIndex(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata, RenderEnv renderEnv)
+    private static int getConnectedTextureCtmIndex(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata, RenderEnv renderEnv)
     {
         boolean[] aboolean = renderEnv.getBorderFlags();
 
         switch (side)
         {
             case 0:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos6 = blockPos.down();
+                    BlockPosition blockpos6 = blockPosition.down();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos6.west(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos6.east(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos6.north(), side, icon, metadata);
@@ -1262,14 +1262,14 @@ public class ConnectedTextures
                 break;
 
             case 1:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos5 = blockPos.up();
+                    BlockPosition blockpos5 = blockPosition.up();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos5.west(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos5.east(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos5.south(), side, icon, metadata);
@@ -1279,14 +1279,14 @@ public class ConnectedTextures
                 break;
 
             case 2:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos4 = blockPos.north();
+                    BlockPosition blockpos4 = blockPosition.north();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos4.east(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos4.west(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos4.down(), side, icon, metadata);
@@ -1302,14 +1302,14 @@ public class ConnectedTextures
                 break;
 
             case 3:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos3 = blockPos.south();
+                    BlockPosition blockpos3 = blockPosition.south();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos3.west(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos3.east(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos3.down(), side, icon, metadata);
@@ -1319,14 +1319,14 @@ public class ConnectedTextures
                 break;
 
             case 4:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos2 = blockPos.west();
+                    BlockPosition blockpos2 = blockPosition.west();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos2.north(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos2.south(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos2.down(), side, icon, metadata);
@@ -1336,14 +1336,14 @@ public class ConnectedTextures
                 break;
 
             case 5:
-                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                aboolean[0] = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                aboolean[1] = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                aboolean[2] = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                aboolean[3] = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
 
                 if (cp.innerSeams)
                 {
-                    BlockPos blockpos = blockPos.east();
+                    BlockPosition blockpos = blockPosition.east();
                     aboolean[0] = aboolean[0] && !isNeighbour(cp, blockAccess, blockState, blockpos.south(), side, icon, metadata);
                     aboolean[1] = aboolean[1] && !isNeighbour(cp, blockAccess, blockState, blockpos.north(), side, icon, metadata);
                     aboolean[2] = aboolean[2] && !isNeighbour(cp, blockAccess, blockState, blockpos.down(), side, icon, metadata);
@@ -1433,14 +1433,14 @@ public class ConnectedTextures
             switch (side)
             {
                 case 0:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().north(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().north(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().south(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().south(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().north(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().north(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().south(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().south(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos11 = blockPos.down();
+                        BlockPosition blockpos11 = blockPosition.down();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos11.east().north(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos11.west().north(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos11.east().south(), side, icon, metadata);
@@ -1450,14 +1450,14 @@ public class ConnectedTextures
                     break;
 
                 case 1:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().south(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().south(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().north(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().north(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().south(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().south(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().north(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().north(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos10 = blockPos.up();
+                        BlockPosition blockpos10 = blockPosition.up();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos10.east().south(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos10.west().south(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos10.east().north(), side, icon, metadata);
@@ -1467,14 +1467,14 @@ public class ConnectedTextures
                     break;
 
                 case 2:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().down(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().down(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().up(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().up(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().down(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().down(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().up(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().up(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos9 = blockPos.north();
+                        BlockPosition blockpos9 = blockPosition.north();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos9.west().down(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos9.east().down(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos9.west().up(), side, icon, metadata);
@@ -1490,14 +1490,14 @@ public class ConnectedTextures
                     break;
 
                 case 3:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().down(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().down(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.east().up(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.west().up(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().down(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().down(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.east().up(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.west().up(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos8 = blockPos.south();
+                        BlockPosition blockpos8 = blockPosition.south();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos8.east().down(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos8.west().down(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos8.east().up(), side, icon, metadata);
@@ -1507,14 +1507,14 @@ public class ConnectedTextures
                     break;
 
                 case 4:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.down().south(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.down().north(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.up().south(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.up().north(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.down().south(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.down().north(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.up().south(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.up().north(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos7 = blockPos.west();
+                        BlockPosition blockpos7 = blockPosition.west();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos7.down().south(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos7.down().north(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos7.up().south(), side, icon, metadata);
@@ -1524,14 +1524,14 @@ public class ConnectedTextures
                     break;
 
                 case 5:
-                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPos.down().north(), side, icon, metadata);
-                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPos.down().south(), side, icon, metadata);
-                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPos.up().north(), side, icon, metadata);
-                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPos.up().south(), side, icon, metadata);
+                    aboolean[0] = !isNeighbour(cp, blockAccess, blockState, blockPosition.down().north(), side, icon, metadata);
+                    aboolean[1] = !isNeighbour(cp, blockAccess, blockState, blockPosition.down().south(), side, icon, metadata);
+                    aboolean[2] = !isNeighbour(cp, blockAccess, blockState, blockPosition.up().north(), side, icon, metadata);
+                    aboolean[3] = !isNeighbour(cp, blockAccess, blockState, blockPosition.up().south(), side, icon, metadata);
 
                     if (cp.innerSeams)
                     {
-                        BlockPos blockpos1 = blockPos.east();
+                        BlockPosition blockpos1 = blockPosition.east();
                         aboolean[0] = aboolean[0] || isNeighbour(cp, blockAccess, blockState, blockpos1.down().north(), side, icon, metadata);
                         aboolean[1] = aboolean[1] || isNeighbour(cp, blockAccess, blockState, blockpos1.down().south(), side, icon, metadata);
                         aboolean[2] = aboolean[2] || isNeighbour(cp, blockAccess, blockState, blockpos1.up().north(), side, icon, metadata);
@@ -1681,9 +1681,9 @@ public class ConnectedTextures
         arr[ix2] = flag;
     }
 
-    private static boolean isNeighbourOverlay(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata)
+    private static boolean isNeighbourOverlay(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPosition blockPosition, int side, TextureAtlasSprite icon, int metadata)
     {
-        IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
+        IBlockState iblockstate = iblockaccess.getBlockState(blockPosition);
 
         if (!isFullCubeModel(iblockstate))
         {
@@ -1703,7 +1703,7 @@ public class ConnectedTextures
 
             if (cp.connectTileIcons != null)
             {
-                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPos, iblockstate, side);
+                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPosition, iblockstate, side);
 
                 if (!Config.isSameOne(textureatlassprite, cp.connectTileIcons))
                 {
@@ -1711,8 +1711,8 @@ public class ConnectedTextures
                 }
             }
 
-            IBlockState iblockstate1 = iblockaccess.getBlockState(blockPos.offset(getFacing(side)));
-            return iblockstate1.getBlock().isOpaqueCube() ? false : (side == 1 && iblockstate1.getBlock() == Blocks.snow_layer ? false : !isNeighbour(cp, iblockaccess, blockState, blockPos, iblockstate, side, icon, metadata));
+            IBlockState iblockstate1 = iblockaccess.getBlockState(blockPosition.offset(getFacing(side)));
+            return iblockstate1.getBlock().isOpaqueCube() ? false : (side == 1 && iblockstate1.getBlock() == Blocks.snow_layer ? false : !isNeighbour(cp, iblockaccess, blockState, blockPosition, iblockstate, side, icon, metadata));
         }
     }
 
@@ -1729,9 +1729,9 @@ public class ConnectedTextures
         }
     }
 
-    private static boolean isNeighbourMatching(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata)
+    private static boolean isNeighbourMatching(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPosition blockPosition, int side, TextureAtlasSprite icon, int metadata)
     {
-        IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
+        IBlockState iblockstate = iblockaccess.getBlockState(blockPosition);
 
         if (iblockstate == AIR_DEFAULT_STATE)
         {
@@ -1751,7 +1751,7 @@ public class ConnectedTextures
 
             if (cp.matchTileIcons != null)
             {
-                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPos, iblockstate, side);
+                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPosition, iblockstate, side);
 
                 if (textureatlassprite != icon)
                 {
@@ -1759,18 +1759,18 @@ public class ConnectedTextures
                 }
             }
 
-            IBlockState iblockstate1 = iblockaccess.getBlockState(blockPos.offset(getFacing(side)));
+            IBlockState iblockstate1 = iblockaccess.getBlockState(blockPosition.offset(getFacing(side)));
             return iblockstate1.getBlock().isOpaqueCube() ? false : side != 1 || iblockstate1.getBlock() != Blocks.snow_layer;
         }
     }
 
-    private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, int side, TextureAtlasSprite icon, int metadata)
+    private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPosition blockPosition, int side, TextureAtlasSprite icon, int metadata)
     {
-        IBlockState iblockstate = iblockaccess.getBlockState(blockPos);
-        return isNeighbour(cp, iblockaccess, blockState, blockPos, iblockstate, side, icon, metadata);
+        IBlockState iblockstate = iblockaccess.getBlockState(blockPosition);
+        return isNeighbour(cp, iblockaccess, blockState, blockPosition, iblockstate, side, icon, metadata);
     }
 
-    private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, IBlockState neighbourState, int side, TextureAtlasSprite icon, int metadata)
+    private static boolean isNeighbour(ConnectedProperties cp, IBlockAccess iblockaccess, IBlockState blockState, BlockPosition blockPosition, IBlockState neighbourState, int side, TextureAtlasSprite icon, int metadata)
     {
         if (blockState == neighbourState)
         {
@@ -1788,7 +1788,7 @@ public class ConnectedTextures
             }
             else
             {
-                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPos, neighbourState, side);
+                TextureAtlasSprite textureatlassprite = getNeighbourIcon(iblockaccess, blockState, blockPosition, neighbourState, side);
                 return textureatlassprite == icon;
             }
         }
@@ -1809,9 +1809,9 @@ public class ConnectedTextures
         }
     }
 
-    private static TextureAtlasSprite getNeighbourIcon(IBlockAccess iblockaccess, IBlockState blockState, BlockPos blockPos, IBlockState neighbourState, int side)
+    private static TextureAtlasSprite getNeighbourIcon(IBlockAccess iblockaccess, IBlockState blockState, BlockPosition blockPosition, IBlockState neighbourState, int side)
     {
-        neighbourState = neighbourState.getBlock().getActualState(neighbourState, iblockaccess, blockPos);
+        neighbourState = neighbourState.getBlock().getActualState(neighbourState, iblockaccess, blockPosition);
         IBakedModel ibakedmodel = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(neighbourState);
 
         if (ibakedmodel == null)
@@ -1831,7 +1831,7 @@ public class ConnectedTextures
             {
                 if (Config.isBetterGrass())
                 {
-                    list = BetterGrass.getFaceQuads(iblockaccess, neighbourState, blockPos, enumfacing, list);
+                    list = BetterGrass.getFaceQuads(iblockaccess, neighbourState, blockPosition, enumfacing, list);
                 }
 
                 if (list.size() > 0)
@@ -1866,7 +1866,7 @@ public class ConnectedTextures
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
     {
         boolean flag;
         boolean flag1;
@@ -1880,33 +1880,33 @@ public class ConnectedTextures
                 switch (side)
                 {
                     case 0:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 1:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 2:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
                         break label0;
 
                     case 3:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 4:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                         break label0;
 
                     case 5:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
 
                     default:
                         break label0;
@@ -1916,33 +1916,33 @@ public class ConnectedTextures
                 switch (side)
                 {
                     case 0:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
                         break label0;
 
                     case 1:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 2:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 3:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                         break label0;
 
                     case 4:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                         break label0;
 
                     case 5:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
 
                     default:
                         break label0;
@@ -1952,33 +1952,33 @@ public class ConnectedTextures
                 switch (side)
                 {
                     case 0:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
                         break;
 
                     case 1:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                         break;
 
                     case 2:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                         break;
 
                     case 3:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
                         break;
 
                     case 4:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                         break;
 
                     case 5:
-                        flag = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                        flag = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                        flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                 }
         }
 
@@ -2007,7 +2007,7 @@ public class ConnectedTextures
         return cp.tileIcons[i];
     }
 
-    private static TextureAtlasSprite getConnectedTextureVertical(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureVertical(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
     {
         boolean flag = false;
         boolean flag1 = false;
@@ -2017,18 +2017,18 @@ public class ConnectedTextures
             case 0:
                 if (side == 1)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
                 }
                 else if (side == 0)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                 }
                 else
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                 }
 
                 break;
@@ -2036,18 +2036,18 @@ public class ConnectedTextures
             case 1:
                 if (side == 3)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                 }
                 else if (side == 2)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
                 }
                 else
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.north(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.north(), side, icon, metadata);
                 }
 
                 break;
@@ -2055,18 +2055,18 @@ public class ConnectedTextures
             case 2:
                 if (side == 5)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
                 }
                 else if (side == 4)
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.down(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.down(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                 }
                 else
                 {
-                    flag = isNeighbour(cp, blockAccess, blockState, blockPos.west(), side, icon, metadata);
-                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                    flag = isNeighbour(cp, blockAccess, blockState, blockPosition.west(), side, icon, metadata);
+                    flag1 = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
                 }
         }
 
@@ -2095,10 +2095,10 @@ public class ConnectedTextures
         return cp.tileIcons[i];
     }
 
-    private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
     {
         TextureAtlasSprite[] atextureatlassprite = cp.tileIcons;
-        TextureAtlasSprite textureatlassprite = getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata);
+        TextureAtlasSprite textureatlassprite = getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPosition, vertAxis, side, icon, metadata);
 
         if (textureatlassprite != null && textureatlassprite != icon && textureatlassprite != atextureatlassprite[3])
         {
@@ -2106,15 +2106,15 @@ public class ConnectedTextures
         }
         else
         {
-            TextureAtlasSprite textureatlassprite1 = getConnectedTextureVertical(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata);
+            TextureAtlasSprite textureatlassprite1 = getConnectedTextureVertical(cp, blockAccess, blockState, blockPosition, vertAxis, side, icon, metadata);
             return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4] : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5] : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6] : textureatlassprite1));
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
     {
         TextureAtlasSprite[] atextureatlassprite = cp.tileIcons;
-        TextureAtlasSprite textureatlassprite = getConnectedTextureVertical(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata);
+        TextureAtlasSprite textureatlassprite = getConnectedTextureVertical(cp, blockAccess, blockState, blockPosition, vertAxis, side, icon, metadata);
 
         if (textureatlassprite != null && textureatlassprite != icon && textureatlassprite != atextureatlassprite[3])
         {
@@ -2122,12 +2122,12 @@ public class ConnectedTextures
         }
         else
         {
-            TextureAtlasSprite textureatlassprite1 = getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPos, vertAxis, side, icon, metadata);
+            TextureAtlasSprite textureatlassprite1 = getConnectedTextureHorizontal(cp, blockAccess, blockState, blockPosition, vertAxis, side, icon, metadata);
             return textureatlassprite1 == atextureatlassprite[0] ? atextureatlassprite[4] : (textureatlassprite1 == atextureatlassprite[1] ? atextureatlassprite[5] : (textureatlassprite1 == atextureatlassprite[2] ? atextureatlassprite[6] : textureatlassprite1));
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureTop(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPos blockPos, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
+    private static TextureAtlasSprite getConnectedTextureTop(ConnectedProperties cp, IBlockAccess blockAccess, IBlockState blockState, BlockPosition blockPosition, int vertAxis, int side, TextureAtlasSprite icon, int metadata)
     {
         boolean flag = false;
 
@@ -2139,7 +2139,7 @@ public class ConnectedTextures
                     return null;
                 }
 
-                flag = isNeighbour(cp, blockAccess, blockState, blockPos.up(), side, icon, metadata);
+                flag = isNeighbour(cp, blockAccess, blockState, blockPosition.up(), side, icon, metadata);
                 break;
 
             case 1:
@@ -2148,7 +2148,7 @@ public class ConnectedTextures
                     return null;
                 }
 
-                flag = isNeighbour(cp, blockAccess, blockState, blockPos.south(), side, icon, metadata);
+                flag = isNeighbour(cp, blockAccess, blockState, blockPosition.south(), side, icon, metadata);
                 break;
 
             case 2:
@@ -2157,7 +2157,7 @@ public class ConnectedTextures
                     return null;
                 }
 
-                flag = isNeighbour(cp, blockAccess, blockState, blockPos.east(), side, icon, metadata);
+                flag = isNeighbour(cp, blockAccess, blockState, blockPosition.east(), side, icon, metadata);
         }
 
         if (flag)

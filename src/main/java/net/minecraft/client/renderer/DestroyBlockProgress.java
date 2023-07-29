@@ -1,6 +1,6 @@
 package net.minecraft.client.renderer;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class DestroyBlockProgress
 {
@@ -9,7 +9,7 @@ public class DestroyBlockProgress
      * Renderer, max 1 per player on a server
      */
     private final int miningPlayerEntId;
-    private final BlockPos position;
+    private final BlockPosition position;
 
     /**
      * damage ranges from 1 to 10. -1 causes the client to delete the partial block renderer.
@@ -21,13 +21,13 @@ public class DestroyBlockProgress
      */
     private int createdAtCloudUpdateTick;
 
-    public DestroyBlockProgress(int miningPlayerEntIdIn, BlockPos positionIn)
+    public DestroyBlockProgress(int miningPlayerEntIdIn, BlockPosition positionIn)
     {
         this.miningPlayerEntId = miningPlayerEntIdIn;
         this.position = positionIn;
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.position;
     }

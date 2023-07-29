@@ -61,7 +61,7 @@ public final class Flight extends Module {
     private boolean started;
     private int stage2;
     private final TimerUtil timer = new TimerUtil();
-    public static final Set<BlockPos> hiddenBlocks = new HashSet<>();
+    public static final Set<BlockPosition> hiddenBlocks = new HashSet<>();
     private boolean hasS08;
     private boolean hasDamaged;
     private boolean up;
@@ -189,7 +189,7 @@ public final class Flight extends Module {
                         final double x = e.getX() + -Math.sin(Math.toRadians(mc.thePlayer.rotationYaw)) * 7.99;
                         final double y = e.getY() - 1.75;
                         final double z = e.getZ() + Math.cos(Math.toRadians(mc.thePlayer.rotationYaw)) * 7.99;
-                        if(mc.theWorld.getBlockState(new BlockPos(x, y, z)).getBlock() == Blocks.air) {
+                        if(mc.theWorld.getBlockState(new BlockPosition(x, y, z)).getBlock() == Blocks.air) {
                             PacketUtils.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, false));
                             mc.thePlayer.setPosition(x, y, z);
                         }
@@ -323,7 +323,7 @@ public final class Flight extends Module {
                 if(e.isPre()) {
                     mc.thePlayer.motionY = 0;
                     e.setOnGround(true);
-                    mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem(), new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ), EnumFacing.UP, new Vec3(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ));
+                    mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem(), new BlockPosition(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ), EnumFacing.UP, new Vec3(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ));
                 }
                 break;
             case "Libercraft":
@@ -456,7 +456,7 @@ public final class Flight extends Module {
                             }
                             break;
                         case 7:
-                            BlockPos pos = new BlockPos(e.getX(), e.getY() - 2, e.getZ());
+                            BlockPosition pos = new BlockPosition(e.getX(), e.getY() - 2, e.getZ());
                             e.setPitch(mc.thePlayer.rotationPitchHead = 90);
                             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem(), pos, EnumFacing.UP, new Vec3(pos))) {
                                 mc.thePlayer.swingItem();

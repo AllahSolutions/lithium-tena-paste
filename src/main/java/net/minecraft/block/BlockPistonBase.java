@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
@@ -52,7 +52,7 @@ public class BlockPistonBase extends Block
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)), 2);
 
@@ -65,7 +65,7 @@ public class BlockPistonBase extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!worldIn.isRemote)
         {
@@ -73,7 +73,7 @@ public class BlockPistonBase extends Block
         }
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null)
         {
@@ -85,12 +85,12 @@ public class BlockPistonBase extends Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)).withProperty(EXTENDED, Boolean.valueOf(false));
     }
 
-    private void checkForMove(World worldIn, BlockPos pos, IBlockState state)
+    private void checkForMove(World worldIn, BlockPosition pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
         boolean flag = this.shouldBeExtended(worldIn, pos, enumfacing);
@@ -109,7 +109,7 @@ public class BlockPistonBase extends Block
         }
     }
 
-    private boolean shouldBeExtended(World worldIn, BlockPos pos, EnumFacing facing)
+    private boolean shouldBeExtended(World worldIn, BlockPosition pos, EnumFacing facing)
     {
         for (EnumFacing enumfacing : EnumFacing.values())
         {
@@ -125,7 +125,7 @@ public class BlockPistonBase extends Block
         }
         else
         {
-            BlockPos blockpos = pos.up();
+            BlockPosition blockpos = pos.up();
 
             for (EnumFacing enumfacing1 : EnumFacing.values())
             {
@@ -142,7 +142,7 @@ public class BlockPistonBase extends Block
     /**
      * Called on both Client and Server when World#addBlockEvent is called
      */
-    public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam)
+    public boolean onBlockEventReceived(World worldIn, BlockPosition pos, IBlockState state, int eventID, int eventParam)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
@@ -186,7 +186,7 @@ public class BlockPistonBase extends Block
 
             if (this.isSticky)
             {
-                BlockPos blockpos = pos.add(enumfacing.getFrontOffsetX() * 2, enumfacing.getFrontOffsetY() * 2, enumfacing.getFrontOffsetZ() * 2);
+                BlockPosition blockpos = pos.add(enumfacing.getFrontOffsetX() * 2, enumfacing.getFrontOffsetY() * 2, enumfacing.getFrontOffsetZ() * 2);
                 Block block = worldIn.getBlockState(blockpos).getBlock();
                 boolean flag1 = false;
 
@@ -222,7 +222,7 @@ public class BlockPistonBase extends Block
         return true;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
@@ -277,13 +277,13 @@ public class BlockPistonBase extends Block
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+    public void addCollisionBoxesToList(World worldIn, BlockPosition pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
     {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getCollisionBoundingBox(worldIn, pos, state);
@@ -300,7 +300,7 @@ public class BlockPistonBase extends Block
         return i > 5 ? null : EnumFacing.getFront(i);
     }
 
-    public static EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn)
+    public static EnumFacing getFacingFromEntity(World worldIn, BlockPosition clickedBlock, EntityLivingBase entityIn)
     {
         if (MathHelper.abs((float)entityIn.posX - (float)clickedBlock.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - (float)clickedBlock.getZ()) < 2.0F)
         {
@@ -320,7 +320,7 @@ public class BlockPistonBase extends Block
         return entityIn.getHorizontalFacing().getOpposite();
     }
 
-    public static boolean canPush(Block blockIn, World worldIn, BlockPos pos, EnumFacing direction, boolean allowDestroy)
+    public static boolean canPush(Block blockIn, World worldIn, BlockPosition pos, EnumFacing direction, boolean allowDestroy)
     {
         if (blockIn == Blocks.obsidian)
         {
@@ -374,7 +374,7 @@ public class BlockPistonBase extends Block
         }
     }
 
-    private boolean doMove(World worldIn, BlockPos pos, EnumFacing direction, boolean extending)
+    private boolean doMove(World worldIn, BlockPosition pos, EnumFacing direction, boolean extending)
     {
         if (!extending)
         {
@@ -382,8 +382,8 @@ public class BlockPistonBase extends Block
         }
 
         BlockPistonStructureHelper blockpistonstructurehelper = new BlockPistonStructureHelper(worldIn, pos, direction, extending);
-        List<BlockPos> list = blockpistonstructurehelper.getBlocksToMove();
-        List<BlockPos> list1 = blockpistonstructurehelper.getBlocksToDestroy();
+        List<BlockPosition> list = blockpistonstructurehelper.getBlocksToMove();
+        List<BlockPosition> list1 = blockpistonstructurehelper.getBlocksToDestroy();
 
         if (!blockpistonstructurehelper.canMove())
         {
@@ -397,7 +397,7 @@ public class BlockPistonBase extends Block
 
             for (int j = list1.size() - 1; j >= 0; --j)
             {
-                BlockPos blockpos = (BlockPos)list1.get(j);
+                BlockPosition blockpos = (BlockPosition)list1.get(j);
                 Block block = worldIn.getBlockState(blockpos).getBlock();
                 block.dropBlockAsItem(worldIn, blockpos, worldIn.getBlockState(blockpos), 0);
                 worldIn.setBlockToAir(blockpos);
@@ -407,7 +407,7 @@ public class BlockPistonBase extends Block
 
             for (int k = list.size() - 1; k >= 0; --k)
             {
-                BlockPos blockpos2 = (BlockPos)list.get(k);
+                BlockPosition blockpos2 = (BlockPosition)list.get(k);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos2);
                 Block block1 = iblockstate.getBlock();
                 block1.getMetaFromState(iblockstate);
@@ -419,7 +419,7 @@ public class BlockPistonBase extends Block
                 ablock[i] = block1;
             }
 
-            BlockPos blockpos1 = pos.offset(direction);
+            BlockPosition blockpos1 = pos.offset(direction);
 
             if (extending)
             {
@@ -432,12 +432,12 @@ public class BlockPistonBase extends Block
 
             for (int l = list1.size() - 1; l >= 0; --l)
             {
-                worldIn.notifyNeighborsOfStateChange((BlockPos)list1.get(l), ablock[i++]);
+                worldIn.notifyNeighborsOfStateChange((BlockPosition)list1.get(l), ablock[i++]);
             }
 
             for (int i1 = list.size() - 1; i1 >= 0; --i1)
             {
-                worldIn.notifyNeighborsOfStateChange((BlockPos)list.get(i1), ablock[i++]);
+                worldIn.notifyNeighborsOfStateChange((BlockPosition)list.get(i1), ablock[i++]);
             }
 
             if (extending)

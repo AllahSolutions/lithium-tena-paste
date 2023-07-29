@@ -10,7 +10,7 @@ import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -297,7 +297,7 @@ public class StructureStrongholdPieces
                     this.setBlockState(worldIn, Blocks.stone_slab.getStateFromMeta(BlockStoneSlab.EnumType.SMOOTHBRICK.getMetadata()), 2, 1, i, structureBoundingBoxIn);
                 }
 
-                if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(3, 3), this.getYWithOffset(2), this.getZWithOffset(3, 3))))
+                if (!this.hasMadeChest && structureBoundingBoxIn.isVecInside(new BlockPosition(this.getXWithOffset(3, 3), this.getYWithOffset(2), this.getZWithOffset(3, 3))))
                 {
                     this.hasMadeChest = true;
                     this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 3, 2, 3, WeightedRandomChestContent.func_177629_a(strongholdChestContents, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(2));
@@ -903,7 +903,7 @@ public class StructureStrongholdPieces
             if (!this.hasSpawner)
             {
                 i = this.getYWithOffset(3);
-                BlockPos blockpos = new BlockPos(this.getXWithOffset(5, 6), i, this.getZWithOffset(5, 6));
+                BlockPosition blockpos = new BlockPosition(this.getXWithOffset(5, 6), i, this.getZWithOffset(5, 6));
 
                 if (structureBoundingBoxIn.isVecInside(blockpos))
                 {
@@ -1277,7 +1277,7 @@ public class StructureStrongholdPieces
             super(0, p_i2083_2_, p_i2083_3_, p_i2083_4_);
         }
 
-        public BlockPos getBoundingBoxCenter()
+        public BlockPosition getBoundingBoxCenter()
         {
             return this.strongholdPortalRoom != null ? this.strongholdPortalRoom.getBoundingBoxCenter() : super.getBoundingBoxCenter();
         }

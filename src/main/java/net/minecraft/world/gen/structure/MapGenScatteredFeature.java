@@ -2,7 +2,7 @@ package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
 import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -75,7 +75,7 @@ public class MapGenScatteredFeature extends MapGenStructure
 
         if (i == k && j == l)
         {
-            BiomeGenBase biomegenbase = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPos(i * 16 + 8, 0, j * 16 + 8));
+            BiomeGenBase biomegenbase = this.worldObj.getWorldChunkManager().getBiomeGenerator(new BlockPosition(i * 16 + 8, 0, j * 16 + 8));
 
             if (biomegenbase == null)
             {
@@ -99,7 +99,7 @@ public class MapGenScatteredFeature extends MapGenStructure
         return new MapGenScatteredFeature.Start(this.worldObj, this.rand, chunkX, chunkZ);
     }
 
-    public boolean func_175798_a(BlockPos p_175798_1_)
+    public boolean func_175798_a(BlockPosition p_175798_1_)
     {
         StructureStart structurestart = this.func_175797_c(p_175798_1_);
 
@@ -128,7 +128,7 @@ public class MapGenScatteredFeature extends MapGenStructure
         public Start(World worldIn, Random p_i2060_2_, int p_i2060_3_, int p_i2060_4_)
         {
             super(p_i2060_3_, p_i2060_4_);
-            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPos(p_i2060_3_ * 16 + 8, 0, p_i2060_4_ * 16 + 8));
+            BiomeGenBase biomegenbase = worldIn.getBiomeGenForCoords(new BlockPosition(p_i2060_3_ * 16 + 8, 0, p_i2060_4_ * 16 + 8));
 
             if (biomegenbase != BiomeGenBase.jungle && biomegenbase != BiomeGenBase.jungleHills)
             {

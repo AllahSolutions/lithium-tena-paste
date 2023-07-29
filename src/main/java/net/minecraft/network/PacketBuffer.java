@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 
 import java.io.IOException;
@@ -63,12 +63,12 @@ public class PacketBuffer extends ByteBuf
         return abyte;
     }
 
-    public BlockPos readBlockPos()
+    public BlockPosition readBlockPos()
     {
-        return BlockPos.fromLong(this.readLong());
+        return BlockPosition.fromLong(this.readLong());
     }
 
-    public void writeBlockPos(BlockPos pos)
+    public void writeBlockPos(BlockPosition pos)
     {
         this.writeLong(pos.toLong());
     }

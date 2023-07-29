@@ -1,6 +1,6 @@
 package net.optifine;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 public enum BlockDir
@@ -48,7 +48,7 @@ public enum BlockDir
         return this.facing2;
     }
 
-    BlockPos offset(BlockPos pos)
+    BlockPosition offset(BlockPosition pos)
     {
         pos = pos.offset(this.facing1, 1);
 

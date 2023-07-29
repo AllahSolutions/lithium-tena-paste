@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
@@ -43,12 +43,12 @@ public class BlockBanner extends BlockContainer
         return StatCollector.translateToLocal("item.banner.white.name");
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
 
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPosition pos)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.getSelectedBoundingBox(worldIn, pos);
@@ -59,7 +59,7 @@ public class BlockBanner extends BlockContainer
         return false;
     }
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    public boolean isPassable(IBlockAccess worldIn, BlockPosition pos)
     {
         return true;
     }
@@ -96,7 +96,7 @@ public class BlockBanner extends BlockContainer
         return Items.banner;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Items.banner;
     }
@@ -104,7 +104,7 @@ public class BlockBanner extends BlockContainer
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -126,12 +126,12 @@ public class BlockBanner extends BlockContainer
         }
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return !this.hasInvalidNeighbor(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPosition pos, IBlockState state, TileEntity te)
     {
         if (te instanceof TileEntityBanner)
         {
@@ -155,7 +155,7 @@ public class BlockBanner extends BlockContainer
             this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         }
 
-        public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+        public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
         {
             EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
             float f = 0.0F;
@@ -185,7 +185,7 @@ public class BlockBanner extends BlockContainer
             }
         }
 
-        public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+        public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
         {
             EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
@@ -228,7 +228,7 @@ public class BlockBanner extends BlockContainer
             this.setDefaultState(this.blockState.getBaseState().withProperty(ROTATION, Integer.valueOf(0)));
         }
 
-        public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+        public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
         {
             if (!worldIn.getBlockState(pos.down()).getBlock().getMaterial().isSolid())
             {

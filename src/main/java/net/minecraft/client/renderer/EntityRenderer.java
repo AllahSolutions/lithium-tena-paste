@@ -376,7 +376,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         double d2 = entity.posX;
         double d0 = entity.posY + (double) entity.getEyeHeight();
         double d1 = entity.posZ;
-        float f2 = this.mc.theWorld.getLightBrightness(new BlockPos(d2, d0, d1));
+        float f2 = this.mc.theWorld.getLightBrightness(new BlockPosition(d2, d0, d1));
         float f3 = (float) this.mc.gameSettings.renderDistanceChunks / 16.0F;
         f3 = MathHelper.clamp_float(f3, 0.0F, 1.0F);
         float f4 = f2 * (1.0F - f3) + f3;
@@ -484,7 +484,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             if (this.pointedEntity != null && flag && vec3.distanceTo(vec33) > reachDistance) {
                 this.pointedEntity = null;
-                this.mc.objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPos(vec33));
+                this.mc.objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPosition(vec33));
             }
 
             if (this.pointedEntity != null && (d2 < d1 || this.mc.objectMouseOver == null)) {
@@ -644,7 +644,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.translate(0.0F, 0.3F, 0.0F);
 
             if (!this.mc.gameSettings.debugCamEnable) {
-                BlockPos blockpos = new BlockPos(entity);
+                BlockPosition blockpos = new BlockPosition(entity);
                 IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
 
                 int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
@@ -1183,7 +1183,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 ItemStack itemstack = ((EntityPlayer) entity).getCurrentEquippedItem();
 
                 if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
+                    BlockPosition blockpos = this.mc.objectMouseOver.getBlockPos();
                     IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
                     Block block = iblockstate.getBlock();
 
@@ -1596,7 +1596,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.random.setSeed((long) this.rendererUpdateCount * 312987231L);
             Entity entity = this.mc.getRenderViewEntity();
             World world = this.mc.theWorld;
-            BlockPos blockpos = new BlockPos(entity);
+            BlockPosition blockpos = new BlockPosition(entity);
             int i = 10;
             double d0 = 0.0D;
             double d1 = 0.0D;
@@ -1611,9 +1611,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             for (int l = 0; l < k; ++l) {
-                BlockPos blockpos1 = world.getPrecipitationHeight(blockpos.add(this.random.nextInt(i) - this.random.nextInt(i), 0, this.random.nextInt(i) - this.random.nextInt(i)));
+                BlockPosition blockpos1 = world.getPrecipitationHeight(blockpos.add(this.random.nextInt(i) - this.random.nextInt(i), 0, this.random.nextInt(i) - this.random.nextInt(i)));
                 BiomeGenBase biomegenbase = world.getBiomeGenForCoords(blockpos1);
-                BlockPos blockpos2 = blockpos1.down();
+                BlockPosition blockpos2 = blockpos1.down();
                 Block block = world.getBlockState(blockpos2).getBlock();
 
                 if (blockpos1.getY() <= blockpos.getY() + i && blockpos1.getY() >= blockpos.getY() - i && biomegenbase.canRain() && biomegenbase.getFloatTemperature(blockpos1) >= 0.15F) {
@@ -1688,7 +1688,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             float f = (float) this.rendererUpdateCount + partialTicks;
             worldrenderer.setTranslation(-d0, -d1, -d2);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
             for (int k1 = k - i1; k1 <= k + i1; ++k1) {
                 for (int l1 = i - i1; l1 <= i + i1; ++l1) {

@@ -9,7 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
@@ -38,7 +38,7 @@ public class BlockSapling extends BlockBush implements IGrowable
         return StatCollector.translateToLocal(this.getUnlocalizedName() + "." + BlockPlanks.EnumType.OAK.getUnlocalizedName() + ".name");
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -51,7 +51,7 @@ public class BlockSapling extends BlockBush implements IGrowable
         }
     }
 
-    public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void grow(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (((Integer)state.getValue(STAGE)).intValue() == 0)
         {
@@ -63,7 +63,7 @@ public class BlockSapling extends BlockBush implements IGrowable
         }
     }
 
-    public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void generateTree(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true));
         int i = 0;
@@ -184,7 +184,7 @@ public class BlockSapling extends BlockBush implements IGrowable
         }
     }
 
-    private boolean func_181624_a(World p_181624_1_, BlockPos p_181624_2_, int p_181624_3_, int p_181624_4_, BlockPlanks.EnumType p_181624_5_)
+    private boolean func_181624_a(World p_181624_1_, BlockPosition p_181624_2_, int p_181624_3_, int p_181624_4_, BlockPlanks.EnumType p_181624_5_)
     {
         return this.isTypeAt(p_181624_1_, p_181624_2_.add(p_181624_3_, 0, p_181624_4_), p_181624_5_) && this.isTypeAt(p_181624_1_, p_181624_2_.add(p_181624_3_ + 1, 0, p_181624_4_), p_181624_5_) && this.isTypeAt(p_181624_1_, p_181624_2_.add(p_181624_3_, 0, p_181624_4_ + 1), p_181624_5_) && this.isTypeAt(p_181624_1_, p_181624_2_.add(p_181624_3_ + 1, 0, p_181624_4_ + 1), p_181624_5_);
     }
@@ -192,7 +192,7 @@ public class BlockSapling extends BlockBush implements IGrowable
     /**
      * Check whether the given BlockPos has a Sapling of the given type
      */
-    public boolean isTypeAt(World worldIn, BlockPos pos, BlockPlanks.EnumType type)
+    public boolean isTypeAt(World worldIn, BlockPosition pos, BlockPlanks.EnumType type)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         return iblockstate.getBlock() == this && iblockstate.getValue(TYPE) == type;
@@ -221,17 +221,17 @@ public class BlockSapling extends BlockBush implements IGrowable
     /**
      * Whether this IGrowable can grow
      */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+    public boolean canGrow(World worldIn, BlockPosition pos, IBlockState state, boolean isClient)
     {
         return true;
     }
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         return (double)worldIn.rand.nextFloat() < 0.45D;
     }
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public void grow(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         this.grow(worldIn, pos, state, rand);
     }

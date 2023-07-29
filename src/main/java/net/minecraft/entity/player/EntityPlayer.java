@@ -101,7 +101,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     /**
      * the current location of the player
      */
-    public BlockPos playerLocation;
+    public BlockPosition playerLocation;
     private int sleepTimer;
     public float renderOffsetX;
     public float renderOffsetY;
@@ -110,7 +110,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     /**
      * holds the spawn chunk of the player
      */
-    private BlockPos spawnChunk;
+    private BlockPosition spawnChunk;
 
     /**
      * Whether this player's spawn point is forced, preventing execution of bed checks.
@@ -120,7 +120,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     /**
      * Holds the coordinate of the player when enter a minecraft to ride.
      */
-    private BlockPos startMinecartRidingCoordinate;
+    private BlockPosition startMinecartRidingCoordinate;
 
     /**
      * The player's capabilities. (See class PlayerCapabilities)
@@ -178,7 +178,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.gameProfile = gameProfileIn;
         this.inventoryContainer = new ContainerPlayer(this.inventory, !worldIn.isRemote, this);
         this.openContainer = this.inventoryContainer;
-        BlockPos blockpos = worldIn.getSpawnPoint();
+        BlockPosition blockpos = worldIn.getSpawnPoint();
         this.setLocationAndAngles((double) blockpos.getX() + 0.5D, blockpos.getY() + 1, (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
         this.unused180 = 180.0F;
         this.fireResistance = 20;
@@ -252,7 +252,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
      */
     public void onUpdate() {
 
-        if(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(this.posX, this.posY - 1, this.posZ)).getBlock() == Blocks.air) {
+        if(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPosition(this.posX, this.posY - 1, this.posZ)).getBlock() == Blocks.air) {
             airTicks++;
         }else{
             airTicks = 0;
@@ -857,12 +857,12 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.setScore(tagCompund.getInteger("Score"));
 
         if (this.sleeping) {
-            this.playerLocation = new BlockPos(this);
+            this.playerLocation = new BlockPosition(this);
             this.wakeUpPlayer(true, true, false);
         }
 
         if (tagCompund.hasKey("SpawnX", 99) && tagCompund.hasKey("SpawnY", 99) && tagCompund.hasKey("SpawnZ", 99)) {
-            this.spawnChunk = new BlockPos(tagCompund.getInteger("SpawnX"), tagCompund.getInteger("SpawnY"), tagCompund.getInteger("SpawnZ"));
+            this.spawnChunk = new BlockPosition(tagCompund.getInteger("SpawnX"), tagCompund.getInteger("SpawnY"), tagCompund.getInteger("SpawnZ"));
             this.spawnForced = tagCompund.getBoolean("SpawnForced");
         }
 
@@ -1270,7 +1270,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.gameProfile;
     }
 
-    public EntityPlayer.EnumStatus trySleep(BlockPos bedLocation) {
+    public EntityPlayer.EnumStatus trySleep(BlockPosition bedLocation) {
         if (!this.worldObj.isRemote) {
             if (this.isPlayerSleeping() || !this.isEntityAlive()) {
                 return EntityPlayer.EnumStatus.OTHER_PROBLEM;
@@ -1374,7 +1374,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
 
         if (this.playerLocation != null && iblockstate.getBlock() == Blocks.bed) {
             this.worldObj.setBlockState(this.playerLocation, iblockstate.withProperty(BlockBed.OCCUPIED, Boolean.FALSE), 4);
-            BlockPos blockpos = BlockBed.getSafeExitLocation(this.worldObj, this.playerLocation, 0);
+            BlockPosition blockpos = BlockBed.getSafeExitLocation(this.worldObj, this.playerLocation, 0);
 
             if (blockpos == null) {
                 blockpos = this.playerLocation.up();
@@ -1403,7 +1403,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     /**
      * Return null if bed is invalid
      */
-    public static BlockPos getBedSpawnLocation(World worldIn, BlockPos bedLocation, boolean forceSpawn) {
+    public static BlockPosition getBedSpawnLocation(World worldIn, BlockPosition bedLocation, boolean forceSpawn) {
         Block block = worldIn.getBlockState(bedLocation).getBlock();
 
         if (block != Blocks.bed) {
@@ -1465,7 +1465,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
     public void addChatComponentMessage(IChatComponent chatComponent) {
     }
 
-    public BlockPos getBedLocation() {
+    public BlockPosition getBedLocation() {
         return this.spawnChunk;
     }
 
@@ -1473,7 +1473,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.spawnForced;
     }
 
-    public void setSpawnPoint(BlockPos pos, boolean forced) {
+    public void setSpawnPoint(BlockPosition pos, boolean forced) {
         if (pos != null) {
             this.spawnChunk = pos;
             this.spawnForced = forced;
@@ -1604,7 +1604,7 @@ public abstract class EntityPlayer extends EntityLivingBase {
                     this.addStat(StatList.distanceByMinecartStat, i);
 
                     if (this.startMinecartRidingCoordinate == null) {
-                        this.startMinecartRidingCoordinate = new BlockPos(this);
+                        this.startMinecartRidingCoordinate = new BlockPosition(this);
                     } else if (this.startMinecartRidingCoordinate.distanceSq(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)) >= 1000000.0D) {
                         this.triggerAchievement(AchievementList.onARail);
                     }
@@ -1779,13 +1779,13 @@ public abstract class EntityPlayer extends EntityLivingBase {
         return this.capabilities.allowEdit;
     }
 
-    public boolean canPlayerEdit(BlockPos p_175151_1_, EnumFacing p_175151_2_, ItemStack p_175151_3_) {
+    public boolean canPlayerEdit(BlockPosition p_175151_1_, EnumFacing p_175151_2_, ItemStack p_175151_3_) {
         if (this.capabilities.allowEdit) {
             return true;
         } else if (p_175151_3_ == null) {
             return false;
         } else {
-            BlockPos blockpos = p_175151_1_.offset(p_175151_2_.getOpposite());
+            BlockPosition blockpos = p_175151_1_.offset(p_175151_2_.getOpposite());
             Block block = this.worldObj.getBlockState(blockpos).getBlock();
             return p_175151_3_.canPlaceOn(block) || p_175151_3_.canEditBlocks();
         }

@@ -1,7 +1,7 @@
 package net.minecraft.pathfinding;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.pathfinder.NodeProcessor;
 
@@ -30,7 +30,7 @@ public class PathFinder
     /**
      * Creates a path from an entity to a specified location within a minimum distance
      */
-    public PathEntity createEntityPathTo(IBlockAccess blockaccess, Entity entityIn, BlockPos targetPos, float dist)
+    public PathEntity createEntityPathTo(IBlockAccess blockaccess, Entity entityIn, BlockPosition targetPos, float dist)
     {
         return this.createEntityPathTo(blockaccess, entityIn, (double)((float)targetPos.getX() + 0.5F), (double)((float)targetPos.getY() + 0.5F), (double)((float)targetPos.getZ() + 0.5F), dist);
     }

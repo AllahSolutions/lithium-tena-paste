@@ -1,7 +1,7 @@
 package net.minecraft.entity.monster;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityGiantZombie extends EntityMob
@@ -25,7 +25,7 @@ public class EntityGiantZombie extends EntityMob
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(50.0D);
     }
 
-    public float getBlockPathWeight(BlockPos pos)
+    public float getBlockPathWeight(BlockPosition pos)
     {
         return this.worldObj.getLightBrightness(pos) - 0.5F;
     }

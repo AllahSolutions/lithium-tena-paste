@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import org.apache.logging.log4j.LogManager;
@@ -154,7 +154,7 @@ public class CommandHandler implements ICommandManager
         return astring;
     }
 
-    public List<String> getTabCompletionOptions(ICommandSender sender, String input, BlockPos pos)
+    public List<String> getTabCompletionOptions(ICommandSender sender, String input, BlockPosition pos)
     {
         String[] astring = input.split(" ", -1);
         String s = astring[0];

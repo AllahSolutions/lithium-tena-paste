@@ -3,7 +3,7 @@ package net.minecraft.world.storage;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldSettings;
@@ -465,7 +465,7 @@ public class WorldInfo
         this.worldTime = time;
     }
 
-    public void setSpawn(BlockPos spawnPoint)
+    public void setSpawn(BlockPosition spawnPoint)
     {
         this.spawnX = spawnPoint.getX();
         this.spawnY = spawnPoint.getY();

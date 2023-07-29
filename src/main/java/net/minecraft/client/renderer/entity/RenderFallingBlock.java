@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -33,7 +33,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock>
             this.bindTexture(TextureMap.locationBlocksTexture);
             IBlockState iblockstate = entity.getBlock();
             Block block = iblockstate.getBlock();
-            BlockPos blockpos = new BlockPos(entity);
+            BlockPosition blockpos = new BlockPosition(entity);
             World world = entity.getWorldObj();
 
             if (iblockstate != world.getBlockState(blockpos) && block.getRenderType() != -1)
@@ -51,7 +51,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock>
                     int k = blockpos.getZ();
                     worldrenderer.setTranslation((double)((float)(-i) - 0.5F), (double)(-j), (double)((float)(-k) - 0.5F));
                     BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-                    IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world, (BlockPos)null);
+                    IBakedModel ibakedmodel = blockrendererdispatcher.getModelFromBlockState(iblockstate, world, (BlockPosition)null);
                     blockrendererdispatcher.getBlockModelRenderer().renderModel(world, ibakedmodel, iblockstate, blockpos, worldrenderer, false);
                     worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
                     tessellator.draw();

@@ -14,7 +14,7 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.world.World;
 import net.optifine.EmissiveTextures;
@@ -117,7 +117,7 @@ public class TileEntityRendererDispatcher
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             }
 
-            BlockPos blockpos = tileentityIn.getPos();
+            BlockPosition blockpos = tileentityIn.getPos();
 
             if (!this.worldObj.isBlockLoaded(blockpos, false))
             {

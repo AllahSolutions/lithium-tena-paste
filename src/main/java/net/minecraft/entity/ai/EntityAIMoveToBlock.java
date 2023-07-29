@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public abstract class EntityAIMoveToBlock extends EntityAIBase
@@ -15,7 +15,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
     private int field_179490_f;
 
     /** Block to move to */
-    protected BlockPos destinationBlock = BlockPos.ORIGIN;
+    protected BlockPosition destinationBlock = BlockPosition.ORIGIN;
     private boolean isAboveDestination;
     private int searchLength;
 
@@ -98,14 +98,14 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
 
     /**
      * Searches and sets new destination block and returns true if a suitable block (specified in {@link
-     * net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos) EntityAIMoveToBlock#shouldMoveTo(World,
+     * net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPosition) EntityAIMoveToBlock#shouldMoveTo(World,
      * BlockPos)}) can be found.
      */
     private boolean searchForDestination()
     {
         int i = this.searchLength;
         int j = 1;
-        BlockPos blockpos = new BlockPos(this.theEntity);
+        BlockPosition blockpos = new BlockPosition(this.theEntity);
 
         for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)
         {
@@ -115,7 +115,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
                 {
                     for (int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1)
                     {
-                        BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
+                        BlockPosition blockpos1 = blockpos.add(i1, k - 1, j1);
 
                         if (this.theEntity.isWithinHomeDistanceFromPosition(blockpos1) && this.shouldMoveTo(this.theEntity.worldObj, blockpos1))
                         {
@@ -133,5 +133,5 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
     /**
      * Return true to set given position as destination
      */
-    protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
+    protected abstract boolean shouldMoveTo(World worldIn, BlockPosition pos);
 }

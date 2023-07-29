@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntityPiston;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEntityPiston>
@@ -20,7 +20,7 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
 
     public void renderTileEntityAt(TileEntityPiston te, double x, double y, double z, float partialTicks, int destroyStage)
     {
-        BlockPos blockpos = te.getPos();
+        BlockPosition blockpos = te.getPos();
         IBlockState iblockstate = te.getPistonState();
         Block block = iblockstate.getBlock();
 

@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityAIEatGrass extends EntityAIBase
@@ -42,7 +42,7 @@ public class EntityAIEatGrass extends EntityAIBase
         }
         else
         {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+            BlockPosition blockpos = new BlockPosition(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
             return field_179505_b.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.grass;
         }
     }
@@ -90,7 +90,7 @@ public class EntityAIEatGrass extends EntityAIBase
 
         if (this.eatingGrassTimer == 4)
         {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+            BlockPosition blockpos = new BlockPosition(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
             if (field_179505_b.apply(this.entityWorld.getBlockState(blockpos)))
             {
@@ -103,7 +103,7 @@ public class EntityAIEatGrass extends EntityAIBase
             }
             else
             {
-                BlockPos blockpos1 = blockpos.down();
+                BlockPosition blockpos1 = blockpos.down();
 
                 if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.grass)
                 {

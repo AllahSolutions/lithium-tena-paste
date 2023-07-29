@@ -22,7 +22,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ITickable;
 
 import java.util.Arrays;
@@ -112,7 +112,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = new TileEntityBeacon.BeamSegment(EntitySheep.getDyeRgb(EnumDyeColor.WHITE));
         this.beamSegments.add(tileentitybeacon$beamsegment);
         boolean flag = true;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int i1 = k + 1; i1 < 256; ++i1)
         {
@@ -176,7 +176,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
                 {
                     for (int k1 = l - l1; k1 <= l + l1; ++k1)
                     {
-                        Block block = this.worldObj.getBlockState(new BlockPos(j1, i2, k1)).getBlock();
+                        Block block = this.worldObj.getBlockState(new BlockPosition(j1, i2, k1)).getBlock();
 
                         if (block != Blocks.emerald_block && block != Blocks.gold_block && block != Blocks.diamond_block && block != Blocks.iron_block)
                         {

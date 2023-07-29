@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -59,7 +59,7 @@ public class CommandResultStats
                 {
                     return true;
                 }
-                public BlockPos getPosition()
+                public BlockPosition getPosition()
                 {
                     return sender.getPosition();
                 }

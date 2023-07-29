@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 
 public class MovingObjectPosition
 {
-    private BlockPos blockPos;
+    private BlockPosition blockPosition;
 
     /** What type of ray trace hit was this? 0 = block, 1 = entity */
     public MovingObjectPosition.MovingObjectType typeOfHit;
@@ -16,14 +16,14 @@ public class MovingObjectPosition
     /** The hit entity */
     public Entity entityHit;
 
-    public MovingObjectPosition(Vec3 hitVecIn, EnumFacing facing, BlockPos blockPosIn)
+    public MovingObjectPosition(Vec3 hitVecIn, EnumFacing facing, BlockPosition blockPositionIn)
     {
-        this(MovingObjectPosition.MovingObjectType.BLOCK, hitVecIn, facing, blockPosIn);
+        this(MovingObjectPosition.MovingObjectType.BLOCK, hitVecIn, facing, blockPositionIn);
     }
 
     public MovingObjectPosition(Vec3 p_i45552_1_, EnumFacing facing)
     {
-        this(MovingObjectPosition.MovingObjectType.BLOCK, p_i45552_1_, facing, BlockPos.ORIGIN);
+        this(MovingObjectPosition.MovingObjectType.BLOCK, p_i45552_1_, facing, BlockPosition.ORIGIN);
     }
 
     public MovingObjectPosition(Entity entityIn)
@@ -31,10 +31,10 @@ public class MovingObjectPosition
         this(entityIn, new Vec3(entityIn.posX, entityIn.posY, entityIn.posZ));
     }
 
-    public MovingObjectPosition(MovingObjectPosition.MovingObjectType typeOfHitIn, Vec3 hitVecIn, EnumFacing sideHitIn, BlockPos blockPosIn)
+    public MovingObjectPosition(MovingObjectPosition.MovingObjectType typeOfHitIn, Vec3 hitVecIn, EnumFacing sideHitIn, BlockPosition blockPositionIn)
     {
         this.typeOfHit = typeOfHitIn;
-        this.blockPos = blockPosIn;
+        this.blockPosition = blockPositionIn;
         this.sideHit = sideHitIn;
         this.hitVec = new Vec3(hitVecIn.xCoord, hitVecIn.yCoord, hitVecIn.zCoord);
     }
@@ -46,14 +46,14 @@ public class MovingObjectPosition
         this.hitVec = hitVecIn;
     }
 
-    public BlockPos getBlockPos()
+    public BlockPosition getBlockPos()
     {
-        return this.blockPos;
+        return this.blockPosition;
     }
 
     public String toString()
     {
-        return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos=" + this.hitVec + ", entity=" + this.entityHit + '}';
+        return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPosition + ", f=" + this.sideHit + ", pos=" + this.hitVec + ", entity=" + this.entityHit + '}';
     }
 
     public static enum MovingObjectType

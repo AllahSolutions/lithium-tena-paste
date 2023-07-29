@@ -3,7 +3,7 @@ package net.minecraft.entity.projectile;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -60,7 +60,7 @@ public class EntitySmallFireball extends EntityFireball
 
                 if (flag1)
                 {
-                    BlockPos blockpos = movingObject.getBlockPos().offset(movingObject.sideHit);
+                    BlockPosition blockpos = movingObject.getBlockPos().offset(movingObject.sideHit);
 
                     if (this.worldObj.isAirBlock(blockpos))
                     {

@@ -1,6 +1,6 @@
 package net.minecraft.world.biome;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public class WorldChunkManagerHell extends WorldChunkManager
     /**
      * Returns the biome generator
      */
-    public BiomeGenBase getBiomeGenerator(BlockPos pos)
+    public BiomeGenBase getBiomeGenerator(BlockPosition pos)
     {
         return this.biomeGenerator;
     }
@@ -80,9 +80,9 @@ public class WorldChunkManagerHell extends WorldChunkManager
         return this.loadBlockGeneratorData(listToReuse, x, z, width, length);
     }
 
-    public BlockPos findBiomePosition(int x, int z, int range, List<BiomeGenBase> biomes, Random random)
+    public BlockPosition findBiomePosition(int x, int z, int range, List<BiomeGenBase> biomes, Random random)
     {
-        return biomes.contains(this.biomeGenerator) ? new BlockPos(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
+        return biomes.contains(this.biomeGenerator) ? new BlockPosition(x - range + random.nextInt(range * 2 + 1), 0, z - range + random.nextInt(range * 2 + 1)) : null;
     }
 
     /**

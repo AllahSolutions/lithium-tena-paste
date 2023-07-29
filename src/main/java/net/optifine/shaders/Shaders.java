@@ -5771,9 +5771,9 @@ public class Shaders
         return currentWorld;
     }
 
-    public static BlockPos getCameraPosition()
+    public static BlockPosition getCameraPosition()
     {
-        return new BlockPos(cameraPositionX, cameraPositionY, cameraPositionZ);
+        return new BlockPosition(cameraPositionX, cameraPositionY, cameraPositionZ);
     }
 
     public static boolean isCustomUniforms()

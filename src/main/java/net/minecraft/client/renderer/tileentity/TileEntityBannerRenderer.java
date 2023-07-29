@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.LayeredColorMaskTexture;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.tileentity.TileEntityBanner;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
@@ -64,7 +64,7 @@ public class TileEntityBannerRenderer extends TileEntitySpecialRenderer<TileEnti
             this.bannerModel.bannerStand.showModel = false;
         }
 
-        BlockPos blockpos = te.getPos();
+        BlockPosition blockpos = te.getPos();
         float f3 = (float)(blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + (float)j + partialTicks;
         this.bannerModel.bannerSlate.rotateAngleX = (-0.0125F + 0.01F * MathHelper.cos(f3 * (float)Math.PI * 0.02F)) * (float)Math.PI;
         GlStateManager.enableRescaleNormal();

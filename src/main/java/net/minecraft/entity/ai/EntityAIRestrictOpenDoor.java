@@ -2,7 +2,7 @@ package net.minecraft.entity.ai;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.village.Village;
 import net.minecraft.village.VillageDoorInfo;
 
@@ -32,7 +32,7 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
         }
         else
         {
-            BlockPos blockpos = new BlockPos(this.entityObj);
+            BlockPosition blockpos = new BlockPosition(this.entityObj);
             Village village = this.entityObj.worldObj.getVillageCollection().getNearestVillage(blockpos, 16);
 
             if (village == null)
@@ -52,7 +52,7 @@ public class EntityAIRestrictOpenDoor extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.entityObj.worldObj.isDaytime() ? false : !this.frontDoor.getIsDetachedFromVillageFlag() && this.frontDoor.func_179850_c(new BlockPos(this.entityObj));
+        return this.entityObj.worldObj.isDaytime() ? false : !this.frontDoor.getIsDetachedFromVillageFlag() && this.frontDoor.func_179850_c(new BlockPosition(this.entityObj));
     }
 
     /**

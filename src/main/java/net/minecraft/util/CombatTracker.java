@@ -34,7 +34,7 @@ public class CombatTracker
 
         if (this.fighter.isOnLadder())
         {
-            Block block = this.fighter.worldObj.getBlockState(new BlockPos(this.fighter.posX, this.fighter.getEntityBoundingBox().minY, this.fighter.posZ)).getBlock();
+            Block block = this.fighter.worldObj.getBlockState(new BlockPosition(this.fighter.posX, this.fighter.getEntityBoundingBox().minY, this.fighter.posZ)).getBlock();
 
             if (block == Blocks.ladder)
             {

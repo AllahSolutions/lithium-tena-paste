@@ -1,7 +1,7 @@
 package net.minecraft.world.biome;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenIcePath;
@@ -29,7 +29,7 @@ public class BiomeGenSnow extends BiomeGenBase
         this.spawnableCreatureList.clear();
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         if (this.field_150615_aC)
         {

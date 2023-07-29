@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -42,7 +42,7 @@ public class ItemBucket extends Item
         {
             if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
-                BlockPos blockpos = movingobjectposition.getBlockPos();
+                BlockPosition blockpos = movingobjectposition.getBlockPos();
 
                 if (!worldIn.isBlockModifiable(playerIn, blockpos))
                 {
@@ -80,7 +80,7 @@ public class ItemBucket extends Item
                         return new ItemStack(Items.bucket);
                     }
 
-                    BlockPos blockpos1 = blockpos.offset(movingobjectposition.sideHit);
+                    BlockPosition blockpos1 = blockpos.offset(movingobjectposition.sideHit);
 
                     if (!playerIn.canPlayerEdit(blockpos1, movingobjectposition.sideHit, itemStackIn))
                     {
@@ -120,7 +120,7 @@ public class ItemBucket extends Item
         }
     }
 
-    public boolean tryPlaceContainedLiquid(World worldIn, BlockPos pos)
+    public boolean tryPlaceContainedLiquid(World worldIn, BlockPosition pos)
     {
         if (this.isFull == Blocks.air)
         {

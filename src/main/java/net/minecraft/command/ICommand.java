@@ -1,6 +1,6 @@
 package net.minecraft.command;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public interface ICommand extends Comparable<ICommand>
      */
     boolean canCommandSenderUseCommand(ICommandSender sender);
 
-    List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos);
+    List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos);
 
     /**
      * Return whether the specified command parameter index is a username parameter.

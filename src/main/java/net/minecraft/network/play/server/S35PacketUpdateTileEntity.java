@@ -4,13 +4,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
 {
-    private BlockPos blockPos;
+    private BlockPosition blockPosition;
 
     /** Used only for vanilla tile entities */
     private int metadata;
@@ -20,9 +20,9 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
     {
     }
 
-    public S35PacketUpdateTileEntity(BlockPos blockPosIn, int metadataIn, NBTTagCompound nbtIn)
+    public S35PacketUpdateTileEntity(BlockPosition blockPositionIn, int metadataIn, NBTTagCompound nbtIn)
     {
-        this.blockPos = blockPosIn;
+        this.blockPosition = blockPositionIn;
         this.metadata = metadataIn;
         this.nbt = nbtIn;
     }
@@ -32,7 +32,7 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.blockPos = buf.readBlockPos();
+        this.blockPosition = buf.readBlockPos();
         this.metadata = buf.readUnsignedByte();
         this.nbt = buf.readNBTTagCompoundFromBuffer();
     }
@@ -42,7 +42,7 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
      */
     public void writePacketData(PacketBuffer buf) throws IOException
     {
-        buf.writeBlockPos(this.blockPos);
+        buf.writeBlockPos(this.blockPosition);
         buf.writeByte((byte)this.metadata);
         buf.writeNBTTagCompoundToBuffer(this.nbt);
     }
@@ -55,9 +55,9 @@ public class S35PacketUpdateTileEntity implements Packet<INetHandlerPlayClient>
         handler.handleUpdateTileEntity(this);
     }
 
-    public BlockPos getPos()
+    public BlockPosition getPos()
     {
-        return this.blockPos;
+        return this.blockPosition;
     }
 
     public int getTileEntityType()

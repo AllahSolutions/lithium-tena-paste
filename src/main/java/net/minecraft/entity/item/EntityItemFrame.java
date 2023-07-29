@@ -8,7 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -24,7 +24,7 @@ public class EntityItemFrame extends EntityHanging
         super(worldIn);
     }
 
-    public EntityItemFrame(World worldIn, BlockPos p_i45852_2_, EnumFacing p_i45852_3_)
+    public EntityItemFrame(World worldIn, BlockPosition p_i45852_2_, EnumFacing p_i45852_3_)
     {
         super(worldIn, p_i45852_2_);
         this.updateFacingWithBoundingBox(p_i45852_3_);

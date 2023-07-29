@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -18,14 +18,14 @@ public class BlockMushroom extends BlockBush implements IGrowable
         this.setTickRandomly(true);
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (rand.nextInt(25) == 0)
         {
             int i = 5;
             int j = 4;
 
-            for (BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-4, -1, -4), pos.add(4, 1, 4)))
+            for (BlockPosition blockpos : BlockPosition.getAllInBoxMutable(pos.add(-4, -1, -4), pos.add(4, 1, 4)))
             {
                 if (worldIn.getBlockState(blockpos).getBlock() == this)
                 {
@@ -38,7 +38,7 @@ public class BlockMushroom extends BlockBush implements IGrowable
                 }
             }
 
-            BlockPos blockpos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(2) - rand.nextInt(2), rand.nextInt(3) - 1);
+            BlockPosition blockpos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(2) - rand.nextInt(2), rand.nextInt(3) - 1);
 
             for (int k = 0; k < 4; ++k)
             {
@@ -57,7 +57,7 @@ public class BlockMushroom extends BlockBush implements IGrowable
         }
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos, this.getDefaultState());
     }
@@ -70,7 +70,7 @@ public class BlockMushroom extends BlockBush implements IGrowable
         return ground.isFullBlock();
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
+    public boolean canBlockStay(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (pos.getY() >= 0 && pos.getY() < 256)
         {
@@ -83,7 +83,7 @@ public class BlockMushroom extends BlockBush implements IGrowable
         }
     }
 
-    public boolean generateBigMushroom(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public boolean generateBigMushroom(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         worldIn.setBlockToAir(pos);
         WorldGenerator worldgenerator = null;
@@ -111,17 +111,17 @@ public class BlockMushroom extends BlockBush implements IGrowable
     /**
      * Whether this IGrowable can grow
      */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+    public boolean canGrow(World worldIn, BlockPosition pos, IBlockState state, boolean isClient)
     {
         return true;
     }
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         return (double)rand.nextFloat() < 0.4D;
     }
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public void grow(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         this.generateBigMushroom(worldIn, pos, state, rand);
     }

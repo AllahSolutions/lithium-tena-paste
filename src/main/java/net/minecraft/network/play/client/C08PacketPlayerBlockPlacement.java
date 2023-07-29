@@ -4,13 +4,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServer> {
-    private static final BlockPos NEGATIVE = new BlockPos(-1, -1, -1);
-    private BlockPos position;
+    private static final BlockPosition NEGATIVE = new BlockPosition(-1, -1, -1);
+    private BlockPosition position;
     private int placedBlockDirection;
     private ItemStack stack;
     private float facingX;
@@ -24,7 +24,7 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         this(NEGATIVE, 255, stackIn, 0.0F, 0.0F, 0.0F);
     }
 
-    public C08PacketPlayerBlockPlacement(BlockPos positionIn, int placedBlockDirectionIn, ItemStack stackIn, float facingXIn, float facingYIn, float facingZIn) {
+    public C08PacketPlayerBlockPlacement(BlockPosition positionIn, int placedBlockDirectionIn, ItemStack stackIn, float facingXIn, float facingYIn, float facingZIn) {
         this.position = positionIn;
         this.placedBlockDirection = placedBlockDirectionIn;
         this.stack = stackIn != null ? stackIn.copy() : null;
@@ -64,7 +64,7 @@ public class C08PacketPlayerBlockPlacement implements Packet<INetHandlerPlayServ
         handler.processPlayerBlockPlacement(this);
     }
 
-    public BlockPos getPosition() {
+    public BlockPosition getPosition() {
         return this.position;
     }
 

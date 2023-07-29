@@ -3,33 +3,23 @@ package dev.tenacity.utils.Skid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.optifine.reflect.Reflector;
+import net.minecraft.util.*;
+import net.minecraft.util.BlockPosition;
 
-import net.minecraft.util.MathHelper;
 import java.util.List;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.EnumFacing;
 
 import net.minecraft.entity.Entity;
 import com.google.common.base.Predicates;
-import net.minecraft.util.EntitySelectors;
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
-import net.minecraft.util.Vec3;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.BlockPos;
 
 public class RayTraceUtil {
     private static Minecraft mc = Minecraft.getMinecraft();
-    public static MovingObjectPosition getHitVec(final BlockPos blockPos, final float yaw, final float pitch, final double range) {
+    public static MovingObjectPosition getHitVec(final BlockPosition blockPosition, final float yaw, final float pitch, final double range) {
         final Vec3 vec31 = RayTraceUtil.mc.thePlayer.getVectorForRotation(pitch, yaw);
         final Vec3 vec32 = RayTraceUtil.mc.thePlayer.getPositionEyes(1.0f).addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-        final Block block = RayTraceUtil.mc.theWorld.getBlockState(blockPos).getBlock();
-        final AxisAlignedBB axisalignedbb = new AxisAlignedBB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + block.getBlockBoundsMaxX(), blockPos.getY() + block.getBlockBoundsMaxY(), blockPos.getZ() + block.getBlockBoundsMaxZ());
+        final Block block = RayTraceUtil.mc.theWorld.getBlockState(blockPosition).getBlock();
+        final AxisAlignedBB axisalignedbb = new AxisAlignedBB(blockPosition.getX(), blockPosition.getY(), blockPosition.getZ(), blockPosition.getX() + block.getBlockBoundsMaxX(), blockPosition.getY() + block.getBlockBoundsMaxY(), blockPosition.getZ() + block.getBlockBoundsMaxZ());
         return axisalignedbb.calculateIntercept(RayTraceUtil.mc.thePlayer.getPositionEyes(1.0f), vec32);
     }
 
@@ -99,7 +89,7 @@ public class RayTraceUtil {
             }
             if (pointedEntity != null && flag && vec3.distanceTo(vec6) > 3.0) {
                 pointedEntity = null;
-                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPos(vec6));
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPosition(vec6));
             }
             if (pointedEntity != null && (d3 < d2 || objectMouseOver == null)) {
                 objectMouseOver = new MovingObjectPosition(pointedEntity, vec6);
@@ -179,7 +169,7 @@ public class RayTraceUtil {
             }
             if (pointedEntity != null && flag && vec3.distanceTo(vec6) > 3.0) {
                 pointedEntity = null;
-                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPos(vec6));
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPosition(vec6));
             }
             if (pointedEntity != null && (d3 < d2 || objectMouseOver == null)) {
                 objectMouseOver = new MovingObjectPosition(pointedEntity, vec6);
@@ -259,7 +249,7 @@ public class RayTraceUtil {
             }
             if (pointedEntity != null && flag && vec3.distanceTo(vec6) > range) {
                 pointedEntity = null;
-                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPos(vec6));
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPosition(vec6));
             }
             if (pointedEntity != null && (d3 < d2 || objectMouseOver == null)) {
                 objectMouseOver = new MovingObjectPosition(pointedEntity, vec6);
@@ -350,7 +340,7 @@ public class RayTraceUtil {
             }
             if (pointedEntity != null && flag && vec3.distanceTo(vec6) > 3.0) {
                 pointedEntity = null;
-                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPos(vec6));
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec6, null, new BlockPosition(vec6));
             }
             if (pointedEntity != null && (d3 < d2 || objectMouseOver == null)) {
                 objectMouseOver = new MovingObjectPosition(pointedEntity, vec6);

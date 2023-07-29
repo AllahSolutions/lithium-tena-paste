@@ -122,7 +122,7 @@ public class GuiOverlayDebug extends Gui
     @SuppressWarnings("incomplete-switch")
     protected List<String> call()
     {
-        BlockPos blockpos = new BlockPos(this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().getEntityBoundingBox().minY, this.mc.getRenderViewEntity().posZ);
+        BlockPosition blockpos = new BlockPosition(this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().getEntityBoundingBox().minY, this.mc.getRenderViewEntity().posZ);
 
         if (this.mc.debug != this.debugOF)
         {
@@ -220,7 +220,7 @@ public class GuiOverlayDebug extends Gui
 
                     if (entityplayermp != null)
                     {
-                        DifficultyInstance difficultyinstance1 = this.mc.getIntegratedServer().getDifficultyAsync(entityplayermp.worldObj, new BlockPos(entityplayermp));
+                        DifficultyInstance difficultyinstance1 = this.mc.getIntegratedServer().getDifficultyAsync(entityplayermp.worldObj, new BlockPosition(entityplayermp));
 
                         if (difficultyinstance1 != null)
                         {
@@ -239,7 +239,7 @@ public class GuiOverlayDebug extends Gui
 
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null)
             {
-                BlockPos blockpos1 = this.mc.objectMouseOver.getBlockPos();
+                BlockPosition blockpos1 = this.mc.objectMouseOver.getBlockPos();
                 list.add(String.format("Looking at: %d %d %d", new Object[] {Integer.valueOf(blockpos1.getX()), Integer.valueOf(blockpos1.getY()), Integer.valueOf(blockpos1.getZ())}));
             }
 
@@ -262,7 +262,7 @@ public class GuiOverlayDebug extends Gui
 
         if (!this.isReducedDebug()) {
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.mc.objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = this.mc.objectMouseOver.getBlockPos();
+                BlockPosition blockpos = this.mc.objectMouseOver.getBlockPos();
                 IBlockState iblockstate = this.mc.theWorld.getBlockState(blockpos);
 
                 if (this.mc.theWorld.getWorldType() != WorldType.DEBUG_WORLD) {

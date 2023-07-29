@@ -46,7 +46,7 @@ public class ItemMonsterPlacer extends Item
     /**
      * Called when a Block is right-clicked with this Item
      */
-    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPosition pos, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -128,7 +128,7 @@ public class ItemMonsterPlacer extends Item
             {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
                 {
-                    BlockPos blockpos = movingobjectposition.getBlockPos();
+                    BlockPosition blockpos = movingobjectposition.getBlockPos();
 
                     if (!worldIn.isBlockModifiable(playerIn, blockpos))
                     {
@@ -190,7 +190,7 @@ public class ItemMonsterPlacer extends Item
                     entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(worldIn.rand.nextFloat() * 360.0F), 0.0F);
                     entityliving.rotationYawHead = entityliving.rotationYaw;
                     entityliving.renderYawOffset = entityliving.rotationYaw;
-                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), (IEntityLivingData)null);
+                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPosition(entityliving)), (IEntityLivingData)null);
                     worldIn.spawnEntityInWorld(entity);
                     entityliving.playLivingSound();
                 }

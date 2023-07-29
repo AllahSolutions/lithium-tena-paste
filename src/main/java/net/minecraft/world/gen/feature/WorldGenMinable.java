@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -30,7 +30,7 @@ public class WorldGenMinable extends WorldGenerator
         this.predicate = p_i45631_3_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         float f = rand.nextFloat() * (float)Math.PI;
         double d0 = (double)((float)(position.getX() + 8) + MathHelper.sin(f) * (float)this.numberOfBlocks / 8.0F);
@@ -74,7 +74,7 @@ public class WorldGenMinable extends WorldGenerator
 
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
-                                    BlockPos blockpos = new BlockPos(l1, i2, j2);
+                                    BlockPosition blockpos = new BlockPosition(l1, i2, j2);
 
                                     if (this.predicate.apply(worldIn.getBlockState(blockpos)))
                                     {

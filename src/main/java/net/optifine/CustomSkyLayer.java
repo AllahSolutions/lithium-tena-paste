@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.ConnectedParser;
@@ -402,7 +402,7 @@ public class CustomSkyLayer
         }
         else
         {
-            BlockPos blockpos = entity.getPosition();
+            BlockPosition blockpos = entity.getPosition();
 
             if (this.biomes != null)
             {

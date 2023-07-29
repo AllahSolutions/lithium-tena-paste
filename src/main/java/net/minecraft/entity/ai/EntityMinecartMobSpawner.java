@@ -5,7 +5,7 @@ import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 public class EntityMinecartMobSpawner extends EntityMinecart
@@ -21,9 +21,9 @@ public class EntityMinecartMobSpawner extends EntityMinecart
         {
             return EntityMinecartMobSpawner.this.worldObj;
         }
-        public BlockPos getSpawnerPosition()
+        public BlockPosition getSpawnerPosition()
         {
-            return new BlockPos(EntityMinecartMobSpawner.this);
+            return new BlockPosition(EntityMinecartMobSpawner.this);
         }
     };
 

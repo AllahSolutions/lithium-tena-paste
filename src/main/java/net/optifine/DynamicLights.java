@@ -17,7 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.optifine.config.ConnectedParser;
@@ -234,7 +234,7 @@ public class DynamicLights
         }
     }
 
-    public static int getCombinedLight(BlockPos pos, int combinedLight)
+    public static int getCombinedLight(BlockPosition pos, int combinedLight)
     {
         double d0 = getLightLevel(pos);
         combinedLight = getCombinedLight(d0, combinedLight);
@@ -265,7 +265,7 @@ public class DynamicLights
         return combinedLight;
     }
 
-    public static double getLightLevel(BlockPos pos)
+    public static double getLightLevel(BlockPosition pos)
     {
         double d0 = 0.0D;
 

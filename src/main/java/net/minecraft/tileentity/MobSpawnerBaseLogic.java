@@ -68,7 +68,7 @@ public abstract class MobSpawnerBaseLogic
      */
     private boolean isActivated()
     {
-        BlockPos blockpos = this.getSpawnerPosition();
+        BlockPosition blockpos = this.getSpawnerPosition();
         return this.getSpawnerWorld().isAnyPlayerWithinRangeAt((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.5D, (double)blockpos.getZ() + 0.5D, (double)this.activatingRangeFromPlayer);
     }
 
@@ -76,7 +76,7 @@ public abstract class MobSpawnerBaseLogic
     {
         if (this.isActivated())
         {
-            BlockPos blockpos = this.getSpawnerPosition();
+            BlockPosition blockpos = this.getSpawnerPosition();
 
             if (this.getSpawnerWorld().isRemote)
             {
@@ -210,7 +210,7 @@ public abstract class MobSpawnerBaseLogic
         {
             if (entityIn instanceof EntityLiving)
             {
-                ((EntityLiving)entityIn).onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPos(entityIn)), (IEntityLivingData)null);
+                ((EntityLiving)entityIn).onInitialSpawn(entityIn.worldObj.getDifficultyForLocation(new BlockPosition(entityIn)), (IEntityLivingData)null);
             }
 
             entityIn.worldObj.spawnEntityInWorld(entityIn);
@@ -375,7 +375,7 @@ public abstract class MobSpawnerBaseLogic
 
     public abstract World getSpawnerWorld();
 
-    public abstract BlockPos getSpawnerPosition();
+    public abstract BlockPosition getSpawnerPosition();
 
     public double getMobRotation()
     {

@@ -1,7 +1,7 @@
 package net.minecraft.world.biome;
 
 import com.google.common.collect.Lists;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -38,7 +38,7 @@ public class BiomeGenMutated extends BiomeGenBase
         this.maxHeight = biome.maxHeight + 0.2F;
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         this.baseBiome.theBiomeDecorator.decorate(worldIn, rand, this, pos);
     }
@@ -61,12 +61,12 @@ public class BiomeGenMutated extends BiomeGenBase
         return this.baseBiome.genBigTreeChance(rand);
     }
 
-    public int getFoliageColorAtPos(BlockPos pos)
+    public int getFoliageColorAtPos(BlockPosition pos)
     {
         return this.baseBiome.getFoliageColorAtPos(pos);
     }
 
-    public int getGrassColorAtPos(BlockPos pos)
+    public int getGrassColorAtPos(BlockPosition pos)
     {
         return this.baseBiome.getGrassColorAtPos(pos);
     }

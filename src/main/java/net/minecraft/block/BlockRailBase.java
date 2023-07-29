@@ -16,7 +16,7 @@ public abstract class BlockRailBase extends Block
 {
     protected final boolean isPowered;
 
-    public static boolean isRailBlock(World worldIn, BlockPos pos)
+    public static boolean isRailBlock(World worldIn, BlockPosition pos)
     {
         return isRailBlock(worldIn.getBlockState(pos));
     }
@@ -35,7 +35,7 @@ public abstract class BlockRailBase extends Block
         this.setCreativeTab(CreativeTabs.tabTransport);
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -51,13 +51,13 @@ public abstract class BlockRailBase extends Block
     /**
      * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
      */
-    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end)
+    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPosition pos, Vec3 start, Vec3 end)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         return super.collisionRayTrace(worldIn, pos, start, end);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = iblockstate.getBlock() == this ? (BlockRailBase.EnumRailDirection)iblockstate.getValue(this.getShapeProperty()) : null;
@@ -77,12 +77,12 @@ public abstract class BlockRailBase extends Block
         return false;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!worldIn.isRemote)
         {
@@ -98,7 +98,7 @@ public abstract class BlockRailBase extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!worldIn.isRemote)
         {
@@ -139,11 +139,11 @@ public abstract class BlockRailBase extends Block
         }
     }
 
-    protected void onNeighborChangedInternal(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    protected void onNeighborChangedInternal(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
     }
 
-    protected IBlockState func_176564_a(World worldIn, BlockPos p_176564_2_, IBlockState p_176564_3_, boolean p_176564_4_)
+    protected IBlockState func_176564_a(World worldIn, BlockPosition p_176564_2_, IBlockState p_176564_3_, boolean p_176564_4_)
     {
         return worldIn.isRemote ? p_176564_3_ : (new BlockRailBase.Rail(worldIn, p_176564_2_, p_176564_3_)).func_180364_a(worldIn.isBlockPowered(p_176564_2_), p_176564_4_).getBlockState();
     }
@@ -158,7 +158,7 @@ public abstract class BlockRailBase extends Block
         return EnumWorldBlockLayer.CUTOUT;
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.breakBlock(worldIn, pos, state);
 
@@ -240,13 +240,13 @@ public abstract class BlockRailBase extends Block
     public class Rail
     {
         private final World world;
-        private final BlockPos pos;
+        private final BlockPosition pos;
         private final BlockRailBase block;
         private IBlockState state;
         private final boolean isPowered;
-        private final List<BlockPos> field_150657_g = Lists.<BlockPos>newArrayList();
+        private final List<BlockPosition> field_150657_g = Lists.<BlockPosition>newArrayList();
 
-        public Rail(World worldIn, BlockPos pos, IBlockState state)
+        public Rail(World worldIn, BlockPosition pos, IBlockState state)
         {
             this.world = worldIn;
             this.pos = pos;
@@ -318,7 +318,7 @@ public abstract class BlockRailBase extends Block
         {
             for (int i = 0; i < this.field_150657_g.size(); ++i)
             {
-                BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPos)this.field_150657_g.get(i));
+                BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPosition)this.field_150657_g.get(i));
 
                 if (blockrailbase$rail != null && blockrailbase$rail.func_150653_a(this))
                 {
@@ -331,12 +331,12 @@ public abstract class BlockRailBase extends Block
             }
         }
 
-        private boolean hasRailAt(BlockPos pos)
+        private boolean hasRailAt(BlockPosition pos)
         {
             return BlockRailBase.isRailBlock(this.world, pos) || BlockRailBase.isRailBlock(this.world, pos.up()) || BlockRailBase.isRailBlock(this.world, pos.down());
         }
 
-        private BlockRailBase.Rail findRailAt(BlockPos pos)
+        private BlockRailBase.Rail findRailAt(BlockPosition pos)
         {
             IBlockState iblockstate = this.world.getBlockState(pos);
 
@@ -346,7 +346,7 @@ public abstract class BlockRailBase extends Block
             }
             else
             {
-                BlockPos lvt_2_1_ = pos.up();
+                BlockPosition lvt_2_1_ = pos.up();
                 iblockstate = this.world.getBlockState(lvt_2_1_);
 
                 if (BlockRailBase.isRailBlock(iblockstate))
@@ -367,11 +367,11 @@ public abstract class BlockRailBase extends Block
             return this.func_180363_c(p_150653_1_.pos);
         }
 
-        private boolean func_180363_c(BlockPos p_180363_1_)
+        private boolean func_180363_c(BlockPosition p_180363_1_)
         {
             for (int i = 0; i < this.field_150657_g.size(); ++i)
             {
-                BlockPos blockpos = (BlockPos)this.field_150657_g.get(i);
+                BlockPosition blockpos = (BlockPosition)this.field_150657_g.get(i);
 
                 if (blockpos.getX() == p_180363_1_.getX() && blockpos.getZ() == p_180363_1_.getZ())
                 {
@@ -405,10 +405,10 @@ public abstract class BlockRailBase extends Block
         private void func_150645_c(BlockRailBase.Rail p_150645_1_)
         {
             this.field_150657_g.add(p_150645_1_.pos);
-            BlockPos blockpos = this.pos.north();
-            BlockPos blockpos1 = this.pos.south();
-            BlockPos blockpos2 = this.pos.west();
-            BlockPos blockpos3 = this.pos.east();
+            BlockPosition blockpos = this.pos.north();
+            BlockPosition blockpos1 = this.pos.south();
+            BlockPosition blockpos2 = this.pos.west();
+            BlockPosition blockpos3 = this.pos.east();
             boolean flag = this.func_180363_c(blockpos);
             boolean flag1 = this.func_180363_c(blockpos1);
             boolean flag2 = this.func_180363_c(blockpos2);
@@ -483,7 +483,7 @@ public abstract class BlockRailBase extends Block
             this.world.setBlockState(this.pos, this.state, 3);
         }
 
-        private boolean func_180361_d(BlockPos p_180361_1_)
+        private boolean func_180361_d(BlockPosition p_180361_1_)
         {
             BlockRailBase.Rail blockrailbase$rail = this.findRailAt(p_180361_1_);
 
@@ -500,10 +500,10 @@ public abstract class BlockRailBase extends Block
 
         public BlockRailBase.Rail func_180364_a(boolean p_180364_1_, boolean p_180364_2_)
         {
-            BlockPos blockpos = this.pos.north();
-            BlockPos blockpos1 = this.pos.south();
-            BlockPos blockpos2 = this.pos.west();
-            BlockPos blockpos3 = this.pos.east();
+            BlockPosition blockpos = this.pos.north();
+            BlockPosition blockpos1 = this.pos.south();
+            BlockPosition blockpos2 = this.pos.west();
+            BlockPosition blockpos3 = this.pos.east();
             boolean flag = this.func_180361_d(blockpos);
             boolean flag1 = this.func_180361_d(blockpos1);
             boolean flag2 = this.func_180361_d(blockpos2);
@@ -644,7 +644,7 @@ public abstract class BlockRailBase extends Block
 
                 for (int i = 0; i < this.field_150657_g.size(); ++i)
                 {
-                    BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPos)this.field_150657_g.get(i));
+                    BlockRailBase.Rail blockrailbase$rail = this.findRailAt((BlockPosition)this.field_150657_g.get(i));
 
                     if (blockrailbase$rail != null)
                     {

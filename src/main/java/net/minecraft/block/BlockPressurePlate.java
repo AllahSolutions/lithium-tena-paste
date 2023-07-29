@@ -8,7 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class BlockPressurePlate extends BlockBasePressurePlate
         return state.withProperty(POWERED, Boolean.valueOf(strength > 0));
     }
 
-    protected int computeRedstoneStrength(World worldIn, BlockPos pos)
+    protected int computeRedstoneStrength(World worldIn, BlockPosition pos)
     {
         AxisAlignedBB axisalignedbb = this.getSensitiveAABB(pos);
         List <? extends Entity > list;

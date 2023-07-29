@@ -11,7 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -20,15 +20,15 @@ public class ScaffoldUtils implements Utils {
 
     public static class BlockCache {
 
-        private final BlockPos position;
+        private final BlockPosition position;
         private final EnumFacing facing;
 
-        public BlockCache(final BlockPos position, final EnumFacing facing) {
+        public BlockCache(final BlockPosition position, final EnumFacing facing) {
             this.position = position;
             this.facing = facing;
         }
 
-        public BlockPos getPosition() {
+        public BlockPosition getPosition() {
             return this.position;
         }
 
@@ -48,15 +48,15 @@ public class ScaffoldUtils implements Utils {
     }
 
     public static BlockCache getBlockInfo() {
-        final BlockPos belowBlockPos = new BlockPos(mc.thePlayer.posX, getYLevel() - (Scaffold.isDownwards() ? 1 : 0), mc.thePlayer.posZ);
-        if (mc.theWorld.getBlockState(belowBlockPos).getBlock() instanceof BlockAir) {
+        final BlockPosition belowBlockPosition = new BlockPosition(mc.thePlayer.posX, getYLevel() - (Scaffold.isDownwards() ? 1 : 0), mc.thePlayer.posZ);
+        if (mc.theWorld.getBlockState(belowBlockPosition).getBlock() instanceof BlockAir) {
             for (int x = 0; x < 4; x++) {
                 for (int z = 0; z < 4; z++) {
                     for (int i = 1; i > -3; i -= 2) {
-                        final BlockPos blockPos = belowBlockPos.add(x * i, 0, z * i);
-                        if (mc.theWorld.getBlockState(blockPos).getBlock() instanceof BlockAir) {
+                        final BlockPosition blockPosition = belowBlockPosition.add(x * i, 0, z * i);
+                        if (mc.theWorld.getBlockState(blockPosition).getBlock() instanceof BlockAir) {
                             for (EnumFacing direction : EnumFacing.values()) {
-                                final BlockPos block = blockPos.offset(direction);
+                                final BlockPosition block = blockPosition.offset(direction);
                                 final Material material = mc.theWorld.getBlockState(block).getBlock().getMaterial();
                                 if (material.isSolid() && !material.isLiquid()) {
                                     return new BlockCache(block, direction.getOpposite());
@@ -112,7 +112,7 @@ public class ScaffoldUtils implements Utils {
     }
 
     public static Vec3 getHypixelVec3(BlockCache data) {
-        BlockPos pos = data.position;
+        BlockPosition pos = data.position;
         EnumFacing face = data.facing;
 
         double x = (double) pos.getX() + 0.5, y = (double) pos.getY() + 0.5, z = (double) pos.getZ() + 0.5;
@@ -135,7 +135,7 @@ public class ScaffoldUtils implements Utils {
 
     public static Vec3 getHitVec(float[] rotation, BlockCache data) {
 
-        BlockPos blockFace = data.getPosition();
+        BlockPosition blockFace = data.getPosition();
         EnumFacing enumFacing = data.getFacing();
 
         /* Correct HitVec */

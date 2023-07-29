@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -33,10 +33,10 @@ public class Village
      * This is the sum of all door coordinates and used to calculate the actual village center by dividing by the number
      * of doors.
      */
-    private BlockPos centerHelper = BlockPos.ORIGIN;
+    private BlockPosition centerHelper = BlockPosition.ORIGIN;
 
     /** This is the actual village center. */
-    private BlockPos center = BlockPos.ORIGIN;
+    private BlockPosition center = BlockPosition.ORIGIN;
     private int villageRadius;
     private int lastAddDoorTimestamp;
     private int tickCounter;
@@ -97,13 +97,13 @@ public class Village
         }
     }
 
-    private Vec3 func_179862_a(BlockPos p_179862_1_, int p_179862_2_, int p_179862_3_, int p_179862_4_)
+    private Vec3 func_179862_a(BlockPosition p_179862_1_, int p_179862_2_, int p_179862_3_, int p_179862_4_)
     {
         for (int i = 0; i < 10; ++i)
         {
-            BlockPos blockpos = p_179862_1_.add(this.worldObj.rand.nextInt(16) - 8, this.worldObj.rand.nextInt(6) - 3, this.worldObj.rand.nextInt(16) - 8);
+            BlockPosition blockpos = p_179862_1_.add(this.worldObj.rand.nextInt(16) - 8, this.worldObj.rand.nextInt(6) - 3, this.worldObj.rand.nextInt(16) - 8);
 
-            if (this.func_179866_a(blockpos) && this.func_179861_a(new BlockPos(p_179862_2_, p_179862_3_, p_179862_4_), blockpos))
+            if (this.func_179866_a(blockpos) && this.func_179861_a(new BlockPosition(p_179862_2_, p_179862_3_, p_179862_4_), blockpos))
             {
                 return new Vec3((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
             }
@@ -112,7 +112,7 @@ public class Village
         return null;
     }
 
-    private boolean func_179861_a(BlockPos p_179861_1_, BlockPos p_179861_2_)
+    private boolean func_179861_a(BlockPosition p_179861_1_, BlockPosition p_179861_2_)
     {
         if (!World.doesBlockHaveSolidTopSurface(this.worldObj, p_179861_2_.down()))
         {
@@ -129,7 +129,7 @@ public class Village
                 {
                     for (int i1 = j; i1 < j + p_179861_1_.getZ(); ++i1)
                     {
-                        if (this.worldObj.getBlockState(new BlockPos(k, l, i1)).getBlock().isNormalCube())
+                        if (this.worldObj.getBlockState(new BlockPosition(k, l, i1)).getBlock().isNormalCube())
                         {
                             return false;
                         }
@@ -158,7 +158,7 @@ public class Village
         }
     }
 
-    public BlockPos getCenter()
+    public BlockPosition getCenter()
     {
         return this.center;
     }
@@ -187,7 +187,7 @@ public class Village
         return this.numVillagers;
     }
 
-    public boolean func_179866_a(BlockPos pos)
+    public boolean func_179866_a(BlockPosition pos)
     {
         return this.center.distanceSq(pos) < (double)(this.villageRadius * this.villageRadius);
     }
@@ -197,7 +197,7 @@ public class Village
         return this.villageDoorInfoList;
     }
 
-    public VillageDoorInfo getNearestDoor(BlockPos pos)
+    public VillageDoorInfo getNearestDoor(BlockPosition pos)
     {
         VillageDoorInfo villagedoorinfo = null;
         int i = Integer.MAX_VALUE;
@@ -219,7 +219,7 @@ public class Village
     /**
      * Returns {@link net.minecraft.village.VillageDoorInfo VillageDoorInfo} from given block position
      */
-    public VillageDoorInfo getDoorInfo(BlockPos pos)
+    public VillageDoorInfo getDoorInfo(BlockPosition pos)
     {
         VillageDoorInfo villagedoorinfo = null;
         int i = Integer.MAX_VALUE;
@@ -250,7 +250,7 @@ public class Village
     /**
      * if door not existed in this village, null will be returned
      */
-    public VillageDoorInfo getExistedDoor(BlockPos doorBlock)
+    public VillageDoorInfo getExistedDoor(BlockPosition doorBlock)
     {
         if (this.center.distanceSq(doorBlock) > (double)(this.villageRadius * this.villageRadius))
         {
@@ -392,7 +392,7 @@ public class Village
         }
     }
 
-    private boolean isWoodDoor(BlockPos pos)
+    private boolean isWoodDoor(BlockPosition pos)
     {
         Block block = this.worldObj.getBlockState(pos).getBlock();
         return block instanceof BlockDoor ? block.getMaterial() == Material.wood : false;
@@ -404,12 +404,12 @@ public class Village
 
         if (i == 0)
         {
-            this.center = new BlockPos(0, 0, 0);
+            this.center = new BlockPosition(0, 0, 0);
             this.villageRadius = 0;
         }
         else
         {
-            this.center = new BlockPos(this.centerHelper.getX() / i, this.centerHelper.getY() / i, this.centerHelper.getZ() / i);
+            this.center = new BlockPosition(this.centerHelper.getX() / i, this.centerHelper.getY() / i, this.centerHelper.getZ() / i);
             int j = 0;
 
             for (VillageDoorInfo villagedoorinfo : this.villageDoorInfoList)
@@ -460,14 +460,14 @@ public class Village
         this.lastAddDoorTimestamp = compound.getInteger("Stable");
         this.tickCounter = compound.getInteger("Tick");
         this.noBreedTicks = compound.getInteger("MTick");
-        this.center = new BlockPos(compound.getInteger("CX"), compound.getInteger("CY"), compound.getInteger("CZ"));
-        this.centerHelper = new BlockPos(compound.getInteger("ACX"), compound.getInteger("ACY"), compound.getInteger("ACZ"));
+        this.center = new BlockPosition(compound.getInteger("CX"), compound.getInteger("CY"), compound.getInteger("CZ"));
+        this.centerHelper = new BlockPosition(compound.getInteger("ACX"), compound.getInteger("ACY"), compound.getInteger("ACZ"));
         NBTTagList nbttaglist = compound.getTagList("Doors", 10);
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-            VillageDoorInfo villagedoorinfo = new VillageDoorInfo(new BlockPos(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Y"), nbttagcompound.getInteger("Z")), nbttagcompound.getInteger("IDX"), nbttagcompound.getInteger("IDZ"), nbttagcompound.getInteger("TS"));
+            VillageDoorInfo villagedoorinfo = new VillageDoorInfo(new BlockPosition(nbttagcompound.getInteger("X"), nbttagcompound.getInteger("Y"), nbttagcompound.getInteger("Z")), nbttagcompound.getInteger("IDX"), nbttagcompound.getInteger("IDZ"), nbttagcompound.getInteger("TS"));
             this.villageDoorInfoList.add(villagedoorinfo);
         }
 

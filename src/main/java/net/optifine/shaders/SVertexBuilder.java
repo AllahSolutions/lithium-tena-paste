@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -50,7 +50,7 @@ public class SVertexBuilder
         --this.entityDataIndex;
     }
 
-    public static void pushEntity(IBlockState blockState, BlockPos blockPos, IBlockAccess blockAccess, WorldRenderer wrr)
+    public static void pushEntity(IBlockState blockState, BlockPosition blockPosition, IBlockAccess blockAccess, WorldRenderer wrr)
     {
         Block block = blockState.getBlock();
         int i;

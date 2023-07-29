@@ -10,7 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -60,7 +60,7 @@ public class BlockCarpet extends Block
         this.setBlockBoundsFromMeta(0);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.setBlockBoundsFromMeta(0);
     }
@@ -72,7 +72,7 @@ public class BlockCarpet extends Block
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
@@ -80,12 +80,12 @@ public class BlockCarpet extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         this.checkForDrop(worldIn, pos, state);
     }
 
-    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+    private boolean checkForDrop(World worldIn, BlockPosition pos, IBlockState state)
     {
         if (!this.canBlockStay(worldIn, pos))
         {
@@ -99,12 +99,12 @@ public class BlockCarpet extends Block
         }
     }
 
-    private boolean canBlockStay(World worldIn, BlockPos pos)
+    private boolean canBlockStay(World worldIn, BlockPosition pos)
     {
         return !worldIn.isAirBlock(pos.down());
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return side == EnumFacing.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
     }

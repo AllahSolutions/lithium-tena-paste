@@ -12,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
@@ -35,7 +35,7 @@ public class BlockPistonExtension extends Block
         this.setHardness(0.5F);
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+    public void onBlockHarvested(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer player)
     {
         if (player.capabilities.isCreativeMode)
         {
@@ -43,7 +43,7 @@ public class BlockPistonExtension extends Block
 
             if (enumfacing != null)
             {
-                BlockPos blockpos = pos.offset(enumfacing.getOpposite());
+                BlockPosition blockpos = pos.offset(enumfacing.getOpposite());
                 Block block = worldIn.getBlockState(blockpos).getBlock();
 
                 if (block == Blocks.piston || block == Blocks.sticky_piston)
@@ -56,7 +56,7 @@ public class BlockPistonExtension extends Block
         super.onBlockHarvested(worldIn, pos, state, player);
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         super.breakBlock(worldIn, pos, state);
         EnumFacing enumfacing = ((EnumFacing)state.getValue(FACING)).getOpposite();
@@ -83,7 +83,7 @@ public class BlockPistonExtension extends Block
         return false;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return false;
     }
@@ -91,7 +91,7 @@ public class BlockPistonExtension extends Block
     /**
      * Check whether this Block can be placed on the given side
      */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side)
     {
         return false;
     }
@@ -107,7 +107,7 @@ public class BlockPistonExtension extends Block
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+    public void addCollisionBoxesToList(World worldIn, BlockPosition pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
     {
         this.applyHeadBounds(state);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -151,7 +151,7 @@ public class BlockPistonExtension extends Block
         }
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         this.applyHeadBounds(worldIn.getBlockState(pos));
     }
@@ -194,10 +194,10 @@ public class BlockPistonExtension extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-        BlockPos blockpos = pos.offset(enumfacing.getOpposite());
+        BlockPosition blockpos = pos.offset(enumfacing.getOpposite());
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
         if (iblockstate.getBlock() != Blocks.piston && iblockstate.getBlock() != Blocks.sticky_piston)
@@ -210,7 +210,7 @@ public class BlockPistonExtension extends Block
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return true;
     }
@@ -221,7 +221,7 @@ public class BlockPistonExtension extends Block
         return i > 5 ? null : EnumFacing.getFront(i);
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return worldIn.getBlockState(pos).getValue(TYPE) == BlockPistonExtension.EnumPistonType.STICKY ? Item.getItemFromBlock(Blocks.sticky_piston) : Item.getItemFromBlock(Blocks.piston);
     }

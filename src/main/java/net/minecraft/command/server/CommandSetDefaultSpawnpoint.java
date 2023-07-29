@@ -6,7 +6,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.network.play.server.S05PacketSpawnPosition;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class CommandSetDefaultSpawnpoint extends CommandBase
      */
     public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
-        BlockPos blockpos;
+        BlockPosition blockpos;
 
         if (args.length == 0)
         {
@@ -62,7 +62,7 @@ public class CommandSetDefaultSpawnpoint extends CommandBase
         notifyOperators(sender, this, "commands.setworldspawn.success", new Object[] {Integer.valueOf(blockpos.getX()), Integer.valueOf(blockpos.getY()), Integer.valueOf(blockpos.getZ())});
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : null;
     }

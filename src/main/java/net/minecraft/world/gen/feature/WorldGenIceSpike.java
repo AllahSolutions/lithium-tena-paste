@@ -3,7 +3,7 @@ package net.minecraft.world.gen.feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class WorldGenIceSpike extends WorldGenerator
 {
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         while (worldIn.isAirBlock(position) && position.getY() > 2)
         {
@@ -84,7 +84,7 @@ public class WorldGenIceSpike extends WorldGenerator
             {
                 for (int i2 = -k1; i2 <= k1; ++i2)
                 {
-                    BlockPos blockpos = position.add(l1, -1, i2);
+                    BlockPosition blockpos = position.add(l1, -1, i2);
                     int j2 = 50;
 
                     if (Math.abs(l1) == 1 && Math.abs(i2) == 1)

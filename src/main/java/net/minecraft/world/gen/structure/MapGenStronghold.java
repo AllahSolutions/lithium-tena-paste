@@ -1,7 +1,7 @@
 package net.minecraft.world.gen.structure;
 
 import com.google.common.collect.Lists;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -80,7 +80,7 @@ public class MapGenStronghold extends MapGenStructure
                 double d1 = (1.25D * (double)i + random.nextDouble()) * this.field_82671_h * (double)i;
                 int k = (int)Math.round(Math.cos(d0) * d1);
                 int l = (int)Math.round(Math.sin(d0) * d1);
-                BlockPos blockpos = this.worldObj.getWorldChunkManager().findBiomePosition((k << 4) + 8, (l << 4) + 8, 112, this.field_151546_e, random);
+                BlockPosition blockpos = this.worldObj.getWorldChunkManager().findBiomePosition((k << 4) + 8, (l << 4) + 8, 112, this.field_151546_e, random);
 
                 if (blockpos != null)
                 {
@@ -112,9 +112,9 @@ public class MapGenStronghold extends MapGenStructure
         return false;
     }
 
-    protected List<BlockPos> getCoordList()
+    protected List<BlockPosition> getCoordList()
     {
-        List<BlockPos> list = Lists.<BlockPos>newArrayList();
+        List<BlockPosition> list = Lists.<BlockPosition>newArrayList();
 
         for (ChunkCoordIntPair chunkcoordintpair : this.structureCoords)
         {

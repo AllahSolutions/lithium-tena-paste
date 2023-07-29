@@ -10,7 +10,6 @@ import dev.tenacity.event.impl.game.TeleportEvent;
 import dev.tenacity.module.impl.movement.Flight;
 import dev.tenacity.event.impl.player.ChatReceivedEvent;
 import dev.tenacity.utils.misc.Enhancements;
-import dev.tenacity.utils.player.ChatUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
@@ -174,10 +173,10 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         } else if (packetIn.getType() == 61) {
             entity = new EntitySnowball(this.clientWorldController, d0, d1, d2);
         } else if (packetIn.getType() == 71) {
-            entity = new EntityItemFrame(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), EnumFacing.getHorizontal(packetIn.func_149009_m()));
+            entity = new EntityItemFrame(this.clientWorldController, new BlockPosition(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)), EnumFacing.getHorizontal(packetIn.func_149009_m()));
             packetIn.func_149002_g(0);
         } else if (packetIn.getType() == 77) {
-            entity = new EntityLeashKnot(this.clientWorldController, new BlockPos(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)));
+            entity = new EntityLeashKnot(this.clientWorldController, new BlockPosition(MathHelper.floor_double(d0), MathHelper.floor_double(d1), MathHelper.floor_double(d2)));
             packetIn.func_149002_g(0);
         } else if (packetIn.getType() == 65) {
             entity = new EntityEnderPearl(this.clientWorldController, d0, d1, d2);
@@ -1325,7 +1324,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     public void handleSoundEffect(S29PacketSoundEffect packetIn) {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        if (Flight.hiddenBlocks.contains(new BlockPos(packetIn.getX() - .5, packetIn.getY() + .5, packetIn.getZ() - .5))) {
+        if (Flight.hiddenBlocks.contains(new BlockPosition(packetIn.getX() - .5, packetIn.getY() + .5, packetIn.getZ() - .5))) {
             return;
         }
         this.gameController.theWorld.playSound(packetIn.getX(), packetIn.getY(), packetIn.getZ(), packetIn.getSoundName(), packetIn.getVolume(), packetIn.getPitch(), false);

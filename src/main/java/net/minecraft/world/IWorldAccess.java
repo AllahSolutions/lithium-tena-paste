@@ -2,13 +2,13 @@ package net.minecraft.world;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public interface IWorldAccess
 {
-    void markBlockForUpdate(BlockPos pos);
+    void markBlockForUpdate(BlockPosition pos);
 
-    void notifyLightSet(BlockPos pos);
+    void notifyLightSet(BlockPosition pos);
 
     /**
      * On the client, re-renders all blocks in this range, inclusive. On the server, does nothing. Args: min x, min y,
@@ -40,11 +40,11 @@ public interface IWorldAccess
      */
     void onEntityRemoved(Entity entityIn);
 
-    void playRecord(String recordName, BlockPos blockPosIn);
+    void playRecord(String recordName, BlockPosition blockPositionIn);
 
-    void broadcastSound(int soundID, BlockPos pos, int data);
+    void broadcastSound(int soundID, BlockPosition pos, int data);
 
-    void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int data);
+    void playAuxSFX(EntityPlayer player, int sfxType, BlockPosition blockPositionIn, int data);
 
-    void sendBlockBreakProgress(int breakerId, BlockPos pos, int progress);
+    void sendBlockBreakProgress(int breakerId, BlockPosition pos, int progress);
 }

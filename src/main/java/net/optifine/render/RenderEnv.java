@@ -9,10 +9,10 @@ import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BreakingFour;
 import net.minecraft.src.Config;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
-import net.optifine.BlockPosM;
+import net.optifine.BlockPositionM;
 import net.optifine.model.ListQuadsOverlay;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 public class RenderEnv
 {
     private IBlockState blockState;
-    private BlockPos blockPos;
+    private BlockPosition blockPosition;
     private int blockId = -1;
     private int metadata = -1;
     private int breakingAnimation = -1;
@@ -30,7 +30,7 @@ public class RenderEnv
     private float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
     private BitSet boundsFlags = new BitSet(3);
     private BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
-    private BlockPosM colorizerBlockPosM = null;
+    private BlockPositionM colorizerBlockPosM = null;
     private boolean[] borderFlags = null;
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
@@ -48,18 +48,18 @@ public class RenderEnv
     private static final int FALSE = 0;
     private static final int TRUE = 1;
 
-    public RenderEnv(IBlockState blockState, BlockPos blockPos)
+    public RenderEnv(IBlockState blockState, BlockPosition blockPosition)
     {
         this.blockState = blockState;
-        this.blockPos = blockPos;
+        this.blockPosition = blockPosition;
     }
 
-    public void reset(IBlockState blockStateIn, BlockPos blockPosIn)
+    public void reset(IBlockState blockStateIn, BlockPosition blockPositionIn)
     {
-        if (this.blockState != blockStateIn || this.blockPos != blockPosIn)
+        if (this.blockState != blockStateIn || this.blockPosition != blockPositionIn)
         {
             this.blockState = blockStateIn;
-            this.blockPos = blockPosIn;
+            this.blockPosition = blockPositionIn;
             this.blockId = -1;
             this.metadata = -1;
             this.breakingAnimation = -1;
@@ -163,11 +163,11 @@ public class RenderEnv
         return this.blockState;
     }
 
-    public BlockPosM getColorizerBlockPosM()
+    public BlockPositionM getColorizerBlockPosM()
     {
         if (this.colorizerBlockPosM == null)
         {
-            this.colorizerBlockPosM = new BlockPosM(0, 0, 0);
+            this.colorizerBlockPosM = new BlockPositionM(0, 0, 0);
         }
 
         return this.colorizerBlockPosM;

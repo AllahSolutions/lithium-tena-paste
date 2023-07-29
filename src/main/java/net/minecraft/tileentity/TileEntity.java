@@ -8,7 +8,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +23,7 @@ public abstract class TileEntity
 
     /** the instance of the world the tile entity is in. */
     protected World worldObj;
-    protected BlockPos pos = BlockPos.ORIGIN;
+    protected BlockPosition pos = BlockPosition.ORIGIN;
     protected boolean tileEntityInvalid;
     private int blockMetadata = -1;
 
@@ -72,7 +72,7 @@ public abstract class TileEntity
 
     public void readFromNBT(NBTTagCompound compound)
     {
-        this.pos = new BlockPos(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
+        this.pos = new BlockPosition(compound.getInteger("x"), compound.getInteger("y"), compound.getInteger("z"));
     }
 
     public void writeToNBT(NBTTagCompound compound)
@@ -171,7 +171,7 @@ public abstract class TileEntity
         return 4096.0D;
     }
 
-    public BlockPos getPos()
+    public BlockPosition getPos()
     {
         return this.pos;
     }
@@ -266,7 +266,7 @@ public abstract class TileEntity
         }
     }
 
-    public void setPos(BlockPos posIn)
+    public void setPos(BlockPosition posIn)
     {
         this.pos = posIn;
     }

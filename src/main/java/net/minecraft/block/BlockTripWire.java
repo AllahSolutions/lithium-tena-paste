@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
@@ -43,12 +43,12 @@ public class BlockTripWire extends Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         return state.withProperty(NORTH, Boolean.valueOf(isConnectedTo(worldIn, pos, state, EnumFacing.NORTH))).withProperty(EAST, Boolean.valueOf(isConnectedTo(worldIn, pos, state, EnumFacing.EAST))).withProperty(SOUTH, Boolean.valueOf(isConnectedTo(worldIn, pos, state, EnumFacing.SOUTH))).withProperty(WEST, Boolean.valueOf(isConnectedTo(worldIn, pos, state, EnumFacing.WEST)));
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return null;
     }
@@ -79,7 +79,7 @@ public class BlockTripWire extends Block
         return Items.string;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Items.string;
     }
@@ -87,7 +87,7 @@ public class BlockTripWire extends Block
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         boolean flag = ((Boolean)state.getValue(SUSPENDED)).booleanValue();
         boolean flag1 = !World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
@@ -99,7 +99,7 @@ public class BlockTripWire extends Block
         }
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         boolean flag = ((Boolean)iblockstate.getValue(ATTACHED)).booleanValue();
@@ -119,19 +119,19 @@ public class BlockTripWire extends Block
         }
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
         state = state.withProperty(SUSPENDED, Boolean.valueOf(!World.doesBlockHaveSolidTopSurface(worldIn, pos.down())));
         worldIn.setBlockState(pos, state, 3);
         this.notifyHook(worldIn, pos, state);
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         this.notifyHook(worldIn, pos, state.withProperty(POWERED, Boolean.valueOf(true)));
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+    public void onBlockHarvested(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer player)
     {
         if (!worldIn.isRemote)
         {
@@ -142,13 +142,13 @@ public class BlockTripWire extends Block
         }
     }
 
-    private void notifyHook(World worldIn, BlockPos pos, IBlockState state)
+    private void notifyHook(World worldIn, BlockPosition pos, IBlockState state)
     {
         for (EnumFacing enumfacing : new EnumFacing[] {EnumFacing.SOUTH, EnumFacing.WEST})
         {
             for (int i = 1; i < 42; ++i)
             {
-                BlockPos blockpos = pos.offset(enumfacing, i);
+                BlockPosition blockpos = pos.offset(enumfacing, i);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
                 if (iblockstate.getBlock() == Blocks.tripwire_hook)
@@ -172,7 +172,7 @@ public class BlockTripWire extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {
@@ -186,11 +186,11 @@ public class BlockTripWire extends Block
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         if (!worldIn.isRemote)
         {
@@ -201,7 +201,7 @@ public class BlockTripWire extends Block
         }
     }
 
-    private void updateState(World worldIn, BlockPos pos)
+    private void updateState(World worldIn, BlockPosition pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
         boolean flag = ((Boolean)iblockstate.getValue(POWERED)).booleanValue();
@@ -233,9 +233,9 @@ public class BlockTripWire extends Block
         }
     }
 
-    public static boolean isConnectedTo(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing direction)
+    public static boolean isConnectedTo(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing direction)
     {
-        BlockPos blockpos = pos.offset(direction);
+        BlockPosition blockpos = pos.offset(direction);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
 

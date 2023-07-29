@@ -215,7 +215,7 @@ public class EntityFishHook extends Entity
 
             if (this.inGround)
             {
-                if (this.worldObj.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
+                if (this.worldObj.getBlockState(new BlockPosition(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile)
                 {
                     ++this.ticksInGround;
 
@@ -353,7 +353,7 @@ public class EntityFishHook extends Entity
                 {
                     WorldServer worldserver = (WorldServer)this.worldObj;
                     int l = 1;
-                    BlockPos blockpos = (new BlockPos(this)).up();
+                    BlockPosition blockpos = (new BlockPosition(this)).up();
 
                     if (this.rand.nextFloat() < 0.25F && this.worldObj.isRainingAt(blockpos))
                     {
@@ -397,7 +397,7 @@ public class EntityFishHook extends Entity
                             double d13 = this.posX + (double)(f10 * (float)this.ticksCatchableDelay * 0.1F);
                             double d15 = (double)((float)MathHelper.floor_double(this.getEntityBoundingBox().minY) + 1.0F);
                             double d16 = this.posZ + (double)(f11 * (float)this.ticksCatchableDelay * 0.1F);
-                            Block block1 = worldserver.getBlockState(new BlockPos((int)d13, (int)d15 - 1, (int)d16)).getBlock();
+                            Block block1 = worldserver.getBlockState(new BlockPosition((int)d13, (int)d15 - 1, (int)d16)).getBlock();
 
                             if (block1 == Blocks.water || block1 == Blocks.flowing_water)
                             {
@@ -438,7 +438,7 @@ public class EntityFishHook extends Entity
                             double d12 = this.posX + (double)(MathHelper.sin(f9) * f2 * 0.1F);
                             double d14 = (double)((float)MathHelper.floor_double(this.getEntityBoundingBox().minY) + 1.0F);
                             double d6 = this.posZ + (double)(MathHelper.cos(f9) * f2 * 0.1F);
-                            Block block = worldserver.getBlockState(new BlockPos((int)d12, (int)d14 - 1, (int)d6)).getBlock();
+                            Block block = worldserver.getBlockState(new BlockPosition((int)d12, (int)d14 - 1, (int)d6)).getBlock();
 
                             if (block == Blocks.water || block == Blocks.flowing_water)
                             {

@@ -276,7 +276,7 @@ public class Block
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         return state;
     }
@@ -366,7 +366,7 @@ public class Block
         return true;
     }
 
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    public boolean isPassable(IBlockAccess worldIn, BlockPosition pos)
     {
         return !this.blockMaterial.blocksMovement();
     }
@@ -382,7 +382,7 @@ public class Block
     /**
      * Whether this Block can be replaced directly by other blocks (true for e.g. tall grass)
      */
-    public boolean isReplaceable(World worldIn, BlockPos pos)
+    public boolean isReplaceable(World worldIn, BlockPosition pos)
     {
         return false;
     }
@@ -446,7 +446,7 @@ public class Block
         this.maxZ = (double)maxZ;
     }
 
-    public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos)
+    public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPosition pos)
     {
         Block block = worldIn.getBlockState(pos).getBlock();
         int i = worldIn.getCombinedLight(pos, block.getLightValue());
@@ -464,7 +464,7 @@ public class Block
         }
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPosition pos, EnumFacing side) {
         if(Flight.hiddenBlocks.contains(pos)){
             return true;
         }
@@ -490,19 +490,19 @@ public class Block
     /**
      * Whether this Block is solid on the given Side
      */
-    public boolean isBlockSolid(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+    public boolean isBlockSolid(IBlockAccess worldIn, BlockPosition pos, EnumFacing side)
     {
         return worldIn.getBlockState(pos).getBlock().getMaterial().isSolid();
     }
 
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos) {
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPosition pos) {
         return new AxisAlignedBB((double)pos.getX() + this.minX, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ, (double)pos.getX() + this.maxX, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ);
     }
 
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+    public void addCollisionBoxesToList(World worldIn, BlockPosition pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
     {
         AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
 
@@ -518,7 +518,7 @@ public class Block
         }
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPosition pos, IBlockState state)
     {
         return new AxisAlignedBB((double)pos.getX() + this.minX, (double)pos.getY() + this.minY, (double)pos.getZ() + this.minZ, (double)pos.getX() + this.maxX, (double)pos.getY() + this.maxY, (double)pos.getZ() + this.maxZ);
     }
@@ -547,30 +547,30 @@ public class Block
     /**
      * Called randomly when setTickRandomly is set to true (used by e.g. crops to grow, etc.)
      */
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(World worldIn, BlockPosition pos, IBlockState state, Random random)
     {
         this.updateTick(worldIn, pos, state, random);
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
     }
 
-    public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void randomDisplayTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
     }
 
     /**
      * Called when a player destroys this Block
      */
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPosition pos, IBlockState state)
     {
     }
 
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
     }
 
@@ -582,11 +582,11 @@ public class Block
         return 10;
     }
 
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockAdded(World worldIn, BlockPosition pos, IBlockState state)
     {
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
     }
 
@@ -618,7 +618,7 @@ public class Block
     /**
      * Spawn this Block's drops into the World as EntityItems
      */
-    public final void dropBlockAsItem(World worldIn, BlockPos pos, IBlockState state, int forture)
+    public final void dropBlockAsItem(World worldIn, BlockPosition pos, IBlockState state, int forture)
     {
         this.dropBlockAsItemWithChance(worldIn, pos, state, 1.0F, forture);
     }
@@ -626,7 +626,7 @@ public class Block
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         if (!worldIn.isRemote)
         {
@@ -650,7 +650,7 @@ public class Block
     /**
      * Spawns the given ItemStack as an EntityItem into the World at the given position
      */
-    public static void spawnAsEntity(World worldIn, BlockPos pos, ItemStack stack)
+    public static void spawnAsEntity(World worldIn, BlockPosition pos, ItemStack stack)
     {
         if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops"))
         {
@@ -667,7 +667,7 @@ public class Block
     /**
      * Spawns the given amount of experience into the World as XP orb entities
      */
-    protected void dropXpOnBlockBreak(World worldIn, BlockPos pos, int amount)
+    protected void dropXpOnBlockBreak(World worldIn, BlockPosition pos, int amount)
     {
         if (!worldIn.isRemote)
         {
@@ -700,7 +700,7 @@ public class Block
     /**
      * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
      */
-    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPos pos, Vec3 start, Vec3 end)
+    public MovingObjectPosition collisionRayTrace(World worldIn, BlockPosition pos, Vec3 start, Vec3 end)
     {
         this.setBlockBoundsBasedOnState(worldIn, pos);
         start = start.addVector((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()));
@@ -842,7 +842,7 @@ public class Block
     /**
      * Called when this Block is destroyed by an Explosion
      */
-    public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn)
+    public void onBlockDestroyedByExplosion(World worldIn, BlockPosition pos, Explosion explosionIn)
     {
     }
 
@@ -851,7 +851,7 @@ public class Block
         return XRay.enabled ? (XRay.isWhitelisted(blockState.getBlock()) ? EnumWorldBlockLayer.SOLID : EnumWorldBlockLayer.TRANSLUCENT) : EnumWorldBlockLayer.SOLID;
     }
 
-    public boolean canReplace(World worldIn, BlockPos pos, EnumFacing side, ItemStack stack)
+    public boolean canReplace(World worldIn, BlockPosition pos, EnumFacing side, ItemStack stack)
     {
         return this.canPlaceBlockOnSide(worldIn, pos, side);
     }
@@ -859,17 +859,17 @@ public class Block
     /**
      * Check whether this Block can be placed on the given side
      */
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPosition pos, EnumFacing side)
     {
         return this.canPlaceBlockAt(worldIn, pos);
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return worldIn.getBlockState(pos).getBlock().blockMaterial.isReplaceable();
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         return false;
     }
@@ -877,7 +877,7 @@ public class Block
     /**
      * Triggered whenever an entity collides with this block (enters into the block)
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, Entity entityIn)
     {
     }
 
@@ -885,21 +885,21 @@ public class Block
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState onBlockPlaced(World worldIn, BlockPosition pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getStateFromMeta(meta);
     }
 
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+    public void onBlockClicked(World worldIn, BlockPosition pos, EntityPlayer playerIn)
     {
     }
 
-    public Vec3 modifyAcceleration(World worldIn, BlockPos pos, Entity entityIn, Vec3 motion)
+    public Vec3 modifyAcceleration(World worldIn, BlockPosition pos, Entity entityIn, Vec3 motion)
     {
         return motion;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPosition pos)
     {
     }
 
@@ -961,17 +961,17 @@ public class Block
         return 16777215;
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         return 16777215;
     }
 
-    public final int colorMultiplier(IBlockAccess worldIn, BlockPos pos)
+    public final int colorMultiplier(IBlockAccess worldIn, BlockPosition pos)
     {
         return this.colorMultiplier(worldIn, pos, 0);
     }
 
-    public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getWeakPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return 0;
     }
@@ -987,11 +987,11 @@ public class Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
     }
 
-    public int getStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
+    public int getStrongPower(IBlockAccess worldIn, BlockPosition pos, IBlockState state, EnumFacing side)
     {
         return 0;
     }
@@ -1003,7 +1003,7 @@ public class Block
     {
     }
 
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
+    public void harvestBlock(World worldIn, EntityPlayer player, BlockPosition pos, IBlockState state, TileEntity te)
     {
         player.triggerAchievement(StatList.mineBlockStatArray[getIdFromBlock(this)]);
         player.addExhaustion(0.025F);
@@ -1053,7 +1053,7 @@ public class Block
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
     }
 
@@ -1090,7 +1090,7 @@ public class Block
     /**
      * Called on both Client and Server when World#addBlockEvent is called
      */
-    public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam)
+    public boolean onBlockEventReceived(World worldIn, BlockPosition pos, IBlockState state, int eventID, int eventParam)
     {
         return false;
     }
@@ -1125,7 +1125,7 @@ public class Block
     /**
      * Block's chance to react to a living entity falling on it.
      */
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance)
+    public void onFallenUpon(World worldIn, BlockPosition pos, Entity entityIn, float fallDistance)
     {
         entityIn.fall(fallDistance, 1.0F);
     }
@@ -1139,7 +1139,7 @@ public class Block
         entityIn.motionY = 0.0D;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Item.getItemFromBlock(this);
     }
@@ -1147,7 +1147,7 @@ public class Block
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
+    public int getDamageValue(World worldIn, BlockPosition pos)
     {
         return this.damageDropped(worldIn.getBlockState(pos));
     }
@@ -1174,14 +1174,14 @@ public class Block
         return this;
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+    public void onBlockHarvested(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer player)
     {
     }
 
     /**
      * Called similar to random ticks, but only when it is raining.
      */
-    public void fillWithRain(World worldIn, BlockPos pos)
+    public void fillWithRain(World worldIn, BlockPosition pos)
     {
     }
 
@@ -1221,7 +1221,7 @@ public class Block
         return false;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
+    public int getComparatorInputOverride(World worldIn, BlockPosition pos)
     {
         return 0;
     }

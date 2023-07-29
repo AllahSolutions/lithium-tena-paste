@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.TileEntityHopper;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
@@ -22,7 +22,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     /** Whether this hopper minecart is being blocked by an activator rail. */
     private boolean isBlocked = true;
     private int transferTicker = -1;
-    private BlockPos field_174900_c = BlockPos.ORIGIN;
+    private BlockPosition field_174900_c = BlockPosition.ORIGIN;
 
     public EntityMinecartHopper(World worldIn)
     {
@@ -140,7 +140,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
 
         if (!this.worldObj.isRemote && this.isEntityAlive() && this.getBlocked())
         {
-            BlockPos blockpos = new BlockPos(this);
+            BlockPosition blockpos = new BlockPosition(this);
 
             if (blockpos.equals(this.field_174900_c))
             {

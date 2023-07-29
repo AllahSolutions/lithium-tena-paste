@@ -3,7 +3,7 @@ package net.minecraft.world.gen.feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -17,7 +17,7 @@ public class WorldGenLiquids extends WorldGenerator
         this.block = p_i45465_1_;
     }
 
-    public boolean generate(World worldIn, Random rand, BlockPos position)
+    public boolean generate(World worldIn, Random rand, BlockPosition position)
     {
         if (worldIn.getBlockState(position.up()).getBlock() != Blocks.stone)
         {

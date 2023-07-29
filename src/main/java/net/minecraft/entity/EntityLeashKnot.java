@@ -6,7 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -17,7 +17,7 @@ public class EntityLeashKnot extends EntityHanging
         super(worldIn);
     }
 
-    public EntityLeashKnot(World worldIn, BlockPos hangingPositionIn)
+    public EntityLeashKnot(World worldIn, BlockPosition hangingPositionIn)
     {
         super(worldIn, hangingPositionIn);
         this.setPosition((double)hangingPositionIn.getX() + 0.5D, (double)hangingPositionIn.getY() + 0.5D, (double)hangingPositionIn.getZ() + 0.5D);
@@ -145,7 +145,7 @@ public class EntityLeashKnot extends EntityHanging
         return this.worldObj.getBlockState(this.hangingPosition).getBlock() instanceof BlockFence;
     }
 
-    public static EntityLeashKnot createKnot(World worldIn, BlockPos fence)
+    public static EntityLeashKnot createKnot(World worldIn, BlockPosition fence)
     {
         EntityLeashKnot entityleashknot = new EntityLeashKnot(worldIn, fence);
         entityleashknot.forceSpawn = true;
@@ -153,7 +153,7 @@ public class EntityLeashKnot extends EntityHanging
         return entityleashknot;
     }
 
-    public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPos pos)
+    public static EntityLeashKnot getKnotForPosition(World worldIn, BlockPosition pos)
     {
         int i = pos.getX();
         int j = pos.getY();

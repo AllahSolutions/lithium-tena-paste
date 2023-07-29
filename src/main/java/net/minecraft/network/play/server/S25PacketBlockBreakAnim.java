@@ -3,21 +3,21 @@ package net.minecraft.network.play.server;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 import java.io.IOException;
 
 public class S25PacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
 {
     private int breakerId;
-    private BlockPos position;
+    private BlockPosition position;
     private int progress;
 
     public S25PacketBlockBreakAnim()
     {
     }
 
-    public S25PacketBlockBreakAnim(int breakerId, BlockPos pos, int progress)
+    public S25PacketBlockBreakAnim(int breakerId, BlockPosition pos, int progress)
     {
         this.breakerId = breakerId;
         this.position = pos;
@@ -57,7 +57,7 @@ public class S25PacketBlockBreakAnim implements Packet<INetHandlerPlayClient>
         return this.breakerId;
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.position;
     }

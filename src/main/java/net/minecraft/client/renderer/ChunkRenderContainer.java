@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.optifine.SmartAnimations;
 
@@ -49,7 +49,7 @@ public abstract class ChunkRenderContainer
 
     public void preRenderChunk(RenderChunk renderChunkIn)
     {
-        BlockPos blockpos = renderChunkIn.getPosition();
+        BlockPosition blockpos = renderChunkIn.getPosition();
         GlStateManager.translate((float)((double)blockpos.getX() - this.viewEntityX), (float)((double)blockpos.getY() - this.viewEntityY), (float)((double)blockpos.getZ() - this.viewEntityZ));
     }
 

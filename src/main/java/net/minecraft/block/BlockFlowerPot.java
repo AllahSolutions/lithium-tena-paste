@@ -72,7 +72,7 @@ public class BlockFlowerPot extends BlockContainer
         return false;
     }
 
-    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
+    public int colorMultiplier(IBlockAccess worldIn, BlockPosition pos, int renderPass)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -89,7 +89,7 @@ public class BlockFlowerPot extends BlockContainer
         return 16777215;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         ItemStack itemstack = playerIn.inventory.getCurrentItem();
 
@@ -140,7 +140,7 @@ public class BlockFlowerPot extends BlockContainer
         return blockIn != Blocks.yellow_flower && blockIn != Blocks.red_flower && blockIn != Blocks.cactus && blockIn != Blocks.brown_mushroom && blockIn != Blocks.red_mushroom && blockIn != Blocks.sapling && blockIn != Blocks.deadbush ? blockIn == Blocks.tallgrass && meta == BlockTallGrass.EnumType.FERN.getMeta() : true;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
         return tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null ? tileentityflowerpot.getFlowerPotItem() : Items.flower_pot;
@@ -149,7 +149,7 @@ public class BlockFlowerPot extends BlockContainer
     /**
      * Gets the meta to use for the Pick Block ItemStack result
      */
-    public int getDamageValue(World worldIn, BlockPos pos)
+    public int getDamageValue(World worldIn, BlockPosition pos)
     {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
         return tileentityflowerpot != null && tileentityflowerpot.getFlowerPotItem() != null ? tileentityflowerpot.getFlowerPotData() : 0;
@@ -163,7 +163,7 @@ public class BlockFlowerPot extends BlockContainer
         return true;
     }
 
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+    public boolean canPlaceBlockAt(World worldIn, BlockPosition pos)
     {
         return super.canPlaceBlockAt(worldIn, pos) && World.doesBlockHaveSolidTopSurface(worldIn, pos.down());
     }
@@ -171,7 +171,7 @@ public class BlockFlowerPot extends BlockContainer
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         if (!World.doesBlockHaveSolidTopSurface(worldIn, pos.down()))
         {
@@ -180,7 +180,7 @@ public class BlockFlowerPot extends BlockContainer
         }
     }
 
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    public void breakBlock(World worldIn, BlockPosition pos, IBlockState state)
     {
         TileEntityFlowerPot tileentityflowerpot = this.getTileEntity(worldIn, pos);
 
@@ -192,7 +192,7 @@ public class BlockFlowerPot extends BlockContainer
         super.breakBlock(worldIn, pos, state);
     }
 
-    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+    public void onBlockHarvested(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer player)
     {
         super.onBlockHarvested(worldIn, pos, state, player);
 
@@ -215,7 +215,7 @@ public class BlockFlowerPot extends BlockContainer
         return Items.flower_pot;
     }
 
-    private TileEntityFlowerPot getTileEntity(World worldIn, BlockPos pos)
+    private TileEntityFlowerPot getTileEntity(World worldIn, BlockPosition pos)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof TileEntityFlowerPot ? (TileEntityFlowerPot)tileentity : null;
@@ -311,7 +311,7 @@ public class BlockFlowerPot extends BlockContainer
      * Get the actual Block state of this Block at the given position. This applies properties not visible in the
      * metadata, such as fence connections.
      */
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPosition pos)
     {
         BlockFlowerPot.EnumFlowerType blockflowerpot$enumflowertype = BlockFlowerPot.EnumFlowerType.EMPTY;
         TileEntity tileentity = worldIn.getTileEntity(pos);

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.HttpUtil;
@@ -36,7 +36,7 @@ public class BlockBeacon extends BlockContainer
         return new TileEntityBeacon();
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -80,7 +80,7 @@ public class BlockBeacon extends BlockContainer
     /**
      * Called by ItemBlocks after a block is set in the world, to allow post-place logic
      */
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    public void onBlockPlacedBy(World worldIn, BlockPosition pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 
@@ -98,7 +98,7 @@ public class BlockBeacon extends BlockContainer
     /**
      * Called when a neighboring block changes.
      */
-    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    public void onNeighborBlockChange(World worldIn, BlockPosition pos, IBlockState state, Block neighborBlock)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -114,7 +114,7 @@ public class BlockBeacon extends BlockContainer
         return EnumWorldBlockLayer.CUTOUT;
     }
 
-    public static void updateColorAsync(final World worldIn, final BlockPos glassPos)
+    public static void updateColorAsync(final World worldIn, final BlockPosition glassPos)
     {
         HttpUtil.field_180193_a.submit(new Runnable()
         {
@@ -124,7 +124,7 @@ public class BlockBeacon extends BlockContainer
 
                 for (int i = glassPos.getY() - 1; i >= 0; --i)
                 {
-                    final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
+                    final BlockPosition blockpos = new BlockPosition(glassPos.getX(), i, glassPos.getZ());
 
                     if (!chunk.canSeeSky(blockpos))
                     {

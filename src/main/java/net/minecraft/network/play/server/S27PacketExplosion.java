@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
     private double posY;
     private double posZ;
     private float strength;
-    private List<BlockPos> affectedBlockPositions;
+    private List<BlockPosition> affectedBlockPositions;
     public float motionX;
     public float motionY;
     public float motionZ;
@@ -23,7 +23,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
     public S27PacketExplosion() {
     }
 
-    public S27PacketExplosion(double x, double y, double z, float strengthIn, List<BlockPos> affectedBlocksIn, Vec3 explosionVec) {
+    public S27PacketExplosion(double x, double y, double z, float strengthIn, List<BlockPosition> affectedBlocksIn, Vec3 explosionVec) {
         this.posX = x;
         this.posY = y;
         this.posZ = z;
@@ -55,7 +55,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
             int j1 = buf.readByte() + j;
             int k1 = buf.readByte() + k;
             int l1 = buf.readByte() + l;
-            this.affectedBlockPositions.add(new BlockPos(j1, k1, l1));
+            this.affectedBlockPositions.add(new BlockPosition(j1, k1, l1));
         }
 
         this.motionX = buf.readFloat();
@@ -76,7 +76,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         int j = (int) this.posY;
         int k = (int) this.posZ;
 
-        for (BlockPos blockpos : this.affectedBlockPositions) {
+        for (BlockPosition blockpos : this.affectedBlockPositions) {
             int l = blockpos.getX() - i;
             int i1 = blockpos.getY() - j;
             int j1 = blockpos.getZ() - k;
@@ -125,7 +125,7 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         return this.strength;
     }
 
-    public List<BlockPos> getAffectedBlockPositions() {
+    public List<BlockPosition> getAffectedBlockPositions() {
         return this.affectedBlockPositions;
     }
 

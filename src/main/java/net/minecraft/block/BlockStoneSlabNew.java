@@ -11,7 +11,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -58,7 +58,7 @@ public abstract class BlockStoneSlabNew extends BlockSlab
         return Item.getItemFromBlock(Blocks.stone_slab2);
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Item.getItemFromBlock(Blocks.stone_slab2);
     }

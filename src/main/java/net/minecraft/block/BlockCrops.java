@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -39,7 +39,7 @@ public class BlockCrops extends BlockBush implements IGrowable
         return ground == Blocks.farmland;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPosition pos, IBlockState state, Random rand)
     {
         super.updateTick(worldIn, pos, state, rand);
 
@@ -59,7 +59,7 @@ public class BlockCrops extends BlockBush implements IGrowable
         }
     }
 
-    public void grow(World worldIn, BlockPos pos, IBlockState state)
+    public void grow(World worldIn, BlockPosition pos, IBlockState state)
     {
         int i = ((Integer)state.getValue(AGE)).intValue() + MathHelper.getRandomIntegerInRange(worldIn.rand, 2, 5);
 
@@ -71,10 +71,10 @@ public class BlockCrops extends BlockBush implements IGrowable
         worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i)), 2);
     }
 
-    protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos)
+    protected static float getGrowthChance(Block blockIn, World worldIn, BlockPosition pos)
     {
         float f = 1.0F;
-        BlockPos blockpos = pos.down();
+        BlockPosition blockpos = pos.down();
 
         for (int i = -1; i <= 1; ++i)
         {
@@ -102,10 +102,10 @@ public class BlockCrops extends BlockBush implements IGrowable
             }
         }
 
-        BlockPos blockpos1 = pos.north();
-        BlockPos blockpos2 = pos.south();
-        BlockPos blockpos3 = pos.west();
-        BlockPos blockpos4 = pos.east();
+        BlockPosition blockpos1 = pos.north();
+        BlockPosition blockpos2 = pos.south();
+        BlockPosition blockpos3 = pos.west();
+        BlockPosition blockpos4 = pos.east();
         boolean flag = blockIn == worldIn.getBlockState(blockpos3).getBlock() || blockIn == worldIn.getBlockState(blockpos4).getBlock();
         boolean flag1 = blockIn == worldIn.getBlockState(blockpos1).getBlock() || blockIn == worldIn.getBlockState(blockpos2).getBlock();
 
@@ -126,7 +126,7 @@ public class BlockCrops extends BlockBush implements IGrowable
         return f;
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
+    public boolean canBlockStay(World worldIn, BlockPosition pos, IBlockState state)
     {
         return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
     }
@@ -144,7 +144,7 @@ public class BlockCrops extends BlockBush implements IGrowable
     /**
      * Spawns this Block's drops into the World as EntityItems.
      */
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void dropBlockAsItemWithChance(World worldIn, BlockPosition pos, IBlockState state, float chance, int fortune)
     {
         super.dropBlockAsItemWithChance(worldIn, pos, state, chance, 0);
 
@@ -175,7 +175,7 @@ public class BlockCrops extends BlockBush implements IGrowable
         return ((Integer)state.getValue(AGE)).intValue() == 7 ? this.getCrop() : this.getSeed();
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return this.getSeed();
     }
@@ -183,17 +183,17 @@ public class BlockCrops extends BlockBush implements IGrowable
     /**
      * Whether this IGrowable can grow
      */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+    public boolean canGrow(World worldIn, BlockPosition pos, IBlockState state, boolean isClient)
     {
         return ((Integer)state.getValue(AGE)).intValue() < 7;
     }
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         return true;
     }
 
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public void grow(World worldIn, Random rand, BlockPosition pos, IBlockState state)
     {
         this.grow(worldIn, pos, state);
     }

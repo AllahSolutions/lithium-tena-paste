@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
@@ -44,7 +44,7 @@ public class WalkNodeProcessor extends NodeProcessor
         if (this.canSwim && entityIn.isInWater())
         {
             i = (int)entityIn.getEntityBoundingBox().minY;
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
+            BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition(MathHelper.floor_double(entityIn.posX), i, MathHelper.floor_double(entityIn.posZ));
 
             for (Block block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock(); block == Blocks.flowing_water || block == Blocks.water; block = this.blockaccess.getBlockState(blockpos$mutableblockpos).getBlock())
             {
@@ -189,8 +189,8 @@ public class WalkNodeProcessor extends NodeProcessor
     public static int func_176170_a(IBlockAccess blockaccessIn, Entity entityIn, int x, int y, int z, int sizeX, int sizeY, int sizeZ, boolean avoidWater, boolean breakDoors, boolean enterDoors)
     {
         boolean flag = false;
-        BlockPos blockpos = new BlockPos(entityIn);
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        BlockPosition blockpos = new BlockPosition(entityIn);
+        BlockPosition.MutableBlockPosition blockpos$mutableblockpos = new BlockPosition.MutableBlockPosition();
 
         for (int i = x; i < x + sizeX; ++i)
         {

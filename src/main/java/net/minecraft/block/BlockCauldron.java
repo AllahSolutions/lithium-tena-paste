@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -39,7 +39,7 @@ public class BlockCauldron extends Block
     /**
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
-    public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
+    public void addCollisionBoxesToList(World worldIn, BlockPosition pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity)
     {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
         super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
@@ -79,7 +79,7 @@ public class BlockCauldron extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPosition pos, IBlockState state, Entity entityIn)
     {
         int i = ((Integer)state.getValue(LEVEL)).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
@@ -91,7 +91,7 @@ public class BlockCauldron extends Block
         }
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPosition pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
         if (worldIn.isRemote)
         {
@@ -216,7 +216,7 @@ public class BlockCauldron extends Block
         }
     }
 
-    public void setWaterLevel(World worldIn, BlockPos pos, IBlockState state, int level)
+    public void setWaterLevel(World worldIn, BlockPosition pos, IBlockState state, int level)
     {
         worldIn.setBlockState(pos, state.withProperty(LEVEL, Integer.valueOf(MathHelper.clamp_int(level, 0, 3))), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
@@ -225,7 +225,7 @@ public class BlockCauldron extends Block
     /**
      * Called similar to random ticks, but only when it is raining.
      */
-    public void fillWithRain(World worldIn, BlockPos pos)
+    public void fillWithRain(World worldIn, BlockPosition pos)
     {
         if (worldIn.rand.nextInt(20) == 1)
         {
@@ -246,7 +246,7 @@ public class BlockCauldron extends Block
         return Items.cauldron;
     }
 
-    public Item getItem(World worldIn, BlockPos pos)
+    public Item getItem(World worldIn, BlockPosition pos)
     {
         return Items.cauldron;
     }
@@ -256,7 +256,7 @@ public class BlockCauldron extends Block
         return true;
     }
 
-    public int getComparatorInputOverride(World worldIn, BlockPos pos)
+    public int getComparatorInputOverride(World worldIn, BlockPosition pos)
     {
         return ((Integer)worldIn.getBlockState(pos).getValue(LEVEL)).intValue();
     }

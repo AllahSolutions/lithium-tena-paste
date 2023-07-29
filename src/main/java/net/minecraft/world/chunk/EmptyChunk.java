@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
@@ -50,31 +50,31 @@ public class EmptyChunk extends Chunk
     {
     }
 
-    public Block getBlock(BlockPos pos)
+    public Block getBlock(BlockPosition pos)
     {
         return Blocks.air;
     }
 
-    public int getBlockLightOpacity(BlockPos pos)
+    public int getBlockLightOpacity(BlockPosition pos)
     {
         return 255;
     }
 
-    public int getBlockMetadata(BlockPos pos)
+    public int getBlockMetadata(BlockPosition pos)
     {
         return 0;
     }
 
-    public int getLightFor(EnumSkyBlock p_177413_1_, BlockPos pos)
+    public int getLightFor(EnumSkyBlock p_177413_1_, BlockPosition pos)
     {
         return p_177413_1_.defaultLightValue;
     }
 
-    public void setLightFor(EnumSkyBlock p_177431_1_, BlockPos pos, int value)
+    public void setLightFor(EnumSkyBlock p_177431_1_, BlockPosition pos, int value)
     {
     }
 
-    public int getLightSubtracted(BlockPos pos, int amount)
+    public int getLightSubtracted(BlockPosition pos, int amount)
     {
         return 0;
     }
@@ -100,12 +100,12 @@ public class EmptyChunk extends Chunk
     {
     }
 
-    public boolean canSeeSky(BlockPos pos)
+    public boolean canSeeSky(BlockPosition pos)
     {
         return false;
     }
 
-    public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType p_177424_2_)
+    public TileEntity getTileEntity(BlockPosition pos, Chunk.EnumCreateEntityType p_177424_2_)
     {
         return null;
     }
@@ -114,11 +114,11 @@ public class EmptyChunk extends Chunk
     {
     }
 
-    public void addTileEntity(BlockPos pos, TileEntity tileEntityIn)
+    public void addTileEntity(BlockPosition pos, TileEntity tileEntityIn)
     {
     }
 
-    public void removeTileEntity(BlockPos pos)
+    public void removeTileEntity(BlockPosition pos)
     {
     }
 

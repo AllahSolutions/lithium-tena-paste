@@ -5,13 +5,13 @@ import lombok.Getter;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 import java.io.IOException;
 
 public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
-    private BlockPos position;
+    private BlockPosition position;
     private EnumFacing facing;
 
     /**
@@ -22,7 +22,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
     public C07PacketPlayerDigging() {
     }
 
-    public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPos posIn, EnumFacing facingIn) {
+    public C07PacketPlayerDigging(C07PacketPlayerDigging.Action statusIn, BlockPosition posIn, EnumFacing facingIn) {
         this.status = statusIn;
         this.position = posIn;
         this.facing = facingIn;
@@ -53,7 +53,7 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
         handler.processPlayerDigging(this);
     }
 
-    public BlockPos getPosition() {
+    public BlockPosition getPosition() {
         return this.position;
     }
 

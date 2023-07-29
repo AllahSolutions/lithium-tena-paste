@@ -3,12 +3,12 @@ package dev.tenacity.utils.player;
 import dev.tenacity.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 
 public class PlayerUtils implements Utils {
 
     public static Block blockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {
-        return mc.theWorld.getBlockState(new BlockPos(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
+        return mc.theWorld.getBlockState(new BlockPosition(mc.thePlayer).add(offsetX, offsetY, offsetZ)).getBlock();
     }
 
     public static Block blockAheadOfPlayer(final double offsetXZ, final double offsetY) {

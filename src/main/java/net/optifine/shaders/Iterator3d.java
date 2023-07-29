@@ -1,15 +1,15 @@
 package net.optifine.shaders;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
-import net.optifine.BlockPosM;
+import net.optifine.BlockPositionM;
 
 import java.util.Iterator;
 
-public class Iterator3d implements Iterator<BlockPos>
+public class Iterator3d implements Iterator<BlockPosition>
 {
     private IteratorAxis iteratorAxis;
-    private BlockPosM blockPos = new BlockPosM(0, 0, 0);
+    private BlockPositionM blockPos = new BlockPositionM(0, 0, 0);
     private int axis = 0;
     private int kX;
     private int kY;
@@ -18,7 +18,7 @@ public class Iterator3d implements Iterator<BlockPos>
     private static final int AXIS_Y = 1;
     private static final int AXIS_Z = 2;
 
-    public Iterator3d(BlockPos posStart, BlockPos posEnd, int width, int height)
+    public Iterator3d(BlockPosition posStart, BlockPosition posEnd, int width, int height)
     {
         boolean flag = posStart.getX() > posEnd.getX();
         boolean flag1 = posStart.getY() > posEnd.getY();
@@ -43,8 +43,8 @@ public class Iterator3d implements Iterator<BlockPos>
         if (d5 >= d3 && d5 >= d1)
         {
             this.axis = 2;
-            BlockPos blockpos3 = new BlockPos(posStart.getZ(), posStart.getY() - width, posStart.getX() - height);
-            BlockPos blockpos5 = new BlockPos(posEnd.getZ(), posStart.getY() + width + 1, posStart.getX() + height + 1);
+            BlockPosition blockpos3 = new BlockPosition(posStart.getZ(), posStart.getY() - width, posStart.getX() - height);
+            BlockPosition blockpos5 = new BlockPosition(posEnd.getZ(), posStart.getY() + width + 1, posStart.getX() + height + 1);
             int k = posEnd.getZ() - posStart.getZ();
             double d9 = (double)(posEnd.getY() - posStart.getY()) / (1.0D * (double)k);
             double d11 = (double)(posEnd.getX() - posStart.getX()) / (1.0D * (double)k);
@@ -53,8 +53,8 @@ public class Iterator3d implements Iterator<BlockPos>
         else if (d3 >= d1 && d3 >= d5)
         {
             this.axis = 1;
-            BlockPos blockpos2 = new BlockPos(posStart.getY(), posStart.getX() - width, posStart.getZ() - height);
-            BlockPos blockpos4 = new BlockPos(posEnd.getY(), posStart.getX() + width + 1, posStart.getZ() + height + 1);
+            BlockPosition blockpos2 = new BlockPosition(posStart.getY(), posStart.getX() - width, posStart.getZ() - height);
+            BlockPosition blockpos4 = new BlockPosition(posEnd.getY(), posStart.getX() + width + 1, posStart.getZ() + height + 1);
             int j = posEnd.getY() - posStart.getY();
             double d8 = (double)(posEnd.getX() - posStart.getX()) / (1.0D * (double)j);
             double d10 = (double)(posEnd.getZ() - posStart.getZ()) / (1.0D * (double)j);
@@ -63,8 +63,8 @@ public class Iterator3d implements Iterator<BlockPos>
         else
         {
             this.axis = 0;
-            BlockPos blockpos = new BlockPos(posStart.getX(), posStart.getY() - width, posStart.getZ() - height);
-            BlockPos blockpos1 = new BlockPos(posEnd.getX(), posStart.getY() + width + 1, posStart.getZ() + height + 1);
+            BlockPosition blockpos = new BlockPosition(posStart.getX(), posStart.getY() - width, posStart.getZ() - height);
+            BlockPosition blockpos1 = new BlockPosition(posEnd.getX(), posStart.getY() + width + 1, posStart.getZ() + height + 1);
             int i = posEnd.getX() - posStart.getX();
             double d6 = (double)(posEnd.getY() - posStart.getY()) / (1.0D * (double)i);
             double d7 = (double)(posEnd.getZ() - posStart.getZ()) / (1.0D * (double)i);
@@ -72,21 +72,21 @@ public class Iterator3d implements Iterator<BlockPos>
         }
     }
 
-    private BlockPos reverseCoord(BlockPos pos, boolean revX, boolean revY, boolean revZ)
+    private BlockPosition reverseCoord(BlockPosition pos, boolean revX, boolean revY, boolean revZ)
     {
         if (revX)
         {
-            pos = new BlockPos(-pos.getX(), pos.getY(), pos.getZ());
+            pos = new BlockPosition(-pos.getX(), pos.getY(), pos.getZ());
         }
 
         if (revY)
         {
-            pos = new BlockPos(pos.getX(), -pos.getY(), pos.getZ());
+            pos = new BlockPosition(pos.getX(), -pos.getY(), pos.getZ());
         }
 
         if (revZ)
         {
-            pos = new BlockPos(pos.getX(), pos.getY(), -pos.getZ());
+            pos = new BlockPosition(pos.getX(), pos.getY(), -pos.getZ());
         }
 
         return pos;
@@ -97,9 +97,9 @@ public class Iterator3d implements Iterator<BlockPos>
         return this.iteratorAxis.hasNext();
     }
 
-    public BlockPos next()
+    public BlockPosition next()
     {
-        BlockPos blockpos = this.iteratorAxis.next();
+        BlockPosition blockpos = this.iteratorAxis.next();
 
         switch (this.axis)
         {
@@ -128,13 +128,13 @@ public class Iterator3d implements Iterator<BlockPos>
 
     public static void main(String[] args)
     {
-        BlockPos blockpos = new BlockPos(10, 20, 30);
-        BlockPos blockpos1 = new BlockPos(30, 40, 20);
+        BlockPosition blockpos = new BlockPosition(10, 20, 30);
+        BlockPosition blockpos1 = new BlockPosition(30, 40, 20);
         Iterator3d iterator3d = new Iterator3d(blockpos, blockpos1, 1, 1);
 
         while (iterator3d.hasNext())
         {
-            BlockPos blockpos2 = iterator3d.next();
+            BlockPosition blockpos2 = iterator3d.next();
             System.out.println("" + blockpos2);
         }
     }

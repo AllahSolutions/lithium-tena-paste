@@ -3,21 +3,21 @@ package net.minecraft.network.play.client;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IChatComponent;
 
 import java.io.IOException;
 
 public class C12PacketUpdateSign implements Packet<INetHandlerPlayServer>
 {
-    private BlockPos pos;
+    private BlockPosition pos;
     private IChatComponent[] lines;
 
     public C12PacketUpdateSign()
     {
     }
 
-    public C12PacketUpdateSign(BlockPos pos, IChatComponent[] lines)
+    public C12PacketUpdateSign(BlockPosition pos, IChatComponent[] lines)
     {
         this.pos = pos;
         this.lines = new IChatComponent[] {lines[0], lines[1], lines[2], lines[3]};
@@ -62,7 +62,7 @@ public class C12PacketUpdateSign implements Packet<INetHandlerPlayServer>
         handler.processUpdateSign(this);
     }
 
-    public BlockPos getPosition()
+    public BlockPosition getPosition()
     {
         return this.pos;
     }

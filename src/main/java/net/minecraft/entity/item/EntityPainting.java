@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class EntityPainting extends EntityHanging
         super(worldIn);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing)
+    public EntityPainting(World worldIn, BlockPosition pos, EnumFacing facing)
     {
         super(worldIn, pos);
         List<EntityPainting.EnumArt> list = Lists.<EntityPainting.EnumArt>newArrayList();
@@ -46,7 +46,7 @@ public class EntityPainting extends EntityHanging
         this.updateFacingWithBoundingBox(facing);
     }
 
-    public EntityPainting(World worldIn, BlockPos pos, EnumFacing facing, String title)
+    public EntityPainting(World worldIn, BlockPosition pos, EnumFacing facing, String title)
     {
         this(worldIn, pos, facing);
 
@@ -130,13 +130,13 @@ public class EntityPainting extends EntityHanging
      */
     public void setLocationAndAngles(double x, double y, double z, float yaw, float pitch)
     {
-        BlockPos blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
+        BlockPosition blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
         this.setPosition((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
     }
 
     public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean p_180426_10_)
     {
-        BlockPos blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
+        BlockPosition blockpos = this.hangingPosition.add(x - this.posX, y - this.posY, z - this.posZ);
         this.setPosition((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
     }
 

@@ -2,7 +2,7 @@ package net.optifine.render;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
@@ -103,11 +103,11 @@ public class ChunkVisibility
 
                     try
                     {
-                        Map<BlockPos, TileEntity> map = chunk1.getTileEntityMap();
+                        Map<BlockPosition, TileEntity> map = chunk1.getTileEntityMap();
 
                         if (!map.isEmpty())
                         {
-                            for (BlockPos blockpos : map.keySet())
+                            for (BlockPosition blockpos : map.keySet())
                             {
                                 int l2 = blockpos.getY() >> 4;
 

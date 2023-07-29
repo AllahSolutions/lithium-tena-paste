@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -390,7 +390,7 @@ public class ChunkProviderGenerate implements IChunkProvider
         BlockFalling.fallInstantly = true;
         int i = x * 16;
         int j = z * 16;
-        BlockPos blockpos = new BlockPos(i, 0, j);
+        BlockPosition blockpos = new BlockPosition(i, 0, j);
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(blockpos.add(16, 0, 16));
         this.rand.setSeed(this.worldObj.getSeed());
         long k = this.rand.nextLong() / 2L * 2L + 1L;
@@ -455,7 +455,7 @@ public class ChunkProviderGenerate implements IChunkProvider
             }
         }
 
-        biomegenbase.decorate(this.worldObj, this.rand, new BlockPos(i, 0, j));
+        biomegenbase.decorate(this.worldObj, this.rand, new BlockPosition(i, 0, j));
         SpawnerAnimals.performWorldGenSpawning(this.worldObj, biomegenbase, i + 8, j + 8, 16, 16, this.rand);
         blockpos = blockpos.add(8, 0, 8);
 
@@ -463,8 +463,8 @@ public class ChunkProviderGenerate implements IChunkProvider
         {
             for (int j3 = 0; j3 < 16; ++j3)
             {
-                BlockPos blockpos1 = this.worldObj.getPrecipitationHeight(blockpos.add(k2, 0, j3));
-                BlockPos blockpos2 = blockpos1.down();
+                BlockPosition blockpos1 = this.worldObj.getPrecipitationHeight(blockpos.add(k2, 0, j3));
+                BlockPosition blockpos2 = blockpos1.down();
 
                 if (this.worldObj.canBlockFreezeWater(blockpos2))
                 {
@@ -534,7 +534,7 @@ public class ChunkProviderGenerate implements IChunkProvider
         return "RandomLevelSource";
     }
 
-    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos)
+    public List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos)
     {
         BiomeGenBase biomegenbase = this.worldObj.getBiomeGenForCoords(pos);
 
@@ -554,7 +554,7 @@ public class ChunkProviderGenerate implements IChunkProvider
         return biomegenbase.getSpawnableList(creatureType);
     }
 
-    public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position)
+    public BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position)
     {
         return "Stronghold".equals(structureName) && this.strongholdGenerator != null ? this.strongholdGenerator.getClosestStrongholdPos(worldIn, position) : null;
     }
@@ -592,8 +592,8 @@ public class ChunkProviderGenerate implements IChunkProvider
         }
     }
 
-    public Chunk provideChunk(BlockPos blockPosIn)
+    public Chunk provideChunk(BlockPosition blockPositionIn)
     {
-        return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+        return this.provideChunk(blockPositionIn.getX() >> 4, blockPositionIn.getZ() >> 4);
     }
 }

@@ -3,7 +3,6 @@ package dev.tenacity.utils.player;
 import com.google.common.base.Predicates;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.utils.Utils;
-import dev.tenacity.utils.misc.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -84,10 +83,10 @@ public class RotationUtils implements Utils {
         return new float[]{f1, f2};
     }
 
-    public static float[] getRotations(BlockPos blockPos, EnumFacing enumFacing) {
-        double d = (double) blockPos.getX() + 0.5 - mc.thePlayer.posX + (double) enumFacing.getFrontOffsetX() * 0.25;
-        double d2 = (double) blockPos.getZ() + 0.5 - mc.thePlayer.posZ + (double) enumFacing.getFrontOffsetZ() * 0.25;
-        double d3 = mc.thePlayer.posY + (double) mc.thePlayer.getEyeHeight() - blockPos.getY() - (double) enumFacing.getFrontOffsetY() * 0.25;
+    public static float[] getRotations(BlockPosition blockPosition, EnumFacing enumFacing) {
+        double d = (double) blockPosition.getX() + 0.5 - mc.thePlayer.posX + (double) enumFacing.getFrontOffsetX() * 0.25;
+        double d2 = (double) blockPosition.getZ() + 0.5 - mc.thePlayer.posZ + (double) enumFacing.getFrontOffsetZ() * 0.25;
+        double d3 = mc.thePlayer.posY + (double) mc.thePlayer.getEyeHeight() - blockPosition.getY() - (double) enumFacing.getFrontOffsetY() * 0.25;
         double d4 = MathHelper.sqrt_double(d * d + d2 * d2);
         float f = (float) (Math.atan2(d2, d) * 180.0 / Math.PI) - 90.0f;
         float f2 = (float) (Math.atan2(d3, d4) * 180.0 / Math.PI);
@@ -228,7 +227,7 @@ public class RotationUtils implements Utils {
 
             if (pointedEntity != null && flag && vec3.distanceTo(vec33) > (double) range) {
                 pointedEntity = null;
-                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPos(vec33));
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPosition(vec33));
             }
 
             if (pointedEntity != null && (d2 < d1 || objectMouseOver == null)) {

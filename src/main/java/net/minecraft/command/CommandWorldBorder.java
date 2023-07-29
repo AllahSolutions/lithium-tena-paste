@@ -1,7 +1,7 @@
 package net.minecraft.command;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.border.WorldBorder;
@@ -114,7 +114,7 @@ public class CommandWorldBorder extends CommandBase
                     throw new WrongUsageException("commands.worldborder.center.usage", new Object[0]);
                 }
 
-                BlockPos blockpos = sender.getPosition();
+                BlockPosition blockpos = sender.getPosition();
                 double d1 = parseDouble((double)blockpos.getX() + 0.5D, args[1], true);
                 double d3 = parseDouble((double)blockpos.getZ() + 0.5D, args[2], true);
                 worldborder.setCenter(d1, d3);
@@ -203,7 +203,7 @@ public class CommandWorldBorder extends CommandBase
         return MinecraftServer.getServer().worldServers[0].getWorldBorder();
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPosition pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, new String[] {"set", "center", "damage", "warning", "add", "get"}): (args.length == 2 && args[0].equals("damage") ? getListOfStringsMatchingLastWord(args, new String[] {"buffer", "amount"}): (args.length >= 2 && args.length <= 3 && args[0].equals("center") ? func_181043_b(args, 1, pos) : (args.length == 2 && args[0].equals("warning") ? getListOfStringsMatchingLastWord(args, new String[] {"time", "distance"}): null)));
     }

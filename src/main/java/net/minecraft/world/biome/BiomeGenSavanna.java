@@ -4,7 +4,7 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -39,7 +39,7 @@ public class BiomeGenSavanna extends BiomeGenBase
         return biomegenbase;
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos)
+    public void decorate(World worldIn, Random rand, BlockPosition pos)
     {
         DOUBLE_PLANT_GENERATOR.setPlantType(BlockDoublePlant.EnumPlantType.GRASS);
 
@@ -82,7 +82,7 @@ public class BiomeGenSavanna extends BiomeGenBase
             this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
         }
 
-        public void decorate(World worldIn, Random rand, BlockPos pos)
+        public void decorate(World worldIn, Random rand, BlockPosition pos)
         {
             this.theBiomeDecorator.decorate(worldIn, rand, this, pos);
         }

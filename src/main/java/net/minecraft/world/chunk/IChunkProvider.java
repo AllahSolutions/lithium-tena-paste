@@ -1,7 +1,7 @@
 package net.minecraft.world.chunk;
 
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -21,7 +21,7 @@ public interface IChunkProvider
      */
     Chunk provideChunk(int x, int z);
 
-    Chunk provideChunk(BlockPos blockPosIn);
+    Chunk provideChunk(BlockPosition blockPositionIn);
 
     /**
      * Populates chunk with ores etc etc
@@ -51,9 +51,9 @@ public interface IChunkProvider
      */
     String makeString();
 
-    List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos);
+    List<BiomeGenBase.SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPosition pos);
 
-    BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position);
+    BlockPosition getStrongholdGen(World worldIn, String structureName, BlockPosition position);
 
     int getLoadedChunkCount();
 

@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -143,7 +143,7 @@ public class EntityPotion extends EntityThrowable
                 }
             }
 
-            this.worldObj.playAuxSFX(2002, new BlockPos(this), this.getPotionDamage());
+            this.worldObj.playAuxSFX(2002, new BlockPosition(this), this.getPotionDamage());
             this.setDead();
         }
     }

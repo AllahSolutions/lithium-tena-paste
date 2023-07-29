@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import net.minecraft.block.state.BlockWorldState;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
@@ -55,7 +55,7 @@ public class BlockPattern
     /**
      * checks that the given pattern & rotation is at the block co-ordinates.
      */
-    private BlockPattern.PatternHelper checkPatternAt(BlockPos pos, EnumFacing finger, EnumFacing thumb, LoadingCache<BlockPos, BlockWorldState> lcache)
+    private BlockPattern.PatternHelper checkPatternAt(BlockPosition pos, EnumFacing finger, EnumFacing thumb, LoadingCache<BlockPosition, BlockWorldState> lcache)
     {
         for (int i = 0; i < this.palmLength; ++i)
         {
@@ -78,12 +78,12 @@ public class BlockPattern
      * Calculates whether the given world position matches the pattern. Warning, fairly heavy function. @return a
      * BlockPattern.PatternHelper if found, null otherwise.
      */
-    public BlockPattern.PatternHelper match(World worldIn, BlockPos pos)
+    public BlockPattern.PatternHelper match(World worldIn, BlockPosition pos)
     {
-        LoadingCache<BlockPos, BlockWorldState> loadingcache = func_181627_a(worldIn, false);
+        LoadingCache<BlockPosition, BlockWorldState> loadingcache = func_181627_a(worldIn, false);
         int i = Math.max(Math.max(this.palmLength, this.thumbLength), this.fingerLength);
 
-        for (BlockPos blockpos : BlockPos.getAllInBox(pos, pos.add(i - 1, i - 1, i - 1)))
+        for (BlockPosition blockpos : BlockPosition.getAllInBox(pos, pos.add(i - 1, i - 1, i - 1)))
         {
             for (EnumFacing enumfacing : EnumFacing.values())
             {
@@ -105,16 +105,16 @@ public class BlockPattern
         return null;
     }
 
-    public static LoadingCache<BlockPos, BlockWorldState> func_181627_a(World p_181627_0_, boolean p_181627_1_)
+    public static LoadingCache<BlockPosition, BlockWorldState> func_181627_a(World p_181627_0_, boolean p_181627_1_)
     {
-        return CacheBuilder.newBuilder().<BlockPos, BlockWorldState>build(new BlockPattern.CacheLoader(p_181627_0_, p_181627_1_));
+        return CacheBuilder.newBuilder().<BlockPosition, BlockWorldState>build(new BlockPattern.CacheLoader(p_181627_0_, p_181627_1_));
     }
 
     /**
      * Offsets the position of pos in the direction of finger and thumb facing by offset amounts, follows the right-hand
      * rule for cross products (finger, thumb, palm) @return A new BlockPos offset in the facing directions
      */
-    protected static BlockPos translateOffset(BlockPos pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset)
+    protected static BlockPosition translateOffset(BlockPosition pos, EnumFacing finger, EnumFacing thumb, int palmOffset, int thumbOffset, int fingerOffset)
     {
         if (finger != thumb && finger != thumb.getOpposite())
         {
@@ -129,7 +129,7 @@ public class BlockPattern
         }
     }
 
-    static class CacheLoader extends com.google.common.cache.CacheLoader<BlockPos, BlockWorldState>
+    static class CacheLoader extends com.google.common.cache.CacheLoader<BlockPosition, BlockWorldState>
     {
         private final World world;
         private final boolean field_181626_b;
@@ -140,7 +140,7 @@ public class BlockPattern
             this.field_181626_b = p_i46460_2_;
         }
 
-        public BlockWorldState load(BlockPos p_load_1_) throws Exception
+        public BlockWorldState load(BlockPosition p_load_1_) throws Exception
         {
             return new BlockWorldState(this.world, p_load_1_, this.field_181626_b);
         }
@@ -148,15 +148,15 @@ public class BlockPattern
 
     public static class PatternHelper
     {
-        private final BlockPos pos;
+        private final BlockPosition pos;
         private final EnumFacing finger;
         private final EnumFacing thumb;
-        private final LoadingCache<BlockPos, BlockWorldState> lcache;
+        private final LoadingCache<BlockPosition, BlockWorldState> lcache;
         private final int field_181120_e;
         private final int field_181121_f;
         private final int field_181122_g;
 
-        public PatternHelper(BlockPos posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPos, BlockWorldState> lcacheIn, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_)
+        public PatternHelper(BlockPosition posIn, EnumFacing fingerIn, EnumFacing thumbIn, LoadingCache<BlockPosition, BlockWorldState> lcacheIn, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_)
         {
             this.pos = posIn;
             this.finger = fingerIn;
@@ -167,7 +167,7 @@ public class BlockPattern
             this.field_181122_g = p_i46378_7_;
         }
 
-        public BlockPos getPos()
+        public BlockPosition getPos()
         {
             return this.pos;
         }

@@ -1,13 +1,13 @@
 package net.minecraft.village;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 
 public class VillageDoorInfo
 {
     /** a block representing the door. Could be either upper or lower part */
-    private final BlockPos doorBlockPos;
-    private final BlockPos insideBlock;
+    private final BlockPosition doorBlockPosition;
+    private final BlockPosition insideBlock;
 
     /** the inside direction is where can see less sky */
     private final EnumFacing insideDirection;
@@ -15,7 +15,7 @@ public class VillageDoorInfo
     private boolean isDetachedFromVillageFlag;
     private int doorOpeningRestrictionCounter;
 
-    public VillageDoorInfo(BlockPos pos, int p_i45871_2_, int p_i45871_3_, int p_i45871_4_)
+    public VillageDoorInfo(BlockPosition pos, int p_i45871_2_, int p_i45871_3_, int p_i45871_4_)
     {
         this(pos, getFaceDirection(p_i45871_2_, p_i45871_3_), p_i45871_4_);
     }
@@ -25,9 +25,9 @@ public class VillageDoorInfo
         return deltaX < 0 ? EnumFacing.WEST : (deltaX > 0 ? EnumFacing.EAST : (deltaZ < 0 ? EnumFacing.NORTH : EnumFacing.SOUTH));
     }
 
-    public VillageDoorInfo(BlockPos pos, EnumFacing facing, int timestamp)
+    public VillageDoorInfo(BlockPosition pos, EnumFacing facing, int timestamp)
     {
-        this.doorBlockPos = pos;
+        this.doorBlockPosition = pos;
         this.insideDirection = facing;
         this.insideBlock = pos.offset(facing, 2);
         this.lastActivityTimestamp = timestamp;
@@ -38,23 +38,23 @@ public class VillageDoorInfo
      */
     public int getDistanceSquared(int x, int y, int z)
     {
-        return (int)this.doorBlockPos.distanceSq((double)x, (double)y, (double)z);
+        return (int)this.doorBlockPosition.distanceSq((double)x, (double)y, (double)z);
     }
 
-    public int getDistanceToDoorBlockSq(BlockPos pos)
+    public int getDistanceToDoorBlockSq(BlockPosition pos)
     {
         return (int)pos.distanceSq(this.getDoorBlockPos());
     }
 
-    public int getDistanceToInsideBlockSq(BlockPos pos)
+    public int getDistanceToInsideBlockSq(BlockPosition pos)
     {
         return (int)this.insideBlock.distanceSq(pos);
     }
 
-    public boolean func_179850_c(BlockPos pos)
+    public boolean func_179850_c(BlockPosition pos)
     {
-        int i = pos.getX() - this.doorBlockPos.getX();
-        int j = pos.getZ() - this.doorBlockPos.getY();
+        int i = pos.getX() - this.doorBlockPosition.getX();
+        int j = pos.getZ() - this.doorBlockPosition.getY();
         return i * this.insideDirection.getFrontOffsetX() + j * this.insideDirection.getFrontOffsetZ() >= 0;
     }
 
@@ -73,12 +73,12 @@ public class VillageDoorInfo
         return this.doorOpeningRestrictionCounter;
     }
 
-    public BlockPos getDoorBlockPos()
+    public BlockPosition getDoorBlockPos()
     {
-        return this.doorBlockPos;
+        return this.doorBlockPosition;
     }
 
-    public BlockPos getInsideBlockPos()
+    public BlockPosition getInsideBlockPos()
     {
         return this.insideBlock;
     }

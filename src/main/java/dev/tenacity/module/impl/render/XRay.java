@@ -14,7 +14,7 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.BlockRedstoneOre;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class XRay extends Module {
     public static final NumberSetting opacity = new NumberSetting("Opacity", 60, 100, 0, 1);
     public static final BooleanSetting bypass = new BooleanSetting("Anti-xray bypass", false);
-    public static final HashSet<BlockPos> checkedOres = new HashSet<>(), queuedOres = new HashSet<>(), oresToRender = new HashSet<>();
+    public static final HashSet<BlockPosition> checkedOres = new HashSet<>(), queuedOres = new HashSet<>(), oresToRender = new HashSet<>();
     public static boolean enabled;
     private static BooleanSetting redstone, diamond, emerald, lapis, iron, coal, gold;
     private final MultipleBoolSetting ores = new MultipleBoolSetting("Ores",
@@ -64,7 +64,7 @@ public class XRay extends Module {
                 Multithreading.runAsync(() -> {
                     for (int i = 0; i < 18; i++) {
                         if (queuedOres.size() < 1 || queuedOres.size() < i + 1) return;
-                        BlockPos pos = queuedOres.iterator().next();
+                        BlockPosition pos = queuedOres.iterator().next();
                         queuedOres.remove(pos);
                         PacketUtils.sendPacketNoEvent(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, pos, EnumFacing.DOWN));
                         checkedOres.add(pos);
@@ -84,7 +84,7 @@ public class XRay extends Module {
         return false;
     }
 
-    public static boolean isExposed(IBlockAccess worldIn, BlockPos pos, EnumFacing side, double minY, double maxY, double minZ, double maxZ, double minX, double maxX) {
+    public static boolean isExposed(IBlockAccess worldIn, BlockPosition pos, EnumFacing side, double minY, double maxY, double minZ, double maxZ, double minX, double maxX) {
         return side == EnumFacing.DOWN && minY > 0.0D || (side == EnumFacing.UP && maxY < 1.0D || (side == EnumFacing.NORTH && minZ > 0.0D || (side == EnumFacing.SOUTH && maxZ < 1.0D || (side == EnumFacing.WEST && minX > 0.0D || (side == EnumFacing.EAST && maxX < 1.0D || !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
     }
 
@@ -115,7 +115,7 @@ public class XRay extends Module {
             for (int x = -radius; x <= radius; x++) {
                 for (int y = -radius; y <= radius; y++) {
                     for (int z = -radius; z <= radius; z++) {
-                        BlockPos pos = new BlockPos(mc.thePlayer.posX + x, mc.thePlayer.posY + y, mc.thePlayer.posZ + z);
+                        BlockPosition pos = new BlockPosition(mc.thePlayer.posX + x, mc.thePlayer.posY + y, mc.thePlayer.posZ + z);
                         Block block = mc.theWorld.getBlockState(pos).getBlock();
 
                         if (block instanceof BlockOre || block instanceof BlockRedstoneOre) {
@@ -131,7 +131,7 @@ public class XRay extends Module {
         });
     }
 
-    public boolean shouldAdd(Block block, BlockPos pos) {
+    public boolean shouldAdd(Block block, BlockPosition pos) {
         for (EnumFacing si : EnumFacing.VALUES) {
             if (isExposed(mc.theWorld, pos.offset(si), si, block.getBlockBoundsMinY(), block.getBlockBoundsMaxY(), block.getBlockBoundsMinZ(), block.getBlockBoundsMaxZ(), block.getBlockBoundsMinX(), block.getBlockBoundsMaxX())) {
                 return false;

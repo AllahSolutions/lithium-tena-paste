@@ -1,6 +1,7 @@
 package dev.tenacity.utils.player;
 
 import com.google.common.base.Predicates;
+import net.minecraft.client.renderer.EntityRenderer;
 import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.utils.Utils;
 import net.minecraft.client.Minecraft;
@@ -175,6 +176,87 @@ public class RotationUtils implements Utils {
 
         return new float[] { yaw, pitch };
     }
+    public static MovingObjectPosition rayCast(float partialTicks, float[] rots) {
+        MovingObjectPosition objectMouseOver = null;
+        Entity entity = mc.getRenderViewEntity();
+        if (entity != null && mc.theWorld != null) {
+            double d0 = mc.playerController.getBlockReachDistance();
+            objectMouseOver = entity.rayTrace(d0,rots[0],rots[1], partialTicks);
+            double d1 = d0;
+            Vec3 vec3 = entity.getPositionEyes(partialTicks);
+            boolean flag = false;
+            boolean flag1 = true;
+
+            if (mc.playerController.extendedReach()) {
+                d0 = 6.0D;
+                d1 = 6.0D;
+            } else {
+                if (d0 > 3.0D) {
+                    flag = true;
+                }
+
+                d0 = d0;
+            }
+            if (objectMouseOver != null) {
+                d1 = objectMouseOver.hitVec.distanceTo(vec3);
+            }
+            Vec3 vec31 = entity.getVectorForRotation(rots[1], rots[0]);
+            Vec3 vec32 = vec3.addVector(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0);
+            Entity pointedEntity = null;
+            Vec3 vec33 = null;
+            float f = 1.0F;
+            List list = mc.theWorld.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0).expand(f, f, f), Predicates.and(EntitySelectors.NOT_SPECTATING, new EntityRenderer.EntityRenderer$1(mc.entityRenderer)));
+            double d2 = d1;
+            AxisAlignedBB realBB = null;
+            for (int i = 0; i < list.size(); ++i) {
+                Entity entity1 = (Entity) list.get(i);
+                float f1 = entity1.getCollisionBorderSize();
+                AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f1, f1, f1);
+                MovingObjectPosition movingobjectposition = axisalignedbb.calculateIntercept(vec3, vec32);
+                if (axisalignedbb.isVecInside(vec3)) {
+                    if (d2 >= 0.0D) {
+                        pointedEntity = entity1;
+                        vec33 = movingobjectposition == null ? vec3 : movingobjectposition.hitVec;
+                        d2 = 0.0D;
+                    }
+                } else if (movingobjectposition != null) {
+                    double d3 = vec3.distanceTo(movingobjectposition.hitVec);
+
+                    if (d3 < d2 || d2 == 0.0D) {
+                        boolean flag2 = false;
+
+
+
+                        if (entity1 == entity.ridingEntity && !flag2) {
+                            if (d2 == 0.0D) {
+                                pointedEntity = entity1;
+                                vec33 = movingobjectposition.hitVec;
+                            }
+                        } else {
+                            pointedEntity = entity1;
+                            vec33 = movingobjectposition.hitVec;
+                            d2 = d3;
+                        }
+                    }
+                }
+            }
+
+            if (pointedEntity != null && flag && vec3.distanceTo(vec33) > 3.0D) {
+                pointedEntity = null;
+                objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, null, new BlockPosition(vec33));
+            }
+            if (pointedEntity != null && (d2 < d1 || objectMouseOver == null)) {
+                objectMouseOver = new MovingObjectPosition(pointedEntity, vec33);
+
+                if (pointedEntity instanceof EntityLivingBase || pointedEntity instanceof EntityItemFrame) {
+                    pointedEntity = pointedEntity;
+                }
+            }
+        }
+        return objectMouseOver;
+    }
+
+
 
     public static boolean isMouseOver(final float yaw, final float pitch, final Entity target, final float range) {
         final float partialTicks = mc.timer.renderPartialTicks;

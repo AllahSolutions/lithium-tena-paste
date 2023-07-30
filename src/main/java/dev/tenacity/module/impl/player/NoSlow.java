@@ -11,6 +11,7 @@ import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 

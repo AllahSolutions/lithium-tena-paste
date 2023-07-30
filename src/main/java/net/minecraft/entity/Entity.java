@@ -1,6 +1,7 @@
 package net.minecraft.entity;
 
 import dev.tenacity.Tenacity;
+import  dev.tenacity.utils.FlagfolUtil.Vectors.Vector3d;
 import dev.tenacity.module.impl.movement.Flight;
 import dev.tenacity.event.impl.player.StrafeEvent;
 import dev.tenacity.event.impl.player.SafeWalkEvent;
@@ -62,6 +63,8 @@ public abstract class Entity implements ICommandSender {
      */
     public Entity ridingEntity;
     public boolean forceSpawn;
+
+    public double threadDistance;
 
     /**
      * Reference to the World object.
@@ -1405,10 +1408,22 @@ public abstract class Entity implements ICommandSender {
             return new Vec3(d0, d1, d2);
         }
     }
+    public Vector3d getCustomPositionVector() {
+        return new Vector3d(posX, posY, posZ);
+    }
 
     public MovingObjectPosition rayTrace(double blockReachDistance, float partialTicks) {
         Vec3 vec3 = this.getPositionEyes(partialTicks);
         Vec3 vec31 = this.getLook(partialTicks);
+        Vec3 vec32 = vec3.addVector(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
+        return this.worldObj.rayTraceBlocks(vec3, vec32, false, false, true);
+    }
+
+    public MovingObjectPosition rayTrace(double blockReachDistance,float yaw,float pitch, float partialTicks)
+    {
+
+        Vec3 vec3 = this.getPositionEyes(partialTicks);
+        Vec3 vec31 = this.getVectorForRotation(pitch,yaw);
         Vec3 vec32 = vec3.addVector(vec31.xCoord * blockReachDistance, vec31.yCoord * blockReachDistance, vec31.zCoord * blockReachDistance);
         return this.worldObj.rayTraceBlocks(vec3, vec32, false, false, true);
     }

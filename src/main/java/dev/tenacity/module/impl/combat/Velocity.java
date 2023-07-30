@@ -110,7 +110,7 @@ public class Velocity extends Module {
             }
         }
 
-        if (mode.is("Grim") && packet instanceof S32PacketConfirmTransaction && grim_ticks > 0) {
+        if (mode.is("Grim") && packet instanceof C0FPacketConfirmTransaction && grim_ticks > 6) {
             event.cancel();
             --grim_ticks;
         }

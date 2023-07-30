@@ -9,6 +9,7 @@ import dev.tenacity.module.settings.ParentAttribute;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
+import dev.tenacity.utils.FlagfolUtil.Utils.RayCastUtil;
 import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
@@ -22,6 +23,7 @@ import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
+import net.minecraft.block.*;
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -32,7 +34,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPosition;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 
 import java.awt.*;
 import java.util.Random;
@@ -41,6 +45,8 @@ public class Scaffold extends Module {
 
     private final ModeSetting countMode = new ModeSetting("Block Counter", "Tenacity", "None", "Tenacity", "Basic", "Polar");
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
+
+    private final BooleanSetting raycast = new BooleanSetting("raycast", true);
     private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","None", "NCP","Dev", "Back", "Enum", "Down");
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
@@ -153,9 +159,10 @@ public class Scaffold extends Module {
                         break;
                     case "Enum":
                         if (lastBlockCache != null) {
-                            cachedRotations = new float[] { RotationUtils.getEnumRotations(lastBlockCache.getFacing()), 77 };
+                            cachedRotations = new float[] { RotationUtils.getEnumRotations(lastBlockCache.getFacing()),y};
+                            //77
                         } else {
-                            cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, 77 };
+                            cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, y };
                         }
                         break;
                 }
@@ -263,11 +270,14 @@ public class Scaffold extends Module {
         }
     }
 
+
     private boolean place() {
 
         if (keepY.isEnabled() && !mc.thePlayer.isAirBorne) {
             return false;
         }
+
+
 
         int slot = ScaffoldUtils.getBlockSlot();
         if (blockCache == null || lastBlockCache == null || slot == -1) return false;
@@ -279,23 +289,25 @@ public class Scaffold extends Module {
 
         boolean placed = false;
         if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
-            final BlockPosition bb = new BlockPosition(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 1.0, NewScaffold.mc.thePlayer.posZ);
-            if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
-                    mc.thePlayer.inventory.getStackInSlot(this.slot),
-                    lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                    ScaffoldUtils.getHypixelVec3(blockCache))) {
-                placed = true;
-                y = MathUtils.getRandomInRange(79.5f, 83.5f);
-                if (swing.isEnabled()) {
-                    if (swingMode.is("Client")) {
-                        mc.thePlayer.swingItem();
-                    } else {
-                        PacketUtils.sendPacket(new C0APacketAnimation());
+            //   final BlockPosition bb = new BlockPosition(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 1.0, NewScaffold.mc.thePlayer.posZ);
+            if (RayCastUtil.overBlock(lastBlockCache.getFacing(), lastBlockCache.getFacing(), )) {
+                if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
+                        mc.thePlayer.inventory.getStackInSlot(this.slot),
+                        lastBlockCache.getPosition(), lastBlockCache.getFacing(),
+                        ScaffoldUtils.getHypixelVec3(blockCache))) {
+                    placed = true;
+                    y = MathUtils.getRandomInRange(75.5f, 83.5f);
+                    if (swing.isEnabled()) {
+                        if (swingMode.is("Client")) {
+                            mc.thePlayer.swingItem();
+                        } else {
+                            PacketUtils.sendPacket(new C0APacketAnimation());
+                        }
                     }
                 }
+                delayTimer.reset();
+                blockCache = null;
             }
-            delayTimer.reset();
-            blockCache = null;
         }
         return placed;
     }

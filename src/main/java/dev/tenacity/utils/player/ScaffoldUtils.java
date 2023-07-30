@@ -115,18 +115,18 @@ public class ScaffoldUtils implements Utils {
 
         double x = (double) pos.getX() + 0.5, y = (double) pos.getY() + 0.5, z = (double) pos.getZ() + 0.5;
 
-//        if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
-//            y += 0.5;
-//        } else {
-//            x += 0.3;
-//            z += 0.3;
-//        }
-//        if (face == EnumFacing.WEST || face == EnumFacing.EAST) {
-//            z += 0.15;
-//        }
-//        if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
-//            x += 0.15;
-//        }
+        if (face != EnumFacing.UP && face != EnumFacing.DOWN) {
+            y += 0.5;
+        } else {
+            x += 0.3;
+            z += 0.3;
+        }
+        if (face == EnumFacing.WEST || face == EnumFacing.EAST) {
+            z += 0.15;
+        }
+        if (face == EnumFacing.SOUTH || face == EnumFacing.NORTH) {
+            x += 0.15;
+        }
 
         return new Vec3(x, y, z);
     }

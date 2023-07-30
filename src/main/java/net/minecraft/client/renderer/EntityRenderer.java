@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import dev.tenacity.Tenacity;
@@ -2267,6 +2269,26 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.loadVisibleChunks = true;
             ChatComponentText chatcomponenttext = new ChatComponentText(I18n.format("of.message.loadingVisibleChunks"));
             this.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(chatcomponenttext, i);
+        }
+    }
+
+    public static class EntityRenderer$1 implements Predicate
+    {
+        final EntityRenderer field_90032_a;
+
+        public EntityRenderer$1(EntityRenderer p_i1243_1_)
+        {
+            this.field_90032_a = p_i1243_1_;
+        }
+
+        public boolean apply(Entity p_apply_1_)
+        {
+            return p_apply_1_.canBeCollidedWith();
+        }
+
+        public boolean apply(Object p_apply_1_)
+        {
+            return this.apply((Entity)p_apply_1_);
         }
     }
 

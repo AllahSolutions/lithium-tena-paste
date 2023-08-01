@@ -25,6 +25,7 @@ import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.util.*;
 
+import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -32,7 +33,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Grim","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -120,9 +121,7 @@ public final class Flight extends Module {
                     HadDamage = false;
                 }
 
-                if (mc.thePlayer.hurtTime>1) {
-                    HadDamage = true;
-                }
+
 
                 if (HadDamage) {
                     mc.timer.timerSpeed = 0.5f;
@@ -178,6 +177,9 @@ public final class Flight extends Module {
         }
         if (mc.thePlayer.isUsingItem()) {
             shift = true;
+        }
+        if (mc.thePlayer.hurtTime>1) {
+            HadDamage = true;
         }
 
         switch (mode.getMode()) {
@@ -241,6 +243,20 @@ public final class Flight extends Module {
                     }
 
 
+
+
+                break;
+
+            case"Grim":
+                SecureRandom random = new SecureRandom();
+                float yaw = (float) Math.toRadians(mc.thePlayer.rotationYaw);
+                float pitch = (float) Math.toRadians(mc.thePlayer.rotationPitch);
+                e.setYaw((float) (yaw + MathHelper.getRandomDoubleInRange(random,20,20)));
+                e.setPitch(pitch);
+
+                e.setX(Math.sin(yaw) * 10000);
+               // e.setY((mc.thePlayer.posY + 150000000) * 0.98 * Math.tan(-80));
+              //  e.setZ(Math.sin(yaw) * 10000);
 
 
                 break;
@@ -670,7 +686,7 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
-        hasDamaged = false;
+
         if (mode.is("VerusDMG")) {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
@@ -781,6 +797,7 @@ public final class Flight extends Module {
          MovementUtils.setSpeed(0);
 
         }
+        hasDamaged = false;
         if(mode.is("Kokscraft Vanilla")) {
             if(shift) {
                 mc.gameSettings.keyBindForward.pressed = false;

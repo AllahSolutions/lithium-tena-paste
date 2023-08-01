@@ -123,8 +123,8 @@ public class Scaffold extends Module {
                 this.offGroundTicks += 1;
             }
 
-            if (baseSpeed.isEnabled()) {
-                MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 0.7);
+            if (baseSpeed.isEnabled() && mc.thePlayer.onGround) {
+                MovementUtils.setSpeed(0.09);
             }
 
             if (autoJump.isEnabled() && mc.thePlayer.onGround && MovementUtils.isMoving() && !mc.gameSettings.keyBindJump.isKeyDown()) {
@@ -290,7 +290,7 @@ public class Scaffold extends Module {
         boolean placed = false;
         if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
             //   final BlockPosition bb = new BlockPosition(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 1.0, NewScaffold.mc.thePlayer.posZ);
-            if (RayCastUtil.overBlock(lastBlockCache.getFacing(), lastBlockCache.getFacing(), )) {
+           // if (RayCastUtil.overBlock(lastBlockCache.getFacing(), lastBlockCache.getFacing(), )) {
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                         mc.thePlayer.inventory.getStackInSlot(this.slot),
                         lastBlockCache.getPosition(), lastBlockCache.getFacing(),
@@ -308,7 +308,7 @@ public class Scaffold extends Module {
                 delayTimer.reset();
                 blockCache = null;
             }
-        }
+       // }
         return placed;
     }
 

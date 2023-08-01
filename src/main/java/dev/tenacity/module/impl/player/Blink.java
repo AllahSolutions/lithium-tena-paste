@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public final class Blink extends Module {
     final ConcurrentLinkedQueue<Packet<?>> packets = new ConcurrentLinkedQueue<>();
     private final BooleanSetting pulse = new BooleanSetting("Pulse",  false);
-    private final NumberSetting delayPulse = new NumberSetting("Tick Delay",20, 100, 4, 1);
+    private final NumberSetting delayPulse = new NumberSetting("Tick Delay",20, 100, 1, 1);
 
     private EntityOtherPlayerMP blinkEntity;
 

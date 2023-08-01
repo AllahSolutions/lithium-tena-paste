@@ -28,8 +28,7 @@ public class Velocity extends Module {
 
     /* Grim Velocity variables */
     private static int grim_ticks = 0;
-    private static int grim_updates = 0;
-    private static int grim_resets = 8;
+
 
     @Override
     public void onEnable() {
@@ -52,6 +51,19 @@ public class Velocity extends Module {
                 }
             }
         }
+        if(mc.thePlayer.hurtTime>1) {
+            if (mode.is("Grim") && event.getPacket() instanceof C0FPacketConfirmTransaction) {
+                if (grim_ticks < 6) {
+                    event.cancel();
+                }
+                if (grim_ticks > 6) {
+                    grim_ticks = 0;
+                }
+                ChatUtil.print(grim_ticks);
+                grim_ticks++;
+            }
+        }
+
         super.onPacketSendEvent(event);
     }
 
@@ -72,7 +84,7 @@ public class Velocity extends Module {
                 }
                 case "Reverse": {
                     s12.motionX *= -s12.motionX;
-                    s12.motionY *= vertical.getValue() / 100;
+                  //  s12.motionY *= vertical.getValue() / 100;
                     s12.motionZ *= -s12.motionZ;
                     break;
                 }
@@ -83,8 +95,10 @@ public class Velocity extends Module {
                     break;
                 }
                 case "Grim": {
-                    event.cancel();
-                    grim_ticks = 6;
+                    if(grim_ticks < 6) {
+                        event.cancel();
+                    }
+
                     break;
                 }
                 case "Minemen": {
@@ -93,16 +107,22 @@ public class Velocity extends Module {
                     }
                     break;
                 }
+
                 default: {
                     break;
                 }
             }
         }
 
-        if (mode.is("Grim") && packet instanceof C0FPacketConfirmTransaction && grim_ticks > 6) {
-            event.cancel();
-            --grim_ticks;
-        }
+
+
+
+
+
+
+      //  if (packet instanceof S12PacketEntityVelocity) {
+
+       // }
 
 
         if (packet instanceof S27PacketExplosion) {
@@ -138,15 +158,7 @@ public class Velocity extends Module {
 
     @Override
     public void onUpdateEvent(UpdateEvent event) {
-        ++grim_updates;
 
-        if (grim_updates >= 0 || grim_updates >= grim_resets) {
-            grim_updates = 0;
-
-            if (grim_ticks > 0) {
-                --grim_ticks;
-            }
-        }
 
         if (mode.is("Intave")) {
             if (mc.thePlayer.isSwingInProgress) {

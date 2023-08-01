@@ -64,6 +64,8 @@ public final class KillAura extends Module {
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
     public static BooleanSetting fakeAutoblock = new BooleanSetting("Fake AutoBlock", false);
+
+
                 
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
@@ -386,7 +388,7 @@ public final class KillAura extends Module {
     @Override
     public void onSlowDownEvent(SlowdownEvent event) {
         if (blockMode.getMode().equals("Watchdog")) {
-            if (mc.thePlayer.hurtTime >= 2) {
+            if (mc.thePlayer.hurtTime > 1) {
                 event.cancel();
             }
         }
@@ -408,11 +410,11 @@ public final class KillAura extends Module {
                     break;
                 }
                 case "Watchdog": {
-                //    if (mc.thePlayer.hurtTime >= 2) {
-                  //      block(true);
-                 //   } else {
-                 //       unblock();
-                //    }
+                    if (mc.thePlayer.hurtTime > 1) {
+                        block(true);
+                   } else {
+                        unblock();
+                   }
                     break;
                 }
                 case "BlocksMC": {
@@ -486,14 +488,7 @@ public final class KillAura extends Module {
             if (blockMode.getMode().equals("PostAttack")) {
                 block(shouldInteract);
             }
-            if (blockMode.getMode().equals("Watchdog")) {
-                if (mc.thePlayer.hurtTime >= 2) {
-                   // ChatUtil.print("Gay");
-                    block(true);
-                } else {
-                    unblock();
-                }
-            }
+
         }
     }
 
@@ -661,7 +656,9 @@ public final class KillAura extends Module {
 
         if (renderTarget != null) {
             if (renders.getSetting("Box").isEnabled()) {
-                RenderUtil.renderBoundingBox(renderTarget, color, 1);
+                if(!Tenacity.INSTANCE.isEnabled(BackTrack.class)) {
+                    RenderUtil.renderBoundingBox(renderTarget, color, 1);
+                }
             }
             if (renders.getSetting("Circle").isEnabled()) {
                 RenderUtil.drawCircle(renderTarget, event.getTicks(), .75f, color.getRGB(), auraESPAnim.getOutput().floatValue());

@@ -122,8 +122,8 @@ public class Scaffold extends Module {
                 this.offGroundTicks += 1;
             }
 
-            if (baseSpeed.isEnabled()) {
-                MovementUtils.setSpeed(MovementUtils.getBaseMoveSpeed() * 0.7);
+            if (baseSpeed.isEnabled() && mc.thePlayer.onGround) {
+                MovementUtils.setSpeed(0.09);
             }
 
             if (autoJump.isEnabled() && mc.thePlayer.onGround && MovementUtils.isMoving() && !mc.gameSettings.keyBindJump.isKeyDown()) {
@@ -302,7 +302,7 @@ public class Scaffold extends Module {
                 delayTimer.reset();
                 blockCache = null;
             }
-        }
+       // }
         return placed;
     }
 

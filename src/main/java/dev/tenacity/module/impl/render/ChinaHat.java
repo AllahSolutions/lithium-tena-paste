@@ -64,7 +64,7 @@ public class ChinaHat extends Module {
             glPushMatrix();
 
             double posX = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks - renderPosX,
-                    posY = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks - renderPosY,
+                    posY = player.lastTickPosY + (player.posY - player.lastTickPosY ) * partialTicks - renderPosY,
                     posZ = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks - renderPosZ;
 
             AxisAlignedBB bb = player.getEntityBoundingBox();
@@ -134,7 +134,7 @@ public class ChinaHat extends Module {
     private Color getColor(int index, float alpha) {
         Color returnColor;
         if (colorMode.is("Custom")) {
-            returnColor = ColorUtil.rainbow(10, 0, 0.35F, 0.75F, 1.0F);
+            returnColor = ColorUtil.rainbow(10, 1, 0.5F, 0.76F, 1.0F);
         } else {
             final Pair<Color, Color> colors = HUDMod.getClientColors();
             if (HUDMod.isRainbowTheme()) {

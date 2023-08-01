@@ -30,8 +30,8 @@ public final class Breadcrumbs extends Module {
     private final ModeSetting mode = new ModeSetting("Mode", "Rise", "Rise", "Line");
     private final NumberSetting particleAmount = new NumberSetting("Particle Amount", 15, 500, 1, 1);
     private final BooleanSetting seeThroughWalls = new BooleanSetting("Walls", true);
-    private final ModeSetting colorMode = new ModeSetting("Color Mode", "Sync", "Sync", "Custom");
-    private final ColorSetting color = new ColorSetting("Color", Color.WHITE);
+    private static final ModeSetting colorMode = new ModeSetting("Color Mode", "Sync", "Sync", "Custom");
+    private static final ColorSetting color = new ColorSetting("Color", Color.WHITE);
 
     public Breadcrumbs() {
         super("Breadcrumbs", Category.RENDER, "shows where you've walked");
@@ -165,7 +165,7 @@ public final class Breadcrumbs extends Module {
         renderLine(path, Pair.of(Color.WHITE));
     }
 
-    public void renderLine(final List<Vec3> path, Pair<Color, Color> colors) {
+    public static void renderLine(final List<Vec3> path, Pair<Color, Color> colors) {
         GlStateManager.disableDepth();
 
         RenderUtil.setAlphaLimit(0);
@@ -178,7 +178,7 @@ public final class Breadcrumbs extends Module {
         GL11.glLineWidth(5);
         GL11.glBegin(GL11.GL_LINE_STRIP);
 
-        boolean custom = colorMode.is("Custom") && this.color.isRainbow();
+        boolean custom = colorMode.is("Custom") && color.isRainbow();
         int count = 0;
         int alpha = 200;
         int fadeOffset = 15;
@@ -190,7 +190,7 @@ public final class Breadcrumbs extends Module {
             RenderUtil.resetColor();
             if (custom || HUDMod.isRainbowTheme()) {
                 if (custom) {
-                    RenderUtil.color(this.color.getRainbow().getColor(count * 2).getRGB(), alpha / 255f);
+                    RenderUtil.color(color.getRainbow().getColor(count * 2).getRGB(), alpha / 255f);
                 } else {
                     RenderUtil.color(HUDMod.color1.getRainbow().getColor(count * 2).getRGB(), alpha / 255f);
                 }

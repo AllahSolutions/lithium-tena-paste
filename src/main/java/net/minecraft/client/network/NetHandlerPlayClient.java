@@ -8,7 +8,7 @@ import com.mojang.authlib.GameProfile;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.TeleportEvent;
 import dev.tenacity.module.impl.movement.Flight;
-import dev.tenacity.event.impl.player.ChatReceivedEvent;
+import dev.tenacity.event.impl.network.message.ChatReceivedEvent;
 import dev.tenacity.utils.misc.Enhancements;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;

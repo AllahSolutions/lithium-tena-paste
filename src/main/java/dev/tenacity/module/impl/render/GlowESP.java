@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.render;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.game.WorldEvent;
+import dev.tenacity.event.impl.game.world.WorldEvent;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.RenderChestEvent;
 import dev.tenacity.event.impl.render.RenderModelEvent;

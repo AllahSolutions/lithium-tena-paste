@@ -11,7 +11,6 @@ import dev.tenacity.ui.sidegui.forms.impl.UploadForm;
 import dev.tenacity.ui.sidegui.panels.Panel;
 import dev.tenacity.ui.sidegui.panels.configpanel.ConfigPanel;
 import dev.tenacity.ui.sidegui.panels.infopanel.InfoPanel;
-import dev.tenacity.ui.sidegui.panels.scriptpanel.ScriptPanel;
 import dev.tenacity.ui.sidegui.panels.searchpanel.SearchPanel;
 import dev.tenacity.ui.sidegui.utils.TooltipObject;
 import dev.tenacity.utils.animations.Animation;
@@ -69,7 +68,6 @@ public class SideGUI implements Screen {
             panels.put("Search", new SearchPanel());
             panels.put("Info", new InfoPanel());
             panels.put("Configs", new ConfigPanel());
-            panels.put("Scripts", new ScriptPanel());
         }
         if (forms == null) {
             forms = new HashMap<>();
@@ -258,11 +256,6 @@ public class SideGUI implements Screen {
         if (canSnap) {
             focused = false;
         }
-    }
-
-
-    public ScriptPanel getScriptPanel() {
-        return (ScriptPanel) panels.get("Scripts");
     }
 
     public ConfigPanel getConfigPanel() {

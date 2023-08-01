@@ -1,6 +1,6 @@
 package dev.tenacity.module.impl.misc;
 
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.BooleanSetting;

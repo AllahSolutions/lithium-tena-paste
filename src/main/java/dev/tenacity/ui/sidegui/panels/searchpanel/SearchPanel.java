@@ -97,7 +97,6 @@ public class SearchPanel extends Panel {
                 case "Scripts":
                     cloudConfigRects.clear();
                     cloudScriptRects.clear();
-                    cloudScriptRects.addAll(Tenacity.INSTANCE.getSideGui().getScriptPanel().getCloudScriptRects());
                     break;
             }
             searchTypeHold = searchType;

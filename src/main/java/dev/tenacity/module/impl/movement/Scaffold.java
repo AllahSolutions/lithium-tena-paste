@@ -1,8 +1,13 @@
 package dev.tenacity.module.impl.movement;
 
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.player.input.LegitClickEvent;
+import dev.tenacity.event.impl.player.input.MoveInputEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
-import dev.tenacity.event.impl.player.*;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.SafeWalkEvent;
+import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
+import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.ParentAttribute;
@@ -14,7 +19,6 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
-import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
@@ -23,7 +27,6 @@ import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
 import dev.tenacity.utils.server.PacketUtils;
 import dev.tenacity.utils.time.TimerUtil;
-import net.minecraft.block.*;
 import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
@@ -34,12 +37,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPosition;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Scaffold extends Module {
 
@@ -277,8 +276,6 @@ public class Scaffold extends Module {
             return false;
         }
 
-
-
         int slot = ScaffoldUtils.getBlockSlot();
         if (blockCache == null || lastBlockCache == null || slot == -1) return false;
 
@@ -289,20 +286,17 @@ public class Scaffold extends Module {
 
         boolean placed = false;
         if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
-            //   final BlockPosition bb = new BlockPosition(NewScaffold.mc.thePlayer.posX, NewScaffold.mc.thePlayer.posY - 1.0, NewScaffold.mc.thePlayer.posZ);
-            if (RayCastUtil.overBlock(lastBlockCache.getFacing(), lastBlockCache.getFacing(), )) {
-                if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
-                        mc.thePlayer.inventory.getStackInSlot(this.slot),
-                        lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                        ScaffoldUtils.getHypixelVec3(blockCache))) {
-                    placed = true;
-                    y = MathUtils.getRandomInRange(75.5f, 83.5f);
-                    if (swing.isEnabled()) {
-                        if (swingMode.is("Client")) {
-                            mc.thePlayer.swingItem();
-                        } else {
-                            PacketUtils.sendPacket(new C0APacketAnimation());
-                        }
+            if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
+                    mc.thePlayer.inventory.getStackInSlot(this.slot),
+                    lastBlockCache.getPosition(), lastBlockCache.getFacing(),
+                    ScaffoldUtils.getHypixelVec3(blockCache))) {
+                placed = true;
+                y = MathUtils.getRandomInRange(75.5f, 83.5f);
+                if (swing.isEnabled()) {
+                    if (swingMode.is("Client")) {
+                        mc.thePlayer.swingItem();
+                    } else {
+                        PacketUtils.sendPacket(new C0APacketAnimation());
                     }
                 }
                 delayTimer.reset();
@@ -313,7 +307,7 @@ public class Scaffold extends Module {
     }
 
     @Override
-    public void onLegitClick(LegitClick event) {
+    public void onLegitClickEvent(LegitClickEvent event) {
         if (placeType.is("Legit")) {
             place();
         }
@@ -348,7 +342,7 @@ public class Scaffold extends Module {
     }
 
     @Override
-    public void onJumpFixEvent(JumpFixEvent event) {
+    public void onJumpFixEvent(JumpEvent event) {
         if (movementCorrection.isEnabled()) {
             event.setYaw(yaw);
         }

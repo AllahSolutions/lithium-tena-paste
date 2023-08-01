@@ -1,7 +1,6 @@
 package net.minecraft.client.renderer;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.render.CustomBlockRenderEvent;
 import dev.tenacity.module.impl.combat.KillAura;
 import dev.tenacity.module.impl.render.Animations;
 import dev.tenacity.utils.player.InventoryUtils;
@@ -495,13 +494,6 @@ public class ItemRenderer {
                                         this.doBlockTransformations();
                                         GL11.glTranslated(1.2, 0.3, 0.5);
                                         GL11.glTranslatef(-1, this.mc.thePlayer.isSneaking() ? -0.1F : -0.2F, 0.2F);
-                                        break;
-                                    case "Custom":
-                                        CustomBlockRenderEvent blockRenderEvent = new CustomBlockRenderEvent(
-                                                (equipProg, swingProg) -> transformFirstPersonItem(equipProg, swingProgress),
-                                                this::doBlockTransformations, swingProgress, f);
-
-                                        Tenacity.INSTANCE.getEventProtocol().handleEvent(blockRenderEvent);
                                         break;
                                 }
                             } else {

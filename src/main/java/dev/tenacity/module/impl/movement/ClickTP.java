@@ -1,19 +1,15 @@
 package dev.tenacity.module.impl.movement;
 
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.BoundingBoxEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
-import dev.tenacity.utils.player.MovementUtils;
-import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;

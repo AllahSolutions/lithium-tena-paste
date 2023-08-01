@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.render;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
 import dev.tenacity.module.Category;

@@ -5,7 +5,6 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.RaycastEvent;
 import dev.tenacity.module.impl.player.ChestStealer;
 import dev.tenacity.event.impl.render.HurtCamEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -499,8 +498,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             this.mc.mcProfiler.endSection();
         }
-        RaycastEvent gayraycast = new RaycastEvent(partialTicks);
-        Tenacity.INSTANCE.getEventProtocol().handleEvent(gayraycast);
     }
 
     /**

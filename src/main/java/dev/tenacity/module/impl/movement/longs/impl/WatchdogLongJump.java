@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.movement.longs.impl;
 
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.impl.movement.longs.LongJumpMode;
 import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.server.PacketUtils;

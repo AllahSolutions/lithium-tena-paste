@@ -9,13 +9,10 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.HoveringUtil;
-import dev.tenacity.utils.misc.IOUtils;
-import dev.tenacity.utils.misc.Multithreading;
 import dev.tenacity.utils.objects.TextField;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
-import dev.tenacity.utils.text.RandomStringGenerator;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 
@@ -28,9 +25,6 @@ public class LoginPanel extends Panel {
 
     private final List<ActionButton> actionButtons = new ArrayList<>();
     public final List<TextField> textFields = new ArrayList<>();
-
-    RandomStringGenerator generator = new RandomStringGenerator.Builder().withinRange('a', 'z').build();
-
 
     public LoginPanel() {
         setHeight(200);
@@ -137,7 +131,6 @@ public class LoginPanel extends Panel {
                         Tenacity.INSTANCE.getAltManager().getAltPanel().refreshAlts();
                         break;
                     case "Gen Cracked":
-                        Tenacity.INSTANCE.getAltManager().getUtils().loginWithString(generator.generate(8), "", false);
                         Tenacity.INSTANCE.getAltManager().getAltPanel().refreshAlts();
                         break;
                 }

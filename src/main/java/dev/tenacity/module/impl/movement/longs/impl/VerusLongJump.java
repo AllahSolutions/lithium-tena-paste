@@ -1,11 +1,8 @@
 package dev.tenacity.module.impl.movement.longs.impl;
 
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.module.impl.movement.longs.LongJumpMode;
 import dev.tenacity.utils.player.ChatUtil;
-import dev.tenacity.utils.server.PacketUtils;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 
 public class VerusLongJump extends LongJumpMode {

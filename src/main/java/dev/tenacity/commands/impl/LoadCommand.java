@@ -43,8 +43,6 @@ public class LoadCommand extends Command {
                     File scriptFile = new File(Minecraft.getMinecraft().mcDataDir + "/Tenacity/Scripts/" + name + ".js");
 
                     downloadScriptToFile(scriptFile, objectData);
-
-                    Tenacity.INSTANCE.getSideGui().getScriptPanel().refresh();
                 } else {
                     if (Tenacity.INSTANCE.getConfigManager().loadConfig(objectData, false)) {
                         sendChatWithPrefix("Config loaded successfully!");

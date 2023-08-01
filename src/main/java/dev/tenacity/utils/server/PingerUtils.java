@@ -2,7 +2,7 @@ package dev.tenacity.utils.server;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.ListenerAdapter;
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
 import dev.tenacity.utils.Utils;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;

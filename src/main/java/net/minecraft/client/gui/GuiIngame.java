@@ -3,19 +3,15 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.render.PreRenderEvent;
-import dev.tenacity.intent.api.account.IntentAccount;
+import dev.tenacity.event.impl.render.elements.RenderHotbarEvent;
 import dev.tenacity.module.impl.render.*;
-import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
-import dev.tenacity.utils.render.ShaderUtil;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.utils.Utils;
 import dev.tenacity.utils.font.AbstractFontRenderer;
 import dev.tenacity.utils.render.GLUtil;
-import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,7 +23,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -56,7 +51,7 @@ import java.util.Random;
 
 public class GuiIngame extends Gui implements Utils {
     private static final ResourceLocation vignetteTexPath = new ResourceLocation("textures/misc/vignette.png");
-    private static final ResourceLocation widgetsTexPath = new ResourceLocation("textures/gui/widgets.png");
+    public static final ResourceLocation widgetsTexPath = new ResourceLocation("textures/gui/widgets.png");
     private static final ResourceLocation pumpkinBlurTexPath = new ResourceLocation("textures/misc/pumpkinblur.png");
     private final Random rand = new Random();
     private final Minecraft mc;
@@ -191,10 +186,8 @@ public class GuiIngame extends Gui implements Utils {
 
         Tenacity.INSTANCE.getEventProtocol().handleEvent(new PreRenderEvent());
 
-
         PostProcessing postProcessing = (PostProcessing) Tenacity.INSTANCE.getModuleCollection().get(PostProcessing.class);
         postProcessing.blurScreen();
-
 
         Tenacity.INSTANCE.getEventProtocol().handleEvent(new Render2DEvent(scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight()));
         NotificationsMod notif = Tenacity.INSTANCE.getModuleCollection().getModule(NotificationsMod.class);
@@ -214,11 +207,14 @@ public class GuiIngame extends Gui implements Utils {
             this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
         }
 
-
         if (this.mc.playerController.isSpectator()) {
             this.spectatorGui.renderTooltip(scaledresolution, partialTicks);
         } else {
-            this.renderTooltip(scaledresolution, partialTicks);
+
+            RenderHotbarEvent renderHotbarEvent = new RenderHotbarEvent();
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(renderHotbarEvent);
+
+            if (!renderHotbarEvent.isCancelled()) this.renderTooltip(scaledresolution, partialTicks);
         }
 
 
@@ -995,7 +991,7 @@ public class GuiIngame extends Gui implements Utils {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private void renderHotbarItem(int index, int xPos, int yPos, float partialTicks, EntityPlayer player) {
+    public void renderHotbarItem(int index, int xPos, int yPos, float partialTicks, EntityPlayer player) {
         ItemStack itemstack = player.inventory.mainInventory[index];
 
         if (itemstack != null) {

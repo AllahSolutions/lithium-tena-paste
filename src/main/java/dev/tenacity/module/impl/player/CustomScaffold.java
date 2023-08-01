@@ -1,17 +1,14 @@
 package dev.tenacity.module.impl.player;
 
-import com.sun.javafx.geom.Vec3d;
-import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.player.LegitClick;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.player.input.LegitClickEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.scaffold.ScaffoldUtil;
 import lombok.Getter;
-import lombok.Setter;
-import net.minecraft.block.Block;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
@@ -35,7 +32,6 @@ public class CustomScaffold extends Module {
 
     public float[] rotations, lastRotations;
     public BlockPosition position, lastPosition;
-
     public CustomScaffold() {
         super("CustomScaffold", Category.PLAYER, "Automatically places blocks under you.");
 
@@ -100,10 +96,10 @@ public class CustomScaffold extends Module {
     }
 
     @Override
-    public void onLegitClick(LegitClick event) {
+    public void onLegitClickEvent(LegitClickEvent event) {
 
 
-        super.onLegitClick(event);
+        super.onLegitClickEvent(event);
     }
 
     public boolean canPlaceAt(BlockPosition position) {

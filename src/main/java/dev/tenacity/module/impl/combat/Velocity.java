@@ -1,28 +1,17 @@
 package dev.tenacity.module.impl.combat;
 
-import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.game.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
 import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.module.settings.Setting;
-import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.ui.notifications.NotificationManager;
-import dev.tenacity.ui.notifications.NotificationType;
-import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.player.ChatUtil;
-import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
-import net.minecraft.network.play.server.S19PacketEntityStatus;
 import net.minecraft.network.play.server.S27PacketExplosion;
-import net.minecraft.network.play.server.S32PacketConfirmTransaction;
 import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {

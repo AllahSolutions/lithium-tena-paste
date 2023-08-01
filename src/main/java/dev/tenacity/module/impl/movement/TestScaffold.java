@@ -5,7 +5,7 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.BooleanSetting;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.utils.FlagfolUtil.Utils.EnumFacingOffset;
+import dev.tenacity.utils.player.scaffold.EnumFacingOffset;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.Vec3;
 

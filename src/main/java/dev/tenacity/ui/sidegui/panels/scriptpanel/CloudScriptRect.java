@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import dev.tenacity.Tenacity;
 import dev.tenacity.intent.cloud.CloudUtils;
 import dev.tenacity.intent.cloud.data.CloudScript;
-import dev.tenacity.scripting.api.Script;
 import dev.tenacity.ui.Screen;
 import dev.tenacity.ui.notifications.NotificationManager;
 import dev.tenacity.ui.notifications.NotificationType;
@@ -132,29 +131,12 @@ public class CloudScriptRect implements Screen {
                         Multithreading.runAsync(() -> downloadScriptToFile(scriptFile, scriptContent));
 
                         Tenacity.INSTANCE.getSideGui().getTooltips().clear();
-                        Tenacity.INSTANCE.getSideGui().getScriptPanel().setRefresh(true);
                         break;
                     case FontUtil.EDIT:
                         Form form = Tenacity.INSTANCE.getSideGui().displayForm("Edit Script");
                         ((EditForm) form).setup(script, true);
                         form.setUploadAction((fileName, updatedDescription) -> {
                             Multithreading.runAsync(() -> {
-                                Script uploadScript = Tenacity.INSTANCE.getScriptManager().getScripts().stream()
-                                        .filter(script1 -> script1.getFile().getName().equals(fileName)).findFirst().orElse(null);
-
-                                if (uploadScript == null) {
-                                    NotificationManager.post(NotificationType.WARNING, "Error", "The script you are trying to upload does not exist!");
-                                    return;
-                                }
-
-                                String data = FileUtils.readFile(uploadScript.getFile());
-
-                                if (CloudUtils.updateData(script.getShareCode(), updatedDescription, data, true)) {
-                                    NotificationManager.post(NotificationType.SUCCESS, "Success", "Script updated successfully!");
-                                } else {
-                                    NotificationManager.post(NotificationType.DISABLE, "Error", "Error updating script!");
-                                }
-
                                 Tenacity.INSTANCE.getCloudDataManager().refreshData();
                             });
 

@@ -2,11 +2,11 @@ package dev.tenacity.module.impl.combat;
 
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.game.WorldEvent;
-import dev.tenacity.event.impl.player.AttackEvent;
-import dev.tenacity.event.impl.player.LegitClick;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.game.world.WorldEvent;
+import dev.tenacity.event.impl.player.input.AttackEvent;
+import dev.tenacity.event.impl.player.input.LegitClickEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.NumberSetting;
@@ -130,7 +130,7 @@ public final class AutoPlay extends Module {
     }
 
     @Override
-    public void onLegitClick(LegitClick event) {
+    public void onLegitClickEvent(LegitClickEvent event) {
 
         if (attackTimer.hasTimeElapsed(1000 / currentCPS)) {
             AttackEvent attackEvent = new AttackEvent(target);
@@ -144,7 +144,7 @@ public final class AutoPlay extends Module {
             attackTimer.reset();
         }
 
-        super.onLegitClick(event);
+        super.onLegitClickEvent(event);
     }
 
     @Override

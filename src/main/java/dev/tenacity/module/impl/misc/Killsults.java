@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.misc;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.ChatReceivedEvent;
+import dev.tenacity.event.impl.network.message.ChatReceivedEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.utils.misc.FileUtils;

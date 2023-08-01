@@ -2,7 +2,7 @@ package dev.tenacity.utils.render;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.RenderTickEvent;
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
 import dev.tenacity.event.impl.render.RendererLivingEntityEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;

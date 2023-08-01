@@ -1,6 +1,6 @@
 package dev.tenacity.module.impl.movement;
 
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.Category;

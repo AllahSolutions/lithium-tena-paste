@@ -1,7 +1,7 @@
 package dev.tenacity.module.impl.render;
 
 import dev.tenacity.commands.impl.FriendCommand;
-import dev.tenacity.event.impl.render.NametagRenderEvent;
+import dev.tenacity.event.impl.render.elements.RenderNametagEvent;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
@@ -84,7 +84,7 @@ public class ESP2D extends Module {
     private final Map<Entity, Vector4f> entityPosition = new HashMap<>();
 
     @Override
-    public void onNametagRenderEvent(NametagRenderEvent e) {
+    public void onRenderNametagEvent(RenderNametagEvent e) {
         if (nametags.isEnabled()) e.cancel();
     }
 

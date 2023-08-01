@@ -2,7 +2,7 @@ package dev.tenacity.utils.player;
 
 import com.google.common.base.Predicates;
 import net.minecraft.client.renderer.EntityRenderer;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

@@ -11,7 +11,6 @@ public final class ScriptCommand extends Command {
 
     @Override
     public void execute(String[] args) {
-        Tenacity.INSTANCE.getScriptManager().reloadScripts();
     }
 
 }

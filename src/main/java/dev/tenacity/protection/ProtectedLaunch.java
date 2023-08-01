@@ -16,7 +16,6 @@ import dev.tenacity.module.impl.misc.*;
 import dev.tenacity.module.impl.movement.*;
 import dev.tenacity.module.impl.player.*;
 import dev.tenacity.module.impl.render.*;
-import dev.tenacity.scripting.api.ScriptManager;
 import dev.tenacity.ui.altmanager.GuiAltManager;
 import dev.tenacity.ui.altmanager.helpers.KingGenApi;
 import dev.tenacity.utils.render.EntityCulling;
@@ -97,7 +96,6 @@ public class ProtectedLaunch {
         modules.put(Spider.class, new Spider());
         modules.put(NoSlow.class, new NoSlow());
         modules.put(SafeWalk.class, new SafeWalk());
-        modules.put(NewScaffold.class, new NewScaffold());
         modules.put(Scaffold.class, new Scaffold());
 
         // Player
@@ -142,6 +140,7 @@ public class ProtectedLaunch {
         modules.put(EntityCulling.class, new EntityCulling());
         modules.put(PlayerList.class, new PlayerList());
         modules.put(JumpCircle.class, new JumpCircle());
+        modules.put(Hotbar.class, new Hotbar());
         modules.put(Chams.class, new Chams());
 
         Tenacity.INSTANCE.getModuleCollection().setModules(modules);
@@ -150,7 +149,6 @@ public class ProtectedLaunch {
 
         Tenacity.INSTANCE.setPingerUtils(new PingerUtils());
 
-        Tenacity.INSTANCE.setScriptManager(new ScriptManager());
 
         CommandHandler commandHandler = new CommandHandler();
         commandHandler.commands.addAll(Arrays.asList(

@@ -4,10 +4,10 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.config.DragManager;
 import dev.tenacity.event.ListenerAdapter;
 import dev.tenacity.event.impl.game.GameCloseEvent;
-import dev.tenacity.event.impl.game.KeyPressEvent;
-import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.game.WorldEvent;
-import dev.tenacity.event.impl.player.ChatReceivedEvent;
+import dev.tenacity.event.impl.player.input.KeyInputEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.game.world.WorldEvent;
+import dev.tenacity.event.impl.network.message.ChatReceivedEvent;
 import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.ShaderEvent;
 import dev.tenacity.module.impl.movement.Flight;
@@ -26,7 +26,7 @@ public class BackgroundProcess extends ListenerAdapter implements Utils {
     private final Scaffold scaffold = (Scaffold) Tenacity.INSTANCE.getModuleCollection().get(Scaffold.class);
 
     @Override
-    public void onKeyPressEvent(KeyPressEvent event) {
+    public void onKeyPressEvent(KeyInputEvent event) {
 
         // We should probably have a static arraylist of all the modules instead of creating a new on in getModules()
         for (Module module : Tenacity.INSTANCE.getModuleCollection().getModules()) {

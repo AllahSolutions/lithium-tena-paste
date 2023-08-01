@@ -207,9 +207,5 @@ public class EditForm extends Form {
         descriptionField.setMaxStringLength(210);
         descriptionField.setText(data.getDescription());
 
-        if (script) {
-            scriptFiles.setupOptions(Tenacity.INSTANCE.getScriptManager().getScriptFileNameList());
-        }
-
     }
 }

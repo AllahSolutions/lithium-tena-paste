@@ -2,7 +2,12 @@ package net.minecraft.client.entity;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.commands.CommandHandler;
+import dev.tenacity.event.impl.network.message.ChatSentEvent;
 import dev.tenacity.event.impl.player.*;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MoveEvent;
+import dev.tenacity.event.impl.player.movement.SlowdownEvent;
+import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
 import dev.tenacity.utils.FlagfolUtil.Vectors.Vector2f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
@@ -283,9 +288,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             return;
         }
 
-        PlayerSendMessageEvent playerSendMessageEvent = new PlayerSendMessageEvent(message);
-        Tenacity.INSTANCE.getEventProtocol().handleEvent(playerSendMessageEvent);
-        if (!playerSendMessageEvent.isCancelled()) {
+        ChatSentEvent chatSentEvent = new ChatSentEvent(message);
+        Tenacity.INSTANCE.getEventProtocol().handleEvent(chatSentEvent);
+        if (!chatSentEvent.isCancelled()) {
             this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
         }
 
@@ -749,7 +754,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         this.movementInput.updatePlayerMoveState();
 
         if (this.isUsingItem() && !this.isRiding()) {
-            SlowDownEvent slowDownEvent = new SlowDownEvent();
+            SlowdownEvent slowDownEvent = new SlowdownEvent();
             Tenacity.INSTANCE.getEventProtocol().handleEvent(slowDownEvent);
             if (!slowDownEvent.isCancelled()) {
                 this.movementInput.moveStrafe *= 0.2F;
@@ -857,12 +862,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     @Override
     public void jump() {
-        JumpEvent jumpEvent = new JumpEvent();
-        Tenacity.INSTANCE.getEventProtocol().handleEvent(jumpEvent);
-
-        if (!jumpEvent.isCancelled()) {
-            super.jump();
-        }
+        super.jump();
     }
 
     public Vector2f getPreviousRotation() {

@@ -2,7 +2,6 @@ package dev.tenacity.ui.sidegui.utils;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.ui.sidegui.panels.configpanel.ConfigPanel;
-import dev.tenacity.ui.sidegui.panels.scriptpanel.ScriptPanel;
 import dev.tenacity.utils.misc.MathUtils;
 
 public class CloudDataUtils {
@@ -44,9 +43,6 @@ public class CloudDataUtils {
         if (Tenacity.INSTANCE.getSideGui().getPanels() != null) {
             ConfigPanel configPanel = (ConfigPanel) Tenacity.INSTANCE.getSideGui().getPanels().get("Configs");
             configPanel.refresh();
-
-            ScriptPanel scriptPanel = (ScriptPanel) Tenacity.INSTANCE.getSideGui().getPanels().get("Scripts");
-            scriptPanel.refresh();
         }
 
     }

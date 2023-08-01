@@ -1,5 +1,6 @@
 package dev.tenacity;
 
+import dev.tenacity.anticheat.DetectionManager;
 import dev.tenacity.commands.CommandHandler;
 import dev.tenacity.config.ConfigManager;
 import dev.tenacity.config.DragManager;
@@ -8,7 +9,6 @@ import dev.tenacity.intent.api.account.IntentAccount;
 import dev.tenacity.intent.cloud.CloudDataManager;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.ModuleCollection;
-import dev.tenacity.scripting.api.ScriptManager;
 import dev.tenacity.ui.altmanager.GuiAltManager;
 import dev.tenacity.ui.altmanager.helpers.KingGenApi;
 import dev.tenacity.ui.searchbar.SearchBar;
@@ -47,7 +47,6 @@ public class Tenacity implements Utils {
     private final SideGUI sideGui = new SideGUI();
     private final SearchBar searchBar = new SearchBar();
     private ModuleCollection moduleCollection;
-    private ScriptManager scriptManager;
     private IntentAccount intentAccount;
     private ConfigManager configManager;
     private GuiAltManager altManager;
@@ -56,6 +55,8 @@ public class Tenacity implements Utils {
     private DiscordRPC discordRPC;
     public KingGenApi kingGenApi;
     private DiscordAccount discordAccount;
+
+    private DetectionManager detectionManager;
 
     public static boolean updateGuiScale;
     public static int prevGuiScale;

@@ -1,7 +1,7 @@
 package dev.tenacity.utils.player;
 
-import dev.tenacity.event.impl.player.MoveEvent;
-import dev.tenacity.event.impl.player.MoveInputEvent;
+import dev.tenacity.event.impl.player.movement.MoveEvent;
+import dev.tenacity.event.impl.player.input.MoveInputEvent;
 import dev.tenacity.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;

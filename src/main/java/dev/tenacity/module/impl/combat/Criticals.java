@@ -2,7 +2,7 @@ package dev.tenacity.module.impl.combat;
 
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.network.PacketSendEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.impl.movement.Flight;

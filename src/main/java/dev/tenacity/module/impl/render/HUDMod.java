@@ -72,8 +72,6 @@ public class HUDMod extends Module {
     }
 
     public static int offsetValue = 0;
-    private final Animation fadeInText = new DecelerateAnimation(500, 1);
-    private int ticks = 0;
 
     private boolean version = true;
 

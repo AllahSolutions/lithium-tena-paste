@@ -1,8 +1,8 @@
 package dev.tenacity.module.impl.player;
 
 import dev.tenacity.event.impl.network.PacketSendEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
-import dev.tenacity.event.impl.player.SlowDownEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.SlowdownEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
@@ -26,7 +26,7 @@ public class NoSlow extends Module {
     }
 
     @Override
-    public void onSlowDownEvent(SlowDownEvent event) {
+    public void onSlowDownEvent(SlowdownEvent event) {
         event.cancel();
     }
 
@@ -95,8 +95,6 @@ public class NoSlow extends Module {
                 }
 
                 break;
-
-
 
 
             case"MMC":

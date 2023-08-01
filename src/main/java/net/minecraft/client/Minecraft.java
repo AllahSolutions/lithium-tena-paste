@@ -14,6 +14,9 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import de.florianmichael.viamcp.fixes.AttackOrder;
 import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.game.*;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.game.world.WorldEvent;
+import dev.tenacity.event.impl.player.input.*;
 import dev.tenacity.event.impl.player.*;
 import dev.tenacity.module.impl.render.ClickGUIMod;
 import dev.tenacity.protection.ProtectedLaunch;
@@ -1715,7 +1718,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                     if (this.currentScreen != null) {
                         this.currentScreen.handleKeyboardInput();
                     } else {
-                        Tenacity.INSTANCE.getEventProtocol().handleEvent(new KeyPressEvent(k));
+                        Tenacity.INSTANCE.getEventProtocol().handleEvent(new KeyInputEvent(k));
 
                         if (k == 1) {
                             this.displayInGameMenu();
@@ -1863,8 +1866,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.displayGuiScreen(new GuiChat("."));
             }
             
-            LegitClick LegitClick = new LegitClick();
-            Tenacity.INSTANCE.getEventProtocol().handleEvent(LegitClick);
+            LegitClickEvent LegitClickEvent = new LegitClickEvent();
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(LegitClickEvent);
             if (this.thePlayer.isUsingItem()) {
                 BlockEvent blockEvent = new BlockEvent();
                 Tenacity.INSTANCE.getEventProtocol().handleEvent(blockEvent);
@@ -1897,7 +1900,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.rightClickMouse();
             }
 
-            Tenacity.INSTANCE.getEventProtocol().handleEvent(new BlockPlaceableEvent());
             this.sendClickBlockToController(this.currentScreen == null && this.gameSettings.keyBindAttack.isKeyDown() && this.inGameHasFocus);
         }
 

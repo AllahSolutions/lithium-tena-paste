@@ -1,7 +1,10 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.*;
+import dev.tenacity.event.impl.player.input.MoveInputEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
+import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
 import dev.tenacity.module.impl.combat.KillAura;
 import dev.tenacity.module.impl.exploit.Breaker;
 import dev.tenacity.module.impl.movement.Scaffold;
@@ -53,7 +56,7 @@ public class PolarSpeed extends SpeedMode {
     }
 
     @Override
-    public void onJumpFixEvent(JumpFixEvent event) {
+    public void onJumpFixEvent(JumpEvent event) {
 
         if (!canPerformRotation()) {
             return;

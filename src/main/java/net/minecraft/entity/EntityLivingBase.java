@@ -4,8 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Maps;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.player.JumpFixEvent;
-import dev.tenacity.event.impl.player.LivingDeathEvent;
+import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
 import dev.tenacity.module.impl.render.Animations;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -939,9 +938,6 @@ public abstract class EntityLivingBase extends Entity {
         }
 
         if (entity != null) {
-            if (entity instanceof EntityLivingBase) {
-                Tenacity.INSTANCE.getEventProtocol().handleEvent(new LivingDeathEvent(this, cause));
-            }
             entity.onKillEntity(this);
         }
 
@@ -1406,19 +1402,24 @@ public abstract class EntityLivingBase extends Entity {
      * Causes this entity to do an upwards motion (jumping).
      */
     protected void jump() {
+
+        JumpEvent jumpEvent = new JumpEvent(this.rotationYaw);
+
+        if (this instanceof EntityPlayerSP) {
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(jumpEvent);
+
+            this.movementYaw = jumpEvent.getYaw();
+            this.velocityYaw = jumpEvent.getYaw();
+        }
+
+        if (jumpEvent.isCancelled()) {
+            return;
+        }
+
         this.motionY = (double) this.getJumpUpwardsMotion();
 
         if (this.isPotionActive(Potion.jump)) {
             this.motionY += (double) ((float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
-        }
-
-        JumpFixEvent jumpFixEvent = new JumpFixEvent(this.rotationYaw);
-
-        if (this instanceof EntityPlayerSP) {
-            Tenacity.INSTANCE.getEventProtocol().handleEvent(jumpFixEvent);
-
-            this.movementYaw = jumpFixEvent.getYaw();
-            this.velocityYaw = jumpFixEvent.getYaw();
         }
 
         if (this.isSprinting()) {

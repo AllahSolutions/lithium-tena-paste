@@ -1,6 +1,6 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
-import dev.tenacity.event.impl.player.MotionEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
 

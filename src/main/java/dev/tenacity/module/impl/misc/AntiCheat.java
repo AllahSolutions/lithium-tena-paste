@@ -1,22 +1,19 @@
 package dev.tenacity.module.impl.misc;
 
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.game.world.TickEvent;
 
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.utils.player.ChatUtil;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumChatFormatting;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AntiCheat extends Module {
 
-
-
     public AntiCheat() {
-        super("AntiCheat", Category.MISC, "Detects people using cheats inside your game");
+        super("AntiCheat", Category.MISC, "Detects people using cheats in your game.");
     }
 
     @Override
@@ -40,7 +37,9 @@ public class AntiCheat extends Module {
                 .collect(Collectors.toList());
 
         players.forEach(player -> {
-
+            Tenacity.INSTANCE.getDetectionManager().getDetections().forEach(detection -> {
+                detection.runCheck(player);
+            });
         });
     }
 

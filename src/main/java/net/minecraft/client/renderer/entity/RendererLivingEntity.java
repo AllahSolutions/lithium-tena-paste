@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.render.ESP2D;
 import dev.tenacity.module.impl.render.TargetHUDMod;
-import dev.tenacity.event.impl.render.NametagRenderEvent;
+import dev.tenacity.event.impl.render.elements.RenderNametagEvent;
 import dev.tenacity.event.impl.render.RenderModelEvent;
 import dev.tenacity.event.impl.render.RendererLivingEntityEvent;
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,6 @@ import net.minecraft.client.gui.IFontRenderer;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -573,9 +572,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     public void renderName(T entity, double x, double y, double z) {
         if (entity instanceof EntityPlayer) {
-            NametagRenderEvent nametagRenderEvent = new NametagRenderEvent();
-            Tenacity.INSTANCE.getEventProtocol().handleEvent(nametagRenderEvent);
-            if (nametagRenderEvent.isCancelled()) return;
+            RenderNametagEvent renderNametagEvent = new RenderNametagEvent();
+            Tenacity.INSTANCE.getEventProtocol().handleEvent(renderNametagEvent);
+            if (renderNametagEvent.isCancelled()) return;
         }
         if (esp2D == null) {
             esp2D = Tenacity.INSTANCE.getModuleCollection().getModule(ESP2D.class);

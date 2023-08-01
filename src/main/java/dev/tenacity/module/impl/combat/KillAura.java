@@ -3,8 +3,14 @@ package dev.tenacity.module.impl.combat;
 import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import de.florianmichael.vialoadingbase.ViaLoadingBase;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.game.TickEvent;
-import dev.tenacity.event.impl.player.*;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.player.input.AttackEvent;
+import dev.tenacity.event.impl.player.input.LegitClickEvent;
+import dev.tenacity.event.impl.player.input.MoveInputEvent;
+import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.SlowdownEvent;
+import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
+import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
@@ -19,7 +25,6 @@ import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
 import dev.tenacity.utils.misc.Random;
-import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
@@ -247,14 +252,14 @@ public final class KillAura extends Module {
     }
 
     @Override
-    public void onLegitClick(LegitClick event) {
+    public void onLegitClickEvent(LegitClickEvent event) {
 
         if (target == null) {
             return;
         }
 
         if (
-                attackTiming.is("Pre") &&
+                attackTiming.is("Pre") ||
                 attackTiming.is("Post")
         ) {
             return;
@@ -262,7 +267,7 @@ public final class KillAura extends Module {
 
         runAttackLoop();
 
-        super.onLegitClick(event);
+        super.onLegitClickEvent(event);
     }
 
     @Override
@@ -288,7 +293,7 @@ public final class KillAura extends Module {
     }
 
     @Override
-    public void onJumpFixEvent(JumpFixEvent event) {
+    public void onJumpFixEvent(JumpEvent event) {
         if (mc.theWorld == null || mc.thePlayer == null) {
             return;
         }
@@ -379,7 +384,7 @@ public final class KillAura extends Module {
     }
 
     @Override
-    public void onSlowDownEvent(SlowDownEvent event) {
+    public void onSlowDownEvent(SlowdownEvent event) {
         if (blockMode.getMode().equals("Watchdog")) {
             if (mc.thePlayer.hurtTime >= 2) {
                 event.cancel();

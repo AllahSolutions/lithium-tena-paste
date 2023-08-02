@@ -118,10 +118,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
      */
     public float prevTimeInPortal;
 
+    private Vec3 severPosition;
+    private Vec3 lastServerPosition;
+
     public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statFile) {
         super(worldIn, netHandler.getGameProfile());
         this.sendQueue = netHandler;
         this.statWriter = statFile;
+        this.severPosition = new Vec3(0.0, 0.0, 0.0);
+        this.lastServerPosition = new Vec3(0.0, 0.0, 0.0);
         this.mc = mcIn;
         this.dimension = 0;
     }
@@ -164,6 +169,19 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 this.onUpdateWalkingPlayer();
             }
         }
+    }
+
+    public Vec3 getLastServerPosition() {
+        return this.lastServerPosition;
+    }
+
+
+    public Vec3 getSeverPosition() {
+        return this.severPosition;
+    }
+
+    public void setSeverPosition(final Vec3 severPosition) {
+        this.severPosition = severPosition;
     }
 
     /**

@@ -302,7 +302,7 @@ public class Scaffold extends Module {
                 delayTimer.reset();
                 blockCache = null;
             }
-       // }
+        }
         return placed;
     }
 

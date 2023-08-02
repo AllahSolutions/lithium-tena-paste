@@ -117,6 +117,10 @@ public abstract class EntityLivingBase extends Entity {
      */
     public float rotationPitchHead;
 
+    public int realPosX;
+    public int realPosY;
+    public int realPosZ;
+
     @Exclude(Strategy.NAME_REMAPPING)
     public float getRotationPitchHead() {
         return rotationPitchHead;

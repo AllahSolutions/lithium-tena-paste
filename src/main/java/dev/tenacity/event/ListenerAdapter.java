@@ -3,6 +3,7 @@ package dev.tenacity.event;
 import dev.tenacity.event.impl.game.*;
 import dev.tenacity.event.impl.game.world.TickEvent;
 import dev.tenacity.event.impl.game.world.WorldEvent;
+import dev.tenacity.event.impl.network.PacketReadEvent;
 import dev.tenacity.event.impl.network.message.ChatReceivedEvent;
 import dev.tenacity.event.impl.network.message.ChatSentEvent;
 import dev.tenacity.event.impl.player.input.*;
@@ -42,6 +43,8 @@ public abstract class ListenerAdapter implements EventListener {
     public void onPacketReceiveEvent(PacketReceiveEvent event) {}
     public void onPacketSendEvent(PacketSendEvent event) {}
     public void onPacketEvent(PacketEvent event) {}
+
+    public void onPacketReadEvent(PacketReadEvent event) {}
 
     // Player
     public void onAttackEvent(AttackEvent event) {}

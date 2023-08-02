@@ -1,10 +1,10 @@
 package dev.tenacity.module.impl.combat;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.game.TickEvent;
+import dev.tenacity.event.impl.game.world.TickEvent;
+import dev.tenacity.event.impl.network.PacketReadEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
-import dev.tenacity.event.impl.player.AttackEvent;
-import dev.tenacity.event.impl.player.MotionEvent;
+
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
@@ -97,8 +97,8 @@ public class BackTrack2 extends Module {
         super("Backtrack2", Category.COMBAT, "Fucks players in their last possition2");
         this.timeHelper = new TimerUtil();
         this.packets = new ArrayList<Packet>();
-        this.hitRange = new NumberSetting("MaxHitRange", 6.0, 6.0, 3., 2);
-        this.timerDelay = new NumberSetting("Time",  4000.0, 30000.0,0.0 , 0);
+        this.hitRange = new NumberSetting("MaxHitRange", 6.0, 6.0, 3.0, 1);
+        this.timerDelay = new NumberSetting("Time",  4000.0, 30000.0,0.0 , 333);
         this.esp = new BooleanSetting("Esp", true);
         this.onlyWhenNeed = new BooleanSetting("OnlyWhenNeed",  true);
         this.player = new BooleanSetting("Player", true);
@@ -123,7 +123,12 @@ public class BackTrack2 extends Module {
             this.entity = KillAura.target;
         }
         else {
-            final Object[] listOfTargets = BackTrack.mc.theWorld.loadedEntityList.stream().filter((Predicate<? super Object>)this::canAttacked).sorted(Comparator.comparingDouble(entityy -> BackTrack.mc.thePlayer.getDistanceToEntity(entityy))).toArray();
+            final Object[] listOfTargets = mc.theWorld.loadedEntityList.stream().filter((Predicate<? super Object>)this::canAttacked).sorted(Comparator.comparingDouble(entityy -> mc.thePlayer.getDistanceToEntity(entityy))).toArray();
+         //   final EntityLivingBase[] listOfTargets = mc.theWorld.loadedEntityList.stream()
+               //     .filter(entity -> entity instanceof EntityLivingBase && canAttacked((EntityLivingBase) entity))
+             //       .sorted(Comparator.comparingDouble(entityy -> mc.thePlayer.getDistanceToEntity(entityy)))
+            //        .toArray(EntityLivingBase[]::new);
+
             if (listOfTargets.length > 0) {
                 this.entity = (EntityLivingBase)listOfTargets[0];
             }
@@ -131,7 +136,7 @@ public class BackTrack2 extends Module {
                 this.entity = null;
             }
         }
-        if (this.entity != null && BackTrack.mc.thePlayer != null && this.packetListener != null && BackTrack.mc.theWorld != null) {
+        if (this.entity != null && mc.thePlayer != null && this.packetListener != null && mc.theWorld != null) {
             final double d0 = this.entity.realPosX / 32.0;
             final double d2 = this.entity.realPosY / 32.0;
             final double d3 = this.entity.realPosZ / 32.0;
@@ -140,7 +145,7 @@ public class BackTrack2 extends Module {
             final double d6 = this.entity.serverPosZ / 32.0;
             final float f = this.entity.width / 2.0f;
             final AxisAlignedBB entityServerPos = new AxisAlignedBB(d4 - f, d5, d6 - f, d4 + f, d5 + this.entity.height, d6 + f);
-            final Vec3 positionEyes = BackTrack.mc.thePlayer.getPositionEyes(BackTrack.mc.timer.renderPartialTicks);
+            final Vec3 positionEyes = mc.thePlayer.getPositionEyes(mc.timer.renderPartialTicks);
             final double currentX = MathHelper.clamp_double(positionEyes.xCoord, entityServerPos.minX, entityServerPos.maxX);
             final double currentY = MathHelper.clamp_double(positionEyes.yCoord, entityServerPos.minY, entityServerPos.maxY);
             final double currentZ = MathHelper.clamp_double(positionEyes.zCoord, entityServerPos.minZ, entityServerPos.maxZ);
@@ -149,28 +154,28 @@ public class BackTrack2 extends Module {
             final double realY = MathHelper.clamp_double(positionEyes.yCoord, entityPosMe.minY, entityPosMe.maxY);
             final double realZ = MathHelper.clamp_double(positionEyes.zCoord, entityPosMe.minZ, entityPosMe.maxZ);
             double distance = this.hitRange.getValue();
-            if (!BackTrack.mc.thePlayer.canEntityBeSeen(this.entity)) {
+            if (!mc.thePlayer.canEntityBeSeen(this.entity)) {
                 distance = ((distance > 3.0) ? 3.0 : distance);
             }
             final double collision = this.entity.getCollisionBorderSize();
-            final double width = BackTrack.mc.thePlayer.width / 2.0f;
-            final double mePosXForPlayer = BackTrack.mc.thePlayer.getLastServerPosition().xCoord + (BackTrack.mc.thePlayer.getSeverPosition().xCoord - BackTrack.mc.thePlayer.getLastServerPosition().xCoord) / MathHelper.clamp_int(BackTrack.mc.thePlayer.rotIncrement, 1, 3);
-            final double mePosYForPlayer = BackTrack.mc.thePlayer.getLastServerPosition().yCoord + (BackTrack.mc.thePlayer.getSeverPosition().yCoord - BackTrack.mc.thePlayer.getLastServerPosition().yCoord) / MathHelper.clamp_int(BackTrack.mc.thePlayer.rotIncrement, 1, 3);
-            final double mePosZForPlayer = BackTrack.mc.thePlayer.getLastServerPosition().zCoord + (BackTrack.mc.thePlayer.getSeverPosition().zCoord - BackTrack.mc.thePlayer.getLastServerPosition().zCoord) / MathHelper.clamp_int(BackTrack.mc.thePlayer.rotIncrement, 1, 3);
-            AxisAlignedBB mePosForPlayerBox = new AxisAlignedBB(mePosXForPlayer - width, mePosYForPlayer, mePosZForPlayer - width, mePosXForPlayer + width, mePosYForPlayer + BackTrack.mc.thePlayer.height, mePosZForPlayer + width);
+            final double width = mc.thePlayer.width / 2.0f;
+            final double mePosXForPlayer = mc.thePlayer.getLastServerPosition().xCoord + (mc.thePlayer.getSeverPosition().xCoord - mc.thePlayer.getLastServerPosition().xCoord) / MathHelper.clamp_int(mc.thePlayer.rotIncrement, 1, 3);
+            final double mePosYForPlayer = mc.thePlayer.getLastServerPosition().yCoord + (mc.thePlayer.getSeverPosition().yCoord - mc.thePlayer.getLastServerPosition().yCoord) / MathHelper.clamp_int(mc.thePlayer.rotIncrement, 1, 3);
+            final double mePosZForPlayer = mc.thePlayer.getLastServerPosition().zCoord + (mc.thePlayer.getSeverPosition().zCoord - mc.thePlayer.getLastServerPosition().zCoord) / MathHelper.clamp_int(mc.thePlayer.rotIncrement, 1, 3);
+            AxisAlignedBB mePosForPlayerBox = new AxisAlignedBB(mePosXForPlayer - width, mePosYForPlayer, mePosZForPlayer - width, mePosXForPlayer + width, mePosYForPlayer + mc.thePlayer.height, mePosZForPlayer + width);
             mePosForPlayerBox = mePosForPlayerBox.expand(collision, collision, collision);
             final Vec3 entityPosEyes = new Vec3(d4, d5 + this.entity.getEyeHeight(), d6);
             final double bestX = MathHelper.clamp_double(entityPosEyes.xCoord, mePosForPlayerBox.minX, mePosForPlayerBox.maxX);
             final double bestY = MathHelper.clamp_double(entityPosEyes.yCoord, mePosForPlayerBox.minY, mePosForPlayerBox.maxY);
             final double bestZ = MathHelper.clamp_double(entityPosEyes.zCoord, mePosForPlayerBox.minZ, mePosForPlayerBox.maxZ);
             boolean b = false;
-            if (entityPosEyes.distanceTo(new Vec3(bestX, bestY, bestZ)) > 3.0 || (BackTrack.mc.thePlayer.hurtTime < 8 && BackTrack.mc.thePlayer.hurtTime > 3)) {
+            if (entityPosEyes.distanceTo(new Vec3(bestX, bestY, bestZ)) > 3.0 || (mc.thePlayer.hurtTime < 8 && mc.thePlayer.hurtTime > 3)) {
                 b = true;
             }
             if (!this.onlyWhenNeed.isEnabled()) {
                 b = true;
             }
-            if (b && positionEyes.distanceTo(new Vec3(realX, realY, realZ)) > positionEyes.distanceTo(new Vec3(currentX, currentY, currentZ)) && BackTrack.mc.thePlayer.getSeverPosition().distanceTo(new Vec3(d0, d2, d3)) < distance && !this.timeHelper.reached((long)this.timerDelay.getValue())) {
+            if (b && positionEyes.distanceTo(new Vec3(realX, realY, realZ)) > positionEyes.distanceTo(new Vec3(currentX, currentY, currentZ)) && mc.thePlayer.getSeverPosition().distanceTo(new Vec3(d0, d2, d3)) < distance && !this.timeHelper.hasTimeElapsed(this.timerDelay.getValue())) {
                 this.blockPackets = true;
             }
             else {
@@ -183,7 +188,25 @@ public class BackTrack2 extends Module {
     }
     @Override
     public void onRender3DEvent(Render3DEvent event) {
-
+        if (this.esp.isEnabled()) {
+            GL11.glEnable(3042);
+            GL11.glBlendFunc(770, 771);
+            GL11.glEnable(2848);
+            GL11.glDisable(2929);
+            GL11.glDisable(3553);
+            GlStateManager.disableCull();
+            GL11.glDepthMask(false);
+            if (this.entity != null && this.blockPackets) {
+                this.render(this.entity);
+            }
+            GL11.glDepthMask(true);
+            GlStateManager.enableCull();
+            GL11.glEnable(3553);
+            GL11.glEnable(2929);
+            GL11.glDisable(3042);
+            GL11.glBlendFunc(770, 771);
+            GL11.glDisable(2848);
+        }
         super.onRender3DEvent(event);
     }
 
@@ -213,7 +236,7 @@ public class BackTrack2 extends Module {
             if (entity.ticksExisted < 50) {
                 return false;
             }
-            //if (entity instanceof EntityPlayer && BackTrack.mm.teams.isToggled() && BackTrack.mm.teams.getTeammates().contains(entity)) {
+            //if (entity instanceof EntityPlayer && mm.teams.isToggled() && mm.teams.getTeammates().contains(entity)) {
             //    return false;
             //}
             if (entity instanceof EntityPlayer && (entity.getName().equals("§aShop") || entity.getName().equals("SHOP") || entity.getName().equals("UPGRADES"))) {
@@ -222,19 +245,19 @@ public class BackTrack2 extends Module {
             if (entity.isDead) {
                 return false;
             }
-            //if (entity instanceof EntityPlayer && BackTrack.mm.antiBot.isToggled() && AntiBot.bots.contains(entity)) {
+            //if (entity instanceof EntityPlayer && mm.antiBot.isToggled() && AntiBot.bots.contains(entity)) {
             //    return false;
           //  }
-           // if (entity instanceof EntityPlayer && !BackTrack.mm.midClick.noFiends && MidClick.friends.contains(entity.getName())) {
+           // if (entity instanceof EntityPlayer && !mm.midClick.noFiends && MidClick.friends.contains(entity.getName())) {
            //     return false;
           //  }
         }
-        return entity instanceof EntityLivingBase && entity != BackTrack.mc.thePlayer && BackTrack.mc.thePlayer.getDistanceToEntity(entity) < this.range.getValue();
+        return entity instanceof EntityLivingBase && entity != mc.thePlayer && mc.thePlayer.getDistanceToEntity(entity) < this.range.getValue();
     }
     
 
     @Override
-    public void onPacketReceiveEvent(EventReadPacket event) {
+    public void onPacketReadEvent(PacketReadEvent eventReadPacket) {
         if (eventReadPacket.getNetHandler() != null) {
             this.packetListener = eventReadPacket.getNetHandler();
         }
@@ -247,7 +270,7 @@ public class BackTrack2 extends Module {
         }
         if (p instanceof S14PacketEntity) {
             final S14PacketEntity packet = (S14PacketEntity)p;
-            final Entity entity1 = BackTrack.mc.theWorld.getEntityByID(packet.getEntityId());
+            final Entity entity1 = mc.theWorld.getEntityByID(packet.getID());
             if (entity1 instanceof EntityLivingBase) {
                 final EntityLivingBase entityLivingBase2;
                 final EntityLivingBase entityLivingBase = entityLivingBase2 = (EntityLivingBase)entity1;
@@ -260,7 +283,7 @@ public class BackTrack2 extends Module {
         }
         if (p instanceof S18PacketEntityTeleport) {
             final S18PacketEntityTeleport packet2 = (S18PacketEntityTeleport)p;
-            final Entity entity1 = BackTrack.mc.theWorld.getEntityByID(packet2.getEntityId());
+            final Entity entity1 = mc.theWorld.getEntityByID(packet2.getEntityId());
             if (entity1 instanceof EntityLivingBase) {
                 final EntityLivingBase entityLivingBase = (EntityLivingBase)entity1;
                 entityLivingBase.realPosX = packet2.getX();
@@ -272,23 +295,23 @@ public class BackTrack2 extends Module {
             this.resetPackets(eventReadPacket.getNetHandler());
             return;
         }
-        if (BackTrack.mc.theWorld != null && BackTrack.mc.thePlayer != null) {
-            if (this.lastWorld != BackTrack.mc.theWorld) {
+        if (mc.theWorld != null && mc.thePlayer != null) {
+            if (this.lastWorld != mc.theWorld) {
                 this.resetPackets(eventReadPacket.getNetHandler());
-                this.lastWorld = BackTrack.mc.theWorld;
+                this.lastWorld = mc.theWorld;
                 return;
             }
             this.addPackets(p, eventReadPacket);
         }
-        this.lastWorld = BackTrack.mc.theWorld;
-        super.onPacketReceiveEvent(event);
+        this.lastWorld = mc.theWorld;
+        super.onPacketReadEvent(eventReadPacket);
     }
     @Override
     public void onEnable() {
         this.blockPackets = false;
         this.b = true;
-        if (BackTrack.mc.theWorld != null && BackTrack.mc.thePlayer != null) {
-            for (final Entity entity : BackTrack.mc.theWorld.loadedEntityList) {
+        if (mc.theWorld != null && mc.thePlayer != null) {
+            for (final Entity entity : mc.theWorld.loadedEntityList) {
                 if (entity instanceof EntityLivingBase) {
                     final EntityLivingBase entityLivingBase = (EntityLivingBase)entity;
                     entityLivingBase.realPosX = entityLivingBase.serverPosX;
@@ -317,8 +340,8 @@ public class BackTrack2 extends Module {
         final float blue = 0.0f;
         float lineWidth = 3.0f;
         final float alpha = 0.03137255f;
-        if (BackTrack.mc.thePlayer.getDistanceToEntity(entity) > 1.0f) {
-            double d0 = 1.0f - BackTrack.mc.thePlayer.getDistanceToEntity(entity) / 20.0f;
+        if (mc.thePlayer.getDistanceToEntity(entity) > 1.0f) {
+            double d0 = 1.0f - mc.thePlayer.getDistanceToEntity(entity) / 20.0f;
             if (d0 < 0.3) {
                 d0 = 0.3;
             }
@@ -333,15 +356,15 @@ public class BackTrack2 extends Module {
                 final Packet packet = this.packets.get(0);
                 try {
                     if (packet != null) {
-                       // if (BackTrack.mm.velocity.isToggled() && (BackTrack.mm.velocity.mode.getSelected().equals("Spoof") || (BackTrack.mm.velocity.mode.getSelected().equals("Basic") && BackTrack.mm.velocity.XZValue.getValue() == 0.0 && BackTrack.mm.velocity.YValue.getValue() == 0.0))) {
+                       // if (mm.velocity.isToggled() && (mm.velocity.mode.getSelected().equals("Spoof") || (mm.velocity.mode.getSelected().equals("Basic") && mm.velocity.XZValue.getValue() == 0.0 && mm.velocity.YValue.getValue() == 0.0))) {
                         //    if (!(packet instanceof S12PacketEntityVelocity)) {
-                       //         if (!(packet instanceof S27PacketExplosion) || !BackTrack.mm.velocity.ignoreExplosion.isEnabled() || !BackTrack.mm.velocity.mode.getSelected().equals("Basic")) {
+                       //         if (!(packet instanceof S27PacketExplosion) || !mm.velocity.ignoreExplosion.isEnabled() || !mm.velocity.mode.getSelected().equals("Basic")) {
                       //              packet.processPacket(netHandler);
                          //       }
                       //      }
                      //   }
                       //  else {
-                     //       packet.processPacket(netHandler);
+                           packet.processPacket(netHandler);
                     //    }
                     }
                 }
@@ -351,18 +374,18 @@ public class BackTrack2 extends Module {
         }
     }
 
-    private void addPackets(final Packet packet, final EventReadPacket eventReadPacket) {
+    private void addPackets(final Packet packet, final PacketReadEvent eventReadPacket) {
         synchronized (this.packets) {
             if (this.delayPackets(packet)) {
                 this.aBoolean = true;
                 this.packets.add(packet);
-                eventReadPacket.setCanceled(true);
+                eventReadPacket.cancel();
             }
         }
     }
 
     private boolean delayPackets(final Packet packet) {
-        if (BackTrack.mc.currentScreen != null) {
+        if (mc.currentScreen != null) {
             return false;
         }
         if (packet instanceof S03PacketTimeUpdate) {
@@ -379,7 +402,7 @@ public class BackTrack2 extends Module {
         }
         if (packet instanceof S19PacketEntityStatus) {
             final S19PacketEntityStatus entityStatus = (S19PacketEntityStatus)packet;
-            return entityStatus.getOpCode() != 2 || !(BackTrack.mc.theWorld.getEntityByID(entityStatus.getEntityId()) instanceof EntityLivingBase);
+            return entityStatus.getOpCode() != 2 || !(mc.theWorld.getEntityByID(entityStatus.getEntityId()) instanceof EntityLivingBase);
         }
         return !(packet instanceof S06PacketUpdateHealth) && !(packet instanceof S29PacketSoundEffect) && !(packet instanceof S3EPacketTeams) && !(packet instanceof S0CPacketSpawnPlayer);
     }

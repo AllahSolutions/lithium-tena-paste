@@ -66,6 +66,7 @@ public class ProtectedLaunch {
         modules.put(Damage.class, new Damage());
         modules.put(TickRange.class, new TickRange());
         modules.put(BackTrack.class, new BackTrack());
+        modules.put(BackTrack2.class, new BackTrack2());
 
         // Misc
         modules.put(AntiDesync.class, new AntiDesync());

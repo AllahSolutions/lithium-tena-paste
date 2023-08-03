@@ -123,7 +123,7 @@ public class BackTrack2 extends Module {
             this.entity = KillAura.target;
         }
         else {
-            final Object[] listOfTargets = mc.theWorld.loadedEntityList.stream().filter((Predicate<? super Object>)this::canAttacked).sorted(Comparator.comparingDouble(entityy -> mc.thePlayer.getDistanceToEntity(entityy))).toArray();
+            final Object[] listOfTargets = mc.theWorld.loadedEntityList.stream().filter((Predicate<? super Entity>)this::canAttacked).sorted(Comparator.comparingDouble(entityy -> mc.thePlayer.getDistanceToEntity(entityy))).toArray();
          //   final EntityLivingBase[] listOfTargets = mc.theWorld.loadedEntityList.stream()
                //     .filter(entity -> entity instanceof EntityLivingBase && canAttacked((EntityLivingBase) entity))
              //       .sorted(Comparator.comparingDouble(entityy -> mc.thePlayer.getDistanceToEntity(entityy)))

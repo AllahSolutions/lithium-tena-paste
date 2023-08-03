@@ -52,7 +52,7 @@ public class ESPUtil implements Utils {
 
     public static AxisAlignedBB getInterpolatedBoundingBox(Entity entity) {
         final double[] renderingEntityPos = getInterpolatedPos(entity);
-        final double entityRenderWidth = entity.width / 1.5;
+        final double entityRenderWidth = entity.width / 1.7;
         return new AxisAlignedBB(renderingEntityPos[0] - entityRenderWidth,
                 renderingEntityPos[1], renderingEntityPos[2] - entityRenderWidth, renderingEntityPos[0] + entityRenderWidth,
                 renderingEntityPos[1] + entity.height + (entity.isSneaking() ? -0.3 : 0.18), renderingEntityPos[2] + entityRenderWidth).expand(0.15, 0.15, 0.15);

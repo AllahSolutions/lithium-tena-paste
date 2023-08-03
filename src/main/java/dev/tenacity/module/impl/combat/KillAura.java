@@ -65,8 +65,6 @@ public final class KillAura extends Module {
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
     public static BooleanSetting fakeAutoblock = new BooleanSetting("Fake AutoBlock", false);
 
-
-                
     public NumberSetting maxTargets = new NumberSetting("Max Targets", 2, 10, 2, 1);
     public NumberSetting minAPS = new NumberSetting("Min APS", 9, 20, 1, 0.1),
             maxAPS = new NumberSetting("Max APS", 12, 20, 1, 0.1);
@@ -406,7 +404,7 @@ public final class KillAura extends Module {
         if (chance <= blockChance.getValue()) {
             switch (blockMode.getMode()) {
                 case "Vanilla": {
-                    block(shouldInteract);
+                    block(true);
                     break;
                 }
                 case "Watchdog": {
@@ -656,9 +654,13 @@ public final class KillAura extends Module {
 
         if (renderTarget != null) {
             if (renders.getSetting("Box").isEnabled()) {
-                if(!Tenacity.INSTANCE.isEnabled(BackTrack.class)) {
-                    RenderUtil.renderBoundingBox(renderTarget, color, 1);
+              //  if(!Tenacity.INSTANCE.isEnabled(BackTrack.class)) {
+                if(target.hurtTime > 1) {
+                    RenderUtil.renderBoundingBox(renderTarget, Color.red, 0.7f);
+                } else{
+                    RenderUtil.renderBoundingBox(renderTarget, Color.green, 0.7f);
                 }
+               // }
             }
             if (renders.getSetting("Circle").isEnabled()) {
                 RenderUtil.drawCircle(renderTarget, event.getTicks(), .75f, color.getRGB(), auraESPAnim.getOutput().floatValue());

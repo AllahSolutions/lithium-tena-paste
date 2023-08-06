@@ -233,9 +233,9 @@ public class BackTrack2 extends Module {
             if (entity instanceof EntityVillager && !this.villager.isEnabled()) {
                 return false;
             }
-            if (entity.ticksExisted < 50) {
-                return false;
-            }
+          //  if (entity.ticksExisted < 50) {
+              //  return false;
+         //   }
             //if (entity instanceof EntityPlayer && mm.teams.isToggled() && mm.teams.getTeammates().contains(entity)) {
             //    return false;
             //}

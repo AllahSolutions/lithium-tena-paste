@@ -12,6 +12,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Vec3;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -220,6 +222,90 @@ public class RenderUtil implements Utils {
         GLUtil.end2DRendering();
 
         GlStateManager.popMatrix();
+    }
+
+    public static void glVertex3D2(Vec3 vector3d) {
+        GL11.glVertex3d(vector3d.xCoord, vector3d.yCoord, vector3d.zCoord);
+    }
+
+    public static void drawBoundingBox(final AxisAlignedBB aa) {
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        GL11.glEnd();
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        GL11.glEnd();
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        GL11.glEnd();
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        GL11.glEnd();
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        GL11.glEnd();
+
+        glBegin(GL_QUADS);
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.minX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.minZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.maxY, aa.maxZ));
+        glVertex3D2(getRenderPos(aa.maxX, aa.minY, aa.maxZ));
+        GL11.glEnd();
+    }
+
+
+
+    public static Vec3 getRenderPos(double x, double y, double z) {
+
+        x -= mc.getRenderManager().renderPosX;
+        y -= mc.getRenderManager().renderPosY;
+        z -= mc.getRenderManager().renderPosZ;
+
+        return new Vec3(x, y, z);
     }
 
     public static void circleNoSmoothRGB(double x, double y, double radius, int color) {

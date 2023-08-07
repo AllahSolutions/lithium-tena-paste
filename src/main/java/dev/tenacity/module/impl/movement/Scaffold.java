@@ -19,6 +19,7 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.ScaffoldUtils;
@@ -37,8 +38,10 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPosition;
+import net.minecraft.util.MathHelper;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Scaffold extends Module {
 
@@ -52,7 +55,9 @@ public class Scaffold extends Module {
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
     public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Intave","Watchdog", "BlocksMC");
     public static ModeSetting swingMode = new ModeSetting("Swing Mode", "Client", "Client", "Silent");
-    public static NumberSetting delay = new NumberSetting("Delay", 0, 2, 0, 0.05);
+    public static NumberSetting mindelay = new NumberSetting("Min Delay", 0, 2, 0, 0.05);
+
+    public static NumberSetting maxdelay = new NumberSetting("Max Delay", 0, 2, 0, 0.05);
     public static final BooleanSetting auto3rdPerson = new BooleanSetting("Auto 3rd Person", false);
     public static final BooleanSetting movementCorrection = new BooleanSetting("Movement Correction", true);
     public static final BooleanSetting speedSlowdown = new BooleanSetting("Speed Slowdown", true);
@@ -87,7 +92,7 @@ public class Scaffold extends Module {
 
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
-        this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, delay,
+        this.addSettings(countMode, rotations, rotationMode, placeType, keepYMode, sprintMode, towerMode, swingMode, mindelay,maxdelay,
                 auto3rdPerson, movementCorrection, speedSlowdown, speedSlowdownAmount, itemSpoof, downwards, safewalk, sprint, sneak, tower,
                 swing, autoJump, hideJump, baseSpeed, keepY);
         rotationMode.addParent(rotations, ParentAttribute.BOOLEAN_CONDITION);
@@ -285,12 +290,13 @@ public class Scaffold extends Module {
         }
 
         boolean placed = false;
-        if (delayTimer.hasTimeElapsed(delay.getValue() * 1000)) {
+        if (delayTimer.hasTimeElapsed(MathHelper.getRandomDoubleInRange(new Random(),mindelay.getValue() * 1000,maxdelay.getValue() * 1000))) {
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),
                     ScaffoldUtils.getHypixelVec3(blockCache))) {
                 placed = true;
+                //ChatUtil.print(MathHelper.getRandomDoubleInRange(new Random(),mindelay.getValue() * 1000,maxdelay.getValue() * 1000));
                 y = MathUtils.getRandomInRange(75.5f, 83.5f);
                 if (swing.isEnabled()) {
                     if (swingMode.is("Client")) {
@@ -518,9 +524,9 @@ public class Scaffold extends Module {
 
     @Override
     public void onSafeWalkEvent(SafeWalkEvent event) {
-        //if ((safewalk.isEnabled() && !isDownwards()) || ScaffoldUtils.getBlockCount() == 0) {
-        //    event.setSafe(true);
-      //  }
+        if ((safewalk.isEnabled() && !isDownwards()) || ScaffoldUtils.getBlockCount() == 0) {
+           event.setSafe(true);
+        }
     }
 
     public static boolean isDownwards() {

@@ -131,7 +131,7 @@ public class BackTrack extends Module {
                     color.getGreen() / 255.0F,
                     0.5F
             );
-          
+
             RenderUtil.drawBoundingBox(mc.thePlayer.getEntityBoundingBox().offset(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ)
                     .offset(avgX, avgY, avgZ));
 

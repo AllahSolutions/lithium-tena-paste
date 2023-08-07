@@ -16,26 +16,12 @@ public class StrafeSpeed extends SpeedMode {
         if (event.isPost() || !MovementUtils.isMoving() || MovementUtils.isInLiquid()) {
             return;
         }
-        if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
-            if (mc.thePlayer.onGround) {
-                MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.04f);
-            }
-        } else{
-            if (mc.thePlayer.onGround) {
-                MovementUtils.strafe(
-                        MovementUtils.getBaseMoveSpeed()
-                );
-            }
-        }
+        MovementUtils.strafe(MovementUtils.getBaseMoveSpeed());
         if(mc.thePlayer.hurtTime>1) {
             MovementUtils.strafe(0.7f);
         }
 
-        if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.02f);
-        } else {
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.01f);
-        }
+
 
         if (mc.thePlayer.onGround) {
             mc.thePlayer.jump();

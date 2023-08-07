@@ -40,7 +40,7 @@ import java.util.*;
 public class HUDMod extends Module {
 
     private final StringSetting clientName = new StringSetting("Client Name");
-    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity", "Tenacity", "ZeroDay", "Jello", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
+    private final ModeSetting watermarkMode = new ModeSetting("Watermark Mode", "Tenacity","Japan", "Tenacity", "ZeroDay", "Jello", "Neverlose", "Tenasense", "Tenabition", "Logo", "None");
     public static final ColorSetting color1 = new ColorSetting("Color 1", new Color(0xffa028d4));
     public static final ColorSetting color2 = new ColorSetting("Color 2", new Color(0xff0008ff));
     public static final ModeSetting theme = Theme.getModeSetting("Theme Selection", "Tenacity");
@@ -120,6 +120,34 @@ public class HUDMod extends Module {
                     );
 
                     lithiumBoldFont24.drawStringWithShadow("Beta", 102, 15, Color.WHITE);
+                    break;
+
+                case "japan":
+                    GradientUtil.applyGradientCornerRL(
+                            1.0F, 1.0F,
+                            107.5F, 67.5F,
+                            1.0F,
+                            clientColors.getFirst().darker(),
+                            clientColors.getSecond().darker(),
+                            () -> {
+                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
+                                Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                            }
+                    );
+
+                    GradientUtil.applyGradientCornerRL(
+                            0, 0,
+                            107.5F, 67.5F,
+                            1.0F,
+                            clientColors.getFirst(),
+                            clientColors.getSecond(),
+                            () -> {
+                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
+                                Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                            }
+                    );
+
+
                     break;
                 case "Tenacity":
                     float xVal = 6f;
@@ -231,6 +259,34 @@ public class HUDMod extends Module {
                 );
 
                 lithiumBoldFont24.drawStringWithShadow("Beta", 102, 15, Color.WHITE);
+                break;
+
+            case "Japan":
+                GradientUtil.applyGradientCornerRL(
+                        1.0F, 1.0F,
+                        107.5F, 67.5F,
+                        1.0F,
+                        clientColors.getFirst().darker(),
+                        clientColors.getSecond().darker(),
+                        () -> {
+                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                        }
+                );
+
+                GradientUtil.applyGradientCornerRL(
+                        0, 0,
+                        107.5F, 67.5F,
+                        1.0F,
+                        clientColors.getFirst(),
+                        clientColors.getSecond(),
+                        () -> {
+                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
+                            Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
+                        }
+                );
+
+
                 break;
 
             case "Tenacity":

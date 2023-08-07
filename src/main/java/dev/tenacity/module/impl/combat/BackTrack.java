@@ -1,8 +1,11 @@
 package dev.tenacity.module.impl.combat;
 
+import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.game.world.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 
+import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.event.impl.player.input.AttackEvent;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -11,16 +14,19 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.impl.render.Breadcrumbs;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.NumberSetting;
+import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 
 import java.awt.*;
@@ -81,20 +87,54 @@ public class BackTrack extends Module {
         super.onMotionEvent(event);
     }
     @Override
+    public void onUpdateEvent(UpdateEvent event) {
+        mc.theWorld.getLoadedEntityList();
+        if(!Tenacity.INSTANCE.isEnabled(KillAura.class)) {
+            target = null;
+        }
+        if (KillAura.target instanceof EntityPlayer) target = (EntityLivingBase) KillAura.target;
+        ticks = 0;
+        super.onUpdateEvent(event);
+    }
+    @Override
     public void onRender3DEvent(Render3DEvent event) {
         if (target != null && !positions.isEmpty()) {
-           // RenderUtil.renderBoundingBox(target, HUDMod.getClientColors().getFirst(), 1);
+            double expand = 0.14;
+
+            double avgX = 0;
+            double avgY = 0;
+            double avgZ = 0;
+
+            for (Vec3 position : positions) {
+                avgX += position.xCoord;
+                avgY += position.yCoord;
+                avgZ += position.zCoord;
+            }
+            avgX /= positions.size();
+            avgY /= positions.size();
+            avgZ /= positions.size();
+
+            AxisAlignedBB boundingBox = new AxisAlignedBB(
+                    avgX - expand,
+                    avgY - expand,
+                    avgZ - expand,
+                    avgX + expand,
+                    avgY + expand,
+                    avgZ + expand
+            );
+          
+            RenderUtil.drawBoundingBox(mc.thePlayer.getEntityBoundingBox().offset(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ)
+                    .offset(avgX, avgY, avgZ));
+
+
             Pair<Color, Color> colors = HUDMod.getClientColors();
-            Breadcrumbs.renderLine(positions, colors);
+           // Breadcrumbs.renderLine(positions, colors);
         }
         super.onRender3DEvent(event);
     }
-    @Override
-    public void onAttackEvent(AttackEvent event) {
-        if (event.targetEntity instanceof EntityPlayer) target = (EntityLivingBase) event.targetEntity;
-        ticks = 0;
-        super.onAttackEvent(event);
-    }
+
+
+
 
 
     @Override

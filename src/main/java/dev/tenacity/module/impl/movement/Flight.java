@@ -117,13 +117,14 @@ public final class Flight extends Module {
                 break;
 
             case "Damage":
-                if (timer.hasTimeElapsed(3000) ) {
-                    HadDamage = false;
-                }
+                //if (timer.hasTimeElapsed(3000) ) {
+                 //   HadDamage = false;
+               // }
 
 
 
                 if (HadDamage) {
+
                     mc.timer.timerSpeed = 0.5f;
                 } else{
                     mc.timer.timerSpeed = 1.0f;
@@ -245,6 +246,10 @@ public final class Flight extends Module {
 
 
 
+                break;
+
+            case"Damage":
+                mc.thePlayer.motionY = 0.0;
                 break;
 
             case"Grim":
@@ -527,6 +532,15 @@ public final class Flight extends Module {
                 }
             }
         }
+
+        if(mode.is("Damage")) {
+            if(HadDamage) {
+                if (event.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition) {
+                    //event.cancel();
+                }
+            }
+        }
+
         if(mode.is("Vulcan Motion")) {
             if (event.getPacket() instanceof C03PacketPlayer) {
                 event.cancel();
@@ -603,8 +617,8 @@ public final class Flight extends Module {
 
         if(mode.is("Damage")) {
 
-            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
-            event.setBoundingBox(axisAlignedBB);
+          //  final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+          //  event.setBoundingBox(axisAlignedBB);
         }
 
         if(mode.is("Libercraft") && hasDamaged) {

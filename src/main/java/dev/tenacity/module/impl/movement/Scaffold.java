@@ -302,6 +302,7 @@ public class Scaffold extends Module {
                 delayTimer.reset();
                 blockCache = null;
             }
+            mc.rightClickDelayTimer = 0;
         }
         return placed;
     }

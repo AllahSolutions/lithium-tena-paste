@@ -122,12 +122,20 @@ public class BackTrack extends Module {
                     avgY + expand,
                     avgZ + expand
             );
+
+            Color color = HUDMod.getClientColors().getFirst();
+
+            GlStateManager.color(
+                color.getRed() / 255.0F,
+                    color.getBlue() / 255.0F,
+                    color.getGreen() / 255.0F,
+                    0.5F
+            );
           
             RenderUtil.drawBoundingBox(mc.thePlayer.getEntityBoundingBox().offset(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ)
                     .offset(avgX, avgY, avgZ));
 
 
-            Pair<Color, Color> colors = HUDMod.getClientColors();
            // Breadcrumbs.renderLine(positions, colors);
         }
         super.onRender3DEvent(event);

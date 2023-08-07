@@ -127,8 +127,8 @@ public class BackTrack extends Module {
 
             GlStateManager.color(
                 color.getRed() / 255.0F,
-                    color.getBlue() / 255.0F,
                     color.getGreen() / 255.0F,
+                    color.getBlue() / 255.0F,
                     0.5F
             );
 

@@ -11,6 +11,7 @@ import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.player.movement.SlowdownEvent;
 import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
 import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
+import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
@@ -59,7 +60,7 @@ public final class KillAura extends Module {
             blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
             rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal"),
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime", "Armor"),
-            attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "All"),
+            attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "HvH", "All"),
             randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
 
     public BooleanSetting blockInteract = new BooleanSetting("Block Interact", false);
@@ -167,15 +168,19 @@ public final class KillAura extends Module {
     @Override
     public void onEnable() {
 
-        attackTimer.reset();
+        try {
+            attackTimer.reset();
 
-        yaw = mc.thePlayer.rotationYaw;
-        pitch = mc.thePlayer.rotationPitch;
+            yaw = mc.thePlayer.rotationYaw;
+            pitch = mc.thePlayer.rotationPitch;
 
-        lastYaw = mc.thePlayer.rotationYaw;
-        lastPitch = mc.thePlayer.rotationPitch;
+            lastYaw = mc.thePlayer.rotationYaw;
+            lastPitch = mc.thePlayer.rotationPitch;
 
-        fake = blockMode.is("Fake");
+            fake = blockMode.is("Fake");
+        } catch (Exception exception) {
+
+        }
 
         super.onEnable();
     }
@@ -243,6 +248,7 @@ public final class KillAura extends Module {
                 (event.isPost() && attackTiming.is("Pre")) ||
                 (event.isPre() && attackTiming.is("Post")) ||
                 attackTiming.is("Legit") ||
+                attackTiming.is("HvH") ||
                 target == null
         ) {
             return;
@@ -262,7 +268,8 @@ public final class KillAura extends Module {
 
         if (
                 attackTiming.is("Pre") ||
-                attackTiming.is("Post")
+                attackTiming.is("Post") ||
+                attackTiming.is("HvH")
         ) {
             return;
         }
@@ -270,6 +277,26 @@ public final class KillAura extends Module {
         runAttackLoop();
 
         super.onLegitClickEvent(event);
+    }
+
+    @Override
+    public void onRender2DEvent(Render2DEvent event) {
+
+        if (target == null) {
+            return;
+        }
+
+        if (
+                attackTiming.is("Pre") ||
+                attackTiming.is("Post") ||
+                attackTiming.is("Legit")
+        ) {
+            return;
+        }
+
+        runAttackLoop();
+
+        super.onRender2DEvent(event);
     }
 
     @Override

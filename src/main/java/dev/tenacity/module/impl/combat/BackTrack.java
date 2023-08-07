@@ -1,8 +1,11 @@
 package dev.tenacity.module.impl.combat;
 
+import dev.tenacity.Tenacity;
+import dev.tenacity.event.impl.game.world.WorldEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 
+import dev.tenacity.event.impl.player.UpdateEvent;
 import dev.tenacity.event.impl.player.input.AttackEvent;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -16,6 +19,7 @@ import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import dev.tenacity.utils.tuples.Pair;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
@@ -83,6 +87,16 @@ public class BackTrack extends Module {
         super.onMotionEvent(event);
     }
     @Override
+    public void onUpdateEvent(UpdateEvent event) {
+        mc.theWorld.getLoadedEntityList();
+        if(!Tenacity.INSTANCE.isEnabled(KillAura.class)) {
+            target = null;
+        }
+        if (KillAura.target instanceof EntityPlayer) target = (EntityLivingBase) KillAura.target;
+        ticks = 0;
+        super.onUpdateEvent(event);
+    }
+    @Override
     public void onRender3DEvent(Render3DEvent event) {
         if (target != null && !positions.isEmpty()) {
             double expand = 0.14;
@@ -108,7 +122,7 @@ public class BackTrack extends Module {
                     avgY + expand,
                     avgZ + expand
             );
-            //RenderUtil.color(0xFFFFFF,255);
+          
             RenderUtil.drawBoundingBox(mc.thePlayer.getEntityBoundingBox().offset(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ)
                     .offset(avgX, avgY, avgZ));
 
@@ -120,12 +134,7 @@ public class BackTrack extends Module {
     }
 
 
-    @Override
-    public void onAttackEvent(AttackEvent event) {
-        if (event.targetEntity instanceof EntityPlayer) target = (EntityLivingBase) event.targetEntity;
-        ticks = 0;
-        super.onAttackEvent(event);
-    }
+
 
 
     @Override

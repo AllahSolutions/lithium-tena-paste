@@ -223,12 +223,12 @@ public class GuiChat extends GuiScreen {
 
         resetButtonHover.setDirection(hovering ? Direction.FORWARDS : Direction.BACKWARDS);
 
-        float alpha = (float) (.5f + (.5 * resetButtonHover.getOutput().floatValue()));
+        float alpha = (float) (.5f + (.10 * resetButtonHover.getOutput().floatValue()));
         Color color = ColorUtil.interpolateColorsBackAndForth(15, 1, colors.getFirst(), colors.getSecond(), false);
-        RoundedUtil.drawRoundOutline(width / 2f - 50, 20, 100, 20, 10, 2,
-                new Color(40, 40, 40, (int) (255 * alpha)), color);
+        RoundedUtil.drawRound(width / 2f - 50, 20, 100, 20, 10,
+                 color);
 
-        FontUtil.lithiumBoldFont20.drawCenteredString("Reset Draggables", width / 2f, 20 + FontUtil.lithiumBoldFont20.getMiddleOfBox(20), -1);
+        FontUtil.lithiumFont24.drawCenteredString("Reset", width / 2f, 20 + FontUtil.lithiumBoldFont20.getMiddleOfBox(20), -1);
 
 
         if (spotifyMod.isEnabled()) {

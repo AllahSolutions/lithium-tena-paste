@@ -111,6 +111,7 @@ public abstract class ListenerAdapter implements EventListener {
         registerEvent(LegitClickEvent.class, this::onLegitClickEvent);
 
         registerEvent(PacketReceiveEvent.class, this::onPacketReceiveEvent);
+        registerEvent(PacketReadEvent.class, this::onPacketReadEvent);
         registerEvent(PacketSendEvent.class, this::onPacketSendEvent);
         registerEvent(PacketEvent.class, this::onPacketEvent);
 

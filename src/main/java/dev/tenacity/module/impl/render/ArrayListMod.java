@@ -173,7 +173,7 @@ public class ArrayListMod extends Module {
 
                             Gui.drawRect2(x - 3, y - 1, textWidth + 6, 1, textcolor.getRGB());
                         }
-                        
+
                         if (flip) {
                             Gui.drawRect2(x - 3, y, 1, heightVal, textcolor.getRGB());
                         } else {

@@ -12,7 +12,7 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 @SuppressWarnings("unused")
 public final class Step extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", "Vanilla", "NCP", "Full Jump Packets");
+    private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", "Vanilla","Vulcan", "NCP", "Full Jump Packets");
 
     private final NumberSetting height = new NumberSetting("Height", 1, 10, 1, 0.5);
 
@@ -61,6 +61,14 @@ public final class Step extends Module {
                 case "Full Jump Packets":
                     for (double offset : new double[]{0.41999998688698, 0.7531999805212, 1.00133597911214, 1.16610926093821, 1.24918707874468, 1.24918707874468, 1.1707870772188, 1.0155550727022})
                         mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + offset, mc.thePlayer.posZ, false));
+                    break;
+
+                case"Vulcan":
+                  //  for (double offset : new double[]{0.41999998688698, 0.7531999805212, 1.00133597911214, 1.16610926093821, 1.24918707874468, 1.24918707874468, 1.1707870772188, 1.0155550727022})
+                        mc.thePlayer.motionY = 0.42f;
+                        if(hasStepped) {
+                            mc.thePlayer.posY = 0;
+                        }
                     break;
             }
         }

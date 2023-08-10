@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class HitSound extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Skeet", "UwU","Skeet");
+    private final ModeSetting mode = new ModeSetting("Mode", "Skeet", "UwU","Skeet","Hentai");
 
     public HitSound() {
         super("Hit Sound", Category.RENDER, "Plays a sound when u hit somebody");
@@ -22,6 +22,7 @@ public class HitSound extends Module {
     private final ResourceLocation skeet = new ResourceLocation("Tenacity/Sounds/hit1.wav");
 
     private final ResourceLocation UwU = new ResourceLocation("Tenacity/Sounds/UwU.wav");
+    private final ResourceLocation hentai = new ResourceLocation("Tenacity/Sounds/hentai.wav");
 
     private Entity lastAttackedEntity;
 
@@ -41,6 +42,9 @@ public class HitSound extends Module {
                 }
                 if(mode.is("UwU")) {
                     SoundUtils.playSound(UwU, 1);
+                }
+                if(mode.is("Hentai")) {
+                    SoundUtils.playSound(hentai, 1);
                 }
 
             }

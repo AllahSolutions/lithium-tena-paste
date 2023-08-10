@@ -29,6 +29,7 @@ import dev.tenacity.utils.misc.Random;
 import dev.tenacity.utils.player.rotations.KillauraRotationUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.player.RotationUtils;
+import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.time.TimerUtil;
 import net.minecraft.client.settings.KeyBinding;
@@ -689,8 +690,9 @@ public final class KillAura extends Module {
                 }
                // }
             }
+
             if (renders.getSetting("Circle").isEnabled()) {
-                RenderUtil.drawCircle(renderTarget, event.getTicks(), .65f, color.getRGB(), 7);
+                RenderUtil.drawCircle(renderTarget, event.getTicks(), .65f, ColorUtil.interpolateColorsBackAndForth(5, 0, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond(), false).getRGB(), 7);
             }
             if (renders.getSetting("Tracer").isEnabled()) {
                 RenderUtil.drawTracerLine(renderTarget, 4f, Color.BLACK, auraESPAnim.getOutput().floatValue());

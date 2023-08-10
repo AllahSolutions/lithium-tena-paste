@@ -199,9 +199,9 @@ public class HUDMod extends Module {
                             7.5F,
                             nw + t18.getStringWidth(str) + 6f,
                             t18.getHeight() + 6,
-                            5,2,
-                            ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true),
-                            ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
+                            5,1,
+                            ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst(), colors.getSecond(), false),
+                            ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst(), colors.getSecond(), false)
                     );
 
                     break;
@@ -375,9 +375,9 @@ public class HUDMod extends Module {
                         7.5F,
                         nw + t18.getStringWidth(str) + 6f,
                         t18.getHeight() + 6,
-                        5,2,
+                        5,1,
                         new Color(0,0,0,100),
-                        ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
+                        ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst(), colors.getSecond(), false)
                 );
 
                 t18.drawString(str, 10.0F + nw, 10.0F, Color.WHITE);

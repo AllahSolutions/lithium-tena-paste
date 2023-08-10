@@ -359,8 +359,9 @@ public class ShaderUtil implements Utils {
             "    smp7.rgb *= smp7.a;\n" +
             "    sum += smp7 * 2.0;\n" +
             "    vec4 result = sum / 12.0;\n" +
-            "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, result.a * (1.0 - texture2D(textureToCheck, gl_TexCoord[0].st).a),check));\n" +
+            "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, result.a * (1.0 - texture2D(textureToCheck, gl_TexCoord[0].st).a),check) * 1.05);\n" +
             "}";
+    //MULTIPLIED BY 1.05 CHANGED IF FUCKED
 
     private String kawaseDownBloom = "#version 120\n" +
             "\n" +
@@ -385,8 +386,9 @@ public class ShaderUtil implements Utils {
             "    smp4.rgb *= smp4.a;\n" +
             "    sum += smp4;\n" +
             "    vec4 result = sum / 8.0;\n" +
-            "    gl_FragColor = vec4(result.rgb / result.a, result.a);\n" +
+            "    gl_FragColor = vec4(result.rgb / result.a, result.a * 1.05);\n" +
             "}";
+    //MULTIPLIED BY 1.05 CHANGED IF FUCKED
 
     private String kawaseUp = "#version 120\n" +
             "\n" +

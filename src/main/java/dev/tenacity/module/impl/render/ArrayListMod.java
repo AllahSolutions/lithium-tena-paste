@@ -132,30 +132,55 @@ public class ArrayListMod extends Module {
                 Gui.drawRect2(x - 2, y, font.getStringWidth(displayText) + offset, heightVal,
                         scaleIn ? ColorUtil.applyOpacity(rectColor, moduleAnimation.getOutput().floatValue()) : rectColor);
 
-                float offset2 = minecraftFont.isEnabled() ? 1 : 0;
-
                 int rectangleColor = partialGlow.isEnabled() ? textcolor.getRGB() : Color.BLACK.getRGB();
-
-                if (scaleIn) {
-                    rectangleColor = ColorUtil.applyOpacity(rectangleColor, moduleAnimation.getOutput().floatValue());
-                }
 
                 switch (rectangle.getMode()) {
                     default:
                         break;
                     case "Top":
                         if (count == 0) {
-                            Gui.drawRect2(x - 2, y - 1, textWidth + 5 - (offset2), 9, rectangleColor);
+                            Gui.drawRect2(x - 2, y - 1, textWidth + 5 - offset, 1, textcolor.getRGB());
                         }
                         break;
                     case "Side":
                         if (flip) {
-                            Gui.drawRect2(x - 3, y, 9, heightVal, textcolor.getRGB());
+                            Gui.drawRect2(x - 3, y, 1, heightVal, textcolor.getRGB());
                         } else {
-                            Gui.drawRect2(x + textWidth - 7, y, 9, heightVal, rectangleColor);
+                            Gui.drawRect2(x + textWidth + 2, y, 1, heightVal, textcolor.getRGB());
                         }
                         break;
                     case "Outline":
+                        if (count != 0) {
+                            String modText = applyText(HUDMod.get(lastModule.getName() + (lastModule.hasMode() ? " " + lastModule.getSuffix() : "")));
+                            float texWidth = font.getStringWidth(modText) - textWidth;
+
+                            if (flip) {
+                                Gui.drawRect2(x + textWidth + 3, y, 1, heightVal, textcolor.getRGB());
+                                Gui.drawRect2(x + textWidth + 3, y, texWidth + 1, 1, textcolor.getRGB());
+                            } else {
+                                Gui.drawRect2(x - (3 + texWidth), y, texWidth + 1, 1, textcolor.getRGB());
+                                Gui.drawRect2(x - 3, y, 1, heightVal, textcolor.getRGB());
+                            }
+                            if (count == (lastCount - 1)) {
+                                Gui.drawRect2(x - 3, y + heightVal, textWidth + 6, 1, textcolor.getRGB());
+                            }
+                        } else {
+                            if (flip) {
+                                Gui.drawRect2(x + textWidth + 3, y, 1, heightVal, textcolor.getRGB());
+                            } else {
+                                Gui.drawRect2(x - 3, y, 1, heightVal, textcolor.getRGB());
+                            }
+
+                            Gui.drawRect2(x - 3, y - 1, textWidth + 6, 1, textcolor.getRGB());
+                        }
+                        
+                        if (flip) {
+                            Gui.drawRect2(x - 3, y, 1, heightVal, textcolor.getRGB());
+                        } else {
+                            Gui.drawRect2(x + textWidth + 2, y, 1, heightVal, textcolor.getRGB());
+                        }
+
+
                         break;
                 }
             }

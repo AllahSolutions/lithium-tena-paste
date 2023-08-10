@@ -12,7 +12,7 @@ public class AntiBot extends Module {
     public BooleanSetting blocksmc = new BooleanSetting("BlocksMC", true);
 
     public AntiBot() {
-        super("AntiBot", Category.COMBAT, "Prevents Combat Modules from attacking Bots.");
+        super("Anti Bot", Category.COMBAT, "Prevents Combat Modules from attacking Bots.");
 
         this.addSettings(blocksmc);
     }

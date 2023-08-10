@@ -55,6 +55,8 @@ public class ProtectedLaunch {
         modules.put(AntiBot.class, new AntiBot());
         modules.put(Teams.class, new Teams());
         modules.put(ClickTP.class, new ClickTP());
+        modules.put(HitSound.class, new HitSound());
+        modules.put(ClickTeleport.class, new ClickTeleport());
 
         // Exploit
         modules.put(Disabler.class, new Disabler());

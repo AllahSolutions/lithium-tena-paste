@@ -13,11 +13,15 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
+import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.util.function.Function;
 
 import static dev.tenacity.utils.misc.MathUtils.interpolate;
+import static java.lang.Math.pow;
+import static java.lang.Math.sin;
 import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil implements Utils {
@@ -122,6 +126,9 @@ public class RenderUtil implements Utils {
     public static double ticks = 0;
     public static long lastFrame = 0;
 
+
+
+
     public static void drawCircle(Entity entity, float partialTicks, double rad, int color, float alpha) {
         /*Got this from the people i made the Gui for*/
         ticks += .004 * (System.currentTimeMillis() - lastFrame);
@@ -151,7 +158,7 @@ public class RenderUtil implements Utils {
 
             color(color, 0);
 
-            glVertex3d(vecX, y - Math.sin(ticks + 1) / 2.7f, vecZ);
+            glVertex3d(vecX, y - Math.sin(ticks + 1) / 2f, vecZ);
 
             color(color, .52f * alpha);
 

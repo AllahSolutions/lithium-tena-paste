@@ -38,7 +38,7 @@ public final class NoRotate extends Module {
     }
 
     public NoRotate() {
-        super("NoRotate", Category.MISC, "Prevents servers from rotating you");
+        super("No Rotate", Category.MISC, "Prevents servers from rotating you");
         this.addSettings(fakeUpdate);
     }
 

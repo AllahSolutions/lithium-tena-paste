@@ -30,7 +30,7 @@ public final class InventoryMove extends Module {
     );
 
     public InventoryMove() {
-        super("InventoryMove", Category.MOVEMENT, "lets you move in your inventory");
+        super("Inventory Move", Category.MOVEMENT, "lets you move in your inventory");
         addSettings(mode);
     }
 

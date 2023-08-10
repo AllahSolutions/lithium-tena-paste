@@ -7,7 +7,7 @@ public class MotionGraph extends Module {
 
 
     public MotionGraph() {
-        super("MotionGraph", Category.RENDER, "Shows a graph of your motion");
+        super("Motion Graph", Category.RENDER, "Shows a graph of your motion");
     }
 
 }

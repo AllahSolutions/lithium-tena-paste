@@ -1,5 +1,6 @@
 package dev.tenacity.module.impl.render.targethud;
 
+import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.utils.animations.ContinualAnimation;
 import dev.tenacity.utils.font.FontUtil;
 import dev.tenacity.utils.render.ColorUtil;
@@ -13,12 +14,12 @@ import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 
-public class JelloTargetHUD extends TargetHUD {
+public class MoonTargetHUD extends TargetHUD {
 
     private final ContinualAnimation animation = new ContinualAnimation();
 
-    public JelloTargetHUD() {
-        super("Jello");
+    public MoonTargetHUD() {
+        super("Moon");
     }
 
     @Override
@@ -26,18 +27,18 @@ public class JelloTargetHUD extends TargetHUD {
         setWidth(Math.max(150, FontUtil.lithiumBoldFont26.getStringWidth(target.getName()) + 45));
         setHeight(42);
 
-        Color c1 = ColorUtil.applyOpacity(new Color(255, 255, 255), alpha);
-        Color c2 = ColorUtil.applyOpacity(new Color(215, 215, 215), alpha);
+        Color c1 = ColorUtil.applyOpacity(new Color(HUDMod.getClientColors().getFirst().getRed(), HUDMod.getClientColors().getFirst().getGreen(), HUDMod.getClientColors().getFirst().getBlue()), alpha);
+        Color c2 = ColorUtil.applyOpacity(new Color(HUDMod.getClientColors().getSecond().getRed(), HUDMod.getClientColors().getSecond().getGreen(), HUDMod.getClientColors().getSecond().getBlue()), alpha);
 
-        Color color = new Color(255, 255, 255, (int) (25 * alpha));
+        Color color = new Color(HUDMod.getClientColors().getFirst().getRed(), HUDMod.getClientColors().getFirst().getGreen(), HUDMod.getClientColors().getFirst().getBlue(), (int) (25 * alpha));
 
         int textColor = ColorUtil.applyOpacity(-1, alpha);
-
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, color);
+       // ColorUtil.interpolateColorsBackAndForth(15, 0, new Color(HUDMod.getClientColors().getFirst().getRed(), HUDMod.getClientColors().getFirst().getGreen(), HUDMod.getClientColors().getFirst().getBlue(),100),new Color(HUDMod.getClientColors().getSecond().getRed(), HUDMod.getClientColors().getSecond().getGreen(), HUDMod.getClientColors().getSecond().getBlue(), 100), false);
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 9, new Color(HUDMod.getClientColors().getFirst().darker().getRed(), HUDMod.getClientColors().getFirst().darker().getGreen(), HUDMod.getClientColors().getFirst().darker().getBlue(),100));
 
         if (target instanceof AbstractClientPlayer) {
             StencilUtil.initStencilToWrite();
-            RenderUtil.renderRoundedRect(x + 3, y + 3, 36, 36, 4, -1);
+            RenderUtil.renderRoundedRect(x + 3, y + 3, 36, 36, 9, -1);
             StencilUtil.readStencilBuffer(1);
             RenderUtil.color(-1, alpha);
             renderPlayer2D(x + 3, y + 3, 36, 36, (AbstractClientPlayer) target);
@@ -49,10 +50,11 @@ public class JelloTargetHUD extends TargetHUD {
 
         FontUtil.lithiumBoldFont26.drawStringWithShadow(target.getName(), x + 43.5F, y + 4, textColor);
 
-        FontUtil.lithiumBoldFont16.drawStringWithShadow(
-                target.getHealth() >= mc.thePlayer.getHealth() ? "Losing" : "Winning",
-                x + 44F, y + 18, textColor
-        );
+        //FontUtil.lithiumBoldFont16.drawStringWithShadow(mc.thePlayer.getHealth(), x + 44F, y + 18, 1)
+        FontUtil.lithiumBoldFont18.drawStringWithShadow(Math.round(target.getHealth() + target.getAbsorptionAmount()) + " HP" , x + 44F, y + 18, textColor);
+
+
+
 
         float healthPercent = MathHelper.clamp_float((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0, 1);
 
@@ -71,7 +73,7 @@ public class JelloTargetHUD extends TargetHUD {
 
     @Override
     public void renderEffects(float x, float y, float alpha, boolean glow) {
-        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 4, ColorUtil.applyOpacity(Color.BLACK, alpha));
+        RoundedUtil.drawRound(x, y, getWidth(), getHeight(), 9, ColorUtil.applyOpacity(HUDMod.getClientColors().getFirst(), alpha));
     }
 
 }

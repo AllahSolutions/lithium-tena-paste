@@ -28,7 +28,7 @@ public class AntiVoid extends Module {
     private final List<Packet> packets = new ArrayList<>();
 
     public AntiVoid() {
-        super("AntiVoid", Category.PLAYER, "saves you from the void");
+        super("Anti Void", Category.PLAYER, "saves you from the void");
         this.addSettings(mode, fallDist);
     }
     @Override

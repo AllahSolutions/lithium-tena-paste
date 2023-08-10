@@ -1,40 +1,28 @@
 package dev.tenacity.module.impl.combat;
 
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.game.world.WorldEvent;
-import dev.tenacity.event.impl.network.PacketReceiveEvent;
-import dev.tenacity.event.impl.network.PacketSendEvent;
 
 import dev.tenacity.event.impl.player.UpdateEvent;
-import dev.tenacity.event.impl.player.input.AttackEvent;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
-import dev.tenacity.module.impl.render.Breadcrumbs;
 import dev.tenacity.module.impl.render.HUDMod;
 import dev.tenacity.module.settings.impl.NumberSetting;
-import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
-import dev.tenacity.utils.time.TimerUtil;
-import dev.tenacity.utils.tuples.Pair;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.Packet;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.ArrayList;
 
 public class BackTrack extends Module {
     public static EntityLivingBase target;
@@ -49,8 +37,10 @@ public class BackTrack extends Module {
     private int ticks;
 
 
+
+
     public BackTrack() {
-        super("Backtrack", Category.COMBAT, "Fucks players in their last possition");
+        super("Back track", Category.COMBAT, "Fucks players in their last possition");
         addSettings(amount,forward);
     }
 
@@ -105,6 +95,7 @@ public class BackTrack extends Module {
             double avgY = 0;
             double avgZ = 0;
 
+
             for (Vec3 position : positions) {
                 avgX += position.xCoord;
                 avgY += position.yCoord;
@@ -113,6 +104,7 @@ public class BackTrack extends Module {
             avgX /= positions.size();
             avgY /= positions.size();
             avgZ /= positions.size();
+
 
             AxisAlignedBB boundingBox = new AxisAlignedBB(
                     avgX - expand,
@@ -124,6 +116,12 @@ public class BackTrack extends Module {
             );
 
             Color color = HUDMod.getClientColors().getFirst();
+            GlStateManager.pushMatrix();
+            GlStateManager.pushAttrib();
+            GlStateManager.enableBlend();
+            GlStateManager.disableTexture2D();
+            GlStateManager.disableLighting();
+            GL11.glDepthMask(false);
 
             GlStateManager.color(
                 color.getRed() / 255.0F,
@@ -134,6 +132,15 @@ public class BackTrack extends Module {
 
             RenderUtil.drawBoundingBox(mc.thePlayer.getEntityBoundingBox().offset(-mc.thePlayer.posX, -mc.thePlayer.posY, -mc.thePlayer.posZ)
                     .offset(avgX, avgY, avgZ));
+
+
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
+            GlStateManager.disableBlend();
+            GL11.glDepthMask(true);
+            GlStateManager.popAttrib();
+            GlStateManager.popMatrix();
+            GlStateManager.resetColor();
 
 
            // Breadcrumbs.renderLine(positions, colors);

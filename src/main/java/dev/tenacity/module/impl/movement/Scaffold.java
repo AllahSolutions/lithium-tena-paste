@@ -290,12 +290,14 @@ public class Scaffold extends Module {
         }
 
         boolean placed = false;
+
         if (delayTimer.hasTimeElapsed(MathHelper.getRandomDoubleInRange(new Random(),mindelay.getValue() * 1000,maxdelay.getValue() * 1000))) {
             if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                     mc.thePlayer.inventory.getStackInSlot(this.slot),
                     lastBlockCache.getPosition(), lastBlockCache.getFacing(),
                     ScaffoldUtils.getHypixelVec3(blockCache))) {
                 placed = true;
+
                 //ChatUtil.print(MathHelper.getRandomDoubleInRange(new Random(),mindelay.getValue() * 1000,maxdelay.getValue() * 1000));
                 y = MathUtils.getRandomInRange(75.5f, 83.5f);
                 if (swing.isEnabled()) {

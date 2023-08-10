@@ -5,6 +5,7 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import dev.tenacity.Tenacity;
+import dev.tenacity.module.impl.movement.ClickTeleport;
 import dev.tenacity.module.impl.player.ChestStealer;
 import dev.tenacity.event.impl.render.HurtCamEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
@@ -426,7 +427,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
 
             double d0 = this.mc.playerController.getBlockReachDistance();
-
+            if(Tenacity.INSTANCE.isEnabled(ClickTeleport.class)) {
+                d0=200;
+            }
             double reachDistance = 3;
 
             this.mc.objectMouseOver = entity.rayTrace(d0, partialTicks);

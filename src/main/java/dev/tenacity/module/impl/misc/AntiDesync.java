@@ -13,7 +13,7 @@ public final class AntiDesync extends Module {
     private int slot;
 
     public AntiDesync() {
-        super("AntiDesync", Category.MISC, "pervents desync client side");
+        super("Anti Desync", Category.MISC, "pervents desync client side");
     }
 
     @Override

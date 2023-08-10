@@ -473,12 +473,12 @@ public class ItemRenderer {
                                         this.doBlockTransformations();
                                         GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0F, 0.3F);
                                         break;
-                                    case "Exhi 5":
+                                    case "Swong":
                                         this.transformFirstPersonItem(f / 2.0F, swingProgress);
                                         GlStateManager.rotate(var16 * 30.0F, -var16, 0.0F, 9.0F);
-                                        GlStateManager.rotate(var16 * 40.0F, 1.0F, -var16, -0.0F);
+                                        GlStateManager.rotate(var16 * 35.0F, 1.0F, -var16, -0.0F);
                                         this.doBlockTransformations();
-                                        GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0F, 0.3F);
+                                      //  GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0F, 0.3F);
                                         break;
                                     case "Shred":
                                         this.transformFirstPersonItem(f / 2, swingProgress);

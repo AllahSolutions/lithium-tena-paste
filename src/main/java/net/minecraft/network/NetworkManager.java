@@ -10,7 +10,6 @@ import de.florianmichael.vialoadingbase.netty.event.CompressionReorderEvent;
 import de.florianmichael.viamcp.MCPVLBPipeline;
 import de.florianmichael.viamcp.ViaMCP;
 import dev.tenacity.Tenacity;
-import dev.tenacity.event.impl.network.PacketReadEvent;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import io.netty.bootstrap.Bootstrap;
@@ -136,9 +135,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
                 PacketReceiveEvent e = new PacketReceiveEvent(p_channelRead0_2_);
                 Tenacity.INSTANCE.getEventProtocol().handleEvent(e);
                 if (e.isCancelled()) return;
-                PacketReadEvent e2 = new PacketReadEvent(p_channelRead0_2_, this.packetListener, this.direction);
-                Tenacity.INSTANCE.getEventProtocol().handleEvent(e2);
-                if (e2.isCancelled()) return;
+
                 p_channelRead0_2_.processPacket(this.packetListener);
             } catch (ThreadQuickExitException ignored) {
             }

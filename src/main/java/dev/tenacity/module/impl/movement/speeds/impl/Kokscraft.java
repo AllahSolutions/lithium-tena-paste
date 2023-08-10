@@ -1,8 +1,16 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
+import dev.tenacity.utils.player.PlayerUtils;
+import net.minecraft.block.BlockAir;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
+
+import java.util.Random;
 
 public class Kokscraft extends SpeedMode {
     int jumps;
@@ -13,12 +21,9 @@ public class Kokscraft extends SpeedMode {
 
 
 
-
     @Override
-    public void onMotionEvent(MotionEvent event) {
+    public void onStrafeEvent(StrafeEvent event) {
 
-        mc.thePlayer.cameraYaw = 0;
-        mc.thePlayer.cameraPitch = 0;
 
         if (mc.thePlayer.onGround) {
             offGroundTicks = 0;
@@ -26,26 +31,31 @@ public class Kokscraft extends SpeedMode {
         } else {
             offGroundTicks++;
         }
-       if(!mc.thePlayer.onGround) {
-           if (mc.thePlayer.hurtTime == 0) MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.3f);
-
-        //   mc.thePlayer.motionY = 0.1f;
-       }
-        mc.gameSettings.keyBindSneak.pressed = true;
-        if (mc.thePlayer.onGround) {
-
-
-         //   mc.thePlayer.motionY=0.01f;
-            mc.thePlayer.jump();
-            jumps++;
+        if(mc.thePlayer.onGround) {
+            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.01f);
         }
 
-       if ( mc.thePlayer.hurtTime == 0) {
-           mc.thePlayer.motionY = MovementUtils.predictedMotion(mc.thePlayer.motionY, jumps % 2 == 0 ? 2 : 4);
-       }
+        switch (offGroundTicks) {
+            case 0:
+                mc.thePlayer.jump();
 
 
-        super.onMotionEvent(event);
+                break;
+            case 5:
+                mc.thePlayer.motionY = mc.thePlayer.motionY - 0.3;
+                break;
+        }
+
+
+
+
+
+
+
+
+
+
+        super.onStrafeEvent(event);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class TickRange extends Module {
     private long lastTime;
     private WorldClient lastWorld;
     public TickRange() {
-        super("TickRange", Category.COMBAT, "umm uses uhhh lag to give advance.... advnadate... advnatge");
+        super("Tick Range", Category.COMBAT, "umm uses uhhh lag to give advance.... advnadate... advnatge");
         this.timeHelper = new TimerUtil();
         this.timeHelper2 = new TimerUtil();
         this.diffs = new ArrayList<Integer>();

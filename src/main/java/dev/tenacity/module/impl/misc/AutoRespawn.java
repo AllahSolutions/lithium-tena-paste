@@ -16,7 +16,7 @@ public final class AutoRespawn extends Module {
     }
 
     public AutoRespawn() {
-        super("AutoRespawn", Category.MISC, "automatically respawn");
+        super("Auto Respawn", Category.MISC, "automatically respawn");
     }
 
 }

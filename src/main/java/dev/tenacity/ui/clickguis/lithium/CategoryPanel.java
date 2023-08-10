@@ -179,7 +179,7 @@ public class CategoryPanel implements Screen {
     }
 
     public void drawToolTips(int mouseX, int mouseY) {
-        getModuleRects().forEach(moduleRect -> moduleRect.tooltipObject.drawScreen(mouseX, mouseY));
+               getModuleRects().forEach(moduleRect -> moduleRect.tooltipObject.drawScreen(mouseX, mouseY));
     }
 
     @Override

@@ -27,13 +27,14 @@ import net.minecraft.util.*;
 
 import java.security.SecureRandom;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Grim","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Vulcant","Grim","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -49,7 +50,10 @@ public final class Flight extends Module {
     private double lastX, lastY, lastZ;
     public boolean setback;
     public boolean HadDamage;
+
+    private boolean canclip = false;
     private int runningTicks = 0;
+    private int countvu = 0;
 
     private final TimerUtil pearlTimer = new TimerUtil();
 
@@ -66,6 +70,9 @@ public final class Flight extends Module {
     private boolean hasS08;
     private boolean hasDamaged;
     private boolean up;
+
+    private int ticks2;
+
     private int airTicks;
     int Flags;
     private boolean flag;
@@ -114,6 +121,33 @@ public final class Flight extends Module {
                 if(shift) {
                     e.setSpeed(0.1);
                 }
+                break;
+
+            case"Vulcant":
+                final float speedding = 2;
+                if(timer.hasTimeElapsed(900)) {
+                    canclip = true;
+                }
+                if(timer.hasTimeElapsed(920)) {
+                    canclip = false;
+                }
+                if(canclip) {
+                   //  mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY - 2,mc.thePlayer.posZ);
+                }
+
+                if(!timer.hasTimeElapsed(1000)) {
+                    if(mc.thePlayer.ticksExisted % 2 == 0) {
+                        countvu++;
+                    }
+                    ChatUtil.print(countvu);
+
+                        e.setSpeed(0);
+
+                } else{
+                    countvu = 0;
+                    e.setSpeed(speedding);
+                }
+
                 break;
 
             case "Damage":
@@ -264,6 +298,34 @@ public final class Flight extends Module {
               //  e.setZ(Math.sin(yaw) * 10000);
 
 
+                break;
+
+            case"Vulcant":
+
+                final float speedding = 2;
+
+                //if(ummm.finished(1000)) {
+                //    ChatUtil.display("Flag");
+                //     PacketUtil.send(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ,
+                //            mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
+                //       ummm.reset();
+                //  }
+
+                    mc.thePlayer.motionY = -1E-10D
+                            + (mc.gameSettings.keyBindJump.isKeyDown() ? speedding : 0.0D)
+                            - (mc.gameSettings.keyBindSneak.isKeyDown() ? speedding : 0.0D);
+
+
+                if (mc.thePlayer.getDistance(mc.thePlayer.lastReportedPosX, mc.thePlayer.lastReportedPosY, mc.thePlayer.lastReportedPosZ) <= 10 - speedding - 0.15) {
+                    e.cancel();
+                } else {
+                    ticks++;
+
+                    if (ticks >= 8) {
+                       // MoveUtil.stop();
+                        // getParent().toggle();
+                    }
+                }
                 break;
 
             case"Hypixckel":
@@ -533,6 +595,13 @@ public final class Flight extends Module {
             }
         }
 
+        if(mode.is("Vulcant")) {
+            if(timer.hasTimeElapsed(1000)) {
+
+            }
+
+        }
+
         if(mode.is("Damage")) {
             if(HadDamage) {
                 if (event.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition) {
@@ -565,6 +634,7 @@ public final class Flight extends Module {
 
 
     }
+
 
     @Override
     public void onBoundingBoxEvent(BoundingBoxEvent event) {
@@ -705,6 +775,13 @@ public final class Flight extends Module {
            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
         }
+        canclip = false;
+        if(mode.is("Vulcant")) {
+            ticks = 0;
+
+            PacketUtils.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ,
+                    mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
+        }
         if(mode.is("Kokscraft Vanilla")) {
           ChatUtil.print("right click to land");
         }
@@ -810,6 +887,11 @@ public final class Flight extends Module {
         if (mode.is("Libercraft")) {
          MovementUtils.setSpeed(0);
 
+        }
+        canclip = false;
+        countvu = 0;
+        if(mode.is("Vulcant")) {
+            MovementUtils.setSpeed(0);
         }
         hasDamaged = false;
         if(mode.is("Kokscraft Vanilla")) {

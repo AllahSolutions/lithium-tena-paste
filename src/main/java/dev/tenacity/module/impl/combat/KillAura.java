@@ -134,7 +134,7 @@ public final class KillAura extends Module {
 
 
     public KillAura() {
-        super("KillAura", Category.COMBAT, "Automatically hits entities for you.");
+        super("Kill Aura", Category.COMBAT, "Automatically hits entities for you.");
 
         this.blockInteract.addParent(blockMode, a -> !blockMode.is("None") && !blockMode.is("Fake"));
         this.maxTargets.addParent(attackMode, a -> attackMode.is("Single"));
@@ -690,9 +690,8 @@ public final class KillAura extends Module {
                // }
             }
             if (renders.getSetting("Circle").isEnabled()) {
-                RenderUtil.drawCircle(renderTarget, event.getTicks(), .75f, color.getRGB(), auraESPAnim.getOutput().floatValue());
+                RenderUtil.drawCircle(renderTarget, event.getTicks(), .65f, color.getRGB(), 7);
             }
-
             if (renders.getSetting("Tracer").isEnabled()) {
                 RenderUtil.drawTracerLine(renderTarget, 4f, Color.BLACK, auraESPAnim.getOutput().floatValue());
                 RenderUtil.drawTracerLine(renderTarget, 2.5f, color, auraESPAnim.getOutput().floatValue());

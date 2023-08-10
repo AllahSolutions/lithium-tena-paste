@@ -10,7 +10,7 @@ import dev.tenacity.module.Module;
 public class ItemPhysics extends Module {
 
     public ItemPhysics() {
-        super("ItemPhysics", Category.RENDER, "Makes items have physics");
+        super("Item Physics", Category.RENDER, "Makes items have physics");
     }
 
 }

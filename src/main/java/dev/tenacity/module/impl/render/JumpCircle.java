@@ -25,7 +25,7 @@ public class JumpCircle extends Module {
     private static final NumberSetting radius = new NumberSetting("Radius", 2.5, 10, 1, .25);
 
     public JumpCircle() {
-        super("JumpCircle", Category.RENDER, "Draws a circle when you land on the ground.");
+        super("Jump Circle", Category.RENDER, "Draws a circle when you land on the ground.");
         addSettings(radius);
     }
 

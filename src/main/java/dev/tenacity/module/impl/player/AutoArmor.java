@@ -23,7 +23,7 @@ public class AutoArmor extends Module {
     private final TimerUtil timer = new TimerUtil();
 
     public AutoArmor() {
-        super("AutoArmor", Category.PLAYER, "Automatically equips armor");
+        super("Auto Armor", Category.PLAYER, "Automatically equips armor");
         this.addSettings(delay, onlyWhileNotMoving, invOnly);
     }
 

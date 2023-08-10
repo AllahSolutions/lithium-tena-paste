@@ -14,7 +14,7 @@ public class MCF extends Module {
     private boolean wasDown;
 
     public MCF() {
-        super("MCF", Category.MISC, "middle click friends");
+        super("Middle Click Friends", Category.MISC, "middle click friends");
     }
 
     @Override

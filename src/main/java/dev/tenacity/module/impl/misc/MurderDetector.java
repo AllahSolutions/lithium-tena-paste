@@ -50,7 +50,7 @@ public class MurderDetector extends Module {
     public static ArrayList<EntityPlayer> killerData = new ArrayList<>();
 
     public MurderDetector() {
-        super("MurderDetector", Category.MISC, "Detect the murders");
+        super("Murder Detector", Category.MISC, "Detect the murders");
     }
 
     @Override

@@ -8,11 +8,11 @@ import dev.tenacity.module.settings.impl.ModeSetting;
 
 public final class LongJump extends Module {
 
-    public static final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog", "Verus");
+    public static final ModeSetting mode = new ModeSetting("Mode", "Watchdog", "Watchdog","Vulcan", "Verus");
     private LongJumpMode jump;
 
     public LongJump() {
-        super("LongJump", Category.MOVEMENT, "Allows you to jump further.");
+        super("Long Jump", Category.MOVEMENT, "Allows you to jump further.");
 
         this.addSettings(mode);
         LongJumpMode.init();

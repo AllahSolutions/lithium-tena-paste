@@ -32,7 +32,7 @@ public class AutoPotion extends Module {
     private float prevPitch;
 
     public AutoPotion() {
-        super("AutoPotion", Category.COMBAT, "Automatically splashes potions.");
+        super("Auto Potion", Category.COMBAT, "Automatically splashes potions.");
         this.addSettings(delay, minHealHP, splashFrogPots);
     }
 

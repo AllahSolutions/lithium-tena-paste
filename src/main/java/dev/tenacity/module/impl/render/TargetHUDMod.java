@@ -34,7 +34,7 @@ import java.awt.*;
 
 public class TargetHUDMod extends Module {
 
-    private final ModeSetting targetHud = new ModeSetting("Mode", "Tenacity", "Tenacity", "Lithium", "Jello", "Rise", "Exhibition", "Auto-Dox", "Akrien", "Astolfo", "Novoline", "Vape", "ZeroDay");
+    private final ModeSetting targetHud = new ModeSetting("Mode", "Tenacity", "Tenacity", "Lithium", "Moon", "Rise", "Exhibition", "Auto-Dox", "Akrien", "Astolfo", "Novoline", "Vape", "ZeroDay");
     private final BooleanSetting trackTarget = new BooleanSetting("Track Target", false);
     private final ModeSetting trackingMode = new ModeSetting("Tracking Mode", "Middle", "Middle", "Top", "Left", "Right");
 
@@ -43,7 +43,7 @@ public class TargetHUDMod extends Module {
     private final GradientColorWheel colorWheel = new GradientColorWheel();
 
     public TargetHUDMod() {
-        super("TargetHUD", Category.RENDER, "Displays info about the KillAura target");
+        super("Target HUD", Category.RENDER, "Displays info about the KillAura target");
         trackingMode.addParent(trackTarget, ParentAttribute.BOOLEAN_CONDITION);
         addSettings(targetHud, trackTarget, trackingMode, colorWheel.createModeSetting("Color Mode", "Dark"), colorWheel.getColorSetting());
         TargetHUD.init();

@@ -40,7 +40,7 @@ public class AutoRoast extends Module {
     };
 
     public AutoRoast() {
-        super("AutoRoast", Category.MISC, "Automatically roasts anyone calling you a hacker.");
+        super("Auto Roast", Category.MISC, "Automatically roasts anyone calling you a hacker.");
     }
 
     @Override

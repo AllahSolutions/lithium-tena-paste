@@ -9,7 +9,7 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 public final class LightningTracker extends Module {
 
     public LightningTracker() {
-        super("LightningTracker", Category.MISC, "detects lightning");
+        super("Lightning Tracker", Category.MISC, "detects lightning");
     }
 
     @Override

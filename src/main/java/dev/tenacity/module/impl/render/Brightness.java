@@ -18,7 +18,7 @@ public final class Brightness extends Module {
     }
 
     public Brightness() {
-        super("Brightness", Category.RENDER, "changes the game brightness");
+        super("Full Bright", Category.RENDER, "changes the game brightness");
     }
 
 }

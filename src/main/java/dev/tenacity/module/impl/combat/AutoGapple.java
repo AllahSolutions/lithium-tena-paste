@@ -20,7 +20,7 @@ public class AutoGapple extends Module {
     private final TimerUtil timer = new TimerUtil();
 
     public AutoGapple() {
-        super("AutoGapple", Category.COMBAT, "auto consume Gaps");
+        super("Auto Gapple", Category.COMBAT, "auto consume Gaps");
         this.addSettings(delay, healPercent);
     }
 

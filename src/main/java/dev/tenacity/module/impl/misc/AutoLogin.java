@@ -32,7 +32,7 @@ public class AutoLogin extends Module {
     private HUDMod hudMod;
 
     public AutoLogin() {
-        super("AutoLogin", Category.MISC, "Auto login/register on cracked servers");
+        super("Auto Login", Category.MISC, "Auto login/register on cracked servers");
         this.addSettings(delay, password);
     }
 

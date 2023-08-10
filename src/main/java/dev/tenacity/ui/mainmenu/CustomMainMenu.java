@@ -6,6 +6,7 @@ import dev.tenacity.ui.mainmenu.particles.ParticleEngine;
 import dev.tenacity.utils.misc.*;
 import dev.tenacity.utils.render.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 
@@ -53,6 +54,13 @@ public class CustomMainMenu extends GuiScreen {
         buttons.forEach(MenuButton::initGui);
     }
 
+    public static void drawSplashBackground(float width, float height, float alpha) {
+        RenderUtil.resetColor();
+        GlStateManager.color(1, 1, 1, alpha);
+        mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/splashscreen.png"));
+        Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, width, height, width, height);
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         ScaledResolution sr = new ScaledResolution(mc);
@@ -60,19 +68,22 @@ public class CustomMainMenu extends GuiScreen {
         width = sr.getScaledWidth();
         height = sr.getScaledHeight();
 
-        RoundedUtil.drawGradientCornerRL(
-                0, 0,width, height, 0,
-                HUDMod.getClientColors().getFirst().darker().darker().darker(),
-                HUDMod.getClientColors().getSecond().darker().darker().darker()
-        );
+
+        drawSplashBackground(sr.getScaledWidth(), sr.getScaledHeight(), 1);
+
+     //   RoundedUtil.drawGradientCornerRL(
+         //       0, 0,width, height, 0,
+        //        HUDMod.getClientColors().getFirst().darker().darker().darker(),
+        //        HUDMod.getClientColors().getSecond().darker().darker().darker()
+      //  );
 
         RoundedUtil.drawGradientCornerRL(
                 width / 2.0F - 120,
                 height / 2.0F - 130,
                 240, 275,
                 5,
-                new Color(0, 0, 0, 80),
-                new Color(0, 0, 0, 80)
+                new Color(0, 0, 0, 150),
+                new Color(0, 0, 0, 150)
         );
       //  RenderUtil.drawImage(new ResourceLocation("Tenacity/idk.png"),0,0,990,550);
         float buttonWidth = 140;

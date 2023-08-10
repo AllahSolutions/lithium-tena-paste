@@ -8,6 +8,7 @@ import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.impl.ModeSetting;
 import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.player.ChatUtil;
+import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
@@ -16,7 +17,7 @@ import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Minemen", "Intave", "Grim", "Packet", "Reverse", "Polar", "Minemen");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Vulcan","Vulcan2","Minemen", "Intave","Watchdog", "Grim", "Packet", "Reverse", "Polar", "Minemen");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 
@@ -43,11 +44,11 @@ public class Velocity extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
-        if(mode.is("Cock")) {
+        if(mode.is("Vulcan")) {
             if(mc.thePlayer.hurtTime>1) {
                 if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
                     event.cancel();
-                    ChatUtil.print("sex");
+                   // ChatUtil.print("sex");
                 }
             }
         }
@@ -83,15 +84,29 @@ public class Velocity extends Module {
                     break;
                 }
                 case "Reverse": {
-                    s12.motionX *= -s12.motionX;
+                    s12.motionX = -s12.motionX;
                   //  s12.motionY *= vertical.getValue() / 100;
-                    s12.motionZ *= -s12.motionZ;
+                    s12.motionZ = -s12.motionZ;
                     break;
                 }
-                case"Cock": {
-                    s12.motionX *= 100;
-                    s12.motionY *= 100;
-                    s12.motionZ *= 100;
+                case"Watchdog":
+                    if(!mc.thePlayer.onGround) {
+                        //ChatUtil.print("0.0 air");
+                        s12.motionX = 100;
+                        s12.motionY = 100;
+                        s12.motionZ = 100;
+                    }
+                    break;
+                case"Vulcan": {
+                    s12.motionX = 100;
+                    s12.motionY = 100;
+                    s12.motionZ = 100;
+                    break;
+                }
+                case"Vulcan2": {
+                    s12.motionX = 100;
+                    s12.motionY = -s12.motionY;
+                    s12.motionZ = 100;
                     break;
                 }
                 case "Grim": {
@@ -113,6 +128,8 @@ public class Velocity extends Module {
                 }
             }
         }
+
+
 
 
 
@@ -159,6 +176,20 @@ public class Velocity extends Module {
     @Override
     public void onUpdateEvent(UpdateEvent event) {
 
+        this.setSuffix(mode.getMode());
+        if(mode.is("Watchdog")) {
+
+            if (mc.thePlayer.hurtTime > 1) {
+                if (mc.thePlayer.onGround) {
+                    if(mc.thePlayer.ticksExisted % 3 == 0) {
+                        ChatUtil.print("0.0");
+                    }
+                    // MovementUtils.strafe(MovementUtils.getBaseMoveSpeed());
+                    mc.thePlayer.motionY = 0;
+
+                }
+            }
+        }
 
         if (mode.is("Intave")) {
             if (mc.thePlayer.isSwingInProgress) {

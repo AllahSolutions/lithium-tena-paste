@@ -48,7 +48,7 @@ public final class Freecam extends Module {
     }
 
     public Freecam() {
-        super("Freecam", Category.PLAYER, "allows you to look around freely");
+        super("Free cam", Category.PLAYER, "allows you to look around freely");
     }
 
 }

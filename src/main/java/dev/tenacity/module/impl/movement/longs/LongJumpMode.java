@@ -27,6 +27,7 @@ public class LongJumpMode extends ListenerAdapter implements Utils {
     public static void init() {
         jumps.put(WatchdogLongJump.class, new WatchdogLongJump());
         jumps.put(VerusLongJump.class, new VerusLongJump());
+        jumps.put(VulcanLongJump.class, new VulcanLongJump());
     }
 
     public String getName() {

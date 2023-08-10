@@ -37,7 +37,7 @@ public final class FastPlace extends Module {
     }
 
     public FastPlace() {
-        super("FastPlace", Category.PLAYER, "place blocks fast");
+        super("Fast Place", Category.PLAYER, "place blocks fast");
         this.addSettings(ticks, blocks, projectiles);
     }
 

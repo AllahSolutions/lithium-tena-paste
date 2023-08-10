@@ -18,9 +18,9 @@ import org.lwjgl.input.Mouse;
 public class ClickTP extends Module {
 
     private boolean hasclicked;
-    public static final ModeSetting mode = new ModeSetting("Mode", "Vannila","Cock", "Vannila");
+    public static final ModeSetting mode = new ModeSetting("Mode", "Vannila","Cock","Vulcan", "Vannila");
     public ClickTP() {
-        super("ClickTP", Category.MOVEMENT, "Tp`s your where u click");
+        super("Click TP", Category.MOVEMENT, "Tp`s your where u click");
         addSettings(mode);
     }
     private boolean isBlockUnder() {
@@ -51,6 +51,11 @@ public class ClickTP extends Module {
                    // }
                 }
            // }
+        }
+        if (mode.is("Vulcan")) {
+            if (e.getPacket() instanceof S08PacketPlayerPosLook) {
+                e.cancel();
+            }
         }
         super.onPacketReceiveEvent(e);
     }

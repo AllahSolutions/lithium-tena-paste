@@ -11,7 +11,7 @@ public final class SafeWalk extends Module {
         e.setSafe(true);
     }
     public SafeWalk() {
-        super("SafeWalk", Category.PLAYER, "prevents walking off blocks");
+        super("Safe Walk", Category.PLAYER, "prevents walking off blocks");
     }
 
 }

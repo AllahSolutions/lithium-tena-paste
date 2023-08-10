@@ -40,7 +40,7 @@ public final class AutoPlay extends Module {
     public float[] rotations, lastRotations;
 
     public AutoPlay() {
-        super("AutoPlay", Category.COMBAT, "Automatically finds the nearest player and attempts to kill them");
+        super("Auto Play", Category.COMBAT, "Automatically finds the nearest player and attempts to kill them");
         this.addSettings(minCPS, maxCPS, reach, strafeDelay, timeStrafing);
     }
 

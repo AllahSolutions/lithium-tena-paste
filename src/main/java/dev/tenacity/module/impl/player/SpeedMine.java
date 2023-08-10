@@ -21,7 +21,7 @@ public class SpeedMine extends Module {
     private float damage;
 
     public SpeedMine() {
-        super("SpeedMine", Category.PLAYER, "mines blocks faster");
+        super("Speed Mine", Category.PLAYER, "mines blocks faster");
         this.addSettings(speed);
     }
 

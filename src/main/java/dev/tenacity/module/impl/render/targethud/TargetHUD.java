@@ -49,7 +49,7 @@ public abstract class TargetHUD implements Utils {
     public static void init() {
         targetHuds.put(TenacityTargetHUD.class, new TenacityTargetHUD());
         targetHuds.put(LithiumTargetHUD.class, new LithiumTargetHUD());
-        targetHuds.put(JelloTargetHUD.class, new JelloTargetHUD());
+        targetHuds.put(MoonTargetHUD.class, new MoonTargetHUD());
         targetHuds.put(RiseTargetHUD.class, new RiseTargetHUD());
         targetHuds.put(ExhiTargetHUD.class, new ExhiTargetHUD());
         targetHuds.put(AutoDoxTargetHUD.class, new AutoDoxTargetHUD());

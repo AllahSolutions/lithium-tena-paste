@@ -29,7 +29,7 @@ public class Killsults extends Module {
 
 
     public Killsults() {
-        super("Killsults", Category.MISC, "Insults the player that you just killed");
+        super("Kill sults", Category.MISC, "Insults the player that you just killed");
     }
 
     @Override

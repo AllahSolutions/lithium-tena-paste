@@ -176,7 +176,7 @@ public class HUDMod extends Module {
 
                     break;
                 case "Neverlose":
-                    CustomFont m22 = neverloseFont.size(22), t18 = lithiumFont18;
+                    CustomFont m22 = lithiumFont20, t18 = lithiumFont18;
 
                     String str = String.format(
                             " §8|§f %s fps §8|§f %s §8|§f %s",
@@ -185,18 +185,21 @@ public class HUDMod extends Module {
                             mc.isSingleplayer() || mc.getCurrentServerData() == null ? "Singleplayer" : mc.getCurrentServerData().serverIP
                     );
 
-                    name = name.toUpperCase();
+                    name = name;
 
                     float nw = m22.getStringWidth(name);
 
                     Pair<Color, Color> colors = HUDMod.getClientColors();
 
-                    RoundedUtil.drawGradientCornerLR(
+
+
+
+                    RoundedUtil.drawRoundOutline(
                             7.5F,
                             7.5F,
                             nw + t18.getStringWidth(str) + 6f,
                             t18.getHeight() + 6,
-                            2,
+                            5,2,
                             ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true),
                             ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
                     );
@@ -352,7 +355,7 @@ public class HUDMod extends Module {
 
                 break;
             case "Neverlose":
-                CustomFont m22 = neverloseFont.size(22), t18 = lithiumFont18;
+                CustomFont m22 = lithiumFont20, t18 = lithiumFont18;
 
                 String str = String.format(
                         " §0|§f %s fps §0|§f %s §0|§f %s",
@@ -361,24 +364,24 @@ public class HUDMod extends Module {
                         mc.isSingleplayer() || mc.getCurrentServerData() == null ? "Singleplayer" : mc.getCurrentServerData().serverIP
                 );
 
-                name = name.toUpperCase();
+                name = name;
 
                 float nw = m22.getStringWidth(name);
 
                 Pair<Color, Color> colors = HUDMod.getClientColors();
 
-                RoundedUtil.drawGradientCornerLR(
+                RoundedUtil.drawRoundOutline(
                         7.5F,
                         7.5F,
                         nw + t18.getStringWidth(str) + 6f,
                         t18.getHeight() + 6,
-                        2,
-                        ColorUtil.interpolateColorsBackAndForth(5, 0, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true),
+                        5,2,
+                        new Color(0,0,0,100),
                         ColorUtil.interpolateColorsBackAndForth(5, 20, colors.getFirst().darker().darker(), colors.getSecond().darker().darker(), true)
                 );
 
                 t18.drawString(str, 10.0F + nw, 10.0F, Color.WHITE);
-                m22.drawString(name, 10.0F, 10.0F, Color.BLACK);
+
                 m22.drawString(name, 10.0F, 10.0F, Color.WHITE);
                 break;
             case "Tenasense":

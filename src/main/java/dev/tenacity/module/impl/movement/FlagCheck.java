@@ -13,7 +13,7 @@ public class FlagCheck extends Module {
 
 
     public FlagCheck() {
-        super("FlagCheck", Category.MISC, "Disables shit on flag");
+        super("Flag Check", Category.MISC, "Disables shit on flag");
     }
 
     @Override

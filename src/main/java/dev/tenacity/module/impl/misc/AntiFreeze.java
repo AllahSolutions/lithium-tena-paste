@@ -26,7 +26,7 @@ public final class AntiFreeze extends Module {
     }
 
     public AntiFreeze() {
-        super("AntiFreeze", Category.MISC, "prevents server plugins from freezing you");
+        super("Anti Freeze", Category.MISC, "prevents server plugins from freezing you");
     }
 
 }

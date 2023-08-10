@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class AntiCheat extends Module {
 
     public AntiCheat() {
-        super("AntiCheat", Category.MISC, "Detects people using cheats in your game.");
+        super("Anti Cheat", Category.MISC, "Detects people using cheats in your game.");
     }
 
     @Override

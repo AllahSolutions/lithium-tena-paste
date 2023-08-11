@@ -15,6 +15,7 @@ import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.font.AbstractFontRenderer;
 import dev.tenacity.utils.font.CustomFont;
 import dev.tenacity.utils.misc.RomanNumeralUtils;
+import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.render.*;
 import dev.tenacity.utils.server.PingerUtils;
 import dev.tenacity.utils.tuples.Pair;
@@ -122,31 +123,19 @@ public class HUDMod extends Module {
                     lithiumBoldFont24.drawStringWithShadow("Beta", 102, 15, Color.WHITE);
                     break;
 
-                case "japan":
-                    GradientUtil.applyGradientCornerRL(
-                            1.0F, 1.0F,
-                            107.5F, 67.5F,
-                            1.0F,
-                            clientColors.getFirst().darker(),
-                            clientColors.getSecond().darker(),
-                            () -> {
-                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
-                                Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
-                            }
-                    );
+                case "Japan":
 
-                    GradientUtil.applyGradientCornerRL(
-                            0, 0,
-                            107.5F, 67.5F,
-                            1.0F,
-                            clientColors.getFirst(),
-                            clientColors.getSecond(),
-                            () -> {
-                                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
-                                Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
-                            }
-                    );
+                    String string = "Lithium" + " | " + mc.getSession().getUsername() + " | " + Minecraft.getDebugFPS() + "FPS | " + Math.round(MovementUtils.getSpeed() * 20) + " BPS";
 
+                    float moonX = 10F, moonY = 10F;
+
+                    RoundedUtil.drawRound(
+                            moonX,
+                            moonY,
+                            lithiumBoldFont20.getStringWidth(string) + 10,
+                            lithiumBoldFont20.getHeight() + 10,
+                            6, Color.BLACK
+                    );
 
                     break;
                 case "Tenacity":
@@ -265,30 +254,20 @@ public class HUDMod extends Module {
                 break;
 
             case "Japan":
-                GradientUtil.applyGradientCornerRL(
-                        1.0F, 1.0F,
-                        107.5F, 67.5F,
-                        1.0F,
-                        clientColors.getFirst().darker(),
-                        clientColors.getSecond().darker(),
-                        () -> {
-                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
-                            Gui.drawModalRectWithCustomSizedTexture(1.0F, 1.0F, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
-                        }
+
+                String string = "Lithium" + " | " + mc.getSession().getUsername() + " | " + Minecraft.getDebugFPS() + "FPS | " + Math.round(MovementUtils.getSpeed() * 20) + " BPS";
+
+                float moonX = 10F, moonY = 10F;
+
+                RoundedUtil.drawRound(
+                        moonX,
+                        moonY,
+                        lithiumBoldFont20.getStringWidth(string) + 10,
+                        lithiumBoldFont20.getHeight() + 10,
+                        6, new Color(0, 0, 0, 135)
                 );
 
-                GradientUtil.applyGradientCornerRL(
-                        0, 0,
-                        107.5F, 67.5F,
-                        1.0F,
-                        clientColors.getFirst(),
-                        clientColors.getSecond(),
-                        () -> {
-                            mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/Logos/Lyiasdnasd.png"));
-                            Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 107.5F, 67.5F, 107.5F, 67.5F);
-                        }
-                );
-
+                lithiumBoldFont20.drawString(string, moonX + 5, moonY + 5, Color.WHITE.getRGB());
 
                 break;
 

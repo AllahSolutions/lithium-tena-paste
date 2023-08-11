@@ -108,8 +108,8 @@ public final class RayCastUtil {
         return null;
     }
 
-    public static boolean overBlock(final Vector2f rotation, final EnumFacing enumFacing, final BlockPosition pos, final boolean strict) {
-        final MovingObjectPosition movingObjectPosition = mc.thePlayer.rayTraceCustom(4.5f, rotation.x, rotation.y);
+    public static boolean overBlock(final float[] rotation, final EnumFacing enumFacing, final BlockPosition pos, final boolean strict) {
+        final MovingObjectPosition movingObjectPosition = mc.thePlayer.rayTraceCustom(4.5f, rotation[0], rotation[1]);
 
         if (movingObjectPosition == null) return false;
 
@@ -118,8 +118,6 @@ public final class RayCastUtil {
 
         return movingObjectPosition.getBlockPos().equals(pos) && (!strict || movingObjectPosition.sideHit == enumFacing);
     }
-
-
 
     public static boolean overBlock(final EnumFacing enumFacing, final BlockPosition pos, final boolean strict) {
         final MovingObjectPosition movingObjectPosition = mc.objectMouseOver;
@@ -132,11 +130,11 @@ public final class RayCastUtil {
         return movingObjectPosition.getBlockPos().equals(pos) && (!strict || movingObjectPosition.sideHit == enumFacing);
     }
 
-    public static Boolean overBlock(final Vector2f rotation, final BlockPosition pos) {
+    public static Boolean overBlock(final float[] rotation, final BlockPosition pos) {
         return overBlock(rotation, EnumFacing.UP, pos, false);
     }
 
-    public static Boolean overBlock(final Vector2f rotation, final BlockPosition pos, final EnumFacing enumFacing) {
+    public static Boolean overBlock(final float[] rotation, final BlockPosition pos, final EnumFacing enumFacing) {
         return overBlock(rotation, enumFacing, pos, true);
     }
 

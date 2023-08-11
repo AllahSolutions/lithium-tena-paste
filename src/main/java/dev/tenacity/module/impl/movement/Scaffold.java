@@ -88,7 +88,7 @@ public class Scaffold extends Module {
 
     private float[] cachedRotations = new float[] { 0.0F, 0.0F };
     private float[] lastRotations = new float[] { 0.0F, 0.0F };
-    float yaw = 0;
+    float yaw = 0, pitch = 0;
 
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT, "Automatically places blocks under you");
@@ -179,6 +179,7 @@ public class Scaffold extends Module {
                 }
 
                 yaw = event.getYaw();
+                pitch = event.getPitch();
             }
 
             if (speedSlowdown.isEnabled() && mc.thePlayer.isPotionActive(Potion.moveSpeed) && !mc.gameSettings.keyBindJump.isKeyDown() && mc.thePlayer.onGround) {
@@ -291,8 +292,7 @@ public class Scaffold extends Module {
 
         boolean placed = false;
 
-
-        if(RayCastUtil.overBlock(blockCache.getFacing(),blockCache.getPosition(),true)) {
+        if (RayCastUtil.overBlock(new float[] { yaw, pitch }, blockCache.getFacing(),blockCache.getPosition(),true)) {
             if (delayTimer.hasTimeElapsed(MathHelper.getRandomDoubleInRange(new Random(), mindelay.getValue() * 1000, maxdelay.getValue() * 1000))) {
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                         mc.thePlayer.inventory.getStackInSlot(this.slot),

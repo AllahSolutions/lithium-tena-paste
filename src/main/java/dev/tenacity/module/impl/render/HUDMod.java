@@ -134,7 +134,7 @@ public class HUDMod extends Module {
                             moonY,
                             lithiumBoldFont20.getStringWidth(string) + 10,
                             lithiumBoldFont20.getHeight() + 10,
-                            6, Color.BLACK
+                            6, new Color(0,0,0,255)
                     );
 
                     break;
@@ -264,7 +264,7 @@ public class HUDMod extends Module {
                         moonY,
                         lithiumBoldFont20.getStringWidth(string) + 10,
                         lithiumBoldFont20.getHeight() + 10,
-                        6, new Color(0, 0, 0, 135)
+                        6, new Color(255, 255, 255, 10)
                 );
 
                 lithiumBoldFont20.drawString(string, moonX + 5, moonY + 5, Color.WHITE.getRGB());

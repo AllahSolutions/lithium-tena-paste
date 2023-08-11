@@ -9,6 +9,7 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.player.RotationUtils;
 import dev.tenacity.utils.player.scaffold.ScaffoldUtil;
 import lombok.Getter;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
@@ -97,7 +98,7 @@ public class CustomScaffold extends Module {
 
     @Override
     public void onLegitClickEvent(LegitClickEvent event) {
-
+        mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(null));
 
         super.onLegitClickEvent(event);
     }

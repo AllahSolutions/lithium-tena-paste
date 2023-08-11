@@ -33,6 +33,7 @@ public class SpeedMode extends ListenerAdapter implements Utils {
         modes.put(StrafeSpeed.class, new StrafeSpeed());
         modes.put(PolarSpeed.class, new PolarSpeed());
         modes.put(Kokscraft.class, new Kokscraft());
+        modes.put(VerusSpeed.class, new VerusSpeed());
     }
 
     public String getName() {

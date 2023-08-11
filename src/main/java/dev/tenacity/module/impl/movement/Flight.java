@@ -124,7 +124,9 @@ public final class Flight extends Module {
                 break;
 
             case"Vulcant":
-                final float speedding = 2;
+                final float speedding = 3;
+                //2
+
                 if(timer.hasTimeElapsed(900)) {
                     canclip = true;
                 }
@@ -132,8 +134,10 @@ public final class Flight extends Module {
                     canclip = false;
                 }
                 if(canclip) {
-                   //  mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY - 2,mc.thePlayer.posZ);
+                    //  mc.thePlayer.setPosition(mc.thePlayer.posX,mc.thePlayer.posY - 2,mc.thePlayer.posZ);
                 }
+
+
 
                 if(!timer.hasTimeElapsed(1000)) {
                     if(mc.thePlayer.ticksExisted % 2 == 0) {
@@ -141,19 +145,21 @@ public final class Flight extends Module {
                     }
                     ChatUtil.print(countvu);
 
-                        e.setSpeed(0);
+                    e.setSpeed(0);
 
                 } else{
                     countvu = 0;
-                    e.setSpeed(speedding);
+                    if(!timer.hasTimeElapsed(1300)) {
+                        e.setSpeed(speedding);
+                    }
                 }
 
                 break;
 
             case "Damage":
                 //if (timer.hasTimeElapsed(3000) ) {
-                 //   HadDamage = false;
-               // }
+                //   HadDamage = false;
+                // }
 
 
 
@@ -165,7 +171,7 @@ public final class Flight extends Module {
                 }
 
                 if (MovementUtils.isMoving()) {
-                   if (HadDamage) {
+                    if (HadDamage) {
                         e.setSpeed(2);
                     } else {
                         e.setSpeed(MovementUtils.getBaseMoveSpeed()* 1.01f);
@@ -178,7 +184,7 @@ public final class Flight extends Module {
                 if (!setback) {
                     MovementUtils.setSpeed(e, 0.0);
                 } else {
-                   MovementUtils.setSpeed(e, 9);
+                    MovementUtils.setSpeed(e, 9);
                 }
 
                 if(mc.thePlayer.ticksExisted % 6 == 0) {
@@ -238,44 +244,44 @@ public final class Flight extends Module {
                 if(!shift) {
                     mc.thePlayer.motionY = 0;
                 }
-                    if (mc.gameSettings.keyBindJump.isKeyDown()) {
-                        mc.thePlayer.motionY = 1;
+                if (mc.gameSettings.keyBindJump.isKeyDown()) {
+                    mc.thePlayer.motionY = 1;
+                }
+                if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+                    mc.thePlayer.motionY = -1;
+                }
+                if(shift) {
+                    if(mc.thePlayer.ticksExisted % 50 == 0){
+                        //  mc.thePlayer.setPosition(e.getX(),e.getY() + 1,e.getZ());
+                        mc.thePlayer.jump();
                     }
-                    if (mc.gameSettings.keyBindSneak.isKeyDown()) {
-                        mc.thePlayer.motionY = -1;
-                    }
-                    if(shift) {
-                        if(mc.thePlayer.ticksExisted % 50 == 0){
-                      //  mc.thePlayer.setPosition(e.getX(),e.getY() + 1,e.getZ());
-                           mc.thePlayer.jump();
-                        }
-                        if(mc.thePlayer.ticksExisted % 2==0) {
-                            mc.gameSettings.keyBindForward.pressed = true;
-                        } else{
-                            mc.gameSettings.keyBindForward.pressed = false;
-                        }
-                        if(mc.thePlayer.ticksExisted % 3==0) {
-                            mc.gameSettings.keyBindBack.pressed = true;
-                        } else{
-                            mc.gameSettings.keyBindBack.pressed = false;
-                        }
-                        if(mc.thePlayer.ticksExisted % 4==0) {
-                            mc.gameSettings.keyBindRight.pressed = true;
-                        } else{
-                            mc.gameSettings.keyBindRight.pressed = false;
-                        }
-                        if(mc.thePlayer.ticksExisted % 5==0) {
-                            mc.gameSettings.keyBindLeft.pressed = true;
-                        } else{
-                            mc.gameSettings.keyBindLeft.pressed = false;
-                        }
-                        if(Flags >50) {
-                            ChatUtil.print("U can now disable fly");
-                        }
-
+                    if(mc.thePlayer.ticksExisted % 2==0) {
+                        mc.gameSettings.keyBindForward.pressed = true;
                     } else{
-                        Flags = 0;
+                        mc.gameSettings.keyBindForward.pressed = false;
                     }
+                    if(mc.thePlayer.ticksExisted % 3==0) {
+                        mc.gameSettings.keyBindBack.pressed = true;
+                    } else{
+                        mc.gameSettings.keyBindBack.pressed = false;
+                    }
+                    if(mc.thePlayer.ticksExisted % 4==0) {
+                        mc.gameSettings.keyBindRight.pressed = true;
+                    } else{
+                        mc.gameSettings.keyBindRight.pressed = false;
+                    }
+                    if(mc.thePlayer.ticksExisted % 5==0) {
+                        mc.gameSettings.keyBindLeft.pressed = true;
+                    } else{
+                        mc.gameSettings.keyBindLeft.pressed = false;
+                    }
+                    if(Flags >50) {
+                        ChatUtil.print("U can now disable fly");
+                    }
+
+                } else{
+                    Flags = 0;
+                }
 
 
 
@@ -294,15 +300,24 @@ public final class Flight extends Module {
                 e.setPitch(pitch);
 
                 e.setX(Math.sin(yaw) * 10000);
-               // e.setY((mc.thePlayer.posY + 150000000) * 0.98 * Math.tan(-80));
-              //  e.setZ(Math.sin(yaw) * 10000);
+                // e.setY((mc.thePlayer.posY + 150000000) * 0.98 * Math.tan(-80));
+                //  e.setZ(Math.sin(yaw) * 10000);
 
 
                 break;
 
             case"Vulcant":
-
-                final float speedding = 2;
+                if(timer.hasTimeElapsed(1000)) {
+                    if (mc.thePlayer.onGround) {
+                        if(enabled) {
+                        //    this.toggle();
+                        }
+                    }
+                }
+                final float speedding = 3;
+                //2
+                //2
+                //1300
 
                 //if(ummm.finished(1000)) {
                 //    ChatUtil.display("Flag");
@@ -310,20 +325,54 @@ public final class Flight extends Module {
                 //            mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
                 //       ummm.reset();
                 //  }
+                if(!timer.hasTimeElapsed(1000)) {
+                    mc.timer.timerSpeed = 0.5f;
+                    PacketUtils.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.posX, mc.thePlayer.posY - 2, mc.thePlayer.posZ,
+                            mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
+                } else{
+                    mc.timer.timerSpeed = 1.0f;
+                }
+                if(!timer.hasTimeElapsed(1100)) {
 
-                    mc.thePlayer.motionY = -1E-10D
-                            + (mc.gameSettings.keyBindJump.isKeyDown() ? speedding : 0.0D)
-                            - (mc.gameSettings.keyBindSneak.isKeyDown() ? speedding : 0.0D);
+                        //this works too idk
+                     //  if(mc.thePlayer.onGround) {
+                            mc.thePlayer.motionY = 1;
+
+                        //}
 
 
-                if (mc.thePlayer.getDistance(mc.thePlayer.lastReportedPosX, mc.thePlayer.lastReportedPosY, mc.thePlayer.lastReportedPosZ) <= 10 - speedding - 0.15) {
-                    e.cancel();
-                } else {
-                    ticks++;
+                }
+                //e.setOnGround(false);
+                if(timer.hasTimeElapsed(1400)) {
+                    // if (mc.thePlayer.fallDistance > 2) {
+                    //    e.setOnGround(true);
+                    //    mc.thePlayer.fallDistance = 0;
+                    // }
+                    // if (mc.thePlayer.ticksExisted % 3 != 0) {
+                    //     mc.thePlayer.motionY = -0.0991;
+                    //  } else {
+                    //      mc.thePlayer.motionY += 0.026;
+                    //   }
+                    //TEST
+                    //ALSO TRY TO FIX THE INVALID X Z FLAG
 
-                    if (ticks >= 8) {
-                       // MoveUtil.stop();
-                        // getParent().toggle();
+                    //  if (mc.thePlayer.fallDistance > 0 && ticks % 2 == 0 && mc.thePlayer.fallDistance < 2.2) {
+
+                    // }
+                }
+                //  mc.timer.timerSpeed = 0.5f;
+
+
+                if(!timer.hasTimeElapsed(1300)) {
+                    if (mc.thePlayer.getDistance(mc.thePlayer.lastReportedPosX, mc.thePlayer.lastReportedPosY, mc.thePlayer.lastReportedPosZ) <= 10 - speedding - 0.15) {
+                        e.cancel();
+                    } else {
+                        ticks++;
+
+                        if (ticks >= 8) {
+                            // MoveUtil.stop();
+                            // getParent().toggle();
+                        }
                     }
                 }
                 break;
@@ -349,9 +398,9 @@ public final class Flight extends Module {
                 mc.thePlayer.motionY = (mc.gameSettings.keyBindJump.isKeyDown() ? 0.42F : mc.gameSettings.keyBindSneak.isKeyDown() ? -0.42F : 0);
 
                 if (!MovementUtils.isMoving()) {
-                  //  MovementUtils.strafe(0.0f);
-                   //mc.thePlayer.posX = 0;
-                  //  mc.thePlayer.posZ = 0;
+                    //  MovementUtils.strafe(0.0f);
+                    //mc.thePlayer.posX = 0;
+                    //  mc.thePlayer.posZ = 0;
                 }
 
                 if (pearlTimer.hasTimeElapsed((long) (150 + Math.random() * 50)) && MovementUtils.isMoving()) {
@@ -373,7 +422,7 @@ public final class Flight extends Module {
                     mc.timer.timerSpeed = 10.0f;
                 } else{
 
-                        //mc.thePlayer.setPosition(startx, starty + 1, startz);
+                    //mc.thePlayer.setPosition(startx, starty + 1, startz);
 
                 }
 
@@ -387,15 +436,15 @@ public final class Flight extends Module {
 
 
                 if (Flags>3 && MovementUtils.isMoving()) {
-                   MovementUtils.setSpeed(2);
+                    MovementUtils.setSpeed(2);
                 }
                 if(Flags<3) {
                     if(mc.thePlayer.ticksExisted % 10 ==0) {
                         ChatUtil.print(EnumChatFormatting.ITALIC +"*intensively waiting for s08*");
                     }
                     MovementUtils.strafe(0);
-                   // mc.thePlayer.posX = 0;
-                  //  mc.thePlayer.posZ = 0;
+                    // mc.thePlayer.posX = 0;
+                    //  mc.thePlayer.posZ = 0;
                 }
 
 
@@ -425,7 +474,7 @@ public final class Flight extends Module {
                         }
 
                         if(hasDamaged) {
-                           mc.timer.timerSpeed = 0.8f;
+                            mc.timer.timerSpeed = 0.8f;
                             e.setOnGround(true);
                             mc.timer.timerSpeed = 0.4f;
                             mc.thePlayer.motionY = 0.05;
@@ -478,25 +527,25 @@ public final class Flight extends Module {
 
 
 
-                    if(antiKick.isEnabled()) {
-                        if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                            mc.thePlayer.motionY = 0.0;
+                if(antiKick.isEnabled()) {
+                    if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                        mc.thePlayer.motionY = 0.0;
 
-                          //  if (!MovementUtils.isMoving()) {
-                                if (mc.thePlayer.ticksExisted % 2 == 0) {
-                                    mc.thePlayer.motionY = 0.01;
-                                    //0.1
-                                } else {
-                                    mc.thePlayer.motionY = -0.01;
-                                }
-                          //  }
+                        //  if (!MovementUtils.isMoving()) {
+                        if (mc.thePlayer.ticksExisted % 2 == 0) {
+                            mc.thePlayer.motionY = 0.01;
+                            //0.1
+                        } else {
+                            mc.thePlayer.motionY = -0.01;
                         }
-                    } else{
-
-                        if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
-                            mc.thePlayer.motionY = 0.0f;
-                        }
+                        //  }
                     }
+                } else{
+
+                    if(!mc.gameSettings.keyBindSneak.isKeyDown() && !mc.gameSettings.keyBindJump.isKeyDown()) {
+                        mc.thePlayer.motionY = 0.0f;
+                    }
+                }
                 break;
             case "AirWalk":
                 break;
@@ -619,7 +668,7 @@ public final class Flight extends Module {
 
 
             if(event.getPacket() instanceof C0FPacketConfirmTransaction || event.getPacket() instanceof C0BPacketEntityAction || event.getPacket() instanceof C00PacketKeepAlive) {
-               event.cancel();
+                event.cancel();
             }
 
         }
@@ -643,11 +692,15 @@ public final class Flight extends Module {
             event.setBoundingBox(axisAlignedBB);
         }
 
+
         if(mode.is("Vulcan Timer")) {
 
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
         }
+
+
+
 
         if(mode.is("Kokscraft Vanilla")) {
             if(shift) {
@@ -687,13 +740,13 @@ public final class Flight extends Module {
 
         if(mode.is("Damage")) {
 
-          //  final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
-          //  event.setBoundingBox(axisAlignedBB);
+            //  final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            //  event.setBoundingBox(axisAlignedBB);
         }
 
         if(mode.is("Libercraft") && hasDamaged) {
 
-           // final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            // final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             //event.setBoundingBox(axisAlignedBB);
         }
 
@@ -708,7 +761,7 @@ public final class Flight extends Module {
 
             if (e.getPacket() instanceof S08PacketPlayerPosLook) {
                 Flags++;
-                
+
                 e.cancel();
             }
         }
@@ -730,7 +783,7 @@ public final class Flight extends Module {
             }
         }
 
-        
+
 
         if(mode.is("Vulcan Motion") && e.getPacket() instanceof S08PacketPlayerPosLook) {
             if (!flag) {
@@ -772,7 +825,7 @@ public final class Flight extends Module {
     public void onEnable() {
 
         if (mode.is("VerusDMG")) {
-           mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
+            mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
         }
         canclip = false;
@@ -783,7 +836,7 @@ public final class Flight extends Module {
                     mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
         }
         if(mode.is("Kokscraft Vanilla")) {
-          ChatUtil.print("right click to land");
+            ChatUtil.print("right click to land");
         }
         gayY = Math.floor(mc.thePlayer.posY);
 
@@ -793,27 +846,27 @@ public final class Flight extends Module {
 
 
         if (mode.is("Verus")) {
-          //  DamageUtils.damage(DamageUtils.DamageType.VERUS);
+            //  DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
         }
 
         if (mode.is("Damage")) {
-              DamageUtils.damage(DamageUtils.DamageType.VERUS);
+            DamageUtils.damage(DamageUtils.DamageType.VERUS);
 
         }
         if (mode.is("Invaded")) {
             mc.thePlayer.jump();
 
         }
-        
+
         if (mode.is("Vulcan Motion")) {
             flag = false;
             pearlTimer.reset();
 
             if (!mc.thePlayer.onGround) {
-               if(this.isEnabled()) {
-                   ChatUtil.print("U Need to be onground");
-               }
+                if(this.isEnabled()) {
+                    ChatUtil.print("U Need to be onground");
+                }
                 return;
             }
 
@@ -885,7 +938,7 @@ public final class Flight extends Module {
     @Override
     public void onDisable() {
         if (mode.is("Libercraft")) {
-         MovementUtils.setSpeed(0);
+            MovementUtils.setSpeed(0);
 
         }
         canclip = false;

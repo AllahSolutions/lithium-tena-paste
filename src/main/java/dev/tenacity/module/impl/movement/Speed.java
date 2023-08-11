@@ -10,7 +10,7 @@ import dev.tenacity.module.settings.impl.ModeSetting;
 public final class Speed extends Module {
 
     private SpeedMode mode;
-    private final ModeSetting selection = new ModeSetting("Mode", "Latest NCP","Watchdog 2","Kokscraft","Polar", "Strafe", "Vanilla", "NoRules", "Watchdog", "Latest NCP");
+    private final ModeSetting selection = new ModeSetting("Mode", "Latest NCP","Watchdog 2","Verus","Kokscraft","Polar", "Strafe", "Vanilla", "NoRules", "Watchdog", "Latest NCP");
 
     public Speed() {
         super("Speed", Category.MOVEMENT, "Makes you go faster");

@@ -1,24 +1,16 @@
 package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.event.impl.player.BoundingBoxEvent;
-import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
-import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
-import dev.tenacity.utils.player.PlayerUtils;
-import net.minecraft.block.BlockAir;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 
-import java.util.Random;
-
-public class Kokscraft extends SpeedMode {
+public class VerusSpeed extends SpeedMode {
     int jumps;
     private int offGroundTicks;
-    public Kokscraft() {
-        super("Kokscraft");
+    public VerusSpeed() {
+        super("Verus");
     }
 
 
@@ -58,6 +50,14 @@ public class Kokscraft extends SpeedMode {
 
 
         super.onStrafeEvent(event);
+    }
+
+    @Override
+    public void onBoundingBoxEvent(BoundingBoxEvent event) {
+
+            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, 2, -5, 5, 2, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
+            event.setBoundingBox(axisAlignedBB);
+
     }
 
 

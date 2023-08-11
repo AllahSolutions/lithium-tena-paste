@@ -119,6 +119,8 @@ public final class RayCastUtil {
         return movingObjectPosition.getBlockPos().equals(pos) && (!strict || movingObjectPosition.sideHit == enumFacing);
     }
 
+
+
     public static boolean overBlock(final EnumFacing enumFacing, final BlockPosition pos, final boolean strict) {
         final MovingObjectPosition movingObjectPosition = mc.objectMouseOver;
 
@@ -137,4 +139,6 @@ public final class RayCastUtil {
     public static Boolean overBlock(final Vector2f rotation, final BlockPosition pos, final EnumFacing enumFacing) {
         return overBlock(rotation, enumFacing, pos, true);
     }
+
+
 }

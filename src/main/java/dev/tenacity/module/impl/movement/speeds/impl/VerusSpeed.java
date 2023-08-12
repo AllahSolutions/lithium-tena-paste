@@ -25,20 +25,17 @@ public class VerusSpeed extends SpeedMode {
         } else {
             offGroundTicks++;
         }
-        if(mc.thePlayer.onGround) {
-            MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.01f);
+        MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() * 1.03f);
+      //  if(mc.thePlayer.onGround) {
+        if (mc.thePlayer.onGround) {
+          mc.thePlayer.motionY = 0.42f;
         }
 
-        switch (offGroundTicks) {
-            case 0:
-                mc.thePlayer.jump();
 
+       
+      //  }
 
-                break;
-            case 5:
-                mc.thePlayer.motionY = mc.thePlayer.motionY - 0.3;
-                break;
-        }
+    
 
 
 
@@ -55,8 +52,7 @@ public class VerusSpeed extends SpeedMode {
     @Override
     public void onBoundingBoxEvent(BoundingBoxEvent event) {
 
-            final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, 2, -5, 5, 2, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
-            event.setBoundingBox(axisAlignedBB);
+
 
     }
 

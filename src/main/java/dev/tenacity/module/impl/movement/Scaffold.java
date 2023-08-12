@@ -49,7 +49,7 @@ public class Scaffold extends Module {
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
 
     private final BooleanSetting raycast = new BooleanSetting("raycast", true);
-    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","None", "NCP","Dev", "Back", "Enum", "Down");
+    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","Snap","None", "NCP","Dev", "Back", "Enum", "Down");
     private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
@@ -173,6 +173,7 @@ public class Scaffold extends Module {
 
                 float[] fixedRotations = RotationUtils.getFixedRotations(cachedRotations, lastRotations);
                 if(!rotationMode.is("none")) {
+
                     event.setRotations(fixedRotations[0], fixedRotations[1]);
 
                     RotationUtils.setVisualRotations(event);
@@ -291,8 +292,8 @@ public class Scaffold extends Module {
         }
 
         boolean placed = false;
-
-        if (RayCastUtil.overBlock(new float[] { yaw, pitch }, blockCache.getFacing(),blockCache.getPosition(),true)) {
+        //make it an option
+        if (RayCastUtil.overBlock(new float[] { yaw, pitch }, blockCache.getFacing(),blockCache.getPosition(),false)) {
             if (delayTimer.hasTimeElapsed(MathHelper.getRandomDoubleInRange(new Random(), mindelay.getValue() * 1000, maxdelay.getValue() * 1000))) {
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                         mc.thePlayer.inventory.getStackInSlot(this.slot),

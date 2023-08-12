@@ -157,9 +157,9 @@ public final class Flight extends Module {
                 break;
 
             case "Damage":
-                //if (timer.hasTimeElapsed(3000) ) {
-                //   HadDamage = false;
-                // }
+                if (timer.hasTimeElapsed(3000) ) {
+                   HadDamage = false;
+                 }
 
 
 
@@ -172,7 +172,7 @@ public final class Flight extends Module {
 
                 if (MovementUtils.isMoving()) {
                     if (HadDamage) {
-                        e.setSpeed(2);
+                        e.setSpeed(4);
                     } else {
                         e.setSpeed(MovementUtils.getBaseMoveSpeed()* 1.01f);
                     }
@@ -213,7 +213,7 @@ public final class Flight extends Module {
         if (viewBobbing.isEnabled()) {
             mc.thePlayer.cameraYaw = mc.thePlayer.cameraPitch = 0.08F;
         }
-        if (!mode.getMode().equals("Libercraft") && !mode.getMode().equals("Damage")) {
+        if (!mode.getMode().equals("Libercraft")) {
             mc.timer.timerSpeed = timerAmount.getValue().floatValue();
         }
         if (mc.thePlayer.isUsingItem()) {
@@ -289,7 +289,26 @@ public final class Flight extends Module {
                 break;
 
             case"Damage":
-                mc.thePlayer.motionY = 0.0;
+                if(HadDamage) {
+                    if (mc.thePlayer.hurtTime > -1) {
+                        if (mc.thePlayer.ticksExisted % 1 == 0) {
+                            mc.thePlayer.motionY = 0.0;
+                        }
+                        if (mc.thePlayer.motionY < 0.20) {
+                            mc.thePlayer.motionY = -0.20;
+                        }
+                        if (mc.thePlayer.ticksExisted % 2 == 0) {
+                            mc.thePlayer.motionY = 0.20;
+                        }
+                        if (mc.gameSettings.keyBindJump.isKeyDown()) {
+                            // mc.timer.timerSpeed = 1.0f;
+                            mc.thePlayer.motionY = 0.3;
+                        } else if (mc.gameSettings.keyBindSneak.isKeyDown()) {
+                            //	mc.timer.timerSpeed = 1.0f;
+                            mc.thePlayer.motionY = -0.3;
+                        }
+                    }
+                }
                 break;
 
             case"Grim":
@@ -738,11 +757,7 @@ public final class Flight extends Module {
             event.setBoundingBox(axisAlignedBB);
         }
 
-        if(mode.is("Damage")) {
 
-            //  final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
-            //  event.setBoundingBox(axisAlignedBB);
-        }
 
         if(mode.is("Libercraft") && hasDamaged) {
 
@@ -851,7 +866,9 @@ public final class Flight extends Module {
         }
 
         if (mode.is("Damage")) {
-            DamageUtils.damage(DamageUtils.DamageType.VERUS);
+            mc.getNetHandler().getNetworkManager().sendPacket(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 3.01, mc.thePlayer.posZ, false));
+            mc.getNetHandler().getNetworkManager().sendPacket(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, false));
+            mc.getNetHandler().getNetworkManager().sendPacket(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, true));
 
         }
         if (mode.is("Invaded")) {

@@ -52,18 +52,18 @@ public class Velocity extends Module {
                 }
             }
         }
-        if(mc.thePlayer.hurtTime>1) {
-            if (mode.is("Grim") && event.getPacket() instanceof C0FPacketConfirmTransaction) {
-                if (grim_ticks < 6) {
-                    event.cancel();
-                }
-                if (grim_ticks > 6) {
-                    grim_ticks = 0;
-                }
-                ChatUtil.print(grim_ticks);
-                grim_ticks++;
+
+        if (mode.is("Grim") && event.getPacket() instanceof C0FPacketConfirmTransaction) {
+            if (grim_ticks < 6) {
+                event.cancel();
             }
+            if (grim_ticks > 6) {
+                grim_ticks = 0;
+            }
+            ChatUtil.print(grim_ticks);
+            grim_ticks++;
         }
+
 
         super.onPacketSendEvent(event);
     }

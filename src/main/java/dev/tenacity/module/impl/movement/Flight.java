@@ -172,7 +172,7 @@ public final class Flight extends Module {
 
                 if (MovementUtils.isMoving()) {
                     if (HadDamage) {
-                        e.setSpeed(4);
+                        e.setSpeed(2);
                     } else {
                         e.setSpeed(MovementUtils.getBaseMoveSpeed()* 1.01f);
                     }

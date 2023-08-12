@@ -5,7 +5,9 @@ import dev.tenacity.event.impl.player.input.MoveInputEvent;
 import dev.tenacity.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.util.vector.Vector2f;
@@ -41,6 +43,15 @@ public class MovementUtils implements Utils {
 
     public static boolean isMoving() {
         return mc.thePlayer != null && (mc.thePlayer.movementInput.moveForward != 0F || mc.thePlayer.movementInput.moveStrafe != 0F);
+    }
+
+    public static boolean hasAppliedSpeedII(EntityPlayer player) {
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            if (effect.getPotionID() == 1 && effect.getAmplifier() == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isInLiquid() {

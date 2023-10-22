@@ -50,9 +50,6 @@ public class ShaderUtil implements Utils {
                 case "gradientMask":
                     fragmentShaderID = createShader(new ByteArrayInputStream(gradientMask.getBytes()), GL_FRAGMENT_SHADER);
                     break;
-                case "mask":
-                    fragmentShaderID = createShader(new ByteArrayInputStream(mask.getBytes()), GL_FRAGMENT_SHADER);
-                    break;
                 case "gradient":
                     fragmentShaderID = createShader(new ByteArrayInputStream(gradient.getBytes()), GL_FRAGMENT_SHADER);
                     break;
@@ -66,14 +63,13 @@ public class ShaderUtil implements Utils {
                     fragmentShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation(fragmentShaderLoc)).getInputStream(), GL_FRAGMENT_SHADER);
                     break;
             }
+
             glAttachShader(program, fragmentShaderID);
 
             int vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation(vertexShaderLoc)).getInputStream(), GL_VERTEX_SHADER);
             glAttachShader(program, vertexShaderID);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
+            // empty catch block
         }
 
         glLinkProgram(program);
@@ -82,37 +78,13 @@ public class ShaderUtil implements Utils {
         if (status == 0) {
             throw new IllegalStateException("Shader failed to link!");
         }
+
         this.programID = program;
-    }
-
-    public ShaderUtil(String fragmentShadersrc, boolean notUsed) {
-        int program = glCreateProgram();
-        int fragmentShaderID = createShader(new ByteArrayInputStream(fragmentShadersrc.getBytes()), GL_FRAGMENT_SHADER);
-        int vertexShaderID = 0;
-        try {
-            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("Tenacity/Shaders/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        glAttachShader(program, fragmentShaderID);
-        glAttachShader(program, vertexShaderID);
-
-
-
-        glLinkProgram(program);
-        int status = glGetProgrami(program, GL_LINK_STATUS);
-        if (status == 0) {
-            throw new IllegalStateException("Shader failed to link!");
-        }
-        this.programID = program;
-
     }
 
     public ShaderUtil(String fragmentShaderLoc) {
         this(fragmentShaderLoc, "Tenacity/Shaders/vertex.vsh");
     }
-
 
     public void init() {
         glUseProgram(programID);
@@ -168,19 +140,7 @@ public class ShaderUtil implements Utils {
         ScaledResolution sr = new ScaledResolution(mc);
         float width = (float) sr.getScaledWidth_double();
         float height = (float) sr.getScaledHeight_double();
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 1);
-        glVertex2f(0, 0);
-        glTexCoord2f(0, 0);
-        glVertex2f(0, height);
-        glTexCoord2f(1, 0);
-        glVertex2f(width, height);
-        glTexCoord2f(1, 1);
-        glVertex2f(width, 0);
-        glEnd();
-    }
 
-    public static void drawQuads(float width, float height) {
         glBegin(GL_QUADS);
         glTexCoord2f(0, 1);
         glVertex2f(0, 0);
@@ -359,9 +319,8 @@ public class ShaderUtil implements Utils {
             "    smp7.rgb *= smp7.a;\n" +
             "    sum += smp7 * 2.0;\n" +
             "    vec4 result = sum / 12.0;\n" +
-            "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, result.a * (1.0 - texture2D(textureToCheck, gl_TexCoord[0].st).a),check) * 1.05);\n" +
+            "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, result.a * (1.0 - texture2D(textureToCheck, gl_TexCoord[0].st).a),check));\n" +
             "}";
-    //MULTIPLIED BY 1.05 CHANGED IF FUCKED
 
     private String kawaseDownBloom = "#version 120\n" +
             "\n" +
@@ -386,9 +345,8 @@ public class ShaderUtil implements Utils {
             "    smp4.rgb *= smp4.a;\n" +
             "    sum += smp4;\n" +
             "    vec4 result = sum / 8.0;\n" +
-            "    gl_FragColor = vec4(result.rgb / result.a, result.a * 1.05);\n" +
+            "    gl_FragColor = vec4(result.rgb / result.a, result.a);\n" +
             "}";
-    //MULTIPLIED BY 1.05 CHANGED IF FUCKED
 
     private String kawaseUp = "#version 120\n" +
             "\n" +
@@ -447,18 +405,6 @@ public class ShaderUtil implements Utils {
             "    gl_FragColor = vec4(createGradient(coords, color1, color2, color3, color4), texColorAlpha * alpha);\n" +
             "}";
 
-    private String mask = "#version 120\n" +
-            "\n" +
-            "uniform vec2 location, rectSize;\n" +
-            "uniform sampler2D u_texture, u_texture2;\n" +
-            "void main() {\n" +
-            "    vec2 coords = (gl_FragCoord.xy - location) / rectSize;\n" +
-            "    float texColorAlpha = texture2D(u_texture, gl_TexCoord[0].st).a;\n" +
-            "    vec3 tex2Color = texture2D(u_texture2, gl_TexCoord[0].st).rgb;\n" +
-            "    gl_FragColor = vec4(tex2Color, texColorAlpha);\n" +
-            "}";
-
-
     private String gradient = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
@@ -508,7 +454,6 @@ public class ShaderUtil implements Utils {
             "    vec4 gradient = createGradient(st, color1, color2, color3, color4);" +
             "    gl_FragColor = vec4(gradient.rgb, gradient.a * smoothedAlpha);\n" +
             "}";
-
 
     private String roundedRect = "#version 120\n" +
             "\n" +

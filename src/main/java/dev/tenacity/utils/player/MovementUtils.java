@@ -75,6 +75,9 @@ public class MovementUtils implements Utils {
             mc.thePlayer.motionZ = Math.cos(yaw) * speed;
         }
     }
+    public static double speedPotionAmp(final double amp) {
+        return mc.thePlayer.isPotionActive(Potion.moveSpeed) ? ((mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getAmplifier() + 1) * amp) : 0;
+    }
 
     public static void moveFlying(double increase) {
         if (!isMoving()) return;

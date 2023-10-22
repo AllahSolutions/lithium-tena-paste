@@ -6,6 +6,7 @@ import dev.tenacity.module.Module;
 
 public final class KeepSprint extends Module {
 
+
     public KeepSprint() {
         super("Keep Sprint", Category.COMBAT, "Stops sprint reset after hitting");
     }

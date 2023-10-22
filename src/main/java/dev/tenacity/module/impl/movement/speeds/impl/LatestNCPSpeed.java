@@ -31,7 +31,7 @@ public class LatestNCPSpeed extends SpeedMode {
 
         if(mc.thePlayer.hurtTime >1) {
             MovementUtils.strafe(
-                    MovementUtils.getSpeed() * 1.2F
+                    MovementUtils.getSpeed() * 1.1F
             );
         }
 

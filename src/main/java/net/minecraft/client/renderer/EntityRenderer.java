@@ -5,11 +5,14 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
 import dev.tenacity.Tenacity;
+import dev.tenacity.module.impl.combat.Reach;
 import dev.tenacity.module.impl.movement.ClickTeleport;
 import dev.tenacity.module.impl.player.ChestStealer;
 import dev.tenacity.event.impl.render.HurtCamEvent;
 import dev.tenacity.event.impl.render.Render3DEvent;
 import dev.tenacity.module.impl.render.Ambience;
+import dev.tenacity.module.impl.render.Radar;
+import dev.tenacity.utils.player.MovementUtils;
 import dev.tenacity.utils.render.EntityCulling;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -430,7 +433,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if(Tenacity.INSTANCE.isEnabled(ClickTeleport.class)) {
                 d0=200;
             }
-            double reachDistance = 3;
+            double reachDistance = Reach.getReachAmount();
+
 
             this.mc.objectMouseOver = entity.rayTrace(d0, partialTicks);
             double d1 = d0;

@@ -95,12 +95,15 @@ public class ProtectedLaunch {
         modules.put(Flight.class, new Flight());
         modules.put(LongJump.class, new LongJump());
         modules.put(Step.class, new Step());
+        modules.put(AutoGrinder.class, new AutoGrinder());
+        modules.put(AirStuck.class, new AirStuck());
         modules.put(InventoryMove.class, new InventoryMove());
         modules.put(Jesus.class, new Jesus());
         modules.put(Spider.class, new Spider());
         modules.put(NoSlow.class, new NoSlow());
         modules.put(SafeWalk.class, new SafeWalk());
         modules.put(Scaffold.class, new Scaffold());
+        modules.put(TargetStrafe.class, new TargetStrafe());
 
         // Player
         modules.put(CustomScaffold.class, new CustomScaffold());
@@ -115,6 +118,11 @@ public class ProtectedLaunch {
         modules.put(FastPlace.class, new FastPlace());
         modules.put(AutoTool.class, new AutoTool());
         modules.put(AntiVoid.class, new AntiVoid());
+        modules.put(Reach.class, new Reach());
+        modules.put(NoClickDelay.class, new NoClickDelay());
+        modules.put(AutoClicker.class, new AutoClicker());
+        modules.put(Aimassist.class, new Aimassist());
+        modules.put(Eagle.class, new Eagle());
 
         // Render
         modules.put(ArrayListMod.class, new ArrayListMod());

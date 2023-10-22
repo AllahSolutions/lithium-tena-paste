@@ -84,6 +84,8 @@ public class RotationUtils implements Utils {
         return new float[]{f1, f2};
     }
 
+
+
     public static float[] getRotations(BlockPosition blockPosition, EnumFacing enumFacing) {
         double d = (double) blockPosition.getX() + 0.5 - mc.thePlayer.posX + (double) enumFacing.getFrontOffsetX() * 0.25;
         double d2 = (double) blockPosition.getZ() + 0.5 - mc.thePlayer.posZ + (double) enumFacing.getFrontOffsetZ() * 0.25;

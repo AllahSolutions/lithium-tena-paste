@@ -22,6 +22,7 @@ public class DetectionManager {
                 // Movement // Flight
                 new FlightA(),
                 new FlightB(),
+                new FlightC(),
 
                 // Movmeent // Sprint
                 new SprintA(),

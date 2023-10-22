@@ -55,11 +55,14 @@ public class VerusSpeed extends SpeedMode {
             }
         } else{
             if(mc.thePlayer.onGround) {
-                MovementUtils.strafe(0.79f);
+                MovementUtils.strafe(0.73f);
                 //0.80 kindo flags
-                //0.79
-                //0.78
-                //0.75
+                //0.79 kindo flags :skull:
+                //0.78 might flag
+                //0.77 kindo flags
+                //0.76 wtf
+                //0.75 f
+                //0.73 safe
                 //0.72
                 //0.70
                 //might be able to go a bit more

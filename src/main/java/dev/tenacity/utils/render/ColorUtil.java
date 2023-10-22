@@ -17,6 +17,30 @@ public class ColorUtil {
         return new Color(rgbValue, rgbValue, rgbValue, (int) (255 * alpha));
     }
 
+    public static Color astolfoColors(float speed, int yOffset) {
+        float hue;
+        for (hue = (float)(System.currentTimeMillis() % (long)((int)speed) + (long)yOffset); hue > speed; hue -= speed) {
+        }
+        if ((double)(hue /= speed) > 0.5) {
+            hue = 0.5f - (hue - 0.5f);
+        }
+        return Color.getHSBColor(hue += 0.5f, 0.4f, 1.0f);
+    }
+
+    public static Color astolfo(float yDist, float yTotal, float saturation, float speedt) {
+        float speed = 1800f;
+        float hue = (System.currentTimeMillis() % (int) speed) + (yTotal - yDist) * speedt;
+        while (hue > speed) {
+            hue -= speed;
+        }
+        hue /= speed;
+        if (hue > 0.5) {
+            hue = 0.5F - (hue - 0.5f);
+        }
+        hue += 0.5F;
+        return Color.getHSBColor(hue, saturation, 1F);
+    }
+
 
     public static Color[] getAnalogousColor(Color color) {
         Color[] colors = new Color[2];

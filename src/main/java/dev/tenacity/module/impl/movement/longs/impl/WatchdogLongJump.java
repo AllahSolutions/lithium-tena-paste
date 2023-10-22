@@ -8,6 +8,7 @@ import dev.tenacity.utils.server.PacketUtils;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 
+
 public class WatchdogLongJump extends LongJumpMode {
 
     public WatchdogLongJump() {

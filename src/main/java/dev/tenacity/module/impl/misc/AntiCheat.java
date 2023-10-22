@@ -1,10 +1,12 @@
 package dev.tenacity.module.impl.misc;
 
 import dev.tenacity.Tenacity;
+import dev.tenacity.anticheat.Detection;
 import dev.tenacity.event.impl.game.world.TickEvent;
 
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
+import dev.tenacity.utils.player.ChatUtil;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.List;
@@ -38,7 +40,9 @@ public class AntiCheat extends Module {
 
         players.forEach(player -> {
             Tenacity.INSTANCE.getDetectionManager().getDetections().forEach(detection -> {
-                detection.runCheck(player);
+                if(detection.runCheck(player)) {
+                    ChatUtil.print(player.getDisplayName() + "Failed " + detection.getName());
+                }
             });
         });
     }

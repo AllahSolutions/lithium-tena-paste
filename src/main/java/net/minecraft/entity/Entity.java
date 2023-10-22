@@ -172,7 +172,7 @@ public abstract class Entity implements ICommandSender {
     /**
      * Axis aligned bounding box.
      */
-    private AxisAlignedBB boundingBox;
+    public AxisAlignedBB boundingBox;
     public boolean onGround, lastGround;
 
     /**

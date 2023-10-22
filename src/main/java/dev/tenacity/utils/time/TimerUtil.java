@@ -21,6 +21,10 @@ public class TimerUtil {
 
         return false;
     }
+    public boolean finished(final long delay) {
+        return System.currentTimeMillis() - delay >= lastMS;
+    }
+
 
     @Exclude(Strategy.NAME_REMAPPING)
     public boolean hasTimeElapsed(long time) {

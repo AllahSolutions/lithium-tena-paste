@@ -3,6 +3,7 @@ package dev.tenacity.utils.player;
 import dev.tenacity.Tenacity;
 import dev.tenacity.module.impl.movement.Scaffold;
 import dev.tenacity.module.impl.movement.Speed;
+import dev.tenacity.utils.FlagfolUtil.Utils.RayCastUtil;
 import dev.tenacity.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
@@ -12,13 +13,14 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 
 public class ScaffoldUtils implements Utils {
 
     public static class BlockCache {
 
-        private final BlockPosition position;
+        public final BlockPosition position;
         private final EnumFacing facing;
 
         public BlockCache(final BlockPosition position, final EnumFacing facing) {
@@ -34,6 +36,9 @@ public class ScaffoldUtils implements Utils {
             return this.facing;
         }
     }
+
+
+
 
     public static double getYLevel() {
         if (!Scaffold.keepY.isEnabled() || Scaffold.keepYMode.is("Speed toggled") && !Tenacity.INSTANCE.isEnabled(Speed.class)) {
@@ -108,6 +113,9 @@ public class ScaffoldUtils implements Utils {
                 block != Blocks.dropper &&
                 block != Blocks.beacon;
     }
+
+
+
 
     public static Vec3 getHypixelVec3(BlockCache data) {
         BlockPosition pos = data.position;

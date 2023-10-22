@@ -60,9 +60,10 @@ public class Radar extends Module {
     public void onShaderEvent(ShaderEvent e) {
         float x = drag.getX(), y = drag.getY(), size = this.size.getValue().floatValue(), middleX = x + size / 2f, middleY = y + size / 2f;
         if (e.getBloomOptions().getSetting("Radar").isEnabled()) {
-            RoundedUtil.drawGradientRound(x, y, size, size, 6, colorWheel.getColor1(), colorWheel.getColor4(), colorWheel.getColor2(), colorWheel.getColor3());
+            RoundedUtil.drawRound(x,y,size,size,10,ColorUtil.interpolateColorsBackAndForth(5, 20, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond(), false));
+           // RoundedUtil.drawGradientRound(x, y, size, size, 10, colorWheel.getColor1(), colorWheel.getColor4(), colorWheel.getColor2(), colorWheel.getColor3());
         } else {
-            RoundedUtil.drawRound(x, y, size, size, 6, Color.BLACK);
+            RoundedUtil.drawRound(x, y, size, size, 10, Color.BLACK);
 
         }
     }
@@ -76,17 +77,16 @@ public class Radar extends Module {
         drag.setHeight(size);
 
         Color lineColor = new Color(255, 255, 255, 180);
-
         colorWheel.setColors();
-        float alpha = .85f;
-        RoundedUtil.drawGradientRound(x, y, size, size, 6,
-                ColorUtil.applyOpacity(colorWheel.getColor1(), alpha),
-                ColorUtil.applyOpacity(colorWheel.getColor4(), alpha),
-                ColorUtil.applyOpacity(colorWheel.getColor2(), alpha),
-                ColorUtil.applyOpacity(colorWheel.getColor3(), alpha));
+     //   RoundedUtil.drawGradientRound(x, y, size, size, 6,
+            //    ColorUtil.applyOpacity(colorWheel.getColor1(), alpha),
+          //      ColorUtil.applyOpacity(colorWheel.getColor4(), alpha),
+         //       ColorUtil.applyOpacity(colorWheel.getColor2(), alpha),
+         //       ColorUtil.applyOpacity(colorWheel.getColor3(), alpha));
+        RoundedUtil.drawRoundOutline(x,y,size,size,10,1,new Color(0,0,0,100), ColorUtil.interpolateColorsBackAndForth(5, 20, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond(), false));
 
 
-        Gui.drawRect2(x - 1, y + (size / 2f - .5), size + 2, 1, lineColor.getRGB());
+        Gui.drawRect2(x  + 1, y + (size / 2f - .5), size - 2, 1, lineColor.getRGB());
         Gui.drawRect2(x + (size / 2f - .5), y - 1, 1, size + 2, lineColor.getRGB());
 
 
@@ -108,16 +108,37 @@ public class Radar extends Module {
         GLUtil.endRotate();
         StencilUtil.uninitStencilBuffer();
     }
+    //public Color getColor(Entity entity) {
+    //        Color color = Color.WHITE;
+    //
+    //        if (entity instanceof EntityPlayer) {
+    //            color = playerColor.getColor();
+    //        }
+    //        if (entity instanceof EntityMob || entity instanceof EntityWaterMob) {
+    //            color = mobColor.getColor();
+    //        }
+    //
+    //        if (entity instanceof EntityAnimal) {
+    //            color = animalColor.getColor();
+    //        }
+    //
+    //        if (entity instanceof EntityItem) {
+    //            color = itemColor.getColor();
+    //        }
+    //
+    //        return color;
+    //
+    //    }
 
 
     public Color getColor(Entity entity) {
         Color color = Color.WHITE;
 
         if (entity instanceof EntityPlayer) {
-            color = playerColor.getColor();
+            color = ColorUtil.interpolateColorsBackAndForth(5, 20, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond(), false);
         }
         if (entity instanceof EntityMob || entity instanceof EntityWaterMob) {
-            color = mobColor.getColor();
+            color = ColorUtil.interpolateColorsBackAndForth(5, 20, HUDMod.getClientColors().getFirst(), HUDMod.getClientColors().getSecond(), false);
         }
 
         if (entity instanceof EntityAnimal) {

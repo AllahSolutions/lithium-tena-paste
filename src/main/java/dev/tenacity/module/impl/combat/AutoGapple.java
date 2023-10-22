@@ -32,7 +32,7 @@ public class AutoGapple extends Module {
                 && timer.hasTimeElapsed(delay.getValue().longValue())) {
             for (int i = 0; i < 45; i++) {
                 ItemStack is = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
-                if (is != null && is.getItem() instanceof ItemAppleGold && is.getDisplayName().contains("Golden Apple")) {
+                if (is != null && is.getItem() instanceof ItemAppleGold) {
                     int prevSlot = mc.thePlayer.inventory.currentItem;
                     if (i - 36 < 0) {
                         InventoryUtils.swap(i, 8);

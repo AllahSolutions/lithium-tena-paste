@@ -3,6 +3,7 @@ package dev.tenacity.module.impl.movement.speeds.impl;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
 import dev.tenacity.utils.player.MovementUtils;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.potion.Potion;
 
 public class StrafeSpeed extends SpeedMode {
@@ -18,8 +19,9 @@ public class StrafeSpeed extends SpeedMode {
         }
         MovementUtils.strafe(MovementUtils.getBaseMoveSpeed());
         if(mc.thePlayer.hurtTime>1) {
-            MovementUtils.strafe(0.7f);
+           // MovementUtils.strafe(0.6f);
         }
+
 
 
 

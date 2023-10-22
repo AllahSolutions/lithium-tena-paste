@@ -46,6 +46,7 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public final class KillAura extends Module {
 
     public static ModeSetting attackMode = new ModeSetting("Attack Mode", "Single", "Single", "Switch", "Multi"),
             blockMode = new ModeSetting("Blocking Mode", "Vanilla", "None", "Vanilla", "Watchdog", "PostAttack", "BlocksMC"),
-            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal"),
+            rotationMode = new ModeSetting("Rotation Mode", "Normal", "None", "Normal","Monkey"),
             sortingMode = new ModeSetting("Sorting Mode", "Health", "Health", "Range", "HurtTime", "Armor"),
             attackTiming = new ModeSetting("Attack Timing", "Pre", "Pre", "Post", "Legit", "HvH", "All"),
             randomMode = new ModeSetting("Random Mode", "None", "None", "Normal", "Doubled", "Gaussian");
@@ -82,7 +83,7 @@ public final class KillAura extends Module {
             rotationRange = new NumberSetting("Rotation Range", 3, 10, 3, 0.1);
 
     public NumberSetting blockChance = new NumberSetting("Block Chance", 100, 100, 0, 1);
-    public NumberSetting switchDelay = new NumberSetting("Switch Delay", 350, 5000, 50, 50);
+    public NumberSetting switchDelay = new NumberSetting("Switch Delay", 350, 5000, 0, 50);
 
     public BooleanSetting silentRotations = new BooleanSetting("Silent Rotations", true),
             showRotations = new BooleanSetting("Show Rotations", true);
@@ -141,7 +142,7 @@ public final class KillAura extends Module {
         this.maxTargets.addParent(attackMode, a -> attackMode.is("Single"));
 
         this.blockChance.addParent(blockMode, a -> !blockMode.is("None") && !blockMode.is("Fake"));
-        this.switchDelay.addParent(rotationMode, a -> rotationMode.is("Switch"));
+        this.switchDelay.addParent(attackMode, a -> attackMode.is("Switch"));
 
         this.silentRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
         this.showRotations.addParent(rotationMode, a -> !rotationMode.is("None"));
@@ -186,7 +187,9 @@ public final class KillAura extends Module {
 
     @Override
     public void onDisable() {
-
+        if(!blockMode.is("None")) {
+            mc.gameSettings.keyBindUseItem.pressed = false;
+        }
         target = null;
         renderTarget = null;
 
@@ -222,7 +225,11 @@ public final class KillAura extends Module {
     @Override
     public void onMotionEvent(MotionEvent event) {
         this.setSuffix(attackMode.getMode());
-
+        if(!blockMode.is("None")) {
+            if(target == null)  {
+                KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), false);
+            }
+        }
         if (mc.theWorld == null || mc.thePlayer == null) {
             return;
         }
@@ -346,6 +353,9 @@ public final class KillAura extends Module {
                 rotations = KillauraRotationUtil.getRotations(target, lastYaw, lastPitch);
                 break;
             }
+            case"Monkey": {
+                rotations =new float[] {mc.thePlayer.rotationYaw + MathHelper.randomFloatClamp(new java.util.Random(),10f , 360f), mc.thePlayer.rotationPitch - 20 };
+            }
             default: {
                 break;
             }
@@ -402,6 +412,7 @@ public final class KillAura extends Module {
         if (silentRotations.isEnabled()) {
             event.setYaw(yaw);
             event.setPitch(pitch);
+
         } else {
             mc.thePlayer.rotationYaw = yaw;
             mc.thePlayer.rotationPitch = pitch;
@@ -432,7 +443,10 @@ public final class KillAura extends Module {
         if (chance <= blockChance.getValue()) {
             switch (blockMode.getMode()) {
                 case "Vanilla": {
-                    block(true);
+               //     block(true);
+                    if(target != null) {
+                        mc.gameSettings.keyBindUseItem.pressed = true;
+                    }
                     break;
                 }
                 case "Watchdog": {

@@ -17,6 +17,7 @@ public enum Theme {
     JADE_GREEN("Jade Green", new Color(0, 168, 107), new Color(0, 105, 66)),
     GREEN_SPIRIT("Green Spirit", new Color(0, 135, 62), new Color(159, 226, 191), true),
     ROSY_PINK("Rosy Pink", new Color(255, 102, 204), new Color(191, 77, 153)),
+    ASTOLFO("Astolfo", ColorUtil.astolfo(5, 5, 1, 16), Color.white),
     MAGENTA("Magenta", new Color(213, 63, 119), new Color(157, 68, 110)),
     HOT_PINK("Hot Pink", new Color(231, 84, 128), new Color(172, 79, 198), true),
     LAVENDER("Lavender", new Color(219, 166, 247), new Color(152, 115, 172)),

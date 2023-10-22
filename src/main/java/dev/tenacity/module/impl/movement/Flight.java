@@ -1,9 +1,11 @@
 package dev.tenacity.module.impl.movement;
 
 
+import dev.tenacity.event.Event;
 import dev.tenacity.event.impl.network.PacketReceiveEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.BoundingBoxEvent;
+import dev.tenacity.event.impl.player.movement.LoseSprintEvent;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.event.impl.player.movement.MoveEvent;
 import dev.tenacity.event.impl.player.UpdateEvent;
@@ -34,7 +36,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public final class Flight extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","Vulcant","Grim","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
+    private final ModeSetting mode = new ModeSetting("Mode", "Watchdog","Hypixckel","GrimTest","Vulcant","Verustest","Grim","Kokscraft Vanilla","Intave","Invaded","Damage","Vulcan Motion","VerusDMG","VulcanFast","Vulcan Timer", "Zonecraft", "Watchdog", "Vanilla", "AirWalk", "Viper", "Verus", "Minemen", "Old NCP", "Slime", "Custom", "Packet", "Libercraft", "Vulcan");
     private final NumberSetting teleportDelay = new NumberSetting("Teleport Delay", 5, 20, 1, 1);
     private final NumberSetting teleportLength = new NumberSetting("Teleport Length", 5, 20, 1, 1);
     private final NumberSetting timerAmount = new NumberSetting("Timer Amount", 1, 3, 0.1, 0.1);
@@ -50,6 +52,7 @@ public final class Flight extends Module {
     private double lastX, lastY, lastZ;
     public boolean setback;
     public boolean HadDamage;
+    private boolean ignore;
 
     private boolean canclip = false;
     private int runningTicks = 0;
@@ -64,6 +67,7 @@ public final class Flight extends Module {
     private float clip;
     private double moveSpeed;
     private boolean started;
+    private int tickss = 0;
     private int stage2;
     private final TimerUtil timer = new TimerUtil();
     public static final Set<BlockPosition> hiddenBlocks = new HashSet<>();
@@ -74,6 +78,8 @@ public final class Flight extends Module {
     private int ticks2;
 
     private int airTicks;
+
+    private int grimticks;
     int Flags;
     private boolean flag;
 
@@ -122,9 +128,28 @@ public final class Flight extends Module {
                     e.setSpeed(0.1);
                 }
                 break;
+            case"Verustest":
+                if (mc.thePlayer.onGround && tickss % 14 == 0) {
+                    e.setY(0.42F);
+                    MovementUtils.strafe(0.69f);
+                    mc.thePlayer.motionY = -(mc.thePlayer.posY - Math.floor(mc.thePlayer.posY));
+                } else {
+                    // A Slight Speed Boost.
+                    if (mc.thePlayer.onGround) {
+                        // MoveUtil.strafe(MathHelper.randomFloatClamp(new Random(),1.02f,1.025f) + MoveUtil.speedPotionAmp(0.15));
+                        //1.01 normal
+                       MovementUtils.strafe((MathHelper.randomFloatClamp(new Random(),1.02f,1.025f) + (float) MovementUtils.speedPotionAmp(0.15)));
+                        // Slows Down To Not Flag Speed11A.
+                    } else MovementUtils.strafe(0.41f + (float) MovementUtils.speedPotionAmp(0.05));
+                }
+
+                mc.thePlayer.setSprinting(true);
+
+                tickss++;
+                break;
 
             case"Vulcant":
-                final float speedding = 3;
+                final float speedding = 1.7f;
                 //2
 
                 if(timer.hasTimeElapsed(900)) {
@@ -204,6 +229,9 @@ public final class Flight extends Module {
             case "Packet":
                 e.setSpeed(0);
                 break;
+            case "Grim":
+                e.setSpeed(0);
+                break;
         }
     }
 
@@ -238,6 +266,14 @@ public final class Flight extends Module {
                         }
                     }
                 }
+                break;
+            case"Verustest":
+                if (mc.gameSettings.keyBindJump.isKeyDown()) {
+                    if (mc.thePlayer.ticksExisted % 2 == 0) {
+                        mc.thePlayer.motionY = 0.42F;
+                    }
+                }
+                ++tickss;
                 break;
 
             case"Kokscraft Vanilla":
@@ -289,6 +325,7 @@ public final class Flight extends Module {
                 break;
 
             case"Damage":
+                e.setOnGround(true);
                 if(HadDamage) {
                     if (mc.thePlayer.hurtTime > -1) {
                         if (mc.thePlayer.ticksExisted % 1 == 0) {
@@ -311,18 +348,34 @@ public final class Flight extends Module {
                 }
                 break;
 
-            case"Grim":
-                SecureRandom random = new SecureRandom();
-                float yaw = (float) Math.toRadians(mc.thePlayer.rotationYaw);
-                float pitch = (float) Math.toRadians(mc.thePlayer.rotationPitch);
-                e.setYaw((float) (yaw + MathHelper.getRandomDoubleInRange(random,20,20)));
-                e.setPitch(pitch);
 
-                e.setX(Math.sin(yaw) * 10000);
-                // e.setY((mc.thePlayer.posY + 150000000) * 0.98 * Math.tan(-80));
-                //  e.setZ(Math.sin(yaw) * 10000);
+            case "Grim":
+                if(e.isPre()) {
+                    grimticks++;
+                    if(grimticks > 1) {
+                        //ChatUtil.print("Nigger");
+                        PacketUtils.sendPacket(new C03PacketPlayer.C05PacketPlayerLook(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
+                        grimticks = 0;
+                    }
+                        ignore = true;
+                    mc.thePlayer.motionY = 0.0;
+                   // e.setY(0);
+                    PacketUtils.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ,
+                                       mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch, false));
 
+                    if(mc.thePlayer.ticksExisted % 2 == 0) {
 
+                    }
+                    if(MovementUtils.isMoving()) {
+                        final double x = e.getX() + -Math.sin(Math.toRadians(mc.thePlayer.rotationYaw)) * 0.25;
+                        final double z = e.getZ() + Math.cos(Math.toRadians(mc.thePlayer.rotationYaw)) * 0.25;
+                        PacketUtils.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(x, mc.thePlayer.posY, z, false));
+                        mc.thePlayer.setPosition(x, mc.thePlayer.posY, z);
+                    }
+                    if(mc.gameSettings.keyBindJump.isKeyDown()) {
+                        mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY + 0.2,mc.thePlayer.posZ);
+                    }
+                }
                 break;
 
             case"Vulcant":
@@ -333,7 +386,7 @@ public final class Flight extends Module {
                         }
                     }
                 }
-                final float speedding = 3;
+                final float speedding = 1.7f;
                 //2
                 //2
                 //1300
@@ -351,13 +404,17 @@ public final class Flight extends Module {
                 } else{
                     mc.timer.timerSpeed = 1.0f;
                 }
-                if(!timer.hasTimeElapsed(1100)) {
-
+              //  mc.thePlayer.motionY = mc.thePlayer.motionY - 0.1;
+                if(timer.hasTimeElapsed(1100)) {
+                    if(!timer.hasTimeElapsed(1300)) {
                         //this works too idk
-                     //  if(mc.thePlayer.onGround) {
-                            mc.thePlayer.motionY = 1;
+                        //  if(mc.thePlayer.onGround) {
+                        //seems to flag a bit idk use values from my discord XD
+
+                        mc.thePlayer.motionY = 0.8f;
 
                         //}
+                    }
 
 
                 }
@@ -655,6 +712,15 @@ public final class Flight extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
+        if(mode.is("Grim")) {
+            if(event.getPacket() instanceof C03PacketPlayer) {
+                event.cancel();
+            }
+            if(event.getPacket() instanceof C0FPacketConfirmTransaction) {
+                event.cancel();
+            }
+
+        }
         if(mode.is("Kokscraft Vanilla")) {
             if(!shift) {
                 if (event.getPacket() instanceof C03PacketPlayer) {
@@ -702,6 +768,12 @@ public final class Flight extends Module {
 
 
     }
+    @Override
+    public void onKeepSprintEvent(LoseSprintEvent event) {
+        if(mode.is("Verustest")) {
+            event.cancel();
+        }
+    }
 
 
     @Override
@@ -709,6 +781,23 @@ public final class Flight extends Module {
         if(mode.is("AirWalk") || mode.is("Verus")) {
             final AxisAlignedBB axisAlignedBB = AxisAlignedBB.fromBounds(-5, -1, -5, 5, 1, 5).offset(event.getBlockPos().getX(), event.getBlockPos().getY(), event.getBlockPos().getZ());
             event.setBoundingBox(axisAlignedBB);
+        }
+
+        if(mode.is("Verustest")) {
+            if (event.getBlock() instanceof BlockAir && !mc.gameSettings.keyBindSneak.isKeyDown() || mc.gameSettings.keyBindJump.isKeyDown()) {
+                final double x = event.getBlockPos().getX(), y = event.getBlockPos().getY(), z = event.getBlockPos().getZ();
+
+                if (y < mc.thePlayer.posY) {
+                    event.setBoundingBox(AxisAlignedBB.fromBounds(
+                            -15,
+                            -1,
+                            -15,
+                            15,
+                            1,
+                            15
+                    ).offset(x, y, z));
+                }
+            }
         }
 
 
@@ -781,6 +870,8 @@ public final class Flight extends Module {
             }
         }
 
+
+
         if(mode.is("Kokscraft Vanilla")) {
             if(shift) {
                 if (e.getPacket() instanceof S08PacketPlayerPosLook) {
@@ -838,7 +929,8 @@ public final class Flight extends Module {
 
     @Override
     public void onEnable() {
-
+        grimticks = 0;
+        ignore = false;
         if (mode.is("VerusDMG")) {
             mc.thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.START_SPRINTING));
 
@@ -954,10 +1046,16 @@ public final class Flight extends Module {
 
     @Override
     public void onDisable() {
+
         if (mode.is("Libercraft")) {
             MovementUtils.setSpeed(0);
 
         }
+        if (mode.is("Verustest")) {
+            MovementUtils.setSpeed(0);
+
+        }
+
         canclip = false;
         countvu = 0;
         if(mode.is("Vulcant")) {

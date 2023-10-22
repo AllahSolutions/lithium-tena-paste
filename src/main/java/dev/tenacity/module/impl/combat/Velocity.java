@@ -10,14 +10,16 @@ import dev.tenacity.module.settings.impl.NumberSetting;
 import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C0FPacketConfirmTransaction;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.network.play.server.S27PacketExplosion;
+import net.minecraft.network.play.server.S32PacketConfirmTransaction;
 import net.minecraft.util.MovingObjectPosition;
 
 public class Velocity extends Module {
 
-    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Vulcan","Vulcan2","Minemen", "Intave","Watchdog", "Grim", "Packet", "Reverse", "Polar", "Minemen");
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet","Vulcan","Vulcan2","Grim3","Minemen", "Intave","Watchdog", "Grim", "Packet", "Reverse", "Polar");
     private final NumberSetting horizontal = new NumberSetting("Horizontal", 0, 100, 0, 1);
     private final NumberSetting vertical = new NumberSetting("Vertical", 0, 100, 0, 1);
 
@@ -26,6 +28,10 @@ public class Velocity extends Module {
         this.addSettings(mode, horizontal, vertical);
     }
     private boolean attacked;
+
+
+
+    private int grimTCancel = 0;
 
     /* Grim Velocity variables */
     private static int grim_ticks = 0;
@@ -44,26 +50,27 @@ public class Velocity extends Module {
 
     @Override
     public void onPacketSendEvent(PacketSendEvent event) {
-        if(mode.is("Vulcan")) {
-            if(mc.thePlayer.hurtTime>1) {
+        if (mode.is("Vulcan")) {
+            if (mc.thePlayer.hurtTime > 1) {
                 if (event.getPacket() instanceof C0FPacketConfirmTransaction) {
                     event.cancel();
-                   // ChatUtil.print("sex");
+                    // ChatUtil.print("sex");
                 }
             }
         }
 
         if (mode.is("Grim") && event.getPacket() instanceof C0FPacketConfirmTransaction) {
-            if (grim_ticks < 6) {
+            if (grim_ticks < 2) {
                 event.cancel();
             }
-            if (grim_ticks > 6) {
+            if (grim_ticks > 2) {
                 grim_ticks = 0;
             }
-            ChatUtil.print(grim_ticks);
-            grim_ticks++;
+            if (mc.thePlayer.hurtTime > 1) {
+                ChatUtil.print(grim_ticks);
+                grim_ticks++;
+            }
         }
-
 
         super.onPacketSendEvent(event);
     }
@@ -72,6 +79,17 @@ public class Velocity extends Module {
     public void onPacketReceiveEvent(PacketReceiveEvent event) {
 
         Packet <?> packet = event.getPacket();
+
+        if (mode.is("Grim3")) {
+            if (packet instanceof S12PacketEntityVelocity && ((S12PacketEntityVelocity)(packet)).getEntityID() == Velocity.mc.thePlayer.getEntityId()) {
+                event.cancel();
+                this.grimTCancel = 6;
+            }
+            if (packet instanceof S32PacketConfirmTransaction) {
+                event.cancel();
+                --this.grimTCancel;
+            }
+        }
 
         if (packet instanceof S12PacketEntityVelocity) {
             S12PacketEntityVelocity s12 = (S12PacketEntityVelocity) packet;
@@ -110,7 +128,7 @@ public class Velocity extends Module {
                     break;
                 }
                 case "Grim": {
-                    if(grim_ticks < 6) {
+                    if(grim_ticks < 2) {
                         event.cancel();
                     }
 
@@ -177,6 +195,8 @@ public class Velocity extends Module {
     public void onUpdateEvent(UpdateEvent event) {
 
         this.setSuffix(mode.getMode());
+
+
         if(mode.is("Watchdog")) {
 
             if (mc.thePlayer.hurtTime > 1) {

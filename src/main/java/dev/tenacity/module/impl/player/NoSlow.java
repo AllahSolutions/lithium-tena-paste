@@ -87,10 +87,10 @@ public class NoSlow extends Module {
 
             case"Dev":
                 if(mc.thePlayer.isBlocking()) {
-
                   // mc.gameSettings.keyBindSneak.pressed = true;
-                    mc.thePlayer.sendQueue.addToSendQueue( new C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9));
-                    mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
+                    mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getStackInSlot(mc.thePlayer.inventory.currentItem)));
+                   // mc.thePlayer.sendQueue.addToSendQueue( new C09PacketHeldItemChange((mc.thePlayer.inventory.currentItem + 1) % 9));
+                   // mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(mc.thePlayer.inventory.currentItem));
                 }
 
                 break;

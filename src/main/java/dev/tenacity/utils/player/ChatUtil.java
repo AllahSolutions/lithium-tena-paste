@@ -10,7 +10,8 @@ public class ChatUtil implements Utils {
 
     public static void print(boolean prefix, String message) {
         if (mc.thePlayer != null) {
-            if (prefix) message = EnumChatFormatting.BLUE +  "[LITHIUM] " + EnumChatFormatting.WHITE  + message;
+            //Lithium
+            if (prefix) message = EnumChatFormatting.GRAY +  "[Oniq] " + EnumChatFormatting.WHITE  + message;
             mc.thePlayer.addChatMessage(new ChatComponentText(message));
         }
     }

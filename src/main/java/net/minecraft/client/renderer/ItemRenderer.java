@@ -394,7 +394,7 @@ public class ItemRenderer {
                                         GlStateManager.popMatrix();
                                         //GL11.glRotated(25, 0, 0.2, 0);
                                       //  GlStateManager.translate(0.0F, 0.0F, -0.2F);
-                                        GlStateManager.translate(0.0F, 0.1F, 0.0F);
+                                   //     GlStateManager.translate(0.0F, 0.1F, 0.0F);
 
                                         this.transformFirstPersonItem(0.0f, swingProgress);
 
@@ -480,7 +480,13 @@ public class ItemRenderer {
                                         this.doBlockTransformations();
                                       //  GL11.glTranslatef(-0.05F, this.mc.thePlayer.isSneaking() ? -0.2F : 0F, 0.3F);
                                         break;
+                                    case"Rise":
+                                        transformFirstPersonItem(f, swingProgress);
+                                        doBlockTransformations();
+                                        GlStateManager.translate(-0.3F, -0.1F, -0.0F);
+                                        break;
                                     case "Shred":
+
                                         this.transformFirstPersonItem(f / 2, swingProgress);
                                         GlStateManager.rotate(var15 * 30.0F / 2.0F, -var15, -0.0F, 9.0F);
                                         GlStateManager.rotate(var15 * 40.0F, 1.0F, -var15 / 2.0F, -0.0F);

@@ -5,9 +5,11 @@ import dev.tenacity.event.impl.player.input.LegitClickEvent;
 import dev.tenacity.event.impl.player.input.MoveInputEvent;
 import dev.tenacity.event.impl.network.PacketSendEvent;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
+import dev.tenacity.utils.FlagfolUtil.Vectors.Vector2f;
 import dev.tenacity.event.impl.player.movement.SafeWalkEvent;
 import dev.tenacity.event.impl.player.movement.correction.JumpEvent;
 import dev.tenacity.event.impl.player.movement.correction.StrafeEvent;
+import dev.tenacity.event.impl.render.Render2DEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
 import dev.tenacity.module.settings.ParentAttribute;
@@ -19,10 +21,7 @@ import dev.tenacity.utils.animations.Animation;
 import dev.tenacity.utils.animations.Direction;
 import dev.tenacity.utils.animations.impl.DecelerateAnimation;
 import dev.tenacity.utils.misc.MathUtils;
-import dev.tenacity.utils.player.ChatUtil;
-import dev.tenacity.utils.player.MovementUtils;
-import dev.tenacity.utils.player.RotationUtils;
-import dev.tenacity.utils.player.ScaffoldUtils;
+import dev.tenacity.utils.player.*;
 import dev.tenacity.utils.render.ColorUtil;
 import dev.tenacity.utils.render.RenderUtil;
 import dev.tenacity.utils.render.RoundedUtil;
@@ -39,6 +38,8 @@ import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPosition;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 
 import java.awt.*;
 import java.util.Random;
@@ -49,8 +50,8 @@ public class Scaffold extends Module {
     private final BooleanSetting rotations = new BooleanSetting("Rotations", true);
 
     private final BooleanSetting raycast = new BooleanSetting("raycast", true);
-    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","Snap","None", "NCP","Dev", "Back", "Enum", "Down");
-    private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit", "Dynamic");
+    private final ModeSetting rotationMode = new ModeSetting("Rotation Mode", "Watchdog", "Watchdog","Fun","Snap","None", "NCP","Dev", "Back", "Enum", "Down");
+    private final ModeSetting placeType = new ModeSetting("Place Type", "Post", "Pre", "Post", "Legit","2d", "Dynamic");
     public static ModeSetting keepYMode = new ModeSetting("Keep Y Mode", "Always", "Always", "Speed toggled");
     public static ModeSetting sprintMode = new ModeSetting("Sprint Mode", "Vanilla", "Vanilla","Hypixel", "Watchdog", "Cancel");
     public static ModeSetting towerMode = new ModeSetting("Tower Mode", "Vanilla", "Vanilla","Intave","Watchdog", "BlocksMC");
@@ -104,6 +105,49 @@ public class Scaffold extends Module {
         speedSlowdownAmount.addParent(speedSlowdown, ParentAttribute.BOOLEAN_CONDITION);
     }
 
+    public Vec3 getHitVec() {
+        /* Correct HitVec */
+        Vec3 hitVec = new Vec3(blockCache.getPosition().getX() + Math.random(), blockCache.getPosition().getY() + Math.random(), blockCache.getPosition().getZ() + Math.random());
+
+        Vector2f rotationVector = new Vector2f(cachedRotations[0], cachedRotations[1]);
+        final MovingObjectPosition movingObjectPosition = RayCastUtil.rayCast(rotationVector, mc.playerController.getBlockReachDistance());
+
+
+
+        switch (blockCache.getFacing()) {
+            case DOWN:
+                hitVec.yCoord = blockCache.getPosition().getY() + 0;
+                break;
+
+            case UP:
+                hitVec.yCoord = blockCache.getPosition().getY() + 1;
+                break;
+
+            case NORTH:
+                hitVec.zCoord = blockCache.getPosition().getZ() + 0;
+                break;
+
+            case EAST:
+                hitVec.xCoord = blockCache.getPosition().getX() + 1;
+                break;
+
+            case SOUTH:
+                hitVec.zCoord = blockCache.getPosition().getZ() + 1;
+                break;
+
+            case WEST:
+                hitVec.xCoord = blockCache.getPosition().getX() + 0;
+                break;
+        }
+
+        if (movingObjectPosition != null && movingObjectPosition.getBlockPos().equals(blockCache.getPosition()) &&
+                movingObjectPosition.sideHit == blockCache.getFacing()) {
+            hitVec = movingObjectPosition.hitVec;
+        }
+
+        return hitVec;
+    }
+
     @Override
     public void onJumpEvent(JumpEvent event) {
 
@@ -140,10 +184,13 @@ public class Scaffold extends Module {
                 mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX - offset[0], mc.thePlayer.posY, mc.thePlayer.posZ - offset[1], true));
             }
             if (sprint.isEnabled() && sprintMode.is("Hypixel") && mc.thePlayer.onGround) {
-                mc.gameSettings.keyBindSneak.pressed = true;
+              //  mc.gameSettings.keyBindSneak.pressed = true;
                // MovementUtils.strafe(0.27f);
-                MovementUtils.strafe(MovementUtils.getBaseMoveSpeed());
+
+             //   MovementUtils.strafe(MovementUtils.getBaseMoveSpeed() - 0.05f);
             }
+            //make it if mode is noon sprint hypixcmkel
+            MovementUtils.strafe(0.11f);
 
             if (rotations.isEnabled()) {
                 lastRotations = cachedRotations;
@@ -157,6 +204,14 @@ public class Scaffold extends Module {
                         break;
                     case "Back":
                         cachedRotations = new float[] { MovementUtils.getMovementDirection(event.getYaw()) - 180, 78 };
+                        break;
+                    case"Fun":
+                        if (lastBlockCache != null) {
+                            cachedRotations = RotationUtils.getRotations(lastBlockCache.getPosition(),lastBlockCache.getFacing());
+                            //77
+                        } else {
+                            cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, y };
+                        }
                         break;
                     case "Down":
                         cachedRotations = new float[] { mc.thePlayer.rotationYaw - 180, 90 };
@@ -293,13 +348,17 @@ public class Scaffold extends Module {
 
         boolean placed = false;
         //make it an option
-        if (RayCastUtil.overBlock(new float[] { yaw, pitch }, blockCache.getFacing(),blockCache.getPosition(),false)) {
+      //  if (RayCastUtil.overBlock(new float[] { yaw, pitch }, blockCache.getFacing(),blockCache.getPosition(),false)) {
             if (delayTimer.hasTimeElapsed(MathHelper.getRandomDoubleInRange(new Random(), mindelay.getValue() * 1000, maxdelay.getValue() * 1000))) {
                 if (mc.playerController.onPlayerRightClick(mc.thePlayer, mc.theWorld,
                         mc.thePlayer.inventory.getStackInSlot(this.slot),
                         lastBlockCache.getPosition(), lastBlockCache.getFacing(),
-                        ScaffoldUtils.getHypixelVec3(blockCache))) {
+                        getHitVec())) {
                     placed = true;
+                  //  PlayerUtils.sendClick(1,true);
+                    mc.sendClickBlockToController(mc.currentScreen == null && mc.gameSettings.keyBindAttack.isKeyDown() && mc.inGameHasFocus);
+                  //  mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+                    mc.rightClickDelayTimer = 0;
 
                     //ChatUtil.print(MathHelper.getRandomDoubleInRange(new Random(),mindelay.getValue() * 1000,maxdelay.getValue() * 1000));
                     y = MathUtils.getRandomInRange(75.5f, 83.5f);
@@ -313,9 +372,9 @@ public class Scaffold extends Module {
                     delayTimer.reset();
                     blockCache = null;
                 }
-                mc.rightClickDelayTimer = 0;
+             //   mc.rightClickDelayTimer = 0;
             }
-        }
+      //  }
         return placed;
 
     }
@@ -323,6 +382,14 @@ public class Scaffold extends Module {
     @Override
     public void onLegitClickEvent(LegitClickEvent event) {
         if (placeType.is("Legit")) {
+            place();
+           // ChatUtil
+        }
+    }
+
+    @Override
+    public void onRender2DEvent(Render2DEvent event) {
+        if (placeType.is("2d")) {
             place();
         }
     }
@@ -364,6 +431,7 @@ public class Scaffold extends Module {
 
     @Override
     public void onDisable() {
+      //  PlayerUtils.sendClick(1,false);
         if (mc.thePlayer != null) {
             if (!itemSpoof.isEnabled()) mc.thePlayer.inventory.currentItem = prevSlot;
             if (slot != mc.thePlayer.inventory.currentItem && itemSpoof.isEnabled())
@@ -531,7 +599,8 @@ public class Scaffold extends Module {
 
     @Override
     public void onSafeWalkEvent(SafeWalkEvent event) {
-        if ((safewalk.isEnabled() && !isDownwards()) || ScaffoldUtils.getBlockCount() == 0) {
+        // || ScaffoldUtils.getBlockCount() == 0
+        if ((safewalk.isEnabled() && !isDownwards())) {
            event.setSafe(true);
         }
     }

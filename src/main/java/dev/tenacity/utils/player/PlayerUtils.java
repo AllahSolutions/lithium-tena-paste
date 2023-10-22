@@ -2,6 +2,7 @@ package dev.tenacity.utils.player;
 
 import dev.tenacity.utils.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPosition;
 
@@ -14,6 +15,18 @@ public class PlayerUtils implements Utils {
     public static Block blockAheadOfPlayer(final double offsetXZ, final double offsetY) {
         return blockRelativeToPlayer(-Math.sin(MovementUtils.getDirection()) * offsetXZ, offsetY, Math.cos(MovementUtils.getDirection()) * offsetXZ);
     }
+
+    public static void sendClick(final int button, final boolean state) {
+        final int keyBind = button == 0 ? mc.gameSettings.keyBindAttack.getKeyCode() : mc.gameSettings.keyBindUseItem.getKeyCode();
+
+        KeyBinding.setKeyBindState(keyBind, state);
+
+        if (state) {
+            KeyBinding.onTick(keyBind);
+        }
+    }
+
+
 
     public static boolean isBlockUnder(final double height) {
         return isBlockUnder(height, true);

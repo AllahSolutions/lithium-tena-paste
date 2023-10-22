@@ -4,8 +4,10 @@ import dev.tenacity.Tenacity;
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.Category;
 import dev.tenacity.module.Module;
+import dev.tenacity.module.impl.combat.KeepSprint;
 import dev.tenacity.module.impl.player.NoSlow;
 import dev.tenacity.module.settings.impl.BooleanSetting;
+import dev.tenacity.utils.player.MovementUtils;
 
 public class Sprint extends Module {
 
@@ -23,6 +25,10 @@ public class Sprint extends Module {
             mc.thePlayer.setSprinting(false);
             return;
         }
+
+      //  if(mc.thePlayer.isUsingItem()) {
+       //   return;
+     //   }
         if (omniSprint.isEnabled()) {
             mc.thePlayer.setSprinting(true);
         } else {

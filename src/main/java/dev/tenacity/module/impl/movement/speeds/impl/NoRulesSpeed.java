@@ -2,12 +2,13 @@ package dev.tenacity.module.impl.movement.speeds.impl;
 
 import dev.tenacity.event.impl.player.movement.MotionEvent;
 import dev.tenacity.module.impl.movement.speeds.SpeedMode;
+import dev.tenacity.utils.player.ChatUtil;
 import dev.tenacity.utils.player.MovementUtils;
 
 public class NoRulesSpeed extends SpeedMode {
 
     public NoRulesSpeed() {
-        super("NoRules");
+        super("Cum");
     }
 
     @Override
@@ -17,15 +18,25 @@ public class NoRulesSpeed extends SpeedMode {
             return;
         }
 
-        mc.timer.timerSpeed = 1.25f;
-
-        if (mc.thePlayer.onGround) {
-            MovementUtils.strafe(1f);
-            mc.thePlayer.jump();
+        if(mc.thePlayer.isCollidedHorizontally) {
+            return;
         }
 
 
-        MovementUtils.strafe(0.60f);
+        if (mc.thePlayer.onGround) {
+            MovementUtils.strafe(0.46f);
+            //0.40 , 0.45
+            mc.thePlayer.jump();
+          // mc.thePlayer.motionY = 0.42f;
+        } else {
+              mc.thePlayer.motionY = mc.thePlayer.motionY - 5;
+          //  event.setY(-mc.thePlayer.fallDistance);
+        }
+
+
+
+
+
 
         super.onMotionEvent(event);
     }
